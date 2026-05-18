@@ -1,0 +1,82 @@
+/* #region Font Files */
+
+/* Playfair Variable */
+@font-face {
+	font-family: "Playfair";
+	src:
+		local("Playfair Variable"),
+		local("Playfair-VariableFont_opsz,wdth,wght"),
+		url("/fonts/Playfair-VariableFont_opsz,wdth,wght.ttf") format("truetype-variations"),
+		url("/fonts/Playfair-VariableFont_opsz,wdth,wght.ttf") format("truetype");
+	font-weight: 300 900;
+	font-stretch: 87.5% 112.5%;
+	font-optical-sizing: auto;
+	font-style: normal;
+	font-display: swap;
+}
+/* Playfair Italic Variable */
+@font-face {
+	font-family: "Playfair";
+	src:
+		local("Playfair Italic Variable"),
+		local("Playfair-Italic-VariableFont_opsz,wdth,wght"),
+		url("/fonts/Playfair-Italic-VariableFont_opsz,wdth,wght.ttf") format("truetype-variations"),
+		url("/fonts/Playfair-Italic-VariableFont_opsz,wdth,wght.ttf") format("truetype");
+	font-weight: 300 900;
+	font-stretch: 87.5% 112.5%;
+	font-optical-sizing: auto;
+	font-style: italic;
+	font-display: swap;
+}
+
+/* Space Mono */
+@font-face {
+	font-family: "Space Mono";
+	font-style: normal;
+	font-weight: 400;
+	src:
+		local("Space Mono Regular"),
+		local("SpaceMono-Regular"),
+		url("/fonts/SpaceMono-Regular.ttf") format("truetype");
+	font-display: swap;
+}
+/* Space Mono Italic */
+@font-face {
+	font-family: "Space Mono";
+	font-style: italic;
+	font-weight: 400;
+	src:
+		local("Space Mono Italic"),
+		local("SpaceMono-Italic"),
+		url("/fonts/SpaceMono-Italic.ttf") format("truetype");
+	font-display: swap;
+}
+/* Space Mono Bold */
+@font-face {
+	font-family: "Space Mono";
+	font-style: normal;
+	font-weight: 700;
+	src:
+		local("Space Mono Bold"),
+		local("SpaceMono-Bold"),
+		url("/fonts/SpaceMono-Bold.ttf") format("truetype");
+	font-display: swap;
+}
+/* Space Mono Bold Italic */
+@font-face {
+	font-family: "Space Mono";
+	font-style: italic;
+	font-weight: 700;
+	src:
+		local("Space Mono Bold Italic"),
+		local("SpaceMono-BoldItalic"),
+		url("/fonts/SpaceMono-BoldItalic.ttf") format("truetype");
+	font-display: swap;
+}
+
+/* #endregion */
+
+@theme {
+	--font-serif: "Twemoji Country Flags", "Playfair", ui-serif, serif;
+	--font-mono: "Twemoji Country Flags", "Space Mono", ui-monospace, monospace;
+}

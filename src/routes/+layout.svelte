@@ -1,9 +1,12 @@
 <script lang="ts">
-	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import "styles/doomscrll-design-system.css"
+
+  import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill"
+  import { onMount } from "svelte"
+
+  onMount(() => polyfillCountryFlagEmojis())
 
 	let { children } = $props();
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
-{@render children()}
+{@render children?.()}

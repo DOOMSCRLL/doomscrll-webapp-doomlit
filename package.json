@@ -20,6 +20,7 @@
 		"@eslint/compat": "^2.0.4",
 		"@eslint/js": "^10.0.1",
 		"@storybook/addon-svelte-csf": "^5.1.2",
+		"@storybook/addon-themes": "^10.4.0",
 		"@storybook/sveltekit": "^10.4.0",
 		"@sveltejs/adapter-cloudflare": "^7.2.8",
 		"@sveltejs/kit": "^2.57.0",
@@ -42,5 +43,8 @@
 		"typescript-eslint": "^8.58.1",
 		"vite": "^8.0.7",
 		"wrangler": "^4.81.0"
+	},
+	"dependencies": {
+		"country-flag-emoji-polyfill": "^0.1.8"
 	}
 }

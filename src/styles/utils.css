@@ -1,0 +1,42 @@
+@utility complementary {
+	pointer-events: none;
+
+	display: inline-flex;
+	align-items: center;
+
+	width: auto;
+	height: auto;
+}
+
+@utility not-allowed {
+	@apply cursor-not-allowed opacity-20 grayscale-20 select-none;
+}
+
+@utility pretty-scrollbar {
+	scrollbar-width: thin;
+	scrollbar-color: var(--color-brand) transparent;
+}
+
+@utility pseudo-border {
+	position: relative;
+	z-index: var(--z-surface);
+
+	background-color: var(--color-inverse);
+
+	&::before {
+		content: "";
+		position: absolute;
+		z-index: var(--z-border);
+
+		inset: 0;
+
+		border-radius: inherit;
+		border: 2px solid var(--color-brand-dim);
+
+		pointer-events: none;
+	}
+	&:not(:disabled):hover::before,
+	&:not(:disabled):active::before {
+		border-color: var(--color-brand);
+	}
+}

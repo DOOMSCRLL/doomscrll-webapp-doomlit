@@ -1,11 +1,54 @@
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="text-scale" content="scale" />
-		%sveltekit.head%
-	</head>
+
+<html lang="en" data-theme="doomscrll">
+  <!--
+    DOOMSCRLL project, it's brand and related assets, including
+    the website and apps are, made by, and belong to Yakup Murat Çaylak.
+  -->
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+
+    <link rel="icon" type="image/png" href="/favicon-96x96.png?v=20260502" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260502" />
+    <link rel="shortcut icon" href="/favicon.ico?v=20260502" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=20260502" />
+    <meta name="apple-mobile-web-app-title" content="DOOMSCRLL" />
+    <link rel="manifest" href="/site.webmanifest?v=20260502" />
+
+    %sveltekit.head%
+
+    <script>
+      ;(function () {
+        const COLOR_THEMES = [
+          "doomscrll", // also the default theme.
+          "1bit-styx",
+          "bluuberry-donut-gb",
+          "mist-gb",
+          "crimson",
+          "cherrymelon",
+          "neon-night-sky",
+          "sangria",
+          "cold-light",
+          "cave-moss",
+          "ys-coffee-calm",
+          "gold-gb",
+          "papercut4",
+          "bone-apple-tea",
+          "bluem0ld",
+        ]
+
+        // Themes are applied on a weekly rotation basis=
+        // time since epoch + 3 day offset / 1 week
+        const weeklyCycle = Math.floor((Date.now() + 259200000) / 604800000)
+        const theme = COLOR_THEMES[weeklyCycle % COLOR_THEMES.length]
+
+        document.documentElement.setAttribute("data-theme", theme)
+      })()
+    </script>
+  </head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
