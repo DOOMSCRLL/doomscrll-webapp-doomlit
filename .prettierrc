@@ -8,7 +8,7 @@
     "prettier-plugin-svelte",
     "prettier-plugin-tailwindcss"
   ],
-  "tailwindStylesheet": "./src/routes/layout.css",
+  "tailwindStylesheet": "./src/styles/doomscrll-design-system.css",
   "overrides": [
     {
       "files": "*.svelte",

@@ -12,8 +12,8 @@
     "strict": true,
     "moduleResolution": "bundler",
     "maxNodeModuleJsDepth": 0,
-    "types": [
+    /*"types": [
       "./worker-configuration.d.ts"
-    ]
+    ]*/
   }
 }
