@@ -2,10 +2,10 @@
 	import type { Snippet } from "svelte"
 	import ttm from "utils/type-literal-to-class"
 
-	export type ButtonVariant = "filled" | "outlined" | "text"
-	export type ButtonSize = "normal" | "small"
-	export type HorizontalAlignment = "left" | "center" | "right"
-	export type HorizontalFit = "max" | "min" | "square"
+	type ButtonVariant = "filled" | "outlined" | "text"
+	type ButtonSize = "normal" | "small"
+	type HorizontalAlignment = "left" | "center" | "right"
+	type HorizontalFit = "max" | "min" | "square"
 
 	type Props = {
 		variant?: ButtonVariant
@@ -22,8 +22,8 @@
 <button
 	onclick={onClick}
 	class={[
-		"group flex items-center justify-center gap-4 rounded-2xl",
-		"font-mono font-bold tracking-wider uppercase",
+		"group flex max-w-full min-w-0 items-center justify-center gap-4 rounded-2xl",
+		"overflow-hidden font-mono font-bold tracking-wider text-ellipsis whitespace-nowrap uppercase",
 		ttm(alignment, {
 			center: "px-6",
 			left: "pr-6 pl-2",
@@ -42,13 +42,13 @@
 		ttm(variant, {
 			filled: "bg-inverse not-disabled:hover:bg-inverse/40 not-disabled:active:bg-accent",
 			outlined: "pseudo-border bg-obverse not-disabled:hover:bg-inverse not-disabled:active:bg-accent",
-			text: "bg-obverse not-disabled:hover:bg-inverse not-disabled:active:bg-accent",
+			text: "bg-obverse before:content-['('] after:content-[')'] not-disabled:hover:bg-inverse not-disabled:active:bg-accent",
 		}),
 		/* content appearance: */
 		ttm(variant, {
-			filled: "",
-			outlined: "",
-			text: "",
+			filled: "text-obverse",
+			outlined: "text-inverse hover:text-obverse active:text-obverse",
+			text: "text-inverse hover:text-obverse active:text-obverse",
 		}),
 	]}
 >

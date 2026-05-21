@@ -1,10 +1,10 @@
 <script lang="ts" module>
 	import { defineMeta } from "@storybook/addon-svelte-csf"
-	import DoomscrllIcon from "./doomscrll-icon.svelte"
+	import Icon from "./icon.svelte"
 
 	const { Story } = defineMeta({
 		title: "Iconography/DOOMSCRLL Icon",
-		component: DoomscrllIcon,
+		component: Icon,
 	})
 </script>
 
