@@ -31,6 +31,14 @@ export function getLocaleFlag(locale: Locale): string {
 	}
 }
 
+export function getDictionaryOf(locale: Locale): Dictionary {
+	return DICTIONARIES[locale] || getDefaultDictionary()
+}
+
+function getDefaultDictionary(): Dictionary {
+	return DICTIONARIES[LOCALE_DEFAULT]
+}
+
 export function getUserLocale(): Locale {
 	const localeCode = navigator.language.split("-")[0]
 	const resolvedLocale = isLocale(localeCode) ? localeCode : LOCALE_DEFAULT
