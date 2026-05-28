@@ -1,5 +1,6 @@
 import type { Locale } from "repos/locales"
-import type DDate from "./d-date"
+import type { DDateParts } from "./d-date"
+import DDate from "./d-date"
 
 export default class StylisticTimeFormat {
 	#shortDayFormatter: Intl.DateTimeFormat
@@ -41,7 +42,8 @@ export default class StylisticTimeFormat {
 		return this.#monthFormatter.format(date.toUTCDate())
 	}
 
-	public getCalendarHeader(date: DDate): string {
+	public getCalendarHeader({ year, month }: Omit<DDateParts, "day">): string {
+		const date = DDate.fromParts({ year, month, day: 1 })
 		return `${this.getMonthName(date)} ${date.year}`
 	}
 

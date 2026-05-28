@@ -1,31 +1,31 @@
 <script lang="ts">
-	import StylisticTimeFormat from "utils/date-utils/stylistic-time-fmt"
+	import type DDate from "utils/d-date"
 
 	type Props = {
-		key: string
 		inputName: string
-		day: number
-		monthIndex: number
-		year: number
+		date: DDate
 		isPadding?: boolean
 		selectedDay?: string
 	}
 
-	let { key, inputName, day, monthIndex, year, selectedDay = $bindable(), isPadding = false }: Props = $props()
+	let { inputName, date, isPadding = false, selectedDay = $bindable() }: Props = $props()
+
+	const dateStr = $derived(date.toISOString())
+	const dayId = $derived(`DAY_CARD_${dateStr}`)
 </script>
 
-<div aria-label={key}>
+<div aria-label={dateStr}>
 	<input
 		type="radio"
-		id={key}
+		id={dayId}
 		name={inputName}
-		value={StylisticTimeFormat.toIsoDate([year, monthIndex, day])}
+		value={dateStr}
 		disabled={isPadding}
-		bind:group={selectedDay}
 		class="peer sr-only"
+		bind:group={selectedDay}
 	/>
 	<label
-		for={key}
+		for={dayId}
 		class={[
 			"flex h-full w-full flex-col items-center justify-center bg-obverse",
 			"cursor-pointer font-mono text-xl font-bold tracking-widest text-inverse",
@@ -33,6 +33,6 @@
 			"peer-checked:bg-inverse peer-checked:text-obverse",
 		]}
 	>
-		{day}
+		{date.day}
 	</label>
 </div>

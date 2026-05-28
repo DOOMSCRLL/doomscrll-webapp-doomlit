@@ -1,4 +1,4 @@
-type DDateParts = { day: number; month: number; year: number }
+export type DDateParts = { day: number; month: number; year: number }
 
 type MonthLayout = {
 	daysInMonth: number
@@ -24,9 +24,21 @@ export default class DDate {
 	}
 
 	static fromISOString(str: string): DDate {
+		if (typeof str !== "string") throw new Error(`Expected string, got ${typeof str}`)
+
 		const [year, month, day] = str.split("-").map(Number)
+
 		if (!year || !month || !day) throw new Error(`String isn't an ISO date string: ${str}`)
 		else return DDate.fromParts({ year, month, day })
+	}
+
+	static today(): DDate {
+		const now = new Date()
+		return DDate.fromParts({
+			year: now.getUTCFullYear(),
+			month: now.getUTCMonth() + 1,
+			day: now.getUTCDate(),
+		})
 	}
 
 	toParts(): DDateParts {
@@ -45,6 +57,11 @@ export default class DDate {
 		return new Date(Date.UTC(this.year, this.month - 1, this.day))
 	}
 	// #endregion
+
+	isEqual(other: DDate | undefined | null): boolean {
+		if (!other) return false
+		else return this.year === other.year && this.month === other.month && this.day === other.day
+	}
 
 	static #createUTCDate(parts: DDateParts): Date {
 		return new Date(Date.UTC(parts.year, parts.month - 1, parts.day))
