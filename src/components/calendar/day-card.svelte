@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type DDate from "utils/d-date"
+	import DoomlitIndicator from "./doomlit-indicator.svelte"
 
 	type Props = {
 		inputName: string
@@ -12,6 +13,9 @@
 
 	const dateStr = $derived(date.toISOString())
 	const dayId = $derived(`DAY_CARD_${dateStr}`)
+
+	const isSelectedDay = $derived(dateStr === selectedDay)
+	// TODO: Add progress fetching for reservation slot indicator
 </script>
 
 <div aria-label={dateStr}>
@@ -27,13 +31,14 @@
 	<label
 		for={dayId}
 		class={[
-			"flex h-full w-full flex-col items-center justify-center rounded-2xl bg-obverse",
+			"flex h-full w-full flex-col items-center justify-evenly rounded-2xl bg-obverse",
 			"cursor-pointer font-mono text-[1rem] font-bold tracking-widest text-inverse",
 			"peer-disabled:cursor-not-allowed peer-disabled:text-accent",
-			"box-border border-inverse peer-enabled:peer-hover:border-3 peer-enabled:peer-active:bg-accent",
+			"outline-inverse peer-enabled:peer-hover:outline-3 peer-enabled:peer-active:bg-accent",
 			"peer-checked:bg-inverse peer-checked:text-obverse",
 		]}
 	>
 		{date.day}
+		{#if !isPadding}<DoomlitIndicator progress={0} segmentCount={5} isSelected={isSelectedDay} />{/if}
 	</label>
 </div>
