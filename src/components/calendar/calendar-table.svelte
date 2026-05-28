@@ -28,19 +28,19 @@
 	let selectedDay = $state(DDate.today().toISOString())
 </script>
 
-<div class="h-min w-80">
-	<section class="flex h-min w-full gap-4">
+<div class="flex h-min w-full flex-col gap-2 overflow-clip rounded-3xl border-4 border-inverse px-2 py-6">
+	<section class="flex h-min w-full justify-center gap-4">
 		<Icon icon="Starmark" />
 		<h2 class="font-mono text-2xl tracking-wider uppercase">{dateFmt.getCalendarHeader({ year, month })}</h2>
 	</section>
 
-	<section class="grid h-min w-full grid-cols-7 items-center">
+	<section class="grid h-min w-full grid-cols-7 justify-items-center">
 		{#each weekdays as day, i (`CALENDAR_DAY_ROW_DAY_${i}`)}
-			<p class="font-mono text-xl font-bold tracking-widest text-inverse">{day}</p>
+			<p class="font-mono text-[1rem] font-bold tracking-widest text-inverse">{day}</p>
 		{/each}
 	</section>
 
-	<section class="grid w-full auto-rows-[5rem] grid-cols-7">
+	<section class="grid w-full auto-rows-[4rem] grid-cols-7 gap-2">
 		{#if monthLayout.leadingDays > 0}
 			{#each { length: monthLayout.leadingDays }, i}
 				<DayCard

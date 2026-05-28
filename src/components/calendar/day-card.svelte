@@ -27,9 +27,10 @@
 	<label
 		for={dayId}
 		class={[
-			"flex h-full w-full flex-col items-center justify-center bg-obverse",
-			"cursor-pointer font-mono text-xl font-bold tracking-widest text-inverse",
+			"flex h-full w-full flex-col items-center justify-center rounded-2xl bg-obverse",
+			"cursor-pointer font-mono text-[1rem] font-bold tracking-widest text-inverse",
 			"peer-disabled:cursor-not-allowed peer-disabled:text-accent",
+			"box-border border-inverse peer-enabled:peer-hover:border-3 peer-enabled:peer-active:bg-accent",
 			"peer-checked:bg-inverse peer-checked:text-obverse",
 		]}
 	>
