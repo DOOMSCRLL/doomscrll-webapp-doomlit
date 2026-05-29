@@ -7,7 +7,7 @@
 	import Icon from "comps/icons/icon.svelte"
 	import DayCard from "./day-card.svelte"
 
-	interface Props {
+	type Props = {
 		month: number
 		year: number
 	}
@@ -20,12 +20,11 @@
 
 	const weekdays = dateFmt.getAllShortDayNames()
 	const monthLayout = $derived(DDate.getMonthLayout(DDate.fromParts({ year, month, day: 1 })))
-
 	const leadingOffset = $derived(monthLayout.leadingEnd - monthLayout.leadingDays + 1)
 
 	const dayControlName = "day-control"
-
 	let selectedDay = $state(DDate.today().toISOString())
+	// TODO: Add a floating marker on the right edge of the calendar.
 </script>
 
 <div class="flex h-min w-full flex-col gap-2 overflow-clip rounded-3xl border-4 border-inverse px-2 py-6">
@@ -36,7 +35,7 @@
 
 	<section class="grid h-min w-full grid-cols-7 justify-items-center">
 		{#each weekdays as day, i (`CALENDAR_DAY_ROW_DAY_${i}`)}
-			<p class="font-mono text-[1rem] font-bold tracking-widest text-inverse">{day}</p>
+			<p class="font-mono text-[1rem] font-bold tracking-widest text-inverse uppercase">{day}</p>
 		{/each}
 	</section>
 

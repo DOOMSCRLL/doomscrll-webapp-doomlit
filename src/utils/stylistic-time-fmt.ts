@@ -44,7 +44,7 @@ export default class StylisticTimeFormat {
 
 	public getCalendarHeader({ year, month }: Omit<DDateParts, "day">): string {
 		const date = DDate.fromParts({ year, month, day: 1 })
-		return `${this.getMonthName(date)} ${date.year}`
+		return `${this.getMonthName(date)} '${date.year.toString().slice(-2)}`
 	}
 
 	public getFullDate(date: DDate): string {
