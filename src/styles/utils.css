@@ -34,3 +34,37 @@
 		pointer-events: none;
 	}
 }
+
+@theme {
+	--arrow-inset-left: auto calc(100% - 1px) 50% auto;
+	--arrow-inset-right: auto auto 50% calc(100% - 1px);
+	--arrow-inset-top: auto auto calc(100% - 1px) 50%;
+	--arrow-inset-bottom: calc(100% - 1px) auto auto 50%;
+
+	--arrow-transform-left: translate(50%, 50%) rotate(-45deg);
+	--arrow-transform-right: translate(-50%, 50%) rotate(135deg);
+	--arrow-transform-top: translate(-50%, 50%) rotate(45deg);
+	--arrow-transform-bottom: translate(-50%, -50%) rotate(-135deg);
+}
+@utility arrow-decor-* {
+	&::before {
+		content: "";
+
+		position: absolute;
+		pointer-events: none;
+
+		box-sizing: border-box;
+		width: 2rem;
+		height: 1rem;
+
+		background-color: inherit;
+		border-color: inherit;
+		border-width: inherit;
+		border-style: inherit;
+
+		clip-path: polygon(0 0, 100% 0, 0 100%);
+
+		inset: --value(--arrow-inset-*);
+		transform: --value(--arrow-transform-*);
+	}
+}

@@ -1,7 +1,7 @@
 import type { Attachment } from "svelte/attachments"
 
-type VerticalAlignment = "top" | "center" | "bottom"
-type HorizontalAlignment = "left" | "center" | "right"
+export type VerticalAlignment = "top" | "center" | "bottom"
+export type HorizontalAlignment = "left" | "center" | "right"
 
 type PositionRelativeToArgs = {
 	verticalAlignment: VerticalAlignment

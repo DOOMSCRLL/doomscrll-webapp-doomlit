@@ -9,7 +9,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		alias: {
-			"attachments/*": "src/attachments/*",
+			"attcs/*": "src/attachments/*",
 			"comps/*": "src/components/*",
 			"contexts/*": "src/contexts/*",
 			"models/*": "src/models/*",
