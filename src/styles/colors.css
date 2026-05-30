@@ -12,6 +12,10 @@
 		--theme-obverse: var(--c-darkness);
 		--theme-inverse: var(--c-bloodmoon);
 		--theme-accent: var(--c-lagoon);
+
+		--avatar-background: #ff0000;
+		--avatar-accent-1: #00ff00;
+		--avatar-accent-2: #0000ff;
 	}
 }
 
