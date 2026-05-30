@@ -16,9 +16,9 @@ export function generateAvatarSwatchFrom(uuidV4: string): AvatarSwatch {
 	const hue2 = parseInt(chunk2, 16) % 360
 
 	return {
-		background: `hsl(${hueBg}, %35, %15)`,
-		accent1: `hsl(${hue1}, %85, %65)`,
-		accent2: `hsl(${hue2}, %75, %80)`,
+		background: `hsl(${hueBg}, 35%, 15%)`,
+		accent1: `hsl(${hue1}, 85%, 65%)`,
+		accent2: `hsl(${hue2}, 75%, 80%)`,
 	}
 }
 

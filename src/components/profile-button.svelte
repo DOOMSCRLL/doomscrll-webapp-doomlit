@@ -3,6 +3,8 @@
 	import type Profile from "models/profile"
 	import { getDictionaryOf } from "repos/locales"
 	import { applySwatchToTokens, generateAvatarSwatchFrom } from "utils/uuid-to-avatar"
+
+	import SlabButton from "comps/buttons/slab-button.svelte"
 	import Icon from "./icons/icon.svelte"
 
 	type Props = {
@@ -10,7 +12,7 @@
 	}
 
 	const { profile }: Props = $props()
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 	const dict = getDictionaryOf(LocaleContext.getContext())
 
 	$effect(() => {
@@ -18,13 +20,15 @@
 	})
 </script>
 
-<button>
-	{#if profile !== undefined}
+{#if profile === undefined}
+	<SlabButton alignment="right" fit="min" size="normal" variant="text">
+		{dict.reservation.profile.labelAnon}
+		<Icon icon="ArrowExternal" size="small" />
+		<Icon icon="AvatarAnon" />
+	</SlabButton>
+{:else}
+	<SlabButton alignment="right" fit="min" size="normal" variant="text">
 		{profile.username}
 		<Icon icon="AvatarSigned" />
-	{:else}
-		MISSING_UNSIGNED_LABEL
-		<Icon icon="ArrowExternal" />
-		<Icon icon="AvatarAnon" />
-	{/if}
-</button>
+	</SlabButton>
+{/if}

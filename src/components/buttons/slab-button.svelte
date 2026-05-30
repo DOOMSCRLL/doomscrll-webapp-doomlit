@@ -12,11 +12,20 @@
 		size?: ButtonSize
 		alignment?: HorizontalAlignment
 		fit?: HorizontalFit
+		renderDecors?: boolean
 		onClick?: () => void
 		children?: Snippet
 	}
 
-	const { alignment = "center", fit = "max", size = "normal", variant = "filled", onClick, children }: Props = $props()
+	const {
+		alignment = "center",
+		fit = "max",
+		size = "normal",
+		variant = "filled",
+		renderDecors = false,
+		onClick,
+		children,
+	}: Props = $props()
 </script>
 
 <button
@@ -42,8 +51,9 @@
 		ttm(variant, {
 			filled: "bg-inverse not-disabled:hover:bg-inverse/40 not-disabled:active:bg-accent",
 			outlined: "pseudo-border bg-obverse not-disabled:hover:bg-inverse not-disabled:active:bg-accent",
-			text: "bg-obverse before:content-['('] after:content-[')'] not-disabled:hover:bg-inverse not-disabled:active:bg-accent",
+			text: "bg-obverse not-disabled:hover:bg-inverse not-disabled:active:bg-accent",
 		}),
+		renderDecors && variant === "text" && "before:content-['('] after:content-[')']",
 		/* content appearance: */
 		ttm(variant, {
 			filled: "text-obverse",
