@@ -1,3 +1,74 @@
 import type { Dictionary } from "."
 
-export default {} satisfies Dictionary
+export default {
+	reservation: {
+		meta: {
+			title: "DOOMSCRLL",
+			description: "Projeni 24 saat sergilemek için bir DOOMLIT ayırt.",
+		},
+		profile: {
+			labelAnon: "Giriş yapılmadı",
+			menu: {
+				labelProfile: "Hesap",
+				labelDoomlits: "DOOMLIT'ler",
+				labelSignout: "Çıkış yap",
+			},
+		},
+		copy: "DOOMLIT için bir gün seç.",
+		cta: {
+			suffixSlotInfo: "DOOMLIT ayırtıldı.",
+			labelPreview: "Ayırtılan DOOMLIT'lere göz at",
+			labelSignin: "DOOMLIT ayırtmak için giriş yap",
+			labelReserve: "DOOMLIT ayırt",
+		},
+		reservationForm: {
+			labelProjectName: {
+				prefix: "Projenin adı",
+				suffix: ".",
+				placeholder: "Ona bir isim ver.",
+			},
+			labelCategory: {
+				prefix: "Bu bir",
+				suffix: "projesi.",
+				placeholder: "Birini seç:",
+			},
+			labelPlatform: {
+				prefix: "Projen",
+				suffix: "platformunda.",
+				placeholder: "Birini seç:",
+			},
+			labelPrimaryUrl: {
+				prefix: "Bağlantısı",
+				suffix: ".",
+				placeholder: "Buraya yapıştır.",
+			},
+			labelReserve: "Öde ve bir DOOMLIT ayırt",
+		},
+		disclaimer: {
+			infoEdit: "DOOMLIT'in yayınlanacağı tarihe kadar düzenlenebilir.",
+			infoExpiration: "Eğer ücreti ödenmemişse, ayırtılan bir DOOMLIT 15 dakika sonra silinecektir.",
+		},
+		doomlitMenu: {
+			copy: "Düzenlemek için bir DOOMLIT seç:",
+			labelClose: "Kapat",
+		},
+	},
+	preview: {
+		labelReservedSuffix: "DOOMLIT ayırtıldı",
+		labelClose: "Kapat",
+	},
+	auth: {
+		labelEmail: "Epostan nedir?",
+		placeholderEmail: "Yalnızca epostan, lütfen.",
+		ctaSignin: "Giriş yap",
+		textInfo: "(Eğer epostanı tanınmıyorsa, yeni bir hesap oluşturulacaktır.)",
+		labelOtp: "6-haneli doğrulama kodunu gir:",
+		ctaVerify: "Doğrula",
+	},
+	profileMenu: {
+		// TODO: Write strings for profile settings screen
+	},
+	projectMenu: {
+		// TODO: Write strings for project details screen
+	},
+} satisfies Dictionary
