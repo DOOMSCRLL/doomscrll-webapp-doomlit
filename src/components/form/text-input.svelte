@@ -8,9 +8,18 @@
 		value: string
 		inputType?: "text" | "url"
 		layout?: "column" | "row"
+		isRequired?: boolean
 	}
 
-	let { label, name, placeholder, value = $bindable(), inputType = "text", layout = "row" }: Props = $props()
+	let {
+		label,
+		name,
+		placeholder,
+		value = $bindable(),
+		inputType = "text",
+		layout = "row",
+		isRequired = false,
+	}: Props = $props()
 </script>
 
 <label
@@ -30,11 +39,12 @@
 		type={inputType}
 		autocomplete="off"
 		inputmode={inputType}
+		required={isRequired}
 		{placeholder}
 		bind:value
 		class={[
 			"w-full border-b-3 border-inverse bg-obverse",
-			"text-center font-serif text-2xl font-medium tracking-tighter text-inverse",
+			"cursor-pointer text-center font-serif text-2xl font-medium tracking-tighter text-inverse",
 			"placeholder:text-accent placeholder:italic placeholder:brightness-200",
 		]} />
 </label>

@@ -31,7 +31,9 @@ export const PLATFORMS_SOCIAL = [
 	"YouTube",
 ] as const
 
-export const PLATFORMS: { [key in Platform]: string } = {
+export const PLATFORMS_ALL = [...PLATFORMS_GAME, ...PLATFORMS_SOCIAL] as const
+
+export const PLATFORM_SLUGS: { [key in Platform]: string } = {
 	"Apple App Store": "app-store",
 	"Epic Games Store": "egs",
 	GOG: "gog",

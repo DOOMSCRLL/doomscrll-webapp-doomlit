@@ -1,23 +1,43 @@
 <script lang="ts">
-	import toOptValue from "utils/to-opt-value"
+	import Icon from "comps/icons/icon.svelte"
+
+	type Option = {
+		value: string
+		label: string
+	}
 
 	type Props = {
 		name: string
 		label: string
 		placeholder: string
-		options: string[]
+		options: Option[]
+		isRequired?: boolean
 		value?: string
 	}
 
-	let { label, name, options, placeholder, value = $bindable() }: Props = $props()
+	let { label, name, options, placeholder, isRequired = false, value = $bindable() }: Props = $props()
 </script>
 
-<label for={name} class={[""]}>
-	{label}
-	<select {name} id={name} class={[""]} bind:value>
-		<option value="" disabled hidden>{placeholder}</option>
+<label
+	for={name}
+	class="flex h-min w-full cursor-text gap-4 font-serif text-2xl font-medium tracking-tighter text-inverse">
+	<span class="flex gap-2">
+		<Icon icon="Starmark" size="small" />
+		{label}:
+	</span>
+
+	<select
+		{name}
+		id={name}
+		required={isRequired}
+		class={[
+			"w-full cursor-pointer border-b-3 border-inverse bg-obverse text-center font-serif",
+			"hover:bg-inverse/40 active:bg-accent",
+		]}
+		bind:value>
+		<option value={undefined} disabled hidden>{placeholder}</option>
 		{#each options as opt (opt)}
-			<option value={toOptValue(opt)}>{opt}</option>
+			<option value={opt.value}>{opt.label}</option>
 		{/each}
 	</select>
 </label>
