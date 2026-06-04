@@ -1,4 +1,4 @@
-import { LOCALE_DEFAULT } from "repos/locales"
+import { LOCALE_DEFAULT } from "const/locales"
 import StylisticTimeFormat from "utils/stylistic-time-fmt"
 import ContextProvider from "./context-provider"
 

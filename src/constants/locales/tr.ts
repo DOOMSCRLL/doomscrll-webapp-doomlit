@@ -1,4 +1,4 @@
-import type { Dictionary } from "."
+import type { Dictionary } from "models/locale"
 
 export default {
 	reservation: {

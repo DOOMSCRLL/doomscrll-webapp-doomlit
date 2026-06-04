@@ -1,4 +1,4 @@
-import type { Locale } from "repos/locales"
+import type { Locale } from "models/locale"
 import type { DDateParts } from "./d-date"
 import DDate from "./d-date"
 

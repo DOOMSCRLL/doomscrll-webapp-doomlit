@@ -11,6 +11,7 @@ const config = {
 		alias: {
 			"attcs/*": "src/attachments/*",
 			"comps/*": "src/components/*",
+			"const/*": "src/constants/*",
 			"contexts/*": "src/contexts/*",
 			"models/*": "src/models/*",
 			"repos/*": "src/repos/*",
