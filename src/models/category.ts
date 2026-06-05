@@ -1,15 +1,14 @@
-import type { CATEGORY_NAMES } from "const/category-names"
+import type { CATEGORIES } from "const/categories"
 import type Platform from "./platform"
+import type ProjectTag from "./project-tag"
 
-type Tag = `#${string}`
-
-export type CategoryName = (typeof CATEGORY_NAMES)[number]
+export type CategoryName = (typeof CATEGORIES)[number]
 
 type Category = {
 	name: CategoryName
 	slug: string
 	platforms: Platform[]
-	tags: Tag[]
+	tags: ProjectTag[]
 }
 
 export type { Category as default }

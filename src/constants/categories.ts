@@ -1,4 +1,4 @@
-export const CATEGORY_NAMES = [
+export const CATEGORIES = [
 	"Video Games",
 	"Tabletop",
 	"Software & Tools",
