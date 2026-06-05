@@ -726,6 +726,6 @@ const TAGS: { [key in CategoryName]: ProjectTag[] } = {
 	],
 	Internal_Socials: [],
 	Internal_Crowdfunding: [],
-}
+} as const
 
 export default TAGS
