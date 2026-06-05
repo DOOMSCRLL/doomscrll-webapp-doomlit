@@ -1,10 +1,16 @@
-import { PLATFORM_SLUGS } from "const/platforms"
-import type { Platform, PlatformSlug } from "models/platform"
+import { PLATFORMS } from "const/platforms"
+import type { PlatformName } from "models/platform"
 
-export function normalizePlatform(platform: Platform): string {
-	return PLATFORM_SLUGS[platform]
+export function getPlatformName(platform: PlatformName): string {
+	return PLATFORMS[platform].name
 }
 
-export function parsePlatform(value: PlatformSlug): Platform | undefined {
-	return (Object.entries(PLATFORM_SLUGS).find((p) => p[1] === value)?.[0] as Platform) ?? undefined
+export function getPlatformSlug(platform: PlatformName): string {
+	return PLATFORMS[platform].slug
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function getPlatformIcon(platform: PlatformName): string {
+	// TODO: Add platform icons, and implement getPlatformIcon function
+	throw Error("Not implemented yet.")
 }
