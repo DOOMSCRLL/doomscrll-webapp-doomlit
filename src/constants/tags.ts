@@ -1,7 +1,7 @@
-import type { CategoryName } from "models/category"
+import type Category from "models/category"
 import type ProjectTag from "models/project-tag"
 
-const TAGS: { [key in CategoryName]: ProjectTag[] } = {
+const TAGS: { [key in Category]: ProjectTag[] } = {
 	"Video Games": [
 		// Core Genres
 		"#action",

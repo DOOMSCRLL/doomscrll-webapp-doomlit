@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LocaleContext from "contexts/locale-context"
 	import type Profile from "models/profile"
-	import { getDictionaryOf } from "repos/locales"
+	import { getDictionaryOf } from "repos/locale-repo"
 	import { applySwatchToTokens, generateAvatarSwatchFrom } from "utils/uuid-to-avatar"
 
 	import SlabButton from "comps/buttons/slab-button.svelte"

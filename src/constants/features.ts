@@ -1,6 +1,6 @@
-import type { CategoryName } from "models/category"
+import type Category from "models/category"
 
-const FEATURES: { [key in CategoryName]: string[] } = {
+const FEATURES: { [key in Category]: string[] } = {
 	"Video Games": [
 		// Access & Pricing Models
 		"Early Access",

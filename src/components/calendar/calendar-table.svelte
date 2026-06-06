@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DateFmtContext from "contexts/date-format-context"
 	import LocaleContext from "contexts/locale-context"
-	import { getDictionaryOf } from "repos/locales"
+	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 
 	import Icon from "comps/icons/icon.svelte"
@@ -46,8 +46,7 @@
 					date={DDate.fromParts({ year, month: month - 1, day: leadingOffset + i })}
 					inputName={dayControlName}
 					isPadding={true}
-					bind:selectedDay
-				/>
+					bind:selectedDay />
 			{/each}
 		{/if}
 		{#each { length: monthLayout.daysInMonth }, i}
@@ -55,8 +54,7 @@
 				date={DDate.fromParts({ year, month, day: i + 1 })}
 				inputName={dayControlName}
 				isPadding={false}
-				bind:selectedDay
-			/>
+				bind:selectedDay />
 		{/each}
 		{#if monthLayout.trailingDays > 0}
 			{#each { length: monthLayout.trailingDays }, i}
@@ -64,8 +62,7 @@
 					date={DDate.fromParts({ year, month: month + 1, day: i + 1 })}
 					inputName={dayControlName}
 					isPadding={true}
-					bind:selectedDay
-				/>
+					bind:selectedDay />
 			{/each}
 		{/if}
 	</section>

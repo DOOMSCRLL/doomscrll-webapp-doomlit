@@ -1,4 +1,4 @@
-import type { CategoryName } from "models/category"
+import type Category from "models/category"
 import type Platform from "models/platform"
 import type { PlatformName } from "models/platform"
 
@@ -101,7 +101,7 @@ export const PLATFORMS = {
 	// #endregion
 } as const satisfies { [key in string]: Platform }
 
-export const PLATFORM_MAP: { [key in CategoryName]: PlatformName[] } = {
+export const PLATFORM_MAP = {
 	"Video Games": [
 		"steam",
 		"epicGames",
@@ -160,4 +160,4 @@ export const PLATFORM_MAP: { [key in CategoryName]: PlatformName[] } = {
 		"youtube",
 	],
 	Internal_Crowdfunding: ["kickstarter", "indiegogo", "backerkit", "gamefound", "crowdSupply"],
-} as const
+} satisfies Record<Category, PlatformName[]>
