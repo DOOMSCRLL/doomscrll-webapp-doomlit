@@ -10,6 +10,7 @@ import Cancel from "./icon-cancel.svelte"
 import Doomeye from "./icon-doomeye.svelte"
 import Help from "./icon-help.svelte"
 import Link from "./icon-link.svelte"
+import Mail from "./icon-mail.svelte"
 import Purchase from "./icon-purchase.svelte"
 import Remove from "./icon-remove.svelte"
 import Settings from "./icon-settings.svelte"
@@ -26,6 +27,7 @@ const ICONS = {
 	Doomeye,
 	Help,
 	Link,
+	Mail,
 	Purchase,
 	Remove,
 	Settings,
@@ -36,9 +38,6 @@ const ICONS = {
 export type DoomscrllIcon = keyof typeof ICONS
 
 export function getDoomscrllIcon(name: DoomscrllIcon) {
-	return ICONS[name]
+  return ICONS[name]
 }
-
-export function getAllDoomscrllIcons(): string[] {
-	return Object.keys(ICONS)
-}
+  
