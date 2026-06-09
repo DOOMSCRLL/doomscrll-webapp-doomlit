@@ -6,6 +6,7 @@ type Platform = {
 	name: string
 	slug: string
 	icon?: string
+	isBadge?: boolean
 }
 
 export type { Platform as default }

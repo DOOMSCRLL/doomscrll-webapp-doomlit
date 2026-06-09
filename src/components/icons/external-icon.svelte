@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { PlatformName } from "models/platform"
-	import { getPlatformName } from "repos/platform-repo"
-	import { getPlatformIconPathFor } from "repos/static-asset-repo"
+	import { getPlatformIconPathFor, getPlatformName } from "repos/platform-repo"
 
 	type Props = {
 		platform: PlatformName
@@ -20,8 +19,13 @@
 	}
 </script>
 
-<img
-	alt="{getPlatformName(platform)} {labelSuffix}"
-	src={primaryUrl}
-	onerror={handleError}
-	class={["h-12 w-auto object-contain"]} />
+<div
+	aria-labelledby="EXTERNAL_ICON_{platform}"
+	class={["bg-[black] p-2", asset.isBadge ? "rounded-lg" : "rounded-full"]}>
+	<img
+		alt="{getPlatformName(platform)} {labelSuffix}"
+		id="EXTERNAL_ICON_{platform}"
+		src={primaryUrl}
+		onerror={handleError}
+		class={["h-12 object-contain object-center", asset.isBadge ? "w-auto" : "w-12"]} />
+</div>
