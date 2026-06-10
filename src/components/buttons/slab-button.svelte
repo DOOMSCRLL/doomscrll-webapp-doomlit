@@ -14,21 +14,24 @@
 		fit?: HorizontalFit
 		renderDecors?: boolean
 		onClick?: () => void
+		reference?: HTMLButtonElement
 		children?: Snippet
 	}
 
-	const {
+	let {
 		alignment = "center",
 		fit = "max",
 		size = "normal",
 		variant = "filled",
 		renderDecors = false,
 		onClick,
+		reference = $bindable(),
 		children,
 	}: Props = $props()
 </script>
 
 <button
+	bind:this={reference}
 	onclick={onClick}
 	class={[
 		"group flex max-w-full min-w-0 items-center justify-center gap-4 rounded-2xl",
@@ -60,7 +63,6 @@
 			outlined: "text-inverse hover:text-obverse active:text-obverse",
 			text: "text-inverse hover:text-obverse active:text-obverse",
 		}),
-	]}
->
+	]}>
 	{@render children?.()}
 </button>

@@ -63,6 +63,8 @@ export default function positionRelativeTo(args: PositionRelativeToArgs): Attach
 		observer.observe(node, { attributes: true })
 		window.addEventListener("resize", calculateRelativePosition)
 
+		if (node.open) requestAnimationFrame(() => calculateRelativePosition())
+
 		return () => {
 			observer.disconnect()
 			window.removeEventListener("resize", calculateRelativePosition)
