@@ -25,19 +25,40 @@
 	name="Dropdown_Platforms"
 	args={{
 		...partArgs,
-		options: Object.keys(PLATFORMS).map((p) => ({ value: p, label: PLATFORMS[p as PlatformName].name })),
+		options: [
+			{
+				label: "",
+				opts: Object.keys(PLATFORMS)
+					.map((p) => ({ value: p, label: PLATFORMS[p as PlatformName].name }))
+					.sort(),
+			},
+		],
 	}} />
 
 <Story
 	name="Dropdown_Tags_Games"
 	args={{
 		...partArgs,
-		options: Object.values(TAGS["Video Games"]).map((t) => ({ label: t, value: t })),
+		options: [
+			{
+				label: "",
+				opts: Object.values(TAGS["Video Games"])
+					.map((t) => ({ label: t, value: t }))
+					.sort(),
+			},
+		],
 	}} />
 
 <Story
 	name="Dropdown_Features_Games_en"
 	args={{
 		...partArgs,
-		options: Object.values(FEATURES["Video Games"]).map((f) => ({ label: f, value: f })),
+		options: [
+			{
+				label: "",
+				opts: Object.values(FEATURES["Video Games"])
+					.map((f) => ({ label: f, value: f }))
+					.sort(),
+			},
+		],
 	}} />

@@ -3,7 +3,7 @@
 	import InlineDoomlitIndicator from "./inline-doomlit-indicator.svelte"
 
 	const { Story } = defineMeta({
-		title: "Misc/Numerical DOOMLIT indicator",
+		title: "Decorators/Numerical DOOMLIT indicator",
 		component: InlineDoomlitIndicator,
 	})
 </script>

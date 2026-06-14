@@ -10,7 +10,7 @@
 		label: string
 	}
 	type OptGroupData = {
-		label: string
+		label?: string
 		opts: OptData[]
 	}
 
@@ -52,6 +52,11 @@
 		if (!selectedValue) return placeholder
 		return flatOpts.find((o) => o.value === selectedValue)?.label ?? placeholder
 	})
+
+	function handleHover(event: PointerEvent, value: string): void {
+		if (event.movementX === 0 && event.movementY === 0) return
+		else if (highlightedValue !== value) highlightedValue = value
+	}
 
 	function handleSelect(value: string): void {
 		selectedValue = value
@@ -113,6 +118,7 @@
 		label={opt.label}
 		isSelected={selectedValue === opt.value}
 		isHighlighted={highlightedValue === opt.value}
+		onHover={(e) => handleHover(e, opt.value)}
 		onSelect={handleSelect} />
 {/snippet}
 
