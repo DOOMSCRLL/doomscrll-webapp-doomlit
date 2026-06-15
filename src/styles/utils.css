@@ -14,7 +14,7 @@
 
 @utility pretty-scrollbar {
 	scrollbar-width: thin;
-	scrollbar-color: var(--color-brand) transparent;
+	scrollbar-color: var(--color-inverse) transparent;
 }
 
 @utility pseudo-border {

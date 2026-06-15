@@ -1,5 +1,5 @@
 import type Category from "models/category"
-import type { Locale } from "models/locale"
+import type { Locale } from "models/internal/locale"
 
 export const CATEGORIES = [
 	"Video Games",

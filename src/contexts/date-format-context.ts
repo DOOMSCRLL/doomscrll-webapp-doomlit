@@ -1,6 +1,6 @@
 import { LOCALE_DEFAULT } from "const/locales"
 import StylisticTimeFormat from "utils/stylistic-time-fmt"
-import ContextProvider from "./context-provider"
+import ContextProvider from "./stateful-context.svelte"
 
 const KEY_CONTEXT_DATE_FMT = "date-formatter"
 

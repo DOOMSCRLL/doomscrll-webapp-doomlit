@@ -1,4 +1,4 @@
-import type { Locale } from "models/locale"
+import type { Locale } from "models/internal/locale"
 import type { DDateParts } from "./d-date"
 import DDate from "./d-date"
 

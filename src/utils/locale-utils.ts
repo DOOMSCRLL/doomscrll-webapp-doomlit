@@ -1,5 +1,5 @@
 import { DICTIONARIES, LOCALE_DEFAULT } from "const/locales"
-import type { Locale } from "models/locale"
+import type { Locale } from "models/internal/locale"
 
 function isLocale(value: unknown): value is Locale {
 	return typeof value === "string" && value in DICTIONARIES

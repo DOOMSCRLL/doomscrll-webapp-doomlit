@@ -1,4 +1,4 @@
-import type { Locale } from "models/locale"
+import type { Locale } from "models/internal/locale"
 
 import en from "./en"
 import tr from "./tr"
