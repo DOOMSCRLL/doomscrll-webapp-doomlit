@@ -20,11 +20,10 @@
 		fill="currentColor"
 		class={[
 			ttm(size, {
-				normal: "h-10 w-10",
-				small: "h-5 w-5",
+				normal: "h-8 w-8",
+				small: "h-4 w-4",
 			}),
-		]}
-	>
+		]}>
 		<IconToRender />
 	</svg>
 </span>

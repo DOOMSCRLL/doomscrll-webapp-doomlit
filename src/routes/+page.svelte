@@ -25,7 +25,7 @@
 	<meta name="description" content={dict.meta.description} />
 </svelte:head>
 
-<main class="grid h-screen w-full grid-cols-2 gap-4 overflow-hidden px-4 supports-[height:100dvh]:h-dvh">
+<main class="grid h-screen w-full grid-cols-2 gap-12 overflow-hidden px-8 supports-[height:100dvh]:h-dvh">
 	<section class="flex flex-col items-start justify-between pb-4">
 		<DoomscrllWordmark />
 
@@ -40,16 +40,16 @@
 			<ProfileButton />
 		</div>
 
-		<section class="flex flex-col gap-8">
-			<div class="flex flex-col items-center justify-center gap-4">
-				<p class="font-mono text-2xl tracking-widest uppercase">{fmt.getFullDate(date)}</p>
-				<p class="font-mono text-xl font-bold tracking-widest uppercase">{fmt.getLongDayName(date)}</p>
+		<section class="flex flex-col gap-12">
+			<div class="flex flex-col items-center justify-center gap-2">
+				<p class="font-mono text-xl tracking-wider uppercase">{fmt.getFullDate(date)}</p>
+				<p class="font-mono font-bold tracking-widest uppercase">{fmt.getLongDayName(date)}</p>
 			</div>
 			<div class="flex w-full justify-center gap-2">
 				<InlineDoomlitIndicator current={36} max={256} />
 				<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.cta.suffixSlotInfo}</p>
 			</div>
-			<div class="flex flex-col gap-2">
+			<div class="flex flex-col gap-4">
 				<SlabButton alignment="center" fit="max" variant="outlined">
 					<Icon icon="Doomeye" />
 					{dict.cta.labelPreview}
@@ -61,7 +61,7 @@
 			</div>
 		</section>
 
-		<ol role="list" class="super-markers font-serif text-2xl font-medium tracking-tight break-normal">
+		<ol role="list" class="super-markers font-serif text-xl font-medium tracking-tight break-normal">
 			{#each Object.values(dict.disclaimer) as d (d)}<li>{d}</li>{/each}
 		</ol>
 	</section>

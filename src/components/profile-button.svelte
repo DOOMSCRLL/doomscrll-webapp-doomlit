@@ -18,12 +18,13 @@
 	$effect(() => {
 		if (profile) applySwatchToTokens(generateAvatarSwatchFrom(profile.id))
 	})
+	// TODO: Change anon avatar to closed eye only.
 </script>
 
 {#if profile === undefined}
 	<SlabButton alignment="right" fit="min" size="normal" variant="text">
-		{dict.reservation.profile.labelAnon}
 		<Icon icon="ArrowExternal" size="small" />
+		{dict.reservation.profile.labelAnon}
 		<Icon icon="AvatarAnon" />
 	</SlabButton>
 {:else}

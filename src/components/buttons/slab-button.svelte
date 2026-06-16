@@ -34,7 +34,7 @@
 	bind:this={reference}
 	onclick={onClick}
 	class={[
-		"group flex max-w-full min-w-0 items-center justify-center gap-4 rounded-2xl",
+		"group flex max-w-full min-w-0 items-center justify-center gap-4 rounded-xl",
 		"overflow-hidden font-mono font-bold tracking-wider text-ellipsis whitespace-nowrap uppercase",
 		ttm(alignment, {
 			center: "px-6",
@@ -42,8 +42,8 @@
 			right: "pr-2 pl-6",
 		}),
 		ttm(size, {
-			normal: "h-12 text-2xl",
-			small: "h-6 text-lg",
+			normal: "h-10",
+			small: "h-4 text-sm",
 		}),
 		ttm(fit, {
 			max: "w-full",

@@ -17,7 +17,7 @@
 	role="progressbar"
 	aria-label={ariaLabel}
 	viewBox="0 0 {segmentCount * SIZE_SEGMENT} {SIZE_SEGMENT}"
-	class="h-3 w-auto overflow-visible">
+	class="h-2.5 w-auto overflow-visible">
 	{#each { length: segmentCount }, i}
 		{@const cx = SIZE_SEGMENT / 2 + i * SIZE_SEGMENT}
 		{@const r = SIZE_SEGMENT / 2}

@@ -26,15 +26,15 @@
 	// TODO: Add a floating marker on the right edge of the calendar.
 </script>
 
-<div class="flex h-min w-full flex-col gap-2 overflow-clip rounded-3xl border-4 border-inverse px-2 py-4">
-	<section class="flex h-min w-full items-center justify-center gap-4">
-		<Icon icon="Starmark" />
-		<h2 class="font-mono text-xl tracking-wider uppercase">{dateFmt.getCalendarHeader({ year, month })}</h2>
+<div class="flex h-min w-full flex-col gap-2 overflow-clip rounded-3xl border-4 border-inverse px-2 py-2">
+	<section class="flex h-min w-full items-center justify-center gap-2">
+		<Icon icon="Starmark" size="normal" />
+		<h2 class="font-mono tracking-widest uppercase">{dateFmt.getCalendarHeader({ year, month })}</h2>
 	</section>
 
 	<section class="grid h-min w-full grid-cols-7 justify-items-center">
 		{#each weekdays as day, i (`CALENDAR_DAY_ROW_DAY_${i}`)}
-			<p class="font-mono text-[1rem] font-bold tracking-widest text-inverse uppercase">{day}</p>
+			<p class="font-mono text-sm font-bold tracking-widest text-inverse uppercase">{day}</p>
 		{/each}
 	</section>
 

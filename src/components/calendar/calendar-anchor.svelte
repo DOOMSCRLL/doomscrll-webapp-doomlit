@@ -20,6 +20,6 @@
 	<Icon icon="Starmark" />
 	<SlabButton alignment="right" fit="min" size="normal" variant="text" onClick={() => onClick({ year, month })}>
 		{dateFmt.getCalendarHeader({ month, year })}
-		<Icon icon="ArrowForward" />
+		<Icon icon="ArrowForward" size="small" />
 	</SlabButton>
 </div>
