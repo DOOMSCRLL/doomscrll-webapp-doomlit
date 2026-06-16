@@ -21,11 +21,7 @@ export default class StatefulContext<T> {
 		return state
 	}
 
-	get state(): T | undefined {
-		return this.#get().value
-	}
-
-	set state(newValue: T) {
-		this.#get().value = newValue
+	get context() {
+		return this.#get()
 	}
 }
