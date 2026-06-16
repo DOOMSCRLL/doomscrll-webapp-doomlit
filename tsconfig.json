@@ -11,9 +11,13 @@
     "sourceMap": true,
     "strict": true,
     "moduleResolution": "bundler",
-    "maxNodeModuleJsDepth": 0,
+    "maxNodeModuleJsDepth": 0
     /*"types": [
       "./worker-configuration.d.ts"
     ]*/
-  }
+  },
+  "exclude": [
+    "./node_modules/**",
+    "./.storybook/**"
+  ],
 }
