@@ -34,6 +34,7 @@
 
 		<CalendarAnchor month={date.month + 1} year={date.year} onClick={() => {}} />
 	</section>
+
 	<section class="flex flex-col justify-between py-4">
 		<div class="flex w-full justify-end">
 			<ProfileButton />
