@@ -12,6 +12,19 @@
 	@apply cursor-not-allowed opacity-20 grayscale-20 select-none;
 }
 
+@utility super-markers {
+	list-style: none;
+	counter-reset: sup;
+	& li {
+		counter-increment: sup;
+	}
+	& li::before {
+		content: counter(sup);
+		font-size: 0.75rem;
+		vertical-align: super;
+	}
+}
+
 @utility pretty-scrollbar {
 	scrollbar-width: thin;
 	scrollbar-color: var(--color-inverse) transparent;

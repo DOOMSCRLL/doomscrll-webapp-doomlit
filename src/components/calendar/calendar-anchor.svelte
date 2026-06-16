@@ -1,8 +1,9 @@
 <script lang="ts">
+	import type { DDateParts } from "utils/d-date"
+
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import Icon from "comps/icons/icon.svelte"
-	import DateFmtContext from "contexts/date-format-context"
-	import type { DDateParts } from "utils/d-date"
+	import { DateFmtContext } from "contexts/shared.svelte"
 
 	type Props = {
 		month: number
@@ -12,7 +13,7 @@
 
 	const { month, year, onClick }: Props = $props()
 
-	const dateFmt = DateFmtContext.getContext()
+	const dateFmt = DateFmtContext.context.value!
 </script>
 
 <div class="flex h-min w-min items-center justify-center gap-4">

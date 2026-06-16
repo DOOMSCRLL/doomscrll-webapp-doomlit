@@ -1,10 +1,9 @@
 <script lang="ts">
-	import DateFmtContext from "contexts/date-format-context"
-	import LocaleContext from "contexts/locale-context"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 
 	import Icon from "comps/icons/icon.svelte"
+	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte"
 	import DayCard from "./day-card.svelte"
 
 	type Props = {
@@ -15,8 +14,8 @@
 	const { month, year }: Props = $props()
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const dict = getDictionaryOf(LocaleContext.getContext())
-	const dateFmt = DateFmtContext.getContext()
+	const dict = getDictionaryOf(LocaleContext.context.value)
+	const dateFmt = DateFmtContext.context.value!
 
 	const weekdays = dateFmt.getAllShortDayNames()
 	const monthLayout = $derived(DDate.getMonthLayout(DDate.fromParts({ year, month, day: 1 })))
@@ -27,7 +26,7 @@
 	// TODO: Add a floating marker on the right edge of the calendar.
 </script>
 
-<div class="flex h-min w-full flex-col gap-2 overflow-clip rounded-3xl border-4 border-inverse px-2 py-6">
+<div class="flex h-min w-full flex-col gap-2 overflow-clip rounded-3xl border-4 border-inverse px-2 py-4">
 	<section class="flex h-min w-full items-center justify-center gap-4">
 		<Icon icon="Starmark" />
 		<h2 class="font-mono text-xl tracking-wider uppercase">{dateFmt.getCalendarHeader({ year, month })}</h2>

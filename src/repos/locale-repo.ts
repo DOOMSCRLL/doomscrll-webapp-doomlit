@@ -5,8 +5,9 @@ export function isLocale(value: unknown): value is Locale {
 	return typeof value === "string" && LOCALES.includes(value as Locale)
 }
 
-export function getDictionaryOf(locale: Locale): Dictionary {
-	return DICTIONARIES[locale] || getDefaultDictionary()
+export function getDictionaryOf(locale?: Locale): Dictionary {
+	if (!locale) return getDefaultDictionary()
+	else return DICTIONARIES[locale] || getDefaultDictionary()
 }
 
 function getDefaultDictionary(): Dictionary {

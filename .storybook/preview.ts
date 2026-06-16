@@ -3,6 +3,8 @@ import "../src/styles/doomscrll-design-system.css"
 import { withThemeByDataAttribute } from "@storybook/addon-themes"
 import type { Preview, SvelteRenderer } from "@storybook/sveltekit"
 
+import StorybookProvider from "./storybook-provider.svelte"
+
 const preview: Preview = {
 	parameters: {
 		layout: "centered",
@@ -49,6 +51,7 @@ const preview: Preview = {
 			defaultTheme: "doomscrll",
 			attributeName: "data-theme",
 		}),
+		() => StorybookProvider,
 	],
 }
 
