@@ -113,7 +113,7 @@
 
 				{#if !currentProfile}
 					<SlabButton alignment="center" fit="max" variant="filled" isDisabled={true}>
-						<Icon icon="Doomeye" />
+						<Icon icon="DoomeyeClosed" />
 						{dict.cta.labelSignin}
 					</SlabButton>
 				{:else}

@@ -8,6 +8,7 @@ import ArrowForward from "./icon-arrow-forward.svelte"
 import AvatarAnon from "./icon-avatar-anon.svelte"
 import AvatarSigned from "./icon-avatar-signed.svelte"
 import Cancel from "./icon-cancel.svelte"
+import DoomeyeClosed from "./icon-doomeye-closed.svelte"
 import Doomeye from "./icon-doomeye.svelte"
 import Help from "./icon-help.svelte"
 import Link from "./icon-link.svelte"
@@ -26,6 +27,7 @@ const ICONS = {
 	AvatarAnon,
 	AvatarSigned,
 	Cancel,
+	DoomeyeClosed,
 	Doomeye,
 	Help,
 	Link,
