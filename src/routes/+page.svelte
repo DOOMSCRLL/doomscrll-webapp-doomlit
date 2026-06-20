@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from "./$types"
 
-	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte"
+	import { DateFmtContext, LocaleContext, ProfileContext } from "contexts/shared.svelte"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 
@@ -54,7 +54,7 @@
 		activeDate.year === date.year && activeDate.month === date.month ? reservationsArray[activeDate.day - 1] : 0,
 	)
 
-	// TODO: Add profile state.
+	const currentProfile = ProfileContext.context.value
 </script>
 
 <svelte:head>
@@ -110,10 +110,18 @@
 					<Icon icon="Doomeye" />
 					{dict.cta.labelPreview}
 				</SlabButton>
-				<SlabButton alignment="center" fit="max" variant="filled">
-					<Icon icon="Purchase" />
-					{dict.cta.labelReserve}
-				</SlabButton>
+
+				{#if !currentProfile}
+					<SlabButton alignment="center" fit="max" variant="filled" isDisabled={true}>
+						<Icon icon="Doomeye" />
+						{dict.cta.labelSignin}
+					</SlabButton>
+				{:else}
+					<SlabButton alignment="center" fit="max" variant="filled">
+						<Icon icon="Purchase" />
+						{dict.cta.labelReserve}
+					</SlabButton>
+				{/if}
 			</div>
 		</section>
 
