@@ -79,14 +79,14 @@
 					month={prevDate.month}
 					year={prevDate.year}
 					direction="backward"
-					href={`?year=${prevDate.year}&month=${prevDate.month}`} />
+					href={`/?year=${prevDate.year}&month=${prevDate.month}`} />
 			{/if}
 			{#if canGoNext}
 				<CalendarAnchor
 					month={nextDate.month}
 					year={nextDate.year}
 					direction="forward"
-					href={`?year=${nextDate.year}&month=${nextDate.month}`} />
+					href={`/?year=${nextDate.year}&month=${nextDate.month}`} />
 			{/if}
 		</div>
 	</section>

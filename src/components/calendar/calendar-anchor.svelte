@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from "$app/paths"
+
 	import Icon from "comps/icons/icon.svelte"
 	import { DateFmtContext } from "contexts/shared.svelte"
 
@@ -6,7 +8,7 @@
 		month: number
 		year: number
 		direction?: "forward" | "backward"
-		href: string
+		href: `/?year=${number}&month=${number}`
 	}
 
 	const { month, year, direction = "forward", href }: Props = $props()
@@ -17,8 +19,13 @@
 <div class="flex h-min w-min items-center justify-center gap-4">
 	<Icon icon="Starmark" />
 	<a
-		{href}
-		class="group flex h-10 w-min max-w-full min-w-0 items-center justify-center gap-4 overflow-hidden rounded-xl px-6 font-mono font-bold uppercase tracking-wider text-ellipsis whitespace-nowrap pseudo-border bg-obverse text-inverse hover:bg-inverse hover:text-obverse active:bg-accent active:text-obverse">
+		href={resolve(href)}
+		class={[
+			"group flex items-center justify-center gap-4 overflow-hidden",
+			"pseudo-border h-12 w-min max-w-full min-w-0 rounded-2xl bg-obverse px-6",
+			"font-mono font-bold tracking-wider text-ellipsis whitespace-nowrap text-inverse uppercase",
+			"hover:bg-inverse hover:text-obverse active:bg-accent active:text-obverse",
+		]}>
 		{#if direction === "backward"}<Icon icon="ArrowBack" size="small" />{/if}
 		{dateFmt.getCalendarHeader({ month, year })}
 		{#if direction === "forward"}<Icon icon="ArrowForward" size="small" />{/if}
