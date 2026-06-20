@@ -20,6 +20,8 @@ export default {
 			labelSignin: "Sign in to reserve a DOOMLIT",
 			labelReserve: "Reserve your DOOMLIT",
 		},
+		noReservationCopy:
+			"Hmm... It seems that all the DOOMLITs have been reserved for selected date. You can choose another date from the calendar, or take a look at next month.",
 		reservationForm: {
 			labelProjectName: {
 				prefix: "Name of the project is",

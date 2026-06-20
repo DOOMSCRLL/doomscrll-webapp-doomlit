@@ -105,24 +105,28 @@
 				<InlineDoomlitIndicator current={activeProgress} max={data.rules.maxReservationsPerDay} />
 				<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.cta.suffixSlotInfo}</p>
 			</div>
-			<div class="flex flex-col gap-4">
-				<SlabButton alignment="center" fit="max" variant="outlined">
-					<Icon icon="Doomeye" />
-					{dict.cta.labelPreview}
-				</SlabButton>
+			{#if activeProgress >= data.rules.maxReservationsPerDay}
+				<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.noReservationCopy}</p>
+			{:else}
+				<div class="flex flex-col gap-4">
+					<SlabButton alignment="center" fit="max" variant="outlined">
+						<Icon icon="Doomeye" />
+						{dict.cta.labelPreview}
+					</SlabButton>
 
-				{#if !currentProfile}
-					<SlabButton alignment="center" fit="max" variant="filled" isDisabled={true}>
-						<Icon icon="DoomeyeClosed" />
-						{dict.cta.labelSignin}
-					</SlabButton>
-				{:else}
-					<SlabButton alignment="center" fit="max" variant="filled">
-						<Icon icon="Purchase" />
-						{dict.cta.labelReserve}
-					</SlabButton>
-				{/if}
-			</div>
+					{#if !currentProfile}
+						<SlabButton alignment="center" fit="max" variant="filled" isDisabled={true}>
+							<Icon icon="DoomeyeClosed" />
+							{dict.cta.labelSignin}
+						</SlabButton>
+					{:else}
+						<SlabButton alignment="center" fit="max" variant="filled">
+							<Icon icon="Purchase" />
+							{dict.cta.labelReserve}
+						</SlabButton>
+					{/if}
+				</div>
+			{/if}
 		</section>
 
 		<ol role="list" class="super-markers font-serif text-xl font-medium tracking-tight break-normal">

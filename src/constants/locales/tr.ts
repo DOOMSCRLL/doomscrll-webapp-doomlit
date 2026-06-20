@@ -15,6 +15,8 @@ export default {
 			},
 		},
 		copy: "DOOMLIT için bir gün seç.",
+		noReservationCopy:
+			"Hmm... Görünüşe göre seçtiğin tarihte tüm DOOMLIT'ler alınmış. Takvimden başka bir gün seçebilir, ya da sonra ki aya göz atabilirsin.",
 		cta: {
 			suffixSlotInfo: "DOOMLIT ayırtıldı.",
 			labelPreview: "Ayırtılan DOOMLIT'lere göz at",
