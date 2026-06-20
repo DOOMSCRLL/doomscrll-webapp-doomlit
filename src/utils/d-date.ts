@@ -58,6 +58,12 @@ export default class DDate {
 	}
 	// #endregion
 
+	isPrior(compared: DDate | undefined | null): boolean {
+		if (!compared) return false
+		if (this.year !== compared.year) return this.year < compared.year
+		else if (this.month !== compared.month) return this.month < compared.month
+		else return this.day < compared.day
+	}
 	isEqual(other: DDate | undefined | null): boolean {
 		if (!other) return false
 		else return this.year === other.year && this.month === other.month && this.day === other.day

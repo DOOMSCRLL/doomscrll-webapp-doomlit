@@ -32,6 +32,15 @@
 	const canGoNext = $derived(currentOffsetMonths < maxMonthsInFuture)
 	const canGoPrev = $derived(currentOffsetMonths > 0)
 
+	const reservationsArray = $derived.by(() => {
+		const { daysInMonth } = DDate.getMonthLayout(date)
+		return Array.from({ length: daysInMonth }).map((_, i) => {
+			const dayNum = i + 1
+			const key = `${date.year}-${String(date.month).padStart(2, "0")}-${String(dayNum).padStart(2, "0")}`
+			return data.reservations.counts[key] ?? 0
+		})
+	})
+
 	// TODO: Add fetching for project progress for month.
 	// TODO: Add profile state.
 </script>
@@ -48,7 +57,7 @@
 		<CalendarTable
 			month={date.month}
 			year={date.year}
-			reservations={Object.values(data.reservations.counts)}
+			reservations={reservationsArray}
 			dailyReservationLimit={data.rules.maxReservationsPerDay} />
 		
 		<div class="flex items-center gap-4">

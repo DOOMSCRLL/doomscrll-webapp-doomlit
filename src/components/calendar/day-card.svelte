@@ -7,15 +7,28 @@
 		date: DDate
 		isPadding?: boolean
 		selectedDay?: string
+		reservationLimit?: number
+		progress?: number
 	}
 
-	let { inputName, date, isPadding = false, selectedDay = $bindable() }: Props = $props()
+	let {
+		inputName,
+		date,
+		isPadding = false,
+		selectedDay = $bindable(),
+		reservationLimit = 1,
+		progress = 0,
+	}: Props = $props()
 
 	const dateStr = $derived(date.toISOString())
 	const dayId = $derived(`DAY_CARD_${dateStr}`)
 
 	const isSelectedDay = $derived(dateStr === selectedDay)
-	// TODO: Add progress fetching for reservation slot indicator
+
+	const normalizedProgress = $derived.by(() => {
+		if (isPadding) return 0
+		else return Math.round((progress / reservationLimit) * 1000) / 1000
+	})
 </script>
 
 <div aria-label={dateStr}>
@@ -37,6 +50,6 @@
 			"peer-checked:bg-inverse peer-checked:text-obverse",
 		]}>
 		{date.day}
-		{#if !isPadding}<DoomlitIndicator progress={0} segmentCount={5} isSelected={isSelectedDay} />{/if}
+		{#if !isPadding}<DoomlitIndicator progress={normalizedProgress} segmentCount={5} isSelected={isSelectedDay} />{/if}
 	</label>
 </div>

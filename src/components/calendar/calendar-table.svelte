@@ -23,6 +23,8 @@
 	const monthLayout = $derived(DDate.getMonthLayout(DDate.fromParts({ year, month, day: 1 })))
 	const leadingOffset = $derived(monthLayout.leadingEnd - monthLayout.leadingDays + 1)
 
+	const today = DDate.today()
+
 	const dayControlName = "day-control"
 	let selectedDay = $state(DDate.today().toISOString())
 	// TODO: Add a floating marker on the right edge of the calendar.
@@ -51,10 +53,13 @@
 			{/each}
 		{/if}
 		{#each { length: monthLayout.daysInMonth }, i}
+			{@const date = DDate.fromParts({ year, month, day: i + 1 })}
 			<DayCard
-				date={DDate.fromParts({ year, month, day: i + 1 })}
+				{date}
 				inputName={dayControlName}
-				isPadding={false}
+				isPadding={date.isPrior(today)}
+				reservationLimit={dailyReservationLimit}
+				progress={reservations[i]}
 				bind:selectedDay />
 		{/each}
 		{#if monthLayout.trailingDays > 0}
