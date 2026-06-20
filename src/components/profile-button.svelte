@@ -18,7 +18,6 @@
 	$effect(() => {
 		if (profile) applySwatchToTokens(generateAvatarSwatchFrom(profile.id))
 	})
-	// TODO: Change anon avatar to closed eye only.
 </script>
 
 {#if profile === undefined}

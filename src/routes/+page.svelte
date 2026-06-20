@@ -5,12 +5,14 @@
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 
+	import IconButton from "comps/buttons/icon-button.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import CalendarAnchor from "comps/calendar/calendar-anchor.svelte"
 	import CalendarTable from "comps/calendar/calendar-table.svelte"
 	import DoomscrllWordmark from "comps/icons/doomscrll-wordmark.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import InlineDoomlitIndicator from "comps/inline-doomlit-indicator.svelte"
+	import Modal from "comps/modal.svelte"
 	import ProfileButton from "comps/profile-button.svelte"
 
 	type Props = {
@@ -18,6 +20,8 @@
 	}
 
 	const { data }: Props = $props()
+
+	let helpModalTrigger = $state<HTMLButtonElement>()
 
 	const dict = getDictionaryOf(LocaleContext.context.value).reservation
 	const fmt = DateFmtContext.context.value!
@@ -63,6 +67,7 @@
 </svelte:head>
 
 <main class="grid h-screen w-full grid-cols-2 gap-12 overflow-hidden px-8 supports-[height:100dvh]:h-dvh">
+	<!-- < Calendar View -->
 	<section class="flex flex-col items-start justify-between pb-4">
 		<DoomscrllWordmark />
 		<p class="font-serif text-2xl font-medium tracking-tighter">{dict.copy}</p>
@@ -90,11 +95,13 @@
 			{/if}
 		</div>
 	</section>
+	<!-- end Calendar View > -->
 
 	<section class="flex flex-col justify-between py-4">
-		<div class="flex w-full justify-end">
+		<nav class="flex w-full justify-between">
+			<IconButton icon="Help" variant="text" renderDecors={false} bind:reference={helpModalTrigger} />
 			<ProfileButton />
-		</div>
+		</nav>
 
 		<section class="flex flex-col gap-12">
 			<div class="flex flex-col items-center justify-center gap-2">
@@ -134,3 +141,5 @@
 		</ol>
 	</section>
 </main>
+
+<Modal trigger={helpModalTrigger} header="MISSING_TITLE" closeLabel="MISSING_CLOSE_LABEL">MISSING_CONTENT</Modal>
