@@ -110,4 +110,22 @@ export default class DDate {
 		})
 		return DDate.#fromUTCDate(offsetDate)
 	}
+
+	getPreviousMonth(): DDate {
+		const prevDate = DDate.#createUTCDate({
+			year: this.year,
+			month: this.month - 1,
+			day: 1,
+		})
+		return DDate.#fromUTCDate(prevDate)
+	}
+
+	getNextMonth(): DDate {
+		const nextDate = DDate.#createUTCDate({
+			year: this.year,
+			month: this.month + 1,
+			day: 1,
+		})
+		return DDate.#fromUTCDate(nextDate)
+	}
 }

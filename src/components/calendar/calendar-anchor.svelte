@@ -1,25 +1,26 @@
 <script lang="ts">
-	import type { DDateParts } from "utils/d-date"
-
-	import SlabButton from "comps/buttons/slab-button.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import { DateFmtContext } from "contexts/shared.svelte"
 
 	type Props = {
 		month: number
 		year: number
-		onClick: ({ year, month }: Omit<DDateParts, "day">) => void
+		direction?: "forward" | "backward"
+		href: string
 	}
 
-	const { month, year, onClick }: Props = $props()
+	const { month, year, direction = "forward", href }: Props = $props()
 
 	const dateFmt = DateFmtContext.context.value!
 </script>
 
 <div class="flex h-min w-min items-center justify-center gap-4">
 	<Icon icon="Starmark" />
-	<SlabButton alignment="right" fit="min" size="normal" variant="text" onClick={() => onClick({ year, month })}>
+	<a
+		{href}
+		class="group flex h-10 w-min max-w-full min-w-0 items-center justify-center gap-4 overflow-hidden rounded-xl px-6 font-mono font-bold uppercase tracking-wider text-ellipsis whitespace-nowrap pseudo-border bg-obverse text-inverse hover:bg-inverse hover:text-obverse active:bg-accent active:text-obverse">
+		{#if direction === "backward"}<Icon icon="ArrowBack" size="small" />{/if}
 		{dateFmt.getCalendarHeader({ month, year })}
-		<Icon icon="ArrowForward" size="small" />
-	</SlabButton>
+		{#if direction === "forward"}<Icon icon="ArrowForward" size="small" />{/if}
+	</a>
 </div>
