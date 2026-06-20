@@ -9,9 +9,11 @@
 	type Props = {
 		month: number
 		year: number
+		reservations: number[]
+		dailyReservationLimit?: number
 	}
 
-	const { month, year }: Props = $props()
+	const { month, year, reservations, dailyReservationLimit = 256 }: Props = $props()
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const dict = getDictionaryOf(LocaleContext.context.value)

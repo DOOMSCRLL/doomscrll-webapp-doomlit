@@ -1,7 +1,8 @@
 <script lang="ts">
+	import type { PageData } from "./$types"
+
 	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte"
 	import { getDictionaryOf } from "repos/locale-repo"
-	import DDate from "utils/d-date"
 
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import CalendarAnchor from "comps/calendar/calendar-anchor.svelte"
@@ -10,12 +11,27 @@
 	import Icon from "comps/icons/icon.svelte"
 	import InlineDoomlitIndicator from "comps/inline-doomlit-indicator.svelte"
 	import ProfileButton from "comps/profile-button.svelte"
+	import DDate from "utils/d-date"
+
+	type Props = {
+		data: PageData
+	}
+
+	const { data }: Props = $props()
 
 	const dict = getDictionaryOf(LocaleContext.context.value).reservation
 	const fmt = DateFmtContext.context.value!
 
-	const date = $state(DDate.today())
-	// TODO: Add handling for next month, and previous month when month changes.
+	const today = DDate.today()
+	const date = $derived(DDate.fromParts({ day: 1, month: data.currentCalendar.month, year: data.currentCalendar.year }))
+
+	const [prevDate, nextDate] = $derived([date.getPreviousMonth(), date.getNextMonth()])
+
+	const maxMonthsInFuture = $derived(Math.ceil(data.rules.reservationWindowDays / 30))
+	const currentOffsetMonths = $derived((date.year - today.year) * 12 + (date.month - today.month))
+	const canGoNext = $derived(currentOffsetMonths < maxMonthsInFuture)
+	const canGoPrev = $derived(currentOffsetMonths > 0)
+
 	// TODO: Add fetching for project progress for month.
 	// TODO: Add profile state.
 </script>
@@ -28,11 +44,29 @@
 <main class="grid h-screen w-full grid-cols-2 gap-12 overflow-hidden px-8 supports-[height:100dvh]:h-dvh">
 	<section class="flex flex-col items-start justify-between pb-4">
 		<DoomscrllWordmark />
-
 		<p class="font-serif text-2xl font-medium tracking-tighter">{dict.copy}</p>
-		<CalendarTable month={date.month} year={date.year} />
-
-		<CalendarAnchor month={date.month + 1} year={date.year} onClick={() => {}} />
+		<CalendarTable
+			month={date.month}
+			year={date.year}
+			reservations={Object.values(data.reservations.counts)}
+			dailyReservationLimit={data.rules.maxReservationsPerDay} />
+		
+		<div class="flex items-center gap-4">
+			{#if canGoPrev}
+				<CalendarAnchor
+					month={prevDate.month}
+					year={prevDate.year}
+					direction="backward"
+					href={`?year=${prevDate.year}&month=${prevDate.month}`} />
+			{/if}
+			{#if canGoNext}
+				<CalendarAnchor
+					month={nextDate.month}
+					year={nextDate.year}
+					direction="forward"
+					href={`?year=${nextDate.year}&month=${nextDate.month}`} />
+			{/if}
+		</div>
 	</section>
 
 	<section class="flex flex-col justify-between py-4">
