@@ -1,6 +1,9 @@
 import type { Dictionary } from "models/internal/locale"
 
 export default {
+	common: {
+		labelCloseMenu: "Kapat",
+	},
 	reservation: {
 		meta: {
 			title: "DOOMSCRLL",
@@ -49,6 +52,12 @@ export default {
 		disclaimer: {
 			infoEdit: "DOOMLIT'in yayınlanacağı tarihe kadar düzenlenebilir.",
 			infoExpiration: "Eğer ücreti ödenmemişse, ayırtılan bir DOOMLIT 15 dakika sonra silinecektir.",
+		},
+		helpModal: {
+			title: "Yardım",
+			body: "Buradan, DOOMSCRLL projesi ve DOOMLIT'ler hakkında bilgi edinebilirsiniz.",
+			footerPrefix: "Bir sorunuz varsa, ya da desteğe ihtiyacınız varsa, ulaşmaktan çekinmeyin:",
+			topics: [{ title: "", body: "" }],
 		},
 		doomlitMenu: {
 			copy: "Düzenlemek için bir DOOMLIT seç:",

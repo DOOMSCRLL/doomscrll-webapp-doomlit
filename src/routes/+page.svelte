@@ -9,10 +9,10 @@
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import CalendarAnchor from "comps/calendar/calendar-anchor.svelte"
 	import CalendarTable from "comps/calendar/calendar-table.svelte"
+	import HelpModal from "comps/help-modal.svelte"
 	import DoomscrllWordmark from "comps/icons/doomscrll-wordmark.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import InlineDoomlitIndicator from "comps/inline-doomlit-indicator.svelte"
-	import Modal from "comps/modal.svelte"
 	import ProfileButton from "comps/profile-button.svelte"
 
 	type Props = {
@@ -100,6 +100,7 @@
 	<section class="flex flex-col justify-between py-4">
 		<nav class="flex w-full justify-between">
 			<IconButton icon="Help" variant="text" renderDecors={false} bind:reference={helpModalTrigger} />
+
 			<ProfileButton />
 		</nav>
 
@@ -142,4 +143,4 @@
 	</section>
 </main>
 
-<Modal trigger={helpModalTrigger} header="MISSING_TITLE" closeLabel="MISSING_CLOSE_LABEL">MISSING_CONTENT</Modal>
+<HelpModal bind:trigger={helpModalTrigger} />

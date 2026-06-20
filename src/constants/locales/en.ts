@@ -1,5 +1,8 @@
 // TODO: Implement help dialogs and relevant strings for each section. And maybe one FAQ dialog
 export default {
+	common: {
+		labelCloseMenu: "Close",
+	},
 	reservation: {
 		meta: {
 			title: "DOOMSCRLL",
@@ -48,6 +51,12 @@ export default {
 		disclaimer: {
 			infoEdit: "A DOOMLIT can be edited before it's airing date.",
 			infoExpiration: "If it's fee isn't paid, a reserved DOOMLIT will expire after 15 minutes.",
+		},
+		helpModal: {
+			title: "Help",
+			body: "You can find learn more about DOOMLITs and DOOMSCRLL project here.",
+			footerPrefix: "If you have any questions or facing problems, don't hesitate to reach out:",
+			topics: [{ title: "", body: "" }],
 		},
 		doomlitMenu: {
 			copy: "Select a DOOMLIT to update:",
