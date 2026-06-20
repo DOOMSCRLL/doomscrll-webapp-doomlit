@@ -15,6 +15,7 @@
 		renderDecors?: boolean
 		onClick?: () => void
 		reference?: HTMLButtonElement
+		isDisabled?: boolean
 		children?: Snippet
 	}
 
@@ -26,6 +27,7 @@
 		renderDecors = false,
 		onClick,
 		reference = $bindable(),
+		isDisabled = false,
 		children,
 	}: Props = $props()
 </script>
@@ -33,16 +35,17 @@
 <button
 	bind:this={reference}
 	onclick={onClick}
+	disabled={isDisabled}
 	class={[
-		"group flex max-w-full min-w-0 items-center justify-center gap-4 rounded-xl",
-		"overflow-hidden font-mono font-bold tracking-wider text-ellipsis whitespace-nowrap uppercase",
+		"group flex max-w-full min-w-0 items-center justify-center gap-4 rounded-2xl",
+		"overflow-hidden font-mono font-bold tracking-wider text-ellipsis whitespace-nowrap uppercase disabled:not-allowed",
 		ttm(alignment, {
 			center: "px-6",
 			left: "pr-6 pl-2",
 			right: "pr-2 pl-6",
 		}),
 		ttm(size, {
-			normal: "h-10",
+			normal: "h-12",
 			small: "h-4 text-sm",
 		}),
 		ttm(fit, {
