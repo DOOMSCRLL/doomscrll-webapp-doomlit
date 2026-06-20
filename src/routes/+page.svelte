@@ -3,6 +3,7 @@
 
 	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte"
 	import { getDictionaryOf } from "repos/locale-repo"
+	import DDate from "utils/d-date"
 
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import CalendarAnchor from "comps/calendar/calendar-anchor.svelte"
@@ -11,7 +12,6 @@
 	import Icon from "comps/icons/icon.svelte"
 	import InlineDoomlitIndicator from "comps/inline-doomlit-indicator.svelte"
 	import ProfileButton from "comps/profile-button.svelte"
-	import DDate from "utils/d-date"
 
 	type Props = {
 		data: PageData
@@ -41,7 +41,19 @@
 		})
 	})
 
-	// TODO: Add fetching for project progress for month.
+	const defaultSelectedDay = $derived(
+		date.year === today.year && date.month === today.month
+			? today.toISOString()
+			: DDate.fromParts({ year: date.year, month: date.month, day: 1 }).toISOString(),
+	)
+
+	let selectedDay = $derived(defaultSelectedDay)
+
+	const activeDate = $derived(DDate.fromISOString(selectedDay))
+	const activeProgress = $derived(
+		activeDate.year === date.year && activeDate.month === date.month ? reservationsArray[activeDate.day - 1] : 0,
+	)
+
 	// TODO: Add profile state.
 </script>
 
@@ -58,8 +70,9 @@
 			month={date.month}
 			year={date.year}
 			reservations={reservationsArray}
-			dailyReservationLimit={data.rules.maxReservationsPerDay} />
-		
+			dailyReservationLimit={data.rules.maxReservationsPerDay}
+			bind:selectedDay />
+
 		<div class="flex items-center gap-4">
 			{#if canGoPrev}
 				<CalendarAnchor
@@ -85,11 +98,11 @@
 
 		<section class="flex flex-col gap-12">
 			<div class="flex flex-col items-center justify-center gap-2">
-				<p class="font-mono text-xl tracking-wider uppercase">{fmt.getFullDate(date)}</p>
-				<p class="font-mono font-bold tracking-widest uppercase">{fmt.getLongDayName(date)}</p>
+				<p class="font-mono text-xl tracking-wider uppercase">{fmt.getFullDate(activeDate)}</p>
+				<p class="font-mono font-bold tracking-widest uppercase">{fmt.getLongDayName(activeDate)}</p>
 			</div>
 			<div class="flex w-full justify-center gap-2">
-				<InlineDoomlitIndicator current={36} max={256} />
+				<InlineDoomlitIndicator current={activeProgress} max={data.rules.maxReservationsPerDay} />
 				<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.cta.suffixSlotInfo}</p>
 			</div>
 			<div class="flex flex-col gap-4">

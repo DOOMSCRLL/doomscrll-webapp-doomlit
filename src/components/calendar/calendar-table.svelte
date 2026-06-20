@@ -11,9 +11,10 @@
 		year: number
 		reservations: number[]
 		dailyReservationLimit?: number
+		selectedDay?: string
 	}
 
-	const { month, year, reservations, dailyReservationLimit = 256 }: Props = $props()
+	let { month, year, reservations, dailyReservationLimit = 256, selectedDay = $bindable() }: Props = $props()
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const dict = getDictionaryOf(LocaleContext.context.value)
@@ -26,7 +27,6 @@
 	const today = DDate.today()
 
 	const dayControlName = "day-control"
-	let selectedDay = $state(DDate.today().toISOString())
 	// TODO: Add a floating marker on the right edge of the calendar.
 </script>
 
