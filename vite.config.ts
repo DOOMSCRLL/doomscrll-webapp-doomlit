@@ -10,7 +10,7 @@ function watchIconsPlugin(): PluginOption {
     name: "watch-doomscrll-icons",
     buildStart() {
       try {
-        execSync("node scripts/generate-icons-map.ts", {stdio: "inherit"})
+        execSync("node src/scripts/generate-icons-map.ts", {stdio: "inherit"})
       } catch (error) {
         console.error("Failed to generate icons on startup.", error)
       }
@@ -22,7 +22,7 @@ function watchIconsPlugin(): PluginOption {
         if (filePath.startsWith(iconsDir) && filePath.endsWith(".svelte")) {
           if (["add", "unlink", "change"].includes(event)) {
             console.log(`[watch-doomscrll-icons]: Icon ${event} detected.`)
-            try {execSync("node scripts/generate-icons-map.ts", { stdio: "inherit" })}
+            try {execSync("node src/scripts/generate-icons-map.ts", { stdio: "inherit" })}
             catch (error){ console.log("Failed to generate icons map:", error)}
           }
         }
