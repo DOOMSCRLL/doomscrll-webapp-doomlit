@@ -4,6 +4,8 @@
 	import { DateFmtContext, LocaleContext, ProfileContext } from "contexts/shared.svelte"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
+	import StylisticTimeFormat from "utils/stylistic-time-fmt"
+	import { LOCALE_DEFAULT } from "const/locales"
 
 	import IconButton from "comps/buttons/icon-button.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
@@ -13,6 +15,7 @@
 	import DoomscrllWordmark from "comps/icons/doomscrll-wordmark.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import InlineDoomlitIndicator from "comps/inline-doomlit-indicator.svelte"
+	import LanguageSelector from "comps/language-selector.svelte"
 	import ProfileButton from "comps/profile-button.svelte"
 
 	type Props = {
@@ -23,8 +26,8 @@
 
 	let helpModalTrigger = $state<HTMLButtonElement>()
 
-	const dict = getDictionaryOf(LocaleContext.context.value).reservation
-	const fmt = DateFmtContext.context.value!
+	const dict = $derived(getDictionaryOf(LocaleContext.context.value).reservation)
+	const fmt = $derived(DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT))
 
 	const today = DDate.today()
 	const date = $derived(DDate.fromParts({ day: 1, month: data.currentCalendar.month, year: data.currentCalendar.year }))
@@ -99,8 +102,10 @@
 
 	<section class="flex flex-col justify-between py-4">
 		<nav class="flex w-full justify-between">
-			<IconButton icon="Help" variant="text" renderDecors={false} bind:reference={helpModalTrigger} />
-
+			<section class="flex gap-4">
+				<LanguageSelector label="MISSING_LABEL" />
+				<IconButton icon="Help" variant="text" renderDecors={false} bind:reference={helpModalTrigger} />
+			</section>
 			<ProfileButton />
 		</nav>
 

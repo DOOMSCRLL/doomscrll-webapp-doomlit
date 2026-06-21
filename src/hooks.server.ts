@@ -1,12 +1,16 @@
 import { API_BASE_URL } from "$env/static/private"
+
 import type { Handle, HandleFetch } from "@sveltejs/kit"
+
+import KEYS_COOKIE from "const/cookies"
 import { LOCALE_DEFAULT } from "const/locales"
+
 import type { Locale } from "models/internal/locale"
-import { readCookieFor } from "repos/cookie-repo"
 import { isLocale } from "repos/locale-repo"
 
 export const handle: Handle = async ({ event, resolve }) => {
-	let locale = readCookieFor<string>("Locale")
+	let locale = event.cookies.get(KEYS_COOKIE.Locale) as string | undefined
+	if (locale && !isLocale(locale)) locale = undefined
 
 	if (!locale) {
 		const acceptLang = event.request.headers.get("accept-language")

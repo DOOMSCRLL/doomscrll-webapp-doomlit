@@ -9,8 +9,8 @@
 
 	let { trigger = $bindable() }: Props = $props()
 
-	const dict = getDictionaryOf(LocaleContext.context.value).reservation.helpModal
-	const dictCommon = getDictionaryOf(LocaleContext.context.value).common
+	const dict = $derived(getDictionaryOf(LocaleContext.context.value).reservation.helpModal)
+	const dictCommon = $derived(getDictionaryOf(LocaleContext.context.value).common)
 </script>
 
 <Modal bind:trigger header={dict.title} closeLabel={dictCommon.labelCloseMenu}>

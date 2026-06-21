@@ -13,7 +13,7 @@
 
 	const { profile }: Props = $props()
 
-	const dict = getDictionaryOf(LocaleContext.context.value)
+	const dict = $derived(getDictionaryOf(LocaleContext.context.value))
 
 	$effect(() => {
 		if (profile) applySwatchToTokens(generateAvatarSwatchFrom(profile.id))

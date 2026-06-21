@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { resolve } from "$app/paths"
+	import StylisticTimeFormat from "utils/stylistic-time-fmt"
+	import { LOCALE_DEFAULT } from "const/locales"
+	import { LocaleContext, DateFmtContext } from "contexts/shared.svelte"
 
 	import Icon from "comps/icons/icon.svelte"
-	import { DateFmtContext } from "contexts/shared.svelte"
 
 	type Props = {
 		month: number
@@ -13,7 +15,7 @@
 
 	const { month, year, direction = "forward", href }: Props = $props()
 
-	const dateFmt = DateFmtContext.context.value!
+	const dateFmt = $derived(DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT))
 </script>
 
 <div class="flex h-min w-min items-center justify-center gap-4">
