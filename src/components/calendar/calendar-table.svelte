@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { LOCALE_DEFAULT } from "const/locales"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 	import StylisticTimeFormat from "utils/stylistic-time-fmt"
-	import { LOCALE_DEFAULT } from "const/locales"
 
 	import Icon from "comps/icons/icon.svelte"
 	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte"
@@ -15,12 +15,15 @@
 		dailyReservationLimit?: number
 		selectedDay?: string
 	}
-
+	// TODO: Add aria labels to this comp
+	// TODO: Move month controls on the top of the calendar, use date header as a nav element. will be much cleaner.
 	let { month, year, reservations, dailyReservationLimit = 256, selectedDay = $bindable() }: Props = $props()
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value))
-	const dateFmt = $derived(DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT))
+	const dateFmt = $derived(
+		DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT),
+	)
 
 	const weekdays = $derived(dateFmt.getAllShortDayNames())
 	const monthLayout = $derived(DDate.getMonthLayout(DDate.fromParts({ year, month, day: 1 })))

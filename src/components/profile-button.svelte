@@ -14,7 +14,7 @@
 	const { profile }: Props = $props()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value))
-
+	// FIXME: Manage profile detection inside the button itself. Should decide where to put the profile menu.
 	$effect(() => {
 		if (profile) applySwatchToTokens(generateAvatarSwatchFrom(profile.id))
 	})

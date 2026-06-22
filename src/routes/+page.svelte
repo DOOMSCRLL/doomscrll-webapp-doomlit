@@ -1,22 +1,19 @@
 <script lang="ts">
 	import type { PageData } from "./$types"
 
+	import { LOCALE_DEFAULT } from "const/locales"
 	import { DateFmtContext, LocaleContext, ProfileContext } from "contexts/shared.svelte"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 	import StylisticTimeFormat from "utils/stylistic-time-fmt"
-	import { LOCALE_DEFAULT } from "const/locales"
 
-	import IconButton from "comps/buttons/icon-button.svelte"
+	import BrandNav from "comps/brand-nav.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import CalendarAnchor from "comps/calendar/calendar-anchor.svelte"
 	import CalendarTable from "comps/calendar/calendar-table.svelte"
 	import HelpModal from "comps/help-modal.svelte"
-	import DoomscrllWordmark from "comps/icons/doomscrll-wordmark.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import InlineDoomlitIndicator from "comps/inline-doomlit-indicator.svelte"
-	import LanguageSelector from "comps/language-selector.svelte"
-	import ProfileButton from "comps/profile-button.svelte"
 
 	type Props = {
 		data: PageData
@@ -27,7 +24,9 @@
 	let helpModalTrigger = $state<HTMLButtonElement>()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value).reservation)
-	const fmt = $derived(DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT))
+	const fmt = $derived(
+		DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT),
+	)
 
 	const today = DDate.today()
 	const date = $derived(DDate.fromParts({ day: 1, month: data.currentCalendar.month, year: data.currentCalendar.year }))
@@ -69,82 +68,77 @@
 	<meta name="description" content={dict.meta.description} />
 </svelte:head>
 
-<main class="grid h-screen w-full grid-cols-2 gap-12 overflow-hidden px-8 supports-[height:100dvh]:h-dvh">
-	<!-- < Calendar View -->
-	<section class="flex flex-col items-start justify-between pb-4">
-		<DoomscrllWordmark />
-		<p class="font-serif text-2xl font-medium tracking-tighter">{dict.copy}</p>
-		<CalendarTable
-			month={date.month}
-			year={date.year}
-			reservations={reservationsArray}
-			dailyReservationLimit={data.rules.maxReservationsPerDay}
-			bind:selectedDay />
+<main class="grid h-screen w-full grid-rows-[auto_1fr] gap-4 overflow-hidden px-6 supports-[height:100dvh]:h-dvh">
+	<BrandNav bind:helpModalTrigger />
+	<section class="grid h-full w-full grid-cols-2 gap-12">
+		<!-- < Calendar View -->
+		<section class="flex flex-col items-start justify-between pb-4">
+			<p class="font-serif text-2xl font-medium tracking-tighter">{dict.copy}</p>
+			<CalendarTable
+				month={date.month}
+				year={date.year}
+				reservations={reservationsArray}
+				dailyReservationLimit={data.rules.maxReservationsPerDay}
+				bind:selectedDay />
 
-		<div class="flex items-center gap-4">
-			{#if canGoPrev}
-				<CalendarAnchor
-					month={prevDate.month}
-					year={prevDate.year}
-					direction="backward"
-					href={`/?year=${prevDate.year}&month=${prevDate.month}`} />
-			{/if}
-			{#if canGoNext}
-				<CalendarAnchor
-					month={nextDate.month}
-					year={nextDate.year}
-					direction="forward"
-					href={`/?year=${nextDate.year}&month=${nextDate.month}`} />
-			{/if}
-		</div>
-	</section>
-	<!-- end Calendar View > -->
-
-	<section class="flex flex-col justify-between py-4">
-		<nav class="flex w-full justify-between">
-			<section class="flex gap-4">
-				<LanguageSelector label="MISSING_LABEL" />
-				<IconButton icon="Help" variant="text" renderDecors={false} bind:reference={helpModalTrigger} />
-			</section>
-			<ProfileButton />
-		</nav>
-
-		<section class="flex flex-col gap-12">
-			<div class="flex flex-col items-center justify-center gap-2">
-				<p class="font-mono text-xl tracking-wider uppercase">{fmt.getFullDate(activeDate)}</p>
-				<p class="font-mono font-bold tracking-widest uppercase">{fmt.getLongDayName(activeDate)}</p>
+			<div class="flex items-center gap-4">
+				{#if canGoPrev}
+					<CalendarAnchor
+						month={prevDate.month}
+						year={prevDate.year}
+						direction="backward"
+						href={`/?year=${prevDate.year}&month=${prevDate.month}`} />
+				{/if}
+				{#if canGoNext}
+					<CalendarAnchor
+						month={nextDate.month}
+						year={nextDate.year}
+						direction="forward"
+						href={`/?year=${nextDate.year}&month=${nextDate.month}`} />
+				{/if}
 			</div>
-			<div class="flex w-full justify-center gap-2">
-				<InlineDoomlitIndicator current={activeProgress} max={data.rules.maxReservationsPerDay} />
-				<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.cta.suffixSlotInfo}</p>
-			</div>
-			{#if activeProgress >= data.rules.maxReservationsPerDay}
-				<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.noReservationCopy}</p>
-			{:else}
-				<div class="flex flex-col gap-4">
-					<SlabButton alignment="center" fit="max" variant="outlined">
-						<Icon icon="Doomeye" />
-						{dict.cta.labelPreview}
-					</SlabButton>
-
-					{#if !currentProfile}
-						<SlabButton alignment="center" fit="max" variant="filled" isDisabled={true}>
-							<Icon icon="DoomeyeClosed" />
-							{dict.cta.labelSignin}
-						</SlabButton>
-					{:else}
-						<SlabButton alignment="center" fit="max" variant="filled">
-							<Icon icon="Purchase" />
-							{dict.cta.labelReserve}
-						</SlabButton>
-					{/if}
-				</div>
-			{/if}
 		</section>
+		<!-- end Calendar View > -->
+		<!-- < Reservation View -->
+		<section class="flex h-full flex-col justify-between pb-4">
+			<section class="flex h-full flex-col justify-center gap-12">
+				<div class="flex flex-col items-center justify-center gap-2">
+					<p class="font-mono text-xl tracking-wider uppercase">{fmt.getFullDate(activeDate)}</p>
+					<p class="font-mono font-bold tracking-widest uppercase">{fmt.getLongDayName(activeDate)}</p>
+				</div>
+				<div class="flex w-full justify-center gap-2">
+					<InlineDoomlitIndicator current={activeProgress} max={data.rules.maxReservationsPerDay} />
+					<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.cta.suffixSlotInfo}</p>
+				</div>
+				{#if activeProgress >= data.rules.maxReservationsPerDay}
+					<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.noReservationCopy}</p>
+				{:else}
+					<div class="flex flex-col gap-4">
+						<SlabButton alignment="center" fit="max" variant="outlined">
+							<Icon icon="Doomeye" />
+							{dict.cta.labelPreview}
+						</SlabButton>
 
-		<ol role="list" class="super-markers font-serif text-xl font-medium tracking-tight break-normal">
-			{#each Object.values(dict.disclaimer) as d (d)}<li>{d}</li>{/each}
-		</ol>
+						{#if !currentProfile}
+							<SlabButton alignment="center" fit="max" variant="filled" isDisabled={true}>
+								<Icon icon="DoomeyeClosed" />
+								{dict.cta.labelSignin}
+							</SlabButton>
+						{:else}
+							<SlabButton alignment="center" fit="max" variant="filled">
+								<Icon icon="Purchase" />
+								{dict.cta.labelReserve}
+							</SlabButton>
+						{/if}
+					</div>
+				{/if}
+			</section>
+
+			<ol role="list" class="super-markers font-serif text-xl font-medium tracking-tight break-normal">
+				{#each Object.values(dict.disclaimer) as d (d)}<li>{d}</li>{/each}
+			</ol>
+		</section>
+		<!-- end Reservation View > -->
 	</section>
 </main>
 

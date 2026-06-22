@@ -3,6 +3,10 @@ import type { Dictionary } from "models/internal/locale"
 export default {
 	common: {
 		labelCloseMenu: "Kapat",
+		navbar: {
+			ariaLabelLangSelect: "DOOMSCRLL'da kullanmak için bir dil seçin.",
+			suffixReservationProgress: "DOOMLIT ayırtıldı.",
+		},
 	},
 	reservation: {
 		meta: {

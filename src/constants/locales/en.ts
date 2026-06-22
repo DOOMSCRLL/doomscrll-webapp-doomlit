@@ -2,6 +2,10 @@
 export default {
 	common: {
 		labelCloseMenu: "Close",
+		navbar: {
+			ariaLabelLangSelect: "Choose a language to use DOOMSCRLL in.",
+			suffixReservationProgress: "DOOMLITs reserved",
+		},
 	},
 	reservation: {
 		meta: {
