@@ -12,4 +12,11 @@ type Project = {
 	tags: ProjectTag[]
 }
 
+export type ProjectPreview = {
+	name: string
+	authorName: string
+	category: Category
+	tags: ProjectTag[]
+}
+
 export type { Project as default }

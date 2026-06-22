@@ -5,6 +5,8 @@ import { error } from "@sveltejs/kit"
 import type { APIResponse } from "models/internal/api"
 import type { ReservationCountsData } from "models/internal/projects"
 import type { ProjectRules } from "models/internal/rules"
+import type { ProjectPreview } from "models/project"
+import DDate from "utils/d-date"
 
 export async function getRules(customFetch: typeof fetch = fetch): Promise<ProjectRules> {
 	const response = await customFetch(`${API_BASE_URL}/projects/rules`)
@@ -40,4 +42,18 @@ export async function getReservationsFor(
 	} else {
 		return result.data
 	}
+}
+
+export async function getPreviewsFor(date: DDate, customFetch: typeof fetch = fetch): Promise<ProjectPreview[]> {
+	const response = await customFetch(`${API_BASE_URL}/projects/preview/${date.toISOString()}`)
+	const result = (await response.json()) as APIResponse<ProjectPreview[]>
+
+	if (!result.success) {
+		throw error(response.status, {
+			message: result.error.message,
+			code: result.error.code,
+		})
+	}
+
+	return result.data
 }
