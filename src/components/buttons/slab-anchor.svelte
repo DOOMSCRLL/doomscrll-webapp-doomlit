@@ -15,6 +15,7 @@
 		alignment?: HorizontalAlignment
 		fit?: HorizontalFit
 		hasUnderline?: boolean
+		ariaLabel?: string
 		children?: Snippet
 	}
 
@@ -24,13 +25,15 @@
 		fit = "min",
 		size = "normal",
 		variant = "text",
-		hasUnderline = true,
+		hasUnderline = false,
+		ariaLabel,
 		children,
 	}: Props = $props()
 </script>
 
 <a
 	href={resolve(href)}
+	aria-label={ariaLabel}
 	class={[
 		"group flex max-w-full min-w-0 items-center justify-center gap-4 rounded-2xl",
 		"overflow-hidden font-mono font-bold tracking-wider text-ellipsis whitespace-nowrap uppercase disabled:not-allowed",

@@ -4,7 +4,7 @@
 	import type DDate from "utils/d-date"
 
 	import IconButton from "./buttons/icon-button.svelte"
-	import SlabButton from "./buttons/slab-button.svelte"
+	import SlabAnchor from "./buttons/slab-anchor.svelte"
 	import DoomscrllWordmark from "./icons/doomscrll-wordmark.svelte"
 	import Icon from "./icons/icon.svelte"
 	import InlineDoomlitIndicator from "./inline-doomlit-indicator.svelte"
@@ -25,7 +25,7 @@
 
 	let { helpModalTrigger = $bindable(), comps }: Props = $props()
 
-	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).common.navbar)
+	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).common)
 	const fmt = $derived(DateFmtContext.context.value!)
 
 	const hasComps = $derived(comps !== undefined && comps.returnHref !== undefined && comps.date !== undefined)
@@ -35,7 +35,7 @@
 	<DoomscrllWordmark />
 	<section class="flex h-min w-full items-center justify-between">
 		<section class="flex gap-4">
-			<LanguageSelector label={dict.ariaLabelLangSelect} />
+			<LanguageSelector label={dict.navbar.ariaLabelLangSelect} />
 			<IconButton icon="Help" variant="text" renderDecors={false} bind:reference={helpModalTrigger} />
 		</section>
 		<ProfileButton />
@@ -50,7 +50,10 @@
 	<nav class="flex w-full flex-col gap-2">
 		<section class="grid w-full grid-cols-2 bg-[yellow]">{@render topbar()}</section>
 		<section class="grid w-full grid-cols-[1fr_auto_1fr]">
-			<SlabButton>MISSING_RETURN_LABEL</SlabButton>
+			<SlabAnchor alignment="right" href={comps!.returnHref!} size="small">
+				<Icon icon="ArrowBack" size="small" />
+				{dict.labelReturnHome}
+			</SlabAnchor>
 			<div>
 				<p>{fmt.getFullDate(comps!.date!)}</p>
 				<Icon icon="Starmark" size="small" />
@@ -59,7 +62,7 @@
 					<Icon icon="Starmark" size="small" />
 					<div>
 						<InlineDoomlitIndicator current={comps.reservationProgress} max={comps.reservationLimit} />
-						<p>{dict.suffixReservationProgress}</p>
+						<p>{dict.navbar.suffixReservationProgress}</p>
 					</div>
 				{/if}
 			</div>
