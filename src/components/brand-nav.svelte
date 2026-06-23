@@ -48,21 +48,23 @@
 	</nav>
 {:else}
 	<nav class="flex w-full flex-col gap-2">
-		<section class="grid w-full grid-cols-2 bg-[yellow]">{@render topbar()}</section>
+		<section class="grid w-full grid-cols-2 items-center gap-12">{@render topbar()}</section>
 		<section class="grid w-full grid-cols-[1fr_auto_1fr]">
-			<SlabAnchor alignment="right" href={comps!.returnHref!} size="small">
+			<SlabAnchor alignment="left" href={comps!.returnHref!} hasUnderline={true}>
 				<Icon icon="ArrowBack" size="small" />
 				{dict.labelReturnHome}
 			</SlabAnchor>
-			<div>
-				<p>{fmt.getFullDate(comps!.date!)}</p>
+			<div class="flex w-full items-center gap-4">
+				<p class="font-mono text-xl tracking-wider uppercase">{fmt.getFullDate(comps!.date!)}</p>
 				<Icon icon="Starmark" size="small" />
-				<p>{fmt.getLongDayName(comps!.date!)}</p>
+				<p class="font-mono text-xl font-bold tracking-widest uppercase">{fmt.getLongDayName(comps!.date!)}</p>
 				{#if comps?.reservationProgress !== undefined && comps?.reservationLimit !== undefined}
 					<Icon icon="Starmark" size="small" />
-					<div>
+					<div class="flex items-center gap-2">
 						<InlineDoomlitIndicator current={comps.reservationProgress} max={comps.reservationLimit} />
-						<p>{dict.navbar.suffixReservationProgress}</p>
+						<p class="font-serif text-2xl font-medium tracking-tight text-inverse">
+							{dict.navbar.suffixReservationProgress}
+						</p>
 					</div>
 				{/if}
 			</div>

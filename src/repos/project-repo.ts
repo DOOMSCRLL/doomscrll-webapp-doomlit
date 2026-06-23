@@ -45,7 +45,7 @@ export async function getReservationsFor(
 }
 
 export async function getPreviewsFor(date: DDate, customFetch: typeof fetch = fetch): Promise<ProjectPreview[]> {
-	const response = await customFetch(`${API_BASE_URL}/projects/preview/${date.toISOString()}`)
+	const response = await customFetch(`${API_BASE_URL}/projects/preview?date=${date.toISOString()}`)
 	const result = (await response.json()) as APIResponse<ProjectPreview[]>
 
 	if (!result.success) {
