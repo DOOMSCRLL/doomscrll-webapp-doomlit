@@ -64,9 +64,13 @@ export default class DDate {
 		else if (this.month !== compared.month) return this.month < compared.month
 		else return this.day < compared.day
 	}
-	isEqual(other: DDate | undefined | null): boolean {
-		if (!other) return false
-		else return this.year === other.year && this.month === other.month && this.day === other.day
+	isSameMonth(compared: DDate | undefined | null): boolean {
+		if (!compared) return false
+		else return this.year === compared.year && this.month === compared.month
+	}
+	isEqual(compared: DDate | undefined | null): boolean {
+		if (!compared) return false
+		else return this.year === compared.year && this.month === compared.month && this.day === compared.day
 	}
 
 	static #createUTCDate(parts: DDateParts): Date {
@@ -115,6 +119,10 @@ export default class DDate {
 			day: date.day + offset,
 		})
 		return DDate.#fromUTCDate(offsetDate)
+	}
+
+	static getMonthDiff(a: DDate, b: DDate): number {
+		return Math.abs((a.year - b.year) * 12 + (a.month - b.month))
 	}
 
 	getPreviousMonth(): DDate {

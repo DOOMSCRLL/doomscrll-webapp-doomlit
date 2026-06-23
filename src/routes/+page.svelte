@@ -9,7 +9,6 @@
 
 	import BrandNav from "comps/brand-nav.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
-	import CalendarAnchor from "comps/calendar/calendar-anchor.svelte"
 	import CalendarTable from "comps/calendar/calendar-table.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
@@ -21,46 +20,49 @@
 
 	const { data }: Props = $props()
 
-	let helpModalTrigger = $state<HTMLButtonElement>()
+	const currentProfile = ProfileContext.context.value
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value).reservation)
 	const fmt = $derived(
 		DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT),
 	)
 
+	// #region Date Management
 	const today = DDate.today()
 	const date = $derived(DDate.fromParts({ day: 1, month: data.currentCalendar.month, year: data.currentCalendar.year }))
-
-	const [prevDate, nextDate] = $derived([date.getPreviousMonth(), date.getNextMonth()])
-
-	const maxMonthsInFuture = $derived(Math.ceil(data.rules.reservationWindowDays / 30))
-	const currentOffsetMonths = $derived((date.year - today.year) * 12 + (date.month - today.month))
-	const canGoNext = $derived(currentOffsetMonths < maxMonthsInFuture)
-	const canGoPrev = $derived(currentOffsetMonths > 0)
-
 	const reservationsArray = $derived.by(() => {
 		const { daysInMonth } = DDate.getMonthLayout(date)
-		return Array.from({ length: daysInMonth }).map((_, i) => {
-			const dayNum = i + 1
-			const key = `${date.year}-${String(date.month).padStart(2, "0")}-${String(dayNum).padStart(2, "0")}`
+		return Array.from({ length: daysInMonth }, (_, i) => {
+			const key = `${date.year}-${String(date.month).padStart(2, "0")}-${String(i + 1).padStart(2, "0")}`
 			return data.reservations.counts[key] ?? 0
 		})
 	})
 
-	const defaultSelectedDay = $derived(
-		date.year === today.year && date.month === today.month
-			? today.toISOString()
-			: DDate.fromParts({ year: date.year, month: date.month, day: 1 }).toISOString(),
+	type DateQueryString = `/?year=${number}&month=${number}`
+	const prevHref = $derived.by<DateQueryString | undefined>(() => {
+		if (DDate.getMonthDiff(today, date) <= 0) return undefined
+		else return `/?year=${date.getPreviousMonth().year}&month=${date.getPreviousMonth().month}`
+	})
+	const nextHref = $derived.by<DateQueryString | undefined>(() => {
+		if (DDate.getMonthDiff(today, date) >= data.rules.reservationWindowDays / 30) return undefined
+		else return `/?year=${date.getNextMonth().year}&month=${date.getNextMonth().month}`
+	})
+
+	let selectedDayIso = $state(today.toISOString())
+	$effect.pre(() => {
+		if (date.isSameMonth(today)) {
+			selectedDayIso = today.toISOString()
+		} else {
+			selectedDayIso = DDate.fromParts({ year: date.year, month: date.month, day: 1 }).toISOString()
+		}
+	})
+	const selectedDate = $derived(DDate.fromISOString(selectedDayIso))
+	const selectedProgress = $derived(
+		selectedDate.year === date.year && selectedDate.month === date.month ? reservationsArray[selectedDate.day - 1] : 0,
 	)
+	// #endregion
 
-	let selectedDay = $derived(defaultSelectedDay)
-
-	const activeDate = $derived(DDate.fromISOString(selectedDay))
-	const activeProgress = $derived(
-		activeDate.year === date.year && activeDate.month === date.month ? reservationsArray[activeDate.day - 1] : 0,
-	)
-
-	const currentProfile = ProfileContext.context.value
+	let helpModalTrigger = $state<HTMLButtonElement>()
 </script>
 
 <svelte:head>
@@ -72,45 +74,30 @@
 	<BrandNav bind:helpModalTrigger />
 	<section class="grid h-full w-full grid-cols-2 gap-12">
 		<!-- < Calendar View -->
-		<section class="flex flex-col items-start justify-between pb-4">
+		<section class="flex flex-col items-start justify-center gap-4">
 			<p class="font-serif text-2xl font-medium tracking-tighter">{dict.copy}</p>
 			<CalendarTable
 				month={date.month}
 				year={date.year}
 				reservations={reservationsArray}
 				dailyReservationLimit={data.rules.maxReservationsPerDay}
-				bind:selectedDay />
-
-			<div class="flex items-center gap-4">
-				{#if canGoPrev}
-					<CalendarAnchor
-						month={prevDate.month}
-						year={prevDate.year}
-						direction="backward"
-						href={`/?year=${prevDate.year}&month=${prevDate.month}`} />
-				{/if}
-				{#if canGoNext}
-					<CalendarAnchor
-						month={nextDate.month}
-						year={nextDate.year}
-						direction="forward"
-						href={`/?year=${nextDate.year}&month=${nextDate.month}`} />
-				{/if}
-			</div>
+				{prevHref}
+				{nextHref}
+				bind:selectedDay={selectedDayIso} />
 		</section>
 		<!-- end Calendar View > -->
 		<!-- < Reservation View -->
 		<section class="flex h-full flex-col justify-between pb-4">
 			<section class="flex h-full flex-col justify-center gap-12">
 				<div class="flex flex-col items-center justify-center gap-2">
-					<p class="font-mono text-xl tracking-wider uppercase">{fmt.getFullDate(activeDate)}</p>
-					<p class="font-mono font-bold tracking-widest uppercase">{fmt.getLongDayName(activeDate)}</p>
+					<p class="font-mono text-xl tracking-wider uppercase">{fmt.getFullDate(selectedDate)}</p>
+					<p class="font-mono font-bold tracking-widest uppercase">{fmt.getLongDayName(selectedDate)}</p>
 				</div>
 				<div class="flex w-full justify-center gap-2">
-					<InlineDoomlitIndicator current={activeProgress} max={data.rules.maxReservationsPerDay} />
+					<InlineDoomlitIndicator current={selectedProgress} max={data.rules.maxReservationsPerDay} />
 					<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.cta.suffixSlotInfo}</p>
 				</div>
-				{#if activeProgress >= data.rules.maxReservationsPerDay}
+				{#if selectedProgress >= data.rules.maxReservationsPerDay}
 					<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.noReservationCopy}</p>
 				{:else}
 					<div class="flex flex-col gap-4">

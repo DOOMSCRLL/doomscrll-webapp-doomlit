@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { LOCALE_DEFAULT } from "const/locales"
-	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 	import StylisticTimeFormat from "utils/stylistic-time-fmt"
 
+	import SlabAnchor from "comps/buttons/slab-anchor.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte"
 	import DayCard from "./day-card.svelte"
@@ -12,33 +12,50 @@
 		month: number
 		year: number
 		reservations: number[]
-		dailyReservationLimit?: number
+		dailyReservationLimit: number
 		selectedDay?: string
+		prevHref?: `/?year=${number}&month=${number}`
+		nextHref?: `/?year=${number}&month=${number}`
 	}
 	// TODO: Add aria labels to this comp
-	// TODO: Move month controls on the top of the calendar, use date header as a nav element. will be much cleaner.
-	let { month, year, reservations, dailyReservationLimit = 256, selectedDay = $bindable() }: Props = $props()
-
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const dict = $derived(getDictionaryOf(LocaleContext.context.value))
+	// TODO: Add a floating marker on the right edge of the calendar.
+	let {
+		month,
+		year,
+		reservations,
+		dailyReservationLimit,
+		selectedDay = $bindable(),
+		prevHref,
+		nextHref,
+	}: Props = $props()
 	const dateFmt = $derived(
 		DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT),
 	)
 
+	const monthStart = $derived(DDate.fromParts({ year, month, day: 1 }))
 	const weekdays = $derived(dateFmt.getAllShortDayNames())
-	const monthLayout = $derived(DDate.getMonthLayout(DDate.fromParts({ year, month, day: 1 })))
+	const monthLayout = $derived(DDate.getMonthLayout(monthStart))
 	const leadingOffset = $derived(monthLayout.leadingEnd - monthLayout.leadingDays + 1)
 
 	const today = DDate.today()
 
 	const dayControlName = "day-control"
-	// TODO: Add a floating marker on the right edge of the calendar.
 </script>
 
-<div class="flex h-min w-full flex-col gap-2 overflow-clip rounded-3xl border-4 border-inverse px-2 py-2">
-	<section class="flex h-min w-full items-center justify-center gap-2">
-		<Icon icon="Starmark" size="normal" />
-		<h2 class="font-mono tracking-widest uppercase">{dateFmt.getCalendarHeader({ year, month })}</h2>
+<div class="flex h-min w-full flex-col items-center gap-4 overflow-clip rounded-3xl border-4 border-inverse px-2 py-2">
+	<section class="grid w-fit grid-cols-[1fr_auto_1fr] items-center gap-6 [&>h2]:col-2 [&>h2+a]:col-3">
+		<!-- <Icon icon="Starmark" size="normal" /> -->
+		{#if prevHref}
+			<SlabAnchor href={prevHref} ariaLabel="MISSING_ARIA_LABEL" fit="square">
+				<Icon icon="ArrowBack" />
+			</SlabAnchor>
+		{/if}
+		<h2 class="font-mono text-2xl tracking-widest uppercase">{dateFmt.getCalendarHeader({ year, month })}</h2>
+		{#if nextHref}
+			<SlabAnchor href={nextHref} ariaLabel="MISSING_ARIA_LABEL" fit="square">
+				<Icon icon="ArrowForward" />
+			</SlabAnchor>
+		{/if}
 	</section>
 
 	<section class="grid h-min w-full grid-cols-7 justify-items-center">
