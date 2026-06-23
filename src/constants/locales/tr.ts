@@ -70,6 +70,10 @@ export default {
 		},
 	},
 	preview: {
+		meta: {
+			titlePrefix: "DOOMLIT Önizlemesi",
+			description: "Seçilen tarihte gösterilecek olan DOOMLIT'lerin önizlemesi.",
+		},
 		labelReservedSuffix: "DOOMLIT ayırtıldı",
 		labelClose: "Kapat",
 	},

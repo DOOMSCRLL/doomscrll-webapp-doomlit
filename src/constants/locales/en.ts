@@ -69,6 +69,10 @@ export default {
 		},
 	},
 	preview: {
+		meta: {
+			titlePrefix: "DOOMLIT Preview",
+			description: "Preview of DOOMLITs that will be shown on the selected date.",
+		},
 		labelReservedSuffix: "DOOMLITs reserved",
 		labelClose: "Close",
 	},
