@@ -8,6 +8,7 @@
 	import StylisticTimeFormat from "utils/stylistic-time-fmt"
 
 	import BrandNav from "comps/brand-nav.svelte"
+	import SlabAnchor from "comps/buttons/slab-anchor.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import CalendarTable from "comps/calendar/calendar-table.svelte"
 	import HelpModal from "comps/help-modal.svelte"
@@ -60,6 +61,9 @@
 	const selectedProgress = $derived(
 		selectedDate.year === date.year && selectedDate.month === date.month ? reservationsArray[selectedDate.day - 1] : 0,
 	)
+
+	type PreviewSlugString = `/preview/${string}`
+	const previewHref = $derived<PreviewSlugString>(`/preview/${selectedDayIso}`)
 	// #endregion
 
 	let helpModalTrigger = $state<HTMLButtonElement>()
@@ -101,10 +105,10 @@
 					<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.noReservationCopy}</p>
 				{:else}
 					<div class="flex flex-col gap-4">
-						<SlabButton alignment="center" fit="max" variant="outlined">
+						<SlabAnchor href={previewHref} alignment="center" fit="max" variant="outlined">
 							<Icon icon="Doomeye" />
 							{dict.cta.labelPreview}
-						</SlabButton>
+						</SlabAnchor>
 
 						{#if !currentProfile}
 							<SlabButton alignment="center" fit="max" variant="filled" isDisabled={true}>
