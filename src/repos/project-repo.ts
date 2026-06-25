@@ -2,6 +2,7 @@ import { API_BASE_URL } from "$env/static/private"
 
 import { error } from "@sveltejs/kit"
 
+import type Category from "models/category"
 import type { APIResponse } from "models/internal/api"
 import type { ReservationCountsData } from "models/internal/projects"
 import type { ProjectRules } from "models/internal/rules"
@@ -44,8 +45,14 @@ export async function getReservationsFor(
 	}
 }
 
-export async function getPreviewsFor(date: DDate, customFetch: typeof fetch = fetch): Promise<ProjectPreview[]> {
-	const response = await customFetch(`${API_BASE_URL}/projects/preview?date=${date.toISOString()}`)
+export async function getPreviewsFor(
+	date: DDate,
+	category: Category,
+	customFetch: typeof fetch = fetch,
+): Promise<ProjectPreview[]> {
+	const response = await customFetch(
+		`${API_BASE_URL}/projects/preview?date=${date.toISOString()}&category=${category}`,
+	)
 	const result = (await response.json()) as APIResponse<ProjectPreview[]>
 
 	if (!result.success) {
