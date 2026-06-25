@@ -1,18 +1,17 @@
 <script lang="ts">
-	import { LocaleContext } from "contexts/shared.svelte.js"
-	import { getDictionaryOf } from "repos/locale-repo.js"
-	import DDate from "utils/d-date.js"
+	import { LocaleContext } from "contexts/shared.svelte"
+	import { getDictionaryOf } from "repos/locale-repo"
+	import DDate from "utils/d-date"
 
 	import BrandNav from "comps/brand-nav.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 
 	const { params, data } = $props()
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value).preview)
-
 	const date = $derived(DDate.fromISOString(params.previewDate))
 
 	let helpModalTrigger = $state<HTMLButtonElement>()
-	// TODO: Implement preview view.
+	// TODO: The preview window needs a category filter dropdown.
 </script>
 
 <svelte:head>
@@ -20,16 +19,17 @@
 	<meta name="description" content={dict.meta.description} />
 </svelte:head>
 
-<main class="flex h-screen flex-col overflow-hidden px-4 pb-4 supports-[height:100dvh]:h-dvh">
+<main class="flex h-screen flex-col overflow-hidden px-2 pb-2 supports-[height:100dvh]:h-dvh">
 	<BrandNav
 		bind:helpModalTrigger
 		comps={{
 			date,
 			reservationLimit: data.rules.maxReservationsPerDay,
-			reservationProgress: data.projects.length,
+			reservationProgress: data.previewCount,
 			returnHref: `/?year=${date.year}&month=${date.month}`,
 		}} />
-	<section>
+	<section class="flex h-full w-full rounded-3xl border-4 border-inverse">
+		<p class="text-[red]">DELETE - FOR TESTING! (Category is {data.category})</p>
 		<!-- Where is my child, where is my child. -->
 	</section>
 </main>

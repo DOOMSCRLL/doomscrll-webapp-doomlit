@@ -10,3 +10,7 @@ export function getCategoryLabelFor(category: Category, locale?: Locale): string
 export function getCategories(): Category[] {
 	return [...CATEGORIES]
 }
+
+export function isCategory(value: unknown): value is Category {
+	return typeof value === "string" && CATEGORIES.includes(value as Category)
+}
