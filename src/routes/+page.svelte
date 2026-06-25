@@ -68,10 +68,11 @@
 	)
 	// #endregion
 
-	type PreviewSlugString = `/preview/${string}?category=${string}`
-	const previewHref = $derived<PreviewSlugString>(
-		`/preview/${selectedDayIso}?category=${selectedCategory.replace(/\s/g, "+")}`,
-	)
+	type PreviewSlugString = `/preview/${string}?category=${string}&reservations=${string}`
+	const previewHref = $derived.by<PreviewSlugString>(() => {
+		const ctg = selectedCategory.replace(/\s/g, "+")
+		return `/preview/${selectedDayIso}?category=${ctg}&reservations=${selectedProgress}`
+	})
 
 	let helpModalTrigger = $state<HTMLButtonElement>()
 </script>

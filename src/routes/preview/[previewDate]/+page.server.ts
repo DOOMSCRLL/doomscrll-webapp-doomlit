@@ -12,7 +12,9 @@ export const load: PageServerLoad = async ({ params, url, fetch }) => {
 	const qCategory = url.searchParams.get("category")
 	const category: Category = isCategory(qCategory) ? qCategory : "Video Games"
 
+	const reservations: number = Number.parseInt(url.searchParams.get("reservations") ?? "0")
+
 	const [rules, previews] = await Promise.all([getRules(fetch), getPreviewsFor(date, category, fetch)])
 
-	return { rules, previews: groupPreviewsByTag(previews), previewCount: previews.length, category }
+	return { rules, previews: groupPreviewsByTag(previews), category, reservations }
 }

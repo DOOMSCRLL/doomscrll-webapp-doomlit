@@ -25,7 +25,7 @@
 		comps={{
 			date,
 			reservationLimit: data.rules.maxReservationsPerDay,
-			reservationProgress: data.previewCount,
+			reservationProgress: data.reservations,
 			returnHref: `/?year=${date.year}&month=${date.month}`,
 		}} />
 	<section class="flex h-full w-full rounded-3xl border-4 border-inverse">
