@@ -68,9 +68,9 @@
 	)
 	// #endregion
 
-	type PreviewSlugString = `/preview/${string}?category=${string}&reservations=${string}`
+	type PreviewSlugString = `/preview/${string}?category=${string}&reservations=${number}`
 	const previewHref = $derived.by<PreviewSlugString>(() => {
-		const ctg = selectedCategory.replace(/\s/g, "+")
+		const ctg = encodeURIComponent(selectedCategory)
 		return `/preview/${selectedDayIso}?category=${ctg}&reservations=${selectedProgress}`
 	})
 
