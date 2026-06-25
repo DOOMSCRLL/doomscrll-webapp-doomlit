@@ -34,7 +34,7 @@
 	let selectedCategory = $state<Category>("Video Games")
 
 	// #region Date Management
-	const today = DDate.today()
+	const tomorrow = DDate.offsetByDays(DDate.today(), 1)
 	const date = $derived(DDate.fromParts({ day: 1, month: data.currentCalendar.month, year: data.currentCalendar.year }))
 	const reservationsArray = $derived.by(() => {
 		const { daysInMonth } = DDate.getMonthLayout(date)
@@ -46,18 +46,18 @@
 
 	type DateQueryString = `/?year=${number}&month=${number}`
 	const prevHref = $derived.by<DateQueryString | undefined>(() => {
-		if (DDate.getMonthDiff(today, date) <= 0) return undefined
+		if (DDate.getMonthDiff(tomorrow, date) <= 0) return undefined
 		else return `/?year=${date.getPreviousMonth().year}&month=${date.getPreviousMonth().month}`
 	})
 	const nextHref = $derived.by<DateQueryString | undefined>(() => {
-		if (DDate.getMonthDiff(today, date) >= data.rules.reservationWindowDays / 30) return undefined
+		if (DDate.getMonthDiff(tomorrow, date) >= data.rules.reservationWindowDays / 30) return undefined
 		else return `/?year=${date.getNextMonth().year}&month=${date.getNextMonth().month}`
 	})
 
-	let selectedDayIso = $state(today.toISOString()) // FIXME: CHange default day
+	let selectedDayIso = $state(tomorrow.toISOString())
 	$effect.pre(() => {
-		if (date.isSameMonth(today)) {
-			selectedDayIso = today.toISOString()
+		if (date.isSameMonth(tomorrow)) {
+			selectedDayIso = tomorrow.toISOString()
 		} else {
 			selectedDayIso = DDate.fromParts({ year: date.year, month: date.month, day: 1 }).toISOString()
 		}
