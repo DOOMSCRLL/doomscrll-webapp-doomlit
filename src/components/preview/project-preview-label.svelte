@@ -25,7 +25,11 @@
 </script>
 
 <li
-	class={["list-none font-serif text-3xl tracking-tight text-inverse", "hover:text-(--c) hover:underline"]}
+	class={[
+		"list-none font-serif text-xl tracking-tight text-inverse",
+		"flex w-full max-w-[64ch] shrink-0 items-center overflow-hidden text-ellipsis whitespace-nowrap",
+		"hover:text-(--c) hover:underline",
+	]}
 	onmouseenter={handleMouseEnter}
 	onmouseleave={handleMouseLeave}>
 	{#if isHovering}<Icon icon="Starmark" size="small" />{/if}

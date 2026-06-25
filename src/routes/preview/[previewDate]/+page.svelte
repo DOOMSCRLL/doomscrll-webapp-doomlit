@@ -32,7 +32,8 @@
 			returnHref: `/?year=${date.year}&month=${date.month}`,
 		}} />
 
-	<section class="flex h-full w-full overflow-hidden rounded-3xl border-4 border-inverse">
+	<section
+		class="flex h-full w-full pretty-scrollbar gap-8 overflow-x-auto overflow-y-hidden rounded-3xl border-4 border-inverse p-4 pb-0">
 		{#each Object.entries(previewMap) as [tag, previews], i (`${tag}_${i}`)}
 			<TagGroup tag={tag as ProjectTag} projects={previews} />
 		{/each}

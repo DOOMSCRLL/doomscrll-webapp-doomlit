@@ -25,15 +25,18 @@
 
 <section
 	style="--c: {tagColor}"
-	class={["flex h-full w-min flex-col overflow-hidden", "hover:p-4 hover:pb-0 hover:outline-3 hover:outline-(--c)"]}>
-	<header class="flex flex-col items-start justify-start" aria-labelledby="GROUP_TAG_{tag}">
-		<Icon icon="Starmark" size="small" />
-		<h3 id="GROUP_TAG_{tag}" class="font-serif text-2xl font-bold text-(--c) italic">
+	class={[
+		"flex h-full shrink-0 flex-col gap-4 overflow-hidden",
+		"rounded-xl hover:p-4 hover:pb-0 hover:outline-3 hover:outline-(--c)",
+	]}>
+	<header class="flex flex-col items-start justify-start [&_svg]:fill-(--c)" aria-labelledby="GROUP_TAG_{tag}">
+		<Icon icon="Starmark" />
+		<h3 id="GROUP_TAG_{tag}" class="font-serif text-2xl font-bold wrap-break-word text-(--c) italic">
 			{tag}
 			<BadgeText text={projects.length.toString()} />
 		</h3>
 	</header>
-	<ul class="flex h-full w-min pretty-scrollbar flex-col items-start justify-start overflow-y-auto">
+	<ul class="flex h-full shrink-0 pretty-scrollbar flex-col items-start justify-start overflow-y-auto">
 		{#each projects as p, i (p.name)}
 			<ProjectPreviewLabel index={i} preview={p} onHover={handlePreviewHover} />
 		{/each}
