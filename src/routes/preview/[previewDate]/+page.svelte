@@ -1,17 +1,20 @@
 <script lang="ts">
 	import { LocaleContext } from "contexts/shared.svelte"
+	import type ProjectTag from "models/project-tag"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 
 	import BrandNav from "comps/brand-nav.svelte"
 	import HelpModal from "comps/help-modal.svelte"
+	import TagGroup from "comps/preview/tag-group.svelte"
 
 	const { params, data } = $props()
+
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value).preview)
 	const date = $derived(DDate.fromISOString(params.previewDate))
+	const previewMap = $derived(data.previews)
 
 	let helpModalTrigger = $state<HTMLButtonElement>()
-	// TODO: The preview window needs a category filter dropdown.
 </script>
 
 <svelte:head>
@@ -28,9 +31,11 @@
 			reservationProgress: data.reservations,
 			returnHref: `/?year=${date.year}&month=${date.month}`,
 		}} />
-	<section class="flex h-full w-full rounded-3xl border-4 border-inverse">
-		<p class="text-[red]">DELETE - FOR TESTING! (Category is {data.category})</p>
-		<!-- Where is my child, where is my child. -->
+
+	<section class="flex h-full w-full overflow-hidden rounded-3xl border-4 border-inverse">
+		{#each Object.entries(previewMap) as [tag, previews], i (`${tag}_${i}`)}
+			<TagGroup tag={tag as ProjectTag} projects={previews} />
+		{/each}
 	</section>
 </main>
 

@@ -1,19 +1,23 @@
 <script lang="ts">
+	import type { ProjectPreview } from "models/project"
+	import type ProjectTag from "models/project-tag"
+
 	import Icon from "comps/icons/icon.svelte"
+	import { TAG_NO_TAG } from "const/tags"
 
 	type Props = {
-		projectName: string
-		projectId: string
-		onHover?: (id: string) => void
+		preview: ProjectPreview
+		index: number
+		onHover?: (tag: ProjectTag, index: number) => void
 	}
 
-	const { projectName, projectId, onHover }: Props = $props()
+	const { preview, index, onHover }: Props = $props()
 
 	let isHovering = $state(false)
 
 	function handleMouseEnter(): void {
 		isHovering = true
-		onHover?.(projectId)
+		onHover?.(preview.tags[0] ?? TAG_NO_TAG, index)
 	}
 	function handleMouseLeave(): void {
 		isHovering = false
@@ -25,5 +29,5 @@
 	onmouseenter={handleMouseEnter}
 	onmouseleave={handleMouseLeave}>
 	{#if isHovering}<Icon icon="Starmark" size="small" />{/if}
-	{projectName}
+	{preview.name}
 </li>

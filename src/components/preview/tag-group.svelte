@@ -1,18 +1,26 @@
 <script lang="ts">
 	import BadgeText from "comps/badge-text.svelte"
 	import Icon from "comps/icons/icon.svelte"
-	import type Project from "models/project"
+	import type { ProjectPreview } from "models/project"
 	import type ProjectTag from "models/project-tag"
 	import { hslStrToCss, stringToHsl } from "utils/string-to-hsl"
 
+	import ProjectPreviewLabel from "./project-preview-label.svelte"
+
 	type Props = {
 		tag: ProjectTag
-		projects: Project[]
+		projects: ProjectPreview[]
 	}
 
 	const { tag, projects }: Props = $props()
 
 	const tagColor = $derived(hslStrToCss(stringToHsl(tag)))
+
+	function handlePreviewHover(tag: ProjectTag, index: number): void {
+		void tag
+		void index
+		throw Error("Not implemented yet!")
+	}
 </script>
 
 <section
@@ -25,5 +33,9 @@
 			<BadgeText text={projects.length.toString()} />
 		</h3>
 	</header>
-	<ul class="flex h-full w-min pretty-scrollbar flex-col items-start justify-start overflow-y-auto"></ul>
+	<ul class="flex h-full w-min pretty-scrollbar flex-col items-start justify-start overflow-y-auto">
+		{#each projects as p, i (p.name)}
+			<ProjectPreviewLabel index={i} preview={p} onHover={handlePreviewHover} />
+		{/each}
+	</ul>
 </section>

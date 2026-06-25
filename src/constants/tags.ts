@@ -727,5 +727,6 @@ const TAGS: { [key in Category]: ProjectTag[] } = {
 	Internal_Socials: [],
 	Internal_Crowdfunding: [],
 } as const
-
 export default TAGS
+
+export const TAG_NO_TAG = "#no-tag"
