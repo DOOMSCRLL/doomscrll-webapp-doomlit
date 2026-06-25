@@ -1,21 +1,18 @@
 {
-  "useTabs": true,
-  "singleQuote": false,
-  "trailingComma": "all",
-  "semi": false,
-  "bracketSameLine": true,
-  "printWidth": 120,
-  "plugins": [
-    "prettier-plugin-svelte",
-    "prettier-plugin-tailwindcss"
-  ],
-  "tailwindStylesheet": "./src/styles/doomscrll-design-system.css",
-  "overrides": [
-    {
-      "files": "*.svelte",
-      "options": {
-        "parser": "svelte"
-      }
-    }
-  ]
+	"useTabs": true,
+	"singleQuote": false,
+	"trailingComma": "all",
+	"semi": false,
+	"bracketSameLine": true,
+	"printWidth": 120,
+	"plugins": ["prettier-plugin-svelte", "prettier-plugin-tailwindcss"],
+	"tailwindStylesheet": "./src/styles/doomscrll-design-system.css",
+	"overrides": [
+		{
+			"files": "*.svelte",
+			"options": {
+				"parser": "svelte"
+			}
+		}
+	]
 }

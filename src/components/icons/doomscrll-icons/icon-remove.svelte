@@ -1,3 +1,2 @@
 <path d="M10 2v2H2v2h2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6h2V4h-8V2ZM6 6h12v14H6v-2z" /><path
-	d="M9 8v10h2V8Zm4 0v10h2V8Z"
-/>
+	d="M9 8v10h2V8Zm4 0v10h2V8Z" />

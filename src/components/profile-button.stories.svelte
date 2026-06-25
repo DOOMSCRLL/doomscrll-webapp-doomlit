@@ -19,5 +19,4 @@
 			description: "Lorem ipsum dorem...",
 			url: "example.com",
 		},
-	}}
-/>
+	}} />

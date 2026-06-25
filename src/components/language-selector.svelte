@@ -24,7 +24,7 @@
 			isInitial = false
 			return
 		}
-		
+
 		if (newLocale) {
 			dateFmtState.value = new StylisticTimeFormat(newLocale)
 			document.cookie = `${KEYS_COOKIE.Locale}=${newLocale}; path=/; max-age=31536000; SameSite=Lax`
