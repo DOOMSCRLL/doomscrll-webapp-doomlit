@@ -50,9 +50,7 @@ export async function getPreviewsFor(
 	category: Category,
 	customFetch: typeof fetch = fetch,
 ): Promise<ProjectPreview[]> {
-	const response = await customFetch(
-		`${API_BASE_URL}/projects/preview?date=${date.toISOString()}&category=${category}`,
-	)
+	const response = await customFetch(`${API_BASE_URL}/projects/preview?date=${date.toISOString()}&category=${category}`)
 	const result = (await response.json()) as APIResponse<ProjectPreview[]>
 
 	if (!result.success) {
