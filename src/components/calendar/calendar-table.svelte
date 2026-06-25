@@ -79,7 +79,7 @@
 			<DayCard
 				{date}
 				inputName={dayControlName}
-				isPadding={date.isPrior(today)}
+				isPadding={date.isPrior(today) || date.isEqual(today)}
 				reservationLimit={dailyReservationLimit}
 				progress={reservations[i]}
 				bind:selectedDay />

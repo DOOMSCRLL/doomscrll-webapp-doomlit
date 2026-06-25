@@ -24,7 +24,7 @@ export default {
 		copy: "Reserve a day to DOOMLIT your project.",
 		cta: {
 			suffixSlotInfo: "DOOMLITs reserved for this date.",
-			labelPreview: "Preview reserved DOOMLITs",
+			labelPreview: "Preview DOOMLITs",
 			labelSignin: "Sign in to reserve a DOOMLIT",
 			labelReserve: "Reserve your DOOMLIT",
 		},
