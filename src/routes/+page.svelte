@@ -11,9 +11,12 @@
 	import SlabAnchor from "comps/buttons/slab-anchor.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import CalendarTable from "comps/calendar/calendar-table.svelte"
+	import Dropdown from "comps/form/dropdown.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import InlineDoomlitIndicator from "comps/inline-doomlit-indicator.svelte"
+	import type Category from "models/category"
+	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
 
 	type Props = {
 		data: PageData
@@ -27,6 +30,8 @@
 	const fmt = $derived(
 		DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT),
 	)
+
+	let selectedCategory = $state<Category>("Video Games")
 
 	// #region Date Management
 	const today = DDate.today()
@@ -49,7 +54,7 @@
 		else return `/?year=${date.getNextMonth().year}&month=${date.getNextMonth().month}`
 	})
 
-	let selectedDayIso = $state(today.toISOString())
+	let selectedDayIso = $state(today.toISOString()) // FIXME: CHange default day
 	$effect.pre(() => {
 		if (date.isSameMonth(today)) {
 			selectedDayIso = today.toISOString()
@@ -61,10 +66,12 @@
 	const selectedProgress = $derived(
 		selectedDate.year === date.year && selectedDate.month === date.month ? reservationsArray[selectedDate.day - 1] : 0,
 	)
-
-	type PreviewSlugString = `/preview/${string}`
-	const previewHref = $derived<PreviewSlugString>(`/preview/${selectedDayIso}`)
 	// #endregion
+
+	type PreviewSlugString = `/preview/${string}?category=${string}`
+	const previewHref = $derived<PreviewSlugString>(
+		`/preview/${selectedDayIso}?category=${selectedCategory.replace(/\s/g, "+")}`,
+	)
 
 	let helpModalTrigger = $state<HTMLButtonElement>()
 </script>
@@ -105,10 +112,19 @@
 					<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.noReservationCopy}</p>
 				{:else}
 					<div class="flex flex-col gap-4">
-						<SlabAnchor href={previewHref} alignment="center" fit="max" variant="outlined">
-							<Icon icon="Doomeye" />
-							{dict.cta.labelPreview}
-						</SlabAnchor>
+						<section class="flex gap-4">
+							<Dropdown
+								label="MISSING_LABEL"
+								name="preview-category"
+								placeholder="MISSING_PLACEHOLDER"
+								doHideLabel={true}
+								options={getCategories().map((c) => ({ label: getCategoryLabelFor(c), value: c }))}
+								bind:value={selectedCategory} />
+							<SlabAnchor href={previewHref} alignment="center" fit="max" variant="outlined">
+								<Icon icon="Doomeye" />
+								{dict.cta.labelPreview}
+							</SlabAnchor>
+						</section>
 
 						{#if !currentProfile}
 							<SlabButton alignment="center" fit="max" variant="filled" isDisabled={true}>
