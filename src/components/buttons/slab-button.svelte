@@ -15,6 +15,7 @@
 		renderDecors?: boolean
 		onClick?: () => void
 		reference?: HTMLButtonElement
+		buttonType?: "submit" | "button"
 		isDisabled?: boolean
 		children?: Snippet
 	}
@@ -27,6 +28,7 @@
 		renderDecors = false,
 		onClick,
 		reference = $bindable(),
+		buttonType,
 		isDisabled = false,
 		children,
 	}: Props = $props()
@@ -36,6 +38,7 @@
 	bind:this={reference}
 	onclick={onClick}
 	disabled={isDisabled}
+	type={buttonType}
 	class={[
 		"group flex max-w-full min-w-0 items-center justify-center gap-4 rounded-2xl",
 		"overflow-hidden font-mono font-bold tracking-wider text-ellipsis whitespace-nowrap uppercase disabled:not-allowed",

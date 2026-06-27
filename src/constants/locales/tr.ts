@@ -83,12 +83,21 @@ export default {
 		tooltipInvalidMessage: "Önizlemek için bir projenin üzerinde dur!",
 	},
 	auth: {
-		labelEmail: "Epostan nedir?",
-		placeholderEmail: "Yalnızca epostan, lütfen.",
-		ctaSignin: "Giriş yap",
-		textInfo: "(Eğer epostanı tanınmıyorsa, yeni bir hesap oluşturulacaktır.)",
-		labelOtp: "6-haneli doğrulama kodunu gir:",
-		ctaVerify: "Doğrula",
+		meta: {
+			title: "Giriş yap | DOOMSCRLL",
+			description: "DOOMSCRLL hesabına giriş yap.",
+		},
+		email: {
+			label: "Epostan nedir?",
+			placeholder: "Yalnızca eposta lütfen.",
+			cta: "Giriş yap",
+			info: "(Eğer epostanı tanınmıyorsa, yeni bir hesap oluşturulacaktır.)",
+		},
+		otp: {
+			label: "6-haneli doğrulama kodunu gir",
+			placeholder: "",
+			cta: "Doğrula",
+		},
 	},
 	profileMenu: {},
 	projectMenu: {},

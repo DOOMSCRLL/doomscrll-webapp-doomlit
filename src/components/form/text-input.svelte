@@ -5,8 +5,8 @@
 		name: string
 		label: string
 		placeholder: string
-		value: string
-		inputType?: "text" | "url"
+		value?: string
+		inputType?: "text" | "url" | "email"
 		layout?: "column" | "row"
 		isRequired?: boolean
 	}
@@ -25,7 +25,7 @@
 <label
 	for={name}
 	class={[
-		"flex h-min w-full font-serif text-2xl font-medium tracking-tighter text-inverse",
+		"flex h-min w-full cursor-text font-serif text-2xl font-medium tracking-tighter text-inverse",
 		layout === "row" ? "flex-row items-center gap-4" : "flex-col justify-start",
 	]}>
 	<span class="flex gap-2">
@@ -37,7 +37,7 @@
 		id={name}
 		{name}
 		type={inputType}
-		autocomplete="off"
+		autocomplete={inputType === "text" ? "off" : "on"}
 		inputmode={inputType}
 		required={isRequired}
 		{placeholder}

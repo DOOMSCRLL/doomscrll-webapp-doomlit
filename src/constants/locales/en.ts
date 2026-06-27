@@ -82,12 +82,21 @@ export default {
 		tooltipInvalidMessage: "Hover over a project to preview it!",
 	},
 	auth: {
-		labelEmail: "What is your email?",
-		placeholderEmail: "Just your email, please.",
-		ctaSignin: "Sign in",
-		textInfo: "(If your email isn't recognized, a new account will be created.)",
-		labelOtp: "Write the 6-digit OTP here:",
-		ctaVerify: "Verify",
+		meta: {
+			title: "Log in | DOOMSCRLL",
+			description: "Login to your DOOMSCRLL account.",
+		},
+		email: {
+			label: "What is your email?",
+			placeholder: "Just your email, please.",
+			cta: "Log in",
+			info: "(If your email isn't recognized, a new account will be created.)",
+		},
+		otp: {
+			label: "Write the 6-digit OTP here:",
+			placeholder: "",
+			cta: "Verify",
+		},
 	},
 	profileMenu: {
 		// TODO: Write strings for profile settings screen

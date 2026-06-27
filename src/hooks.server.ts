@@ -37,9 +37,37 @@ export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	const response = await fetch(request)
 
 	if (request.url.startsWith(API_BASE_URL)) {
-		const cookieStr = response.headers.get("set-cookie")
-		if (cookieStr) {
-			event.setHeaders({ "set-cookie": cookieStr })
+		const setCookies = response.headers.getSetCookie()
+		for (const cookieStr of setCookies) {
+			const parts = cookieStr.split(";").map((p) => p.trim())
+			if (parts.length === 0) continue
+
+			const [nameValue, ...directives] = parts
+			const eqIdx = nameValue.indexOf("=")
+			if (eqIdx === -1) continue
+
+			const name = nameValue.substring(0, eqIdx)
+			const value = nameValue.substring(eqIdx + 1)
+
+			const options: { path: string; httpOnly?: boolean; secure?: boolean; sameSite?: "lax" | "strict" | "none"; expires?: Date; maxAge?: number } = { 
+				path: "/",
+				secure: request.url.startsWith("https://")
+			}
+
+			for (const directive of directives) {
+				const [k, ...vArr] = directive.split("=")
+				const v = vArr.join("=")
+				const key = k.toLowerCase()
+
+				if (key === "path") options.path = v
+				else if (key === "httponly") options.httpOnly = true
+				else if (key === "secure") options.secure = true
+				else if (key === "samesite") options.sameSite = v.toLowerCase() as "lax" | "strict" | "none"
+				else if (key === "expires") options.expires = new Date(v)
+				else if (key === "max-age") options.maxAge = parseInt(v, 10)
+			}
+
+			event.cookies.set(name, value, options)
 		}
 	}
 

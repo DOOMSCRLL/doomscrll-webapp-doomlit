@@ -1,6 +1,13 @@
 import { fail, redirect } from "@sveltejs/kit"
 import { requestOtp, verifyOtp } from "repos/auth-repo"
-import type { Actions } from "./$types"
+import type { Actions, PageServerLoad } from "./$types"
+
+export const load: PageServerLoad = async ({ parent }) => {
+	const { profile } = await parent()
+	if (profile) {
+		throw redirect(303, "/")
+	}
+}
 
 export const actions: Actions = {
 	request: async ({ request, fetch }) => {
