@@ -91,11 +91,15 @@ export default {
 			label: "Epostan nedir?",
 			placeholder: "Yalnızca eposta lütfen.",
 			cta: "Giriş yap",
-			info: "(Eğer epostanı tanınmıyorsa, yeni bir hesap oluşturulacaktır.)",
+			subtext: {
+				newEmail: "Eğer epostan tanınmazsa, adınıza yeni bir hesap oluşturulacaktır.",
+				accountInfo:
+					"DOOMSCRLL'u kullanmak için bir hesaba ihtiyacınız yok. Hesaplar yalnızca projelerinize yer ayırtıp onları sergilemek için gerekir.",
+			},
 		},
 		otp: {
-			label: "6-haneli doğrulama kodunu gir",
-			placeholder: "",
+			label: "Epostana gönderilen 6 haneli doğrulama kodunu gir",
+			placeholder: "******",
 			cta: "Doğrula",
 		},
 	},

@@ -90,11 +90,14 @@ export default {
 			label: "What is your email?",
 			placeholder: "Just your email, please.",
 			cta: "Log in",
-			info: "(If your email isn't recognized, a new account will be created.)",
+			subtext: {
+				newEmail: "If your email isn't recognized, a new account will be created.",
+				accountInfo: "You don't need an account to use DOOMSCRLL, only to reserve and showcase projects.",
+			},
 		},
 		otp: {
-			label: "Write the 6-digit OTP here:",
-			placeholder: "",
+			label: "Type the 6-digit OTP that is sent to your email",
+			placeholder: "******",
 			cta: "Verify",
 		},
 	},

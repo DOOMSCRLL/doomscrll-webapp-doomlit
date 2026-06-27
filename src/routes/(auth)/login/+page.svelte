@@ -6,6 +6,7 @@
 
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import TextInput from "comps/form/text-input.svelte"
+	import DoomscrllWordmark from "comps/icons/doomscrll-wordmark.svelte"
 
 	const { form } = $props()
 
@@ -18,9 +19,11 @@
 </svelte:head>
 
 <main
-	class="flex h-screen w-full flex-col items-center justify-center overflow-hidden px-6 supports-[height:100dvh]:h-dvh">
+	class="flex h-screen w-full flex-col items-center justify-around overflow-hidden px-6 supports-[height:100dvh]:h-dvh">
+	<DoomscrllWordmark />
+
 	{#if form?.email === undefined}
-		<form method="POST" action="?/request" use:enhance>
+		<form method="POST" action="?/request" class="flex flex-col gap-16" use:enhance>
 			<TextInput
 				name="email"
 				label={dict.email.label}
@@ -33,7 +36,7 @@
 			</SlabButton>
 		</form>
 	{:else}
-		<form method="POST" action="?/verify" use:enhance>
+		<form method="POST" action="?/verify" class="flex flex-col gap-16 [&_input]:tracking-widest" use:enhance>
 			<input type="hidden" name="email" value={form.email} />
 			<TextInput
 				name="code"
@@ -47,4 +50,9 @@
 			</SlabButton>
 		</form>
 	{/if}
+
+	<ol role="list" class="super-markers font-serif text-xl font-medium tracking-tight break-normal">
+		<li>{dict.email.subtext.accountInfo}</li>
+		<li>{dict.email.subtext.newEmail}</li>
+	</ol>
 </main>

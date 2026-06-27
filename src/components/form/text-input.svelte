@@ -6,7 +6,7 @@
 		label: string
 		placeholder: string
 		value?: string
-		inputType?: "text" | "url" | "email"
+		inputType?: "text" | "url" | "email" | "otp"
 		layout?: "column" | "row"
 		isRequired?: boolean
 	}
@@ -20,6 +20,8 @@
 		layout = "row",
 		isRequired = false,
 	}: Props = $props()
+
+	const nativeInputType = $derived(inputType === "otp" ? "text" : inputType)
 </script>
 
 <label
@@ -36,9 +38,11 @@
 	<input
 		id={name}
 		{name}
-		type={inputType}
+		type={nativeInputType}
 		autocomplete={inputType === "text" ? "off" : "on"}
-		inputmode={inputType}
+		inputmode={nativeInputType}
+		maxlength={inputType === "otp" ? 6 : undefined}
+		minlength={inputType === "otp" ? 6 : undefined}
 		required={isRequired}
 		{placeholder}
 		bind:value
