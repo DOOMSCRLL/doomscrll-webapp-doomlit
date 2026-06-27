@@ -7,12 +7,16 @@
 
 	import BrandNav from "comps/brand-nav.svelte"
 	import HelpModal from "comps/help-modal.svelte"
+	import Icon from "comps/icons/icon.svelte"
 	import TagGroup from "comps/preview/tag-group.svelte"
 	import Tooltip from "comps/tooltip.svelte"
+	import { getCategoryLabelFor } from "repos/category-repo.js"
+	import { generateHslFrom, hslStrToCss } from "utils/generate-hsl-from.js"
 
 	const { params, data } = $props()
 
-	const dict = $derived(getDictionaryOf(LocaleContext.context.value).preview)
+	const locale = $derived(LocaleContext.context.value!)
+	const dict = $derived(getDictionaryOf(locale).preview)
 	const date = $derived(DDate.fromISOString(params.previewDate))
 	const previewMap = $derived(data.previews)
 
@@ -83,13 +87,20 @@
 
 <Tooltip trigger={activeTrigger} open={activePreview !== undefined}>
 	{#if activePreview}
-		<p>{activePreview.authorName}</p>
-		<p>{activePreview.name}</p>
-		<p>{activePreview.category}</p>
-		{#each activePreview.tags as tag (`${activePreview.name}_${tag}`)}
-			<p>{tag}</p>
-		{/each}
+		<p class="font-serif font-medium text-inverse italic">
+			<Icon icon="Starmark" size="small" />
+			{getCategoryLabelFor(activePreview.category, locale)}
+		</p>
+		<p class="font-serif tracking-tight text-inverse italic">{activePreview.authorName}</p>
+		<p class="font-serif text-2xl font-medium tracking-tighter text-inverse">{activePreview.name}</p>
+		<section class="flex flex-col">
+			{#each activePreview.tags as tag (`${activePreview.name}_${tag}`)}
+				<p class="font-serif font-bold italic" style="color:{hslStrToCss(generateHslFrom(tag))}">
+					{tag}
+				</p>
+			{/each}
+		</section>
 	{:else}
-		<p>MISSING_INVALID_TOOLTIP_MESSAGE</p>
+		<p class="font-serif">MISSING_INVALID_TOOLTIP_MESSAGE</p>
 	{/if}
 </Tooltip>

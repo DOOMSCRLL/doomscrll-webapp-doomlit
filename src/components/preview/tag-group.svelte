@@ -1,10 +1,9 @@
 <script lang="ts">
-	import type { ProjectPreview } from "models/project"
-	import type ProjectTag from "models/project-tag"
-	import { hslStrToCss, stringToHsl } from "utils/string-to-hsl"
-
 	import BadgeText from "comps/badge-text.svelte"
 	import Icon from "comps/icons/icon.svelte"
+	import type { ProjectPreview } from "models/project"
+	import type ProjectTag from "models/project-tag"
+	import { generateHslFrom, hslStrToCss } from "utils/generate-hsl-from"
 	import ProjectPreviewLabel from "./project-preview-label.svelte"
 
 	type Props = {
@@ -14,7 +13,7 @@
 
 	const { tag, projects }: Props = $props()
 
-	const tagColor = $derived(hslStrToCss(stringToHsl(tag)))
+	const tagColor = $derived(hslStrToCss(generateHslFrom(tag)))
 </script>
 
 <section
