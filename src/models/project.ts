@@ -14,7 +14,7 @@ type Project = {
 
 export type ProjectPreview = {
 	name: string
-	authorName: string
+	authorUsername: string
 	category: Category
 	tags: ProjectTag[]
 }

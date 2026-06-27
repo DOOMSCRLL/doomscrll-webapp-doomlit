@@ -91,7 +91,7 @@
 			<Icon icon="Starmark" size="small" />
 			{getCategoryLabelFor(activePreview.category, locale)}
 		</p>
-		<p class="font-serif tracking-tight text-inverse italic">{activePreview.authorName}</p>
+		<p class="font-serif text-2xl tracking-tight text-inverse italic">@{activePreview.authorUsername}</p>
 		<p class="font-serif text-2xl font-medium tracking-tighter text-inverse">{activePreview.name}</p>
 		<section class="flex flex-col">
 			{#each activePreview.tags as tag (`${activePreview.name}_${tag}`)}
