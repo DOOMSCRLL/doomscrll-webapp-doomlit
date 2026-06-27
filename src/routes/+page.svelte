@@ -3,6 +3,7 @@
 
 	import { LOCALE_DEFAULT } from "const/locales"
 	import { DateFmtContext, LocaleContext, ProfileContext } from "contexts/shared.svelte"
+	import type Category from "models/category"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 	import StylisticTimeFormat from "utils/stylistic-time-fmt"
@@ -15,7 +16,6 @@
 	import HelpModal from "comps/help-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import InlineDoomlitIndicator from "comps/inline-doomlit-indicator.svelte"
-	import type Category from "models/category"
 	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
 
 	type Props = {

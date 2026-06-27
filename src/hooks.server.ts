@@ -30,8 +30,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 	if (request.url.startsWith(API_BASE_URL)) {
-		const cookieHeader = event.request.headers.get("cookie")
-		if (cookieHeader) request.headers.set("cookie", cookieHeader)
+		const cookies = event.cookies.getAll()
+		const cookieString = cookies.map((c) => `${c.name}=${c.value}`).join("; ")
+		if (cookieString) request.headers.set("cookie", cookieString)
 	}
 
 	const response = await fetch(request)

@@ -9,6 +9,7 @@
 
 	type Props = {
 		variant?: ButtonVariant
+		hasAccent?: boolean
 		size?: ButtonSize
 		alignment?: HorizontalAlignment
 		fit?: HorizontalFit
@@ -25,10 +26,11 @@
 		fit = "max",
 		size = "normal",
 		variant = "filled",
+		hasAccent = false,
 		renderDecors = false,
 		onClick,
 		reference = $bindable(),
-		buttonType,
+		buttonType = "button",
 		isDisabled = false,
 		children,
 	}: Props = $props()
@@ -61,14 +63,18 @@
 		ttm(variant, {
 			filled: "bg-inverse not-disabled:hover:bg-inverse/40 not-disabled:active:bg-accent",
 			outlined: "pseudo-border bg-obverse not-disabled:hover:bg-inverse not-disabled:active:bg-accent",
-			text: "bg-obverse not-disabled:hover:bg-inverse not-disabled:active:bg-accent",
+			text: !hasAccent
+				? "bg-obverse not-disabled:hover:bg-inverse not-disabled:active:bg-accent"
+				: "bg-obverse not-disabled:hover:bg-accent not-disabled:active:bg-inverse",
 		}),
 		renderDecors && variant === "text" && "before:content-['('] after:content-[')']",
 		/* content appearance: */
 		ttm(variant, {
 			filled: "text-obverse",
 			outlined: "text-inverse hover:text-obverse active:text-obverse",
-			text: "text-inverse hover:text-obverse active:text-obverse",
+			text: !hasAccent
+				? "text-inverse hover:text-obverse active:text-obverse"
+				: "text-accent hover:text-obverse active:text-obverse",
 		}),
 	]}>
 	{@render children?.()}
