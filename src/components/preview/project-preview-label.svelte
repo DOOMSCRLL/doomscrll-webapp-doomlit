@@ -8,26 +8,28 @@
 	type Props = {
 		preview: ProjectPreview
 		index: number
-		onHover?: (tag: ProjectTag, index: number) => void
+		onHover?: (tag: ProjectTag, index: number, trigger: HTMLElement) => void
+		onHoverEnd?: () => void
 	}
 
-	const { preview, index, onHover }: Props = $props()
+	const { preview, index, onHover, onHoverEnd }: Props = $props()
 
 	let isHovering = $state(false)
 
-	function handleMouseEnter(): void {
+	function handleMouseEnter(event: MouseEvent): void {
 		isHovering = true
-		onHover?.(preview.tags[0] ?? TAG_NO_TAG, index)
+		onHover?.(preview.tags[0] ?? TAG_NO_TAG, index, event.currentTarget as HTMLElement)
 	}
 	function handleMouseLeave(): void {
 		isHovering = false
+		onHoverEnd?.()
 	}
 </script>
 
 <li
 	class={[
 		"list-none font-serif text-xl tracking-tight text-inverse",
-		"flex w-full max-w-[64ch] shrink-0 items-center overflow-hidden text-ellipsis whitespace-nowrap",
+		"flex w-full shrink-0 items-center overflow-hidden text-ellipsis whitespace-nowrap",
 		"hover:text-(--c) hover:underline",
 	]}
 	onmouseenter={handleMouseEnter}
