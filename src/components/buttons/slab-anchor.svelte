@@ -9,7 +9,7 @@
 	type HorizontalFit = "max" | "min" | "square"
 
 	type Props = {
-		href: "/" | `/?year=${number}&month=${number}` | `/preview/${string}`
+		href: "/" | `/?year=${number}&month=${number}` | `/preview/${string}` | "/login"
 		variant?: ButtonVariant
 		size?: ButtonSize
 		alignment?: HorizontalAlignment

@@ -1,9 +1,10 @@
 <script lang="ts">
+	import { LocaleContext, ProfileContext } from "contexts/shared.svelte"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import { applySwatchToTokens, generateAvatarSwatchFrom } from "utils/uuid-to-avatar"
 
 	import SlabButton from "comps/buttons/slab-button.svelte"
-	import { LocaleContext, ProfileContext } from "contexts/shared.svelte"
+	import SlabAnchor from "./buttons/slab-anchor.svelte"
 	import Icon from "./icons/icon.svelte"
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value))
@@ -14,11 +15,11 @@
 </script>
 
 {#if profile === undefined}
-	<SlabButton alignment="right" fit="min" size="normal" variant="text">
+	<SlabAnchor href="/login" alignment="right" fit="min" size="normal" variant="text">
 		<Icon icon="ArrowExternal" size="small" />
 		{dict.reservation.profile.labelAnon}
 		<Icon icon="AvatarAnon" />
-	</SlabButton>
+	</SlabAnchor>
 {:else}
 	<SlabButton alignment="right" fit="min" size="normal" variant="text">
 		{profile.username}
