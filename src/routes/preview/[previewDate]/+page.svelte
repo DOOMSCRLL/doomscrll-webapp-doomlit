@@ -7,8 +7,8 @@
 
 	import BrandNav from "comps/brand-nav.svelte"
 	import HelpModal from "comps/help-modal.svelte"
-	import ProjectPreviewPopover from "comps/preview/project-preview-popover.svelte"
 	import TagGroup from "comps/preview/tag-group.svelte"
+	import Tooltip from "comps/tooltip.svelte"
 
 	const { params, data } = $props()
 
@@ -71,10 +71,12 @@
 	</section>
 </main>
 
-<ProjectPreviewPopover
+<!--<ProjectPreviewPopover
 	preview={activePreview}
 	trigger={activeTrigger}
 	onMouseEnter={handlePopoverEnter}
-	onMouseLeave={handlePopoverLeave} />
+	onMouseLeave={handlePopoverLeave} /> -->
 
 <HelpModal bind:trigger={helpModalTrigger} />
+
+<Tooltip trigger={activeTrigger}></Tooltip>
