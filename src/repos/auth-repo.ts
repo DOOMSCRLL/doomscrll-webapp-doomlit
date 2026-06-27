@@ -38,6 +38,17 @@ export async function verifyOtp(email: string, code: string, customFetch: typeof
 
 	return result
 }
+export async function getCsrfToken(customFetch: typeof fetch = fetch): Promise<AuthResponse> {
+	const response = await customFetch(`${API_BASE_URL}/auth/csrf`)
+	const result = (await response.json()) as AuthResponse
+
+	if (!response.ok) {
+		throw error(response.status, { message: result.error || "Failed to fetch CSRF token" })
+	}
+
+	return result
+}
+
 
 export async function logout(csrfToken: string, customFetch: typeof fetch = fetch): Promise<AuthResponse> {
 	const response = await customFetch(`${API_BASE_URL}/auth/logout`, {
