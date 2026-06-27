@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { LOCALE_DEFAULT } from "const/locales"
+	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte"
 	import DDate from "utils/d-date"
 	import StylisticTimeFormat from "utils/stylistic-time-fmt"
 
 	import SlabAnchor from "comps/buttons/slab-anchor.svelte"
 	import Icon from "comps/icons/icon.svelte"
-	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte"
+	import { getDictionaryOf } from "repos/locale-repo"
 	import DayCard from "./day-card.svelte"
 
 	type Props = {
@@ -17,7 +18,7 @@
 		prevHref?: `/?year=${number}&month=${number}`
 		nextHref?: `/?year=${number}&month=${number}`
 	}
-	// TODO: Add aria labels to this comp
+
 	// TODO: Add a floating marker on the right edge of the calendar.
 	let {
 		month,
@@ -28,6 +29,8 @@
 		prevHref,
 		nextHref,
 	}: Props = $props()
+
+	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).reservation.calendar)
 	const dateFmt = $derived(
 		DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT),
 	)
@@ -44,15 +47,14 @@
 
 <div class="flex h-min w-full flex-col items-center gap-4 overflow-clip rounded-3xl border-4 border-inverse px-2 py-2">
 	<section class="grid w-fit grid-cols-[1fr_auto_1fr] items-center gap-6 [&>h2]:col-2 [&>h2+a]:col-3">
-		<!-- <Icon icon="Starmark" size="normal" /> -->
 		{#if prevHref}
-			<SlabAnchor href={prevHref} ariaLabel="MISSING_ARIA_LABEL" fit="square">
+			<SlabAnchor href={prevHref} ariaLabel={dict.labelPrevious} fit="square">
 				<Icon icon="ArrowBack" />
 			</SlabAnchor>
 		{/if}
 		<h2 class="font-mono text-2xl tracking-widest uppercase">{dateFmt.getCalendarHeader({ year, month })}</h2>
 		{#if nextHref}
-			<SlabAnchor href={nextHref} ariaLabel="MISSING_ARIA_LABEL" fit="square">
+			<SlabAnchor href={nextHref} ariaLabel={dict.labelNext} fit="square">
 				<Icon icon="ArrowForward" />
 			</SlabAnchor>
 		{/if}

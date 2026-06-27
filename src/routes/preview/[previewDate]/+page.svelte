@@ -101,6 +101,6 @@
 			{/each}
 		</section>
 	{:else}
-		<p class="font-serif">MISSING_INVALID_TOOLTIP_MESSAGE</p>
+		<p class="font-serif">{dict.tooltipInvalidMessage}</p>
 	{/if}
 </Tooltip>

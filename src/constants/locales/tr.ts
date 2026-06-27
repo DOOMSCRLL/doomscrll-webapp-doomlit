@@ -23,36 +23,40 @@ export default {
 			},
 		},
 		copy: "DOOMLIT için bir gün seç.",
+		calendar: {
+			labelPrevious: "Previous month",
+			labelNext: "Next month",
+		},
 		noReservationCopy:
 			"Hmm... Görünüşe göre seçtiğin tarihte tüm DOOMLIT'ler alınmış. Takvimden başka bir gün seçebilir, ya da sonra ki aya göz atabilirsin.",
 		cta: {
 			suffixSlotInfo: "DOOMLIT ayırtıldı.",
+			categoryDropdown: {
+				label: "Önizleme için bir kategori seç.",
+				placeholder: "Bir kategori seç.",
+			},
 			labelPreview: "Ayırtılan DOOMLIT'lere göz at",
 			labelSignin: "DOOMLIT ayırtmak için giriş yap",
 			labelReserve: "DOOMLIT ayırt",
 		},
 		reservationForm: {
 			labelProjectName: {
-				prefix: "Projenin adı",
-				suffix: ".",
-				placeholder: "Ona bir isim ver.",
+				label: "Projenin ismi",
+				placeholder: "Projene bir isim ver.",
 			},
 			labelCategory: {
-				prefix: "Bu bir",
-				suffix: "projesi.",
-				placeholder: "Birini seç:",
+				label: "Kategorisi",
+				placeholder: "Bir kategori seç.",
 			},
 			labelPlatform: {
-				prefix: "Projen",
-				suffix: "platformunda.",
-				placeholder: "Birini seç:",
+				label: "Yayınlandığı birincil platform",
+				placeholder: "Bir platform seç.",
 			},
 			labelPrimaryUrl: {
-				prefix: "Bağlantısı",
-				suffix: ".",
-				placeholder: "Buraya yapıştır.",
+				label: "Platform bağlantısı",
+				placeholder: "Platformun bağlantısını buraya yapıştır.",
 			},
-			labelReserve: "Öde ve bir DOOMLIT ayırt",
+			labelReserve: "Öde ve bir DOOMLIT ayırt.",
 		},
 		disclaimer: {
 			infoEdit: "DOOMLIT'in yayınlanacağı tarihe kadar düzenlenebilir.",
@@ -76,6 +80,7 @@ export default {
 		},
 		labelReservedSuffix: "DOOMLIT ayırtıldı",
 		labelClose: "Kapat",
+		tooltipInvalidMessage: "Önizlemek için bir projenin üzerinde dur!",
 	},
 	auth: {
 		labelEmail: "Epostan nedir?",
@@ -85,10 +90,6 @@ export default {
 		labelOtp: "6-haneli doğrulama kodunu gir:",
 		ctaVerify: "Doğrula",
 	},
-	profileMenu: {
-		// TODO: Write strings for profile settings screen
-	},
-	projectMenu: {
-		// TODO: Write strings for project details screen
-	},
+	profileMenu: {},
+	projectMenu: {},
 } satisfies Dictionary

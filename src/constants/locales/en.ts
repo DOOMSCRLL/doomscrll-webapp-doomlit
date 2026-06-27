@@ -22,8 +22,16 @@ export default {
 			},
 		},
 		copy: "Reserve a day to DOOMLIT your project.",
+		calendar: {
+			labelPrevious: "Previous month",
+			labelNext: "Next month",
+		},
 		cta: {
 			suffixSlotInfo: "DOOMLITs reserved for this date.",
+			categoryDropdown: {
+				label: "Select a category to preview.",
+				placeholder: "Select a category.",
+			},
 			labelPreview: "Preview DOOMLITs",
 			labelSignin: "Sign in to reserve a DOOMLIT",
 			labelReserve: "Reserve your DOOMLIT",
@@ -32,24 +40,20 @@ export default {
 			"Hmm... It seems that all the DOOMLITs have been reserved for selected date. You can choose another date from the calendar, or take a look at next month.",
 		reservationForm: {
 			labelProjectName: {
-				prefix: "Name of the project is",
-				suffix: ".",
+				label: "Project's name is",
 				placeholder: "Give it a name.",
 			},
 			labelCategory: {
-				prefix: "It's a",
-				suffix: "project.",
-				placeholder: "Choose one:",
+				label: "It's category is",
+				placeholder: "Choose a category.",
 			},
 			labelPlatform: {
-				prefix: "Project is on",
-				suffix: "platform.",
-				placeholder: "Choose one:",
+				label: "It's primary platform is",
+				placeholder: "Choose a platform.",
 			},
 			labelPrimaryUrl: {
-				prefix: "URL is",
-				suffix: ".",
-				placeholder: "Paste here.",
+				label: "It's URL is",
+				placeholder: "Paste platform's URL here.",
 			},
 			labelReserve: "Pay & reserve a DOOMLIT",
 		},
@@ -75,6 +79,7 @@ export default {
 		},
 		labelReservedSuffix: "DOOMLITs reserved",
 		labelClose: "Close",
+		tooltipInvalidMessage: "Hover over a project to preview it!",
 	},
 	auth: {
 		labelEmail: "What is your email?",

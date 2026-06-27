@@ -115,9 +115,9 @@
 					<div class="flex flex-col gap-4">
 						<section class="flex gap-4">
 							<Dropdown
-								label="MISSING_LABEL"
+								label={dict.cta.categoryDropdown.label}
 								name="preview-category"
-								placeholder="MISSING_PLACEHOLDER"
+								placeholder={dict.cta.categoryDropdown.placeholder}
 								doHideLabel={true}
 								options={getCategories().map((c) => ({ label: getCategoryLabelFor(c), value: c }))}
 								bind:value={selectedCategory} />
