@@ -18,7 +18,7 @@
 			"pointer-events-none",
 		]}
 		{@attach positionTooltipTo({ anchor: trigger })}
-		transition:fade={{ duration: 200 }}>
+		transition:fade={{ duration: 150 }}>
 		{@render children?.()}
 	</div>
 {/if}

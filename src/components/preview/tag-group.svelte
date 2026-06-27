@@ -10,11 +10,9 @@
 	type Props = {
 		tag: ProjectTag
 		projects: ProjectPreview[]
-		onPreviewHover?: (tag: ProjectTag, index: number, trigger: HTMLElement) => void
-		onPreviewHoverEnd?: () => void
 	}
 
-	const { tag, projects, onPreviewHover, onPreviewHoverEnd }: Props = $props()
+	const { tag, projects }: Props = $props()
 
 	const tagColor = $derived(hslStrToCss(stringToHsl(tag)))
 </script>
@@ -34,7 +32,7 @@
 	</header>
 	<ul class="flex h-full w-full shrink-0 pretty-scrollbar flex-col items-start justify-start overflow-y-auto">
 		{#each projects as p, i (p.name)}
-			<ProjectPreviewLabel index={i} preview={p} onHover={onPreviewHover} onHoverEnd={onPreviewHoverEnd} />
+			<ProjectPreviewLabel index={i} preview={p} />
 		{/each}
 	</ul>
 </section>

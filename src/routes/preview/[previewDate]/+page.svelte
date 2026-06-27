@@ -16,26 +16,33 @@
 	const date = $derived(DDate.fromISOString(params.previewDate))
 	const previewMap = $derived(data.previews)
 
-	let activePreview = $state<ProjectPreview>()
-	let activeTrigger = $state<HTMLElement>()
 	let hoverTimeout: ReturnType<typeof setTimeout>
 
-	function handlePreviewHover(tag: ProjectTag, index: number, node: HTMLElement) {
+	let activePreview = $state<ProjectPreview>()
+	let activeTrigger = $state<HTMLElement>()
+
+	function handlePreviewHover(event: Event) {
+		const target = (event.target as HTMLElement).closest("[data-preview-tag]") as HTMLElement
+		if (!target) return
+
+		const tag = target.getAttribute("data-preview-tag") as ProjectTag
+		const indexStr = target.getAttribute("data-preview-index")
+		if (!indexStr) return
+		const index = parseInt(indexStr)
+
 		clearTimeout(hoverTimeout)
+
 		activePreview = previewMap[tag][index]
-		activeTrigger = node
+		activeTrigger = target
 	}
-	function handlePreviewHoverEnd() {
+	function handlePreviewHoverEnd(event: Event) {
+		const target = (event.target as HTMLElement).closest("[data-preview-tag]")
+		if (!target) return
+
 		hoverTimeout = setTimeout(() => {
 			activePreview = undefined
 			activeTrigger = undefined
 		}, 100)
-	}
-	function handlePopoverEnter() {
-		clearTimeout(hoverTimeout)
-	}
-	function handlePopoverLeave() {
-		handlePreviewHoverEnd()
 	}
 
 	let helpModalTrigger = $state<HTMLButtonElement>()
@@ -56,27 +63,33 @@
 			returnHref: `/?year=${date.year}&month=${date.month}`,
 		}} />
 
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<section
 		class={[
-			"flex h-full w-full gap-4 overflow-x-auto overflow-y-hidden",
-			"[scrollbar-color:var(--color-accent)_transparent] rounded-3xl border-4 border-inverse p-4 pb-0 contain-paint",
-		]}>
+			"flex h-full w-full gap-4 overflow-x-auto overflow-y-hidden p-4 pb-0 contain-paint",
+			"[scrollbar-color:var(--color-accent)_transparent] rounded-3xl border-4 border-inverse",
+		]}
+		onmouseover={handlePreviewHover}
+		onfocus={handlePreviewHover}
+		onmouseout={handlePreviewHoverEnd}
+		onblur={handlePreviewHoverEnd}>
 		{#each Object.entries(previewMap) as [tag, previews], i (`${tag}_${i}`)}
-			<TagGroup
-				tag={tag as ProjectTag}
-				projects={previews}
-				onPreviewHover={handlePreviewHover}
-				onPreviewHoverEnd={handlePreviewHoverEnd} />
+			<TagGroup tag={tag as ProjectTag} projects={previews} />
 		{/each}
 	</section>
 </main>
 
-<!--<ProjectPreviewPopover
-	preview={activePreview}
-	trigger={activeTrigger}
-	onMouseEnter={handlePopoverEnter}
-	onMouseLeave={handlePopoverLeave} /> -->
-
 <HelpModal bind:trigger={helpModalTrigger} />
 
-<Tooltip trigger={activeTrigger}></Tooltip>
+<Tooltip trigger={activeTrigger} open={activePreview !== undefined}>
+	{#if activePreview}
+		<p>{activePreview.authorName}</p>
+		<p>{activePreview.name}</p>
+		<p>{activePreview.category}</p>
+		{#each activePreview.tags as tag (`${activePreview.name}_${tag}`)}
+			<p>{tag}</p>
+		{/each}
+	{:else}
+		<p>MISSING_INVALID_TOOLTIP_MESSAGE</p>
+	{/if}
+</Tooltip>
