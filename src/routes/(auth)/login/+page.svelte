@@ -36,7 +36,7 @@
 			</SlabButton>
 		</form>
 	{:else}
-		<form method="POST" action="?/verify" class="flex flex-col gap-16 [&_input]:tracking-widest" use:enhance>
+		<form method="POST" action="?/verify" class="flex flex-col gap-16 [&_input]:tracking-widest">
 			<input type="hidden" name="email" value={form.email} />
 			<TextInput
 				name="code"
