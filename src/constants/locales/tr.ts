@@ -1,4 +1,5 @@
 import type { Dictionary } from "models/internal/locale"
+import ctsr from "utils/condense-string"
 
 export default {
 	common: {
@@ -131,4 +132,136 @@ export default {
 		},
 	},
 	projectMenu: {},
+	helpMenu: {
+		topics: [
+			{
+				label: "DOOMSCRLL nedir?",
+				body: ctsr`DOOMSCRLL®, her türden bağımsız yaratıcının (bağımsız geliştiriciler, sanatçılar, özgür yazılım geliştiricileri,
+          yerel işletmeler vb.) projelerini bir algoritma olmadan doğrudan kendi kitlesine sergileyebileceği bir platformdur.
+          Yaratıcıların projelerini sergilemesi için günlük yuvalar olan DOOMLIT'ler ile çalışır.`,
+			},
+			{
+				label: "DOOMSCRLL®'ü kim geliştiriyor? Ve neden geliştirdin?",
+				body: ctsr`DOOMSCRLL® ve ilgili tüm yazılımlar, markalama ve marka varlıkları benim tarafımdan, Yakup Murat Çaylak tarafından
+          tasarlanıp geliştiriliyor. Şarkıları, filmleri ve oyunları benim yerime seçen bir algoritmanın olmadığı,
+          sponsorlukların ve reklamların tercihlerimin ve zevklerimin önüne geçmediği bir platforma ihtiyaç duydum. Ayrıca,
+          bahsedilen bu sorun göz önüne alındığında, her türden bağımsız yaratıcının işlerini sergileyecek bir platforma ihtiyacı
+          var ve bu tür projeleri keşfetmek isteyen bir kitle de mevcut. Bu yüzden DOOMSCRLL®'ü, şirketlerin saçmalıklarına bağlı
+          kalmadan bağımsız projeleri keşfetmek isteyen bir kitle ve bağımsız yaratıcılar için kurdum (kuruyorum). Bu platformu
+          ve ilgili projeleri sürdürmek ve geliştirmek için elimden geleni yapacağım.`,
+			},
+			{
+				label: "DOOMLIT nedir?",
+				body: ctsr`Bir DOOMLIT®, projen için 24 saatlik bir vitrindir. Her gün için, izleyici uygulamasında her projenin görünürlük
+          kazanmasını sağlayan sınırlı sayıda DOOMLIT (günde 256 adet) mevcuttur. Bir DOOMLIT rezerve edilebilir ve ödeme ile
+          onaylandıktan sonra sergilenme tarihinden önce güncellenebilir. Her DOOMLIT® geçicidir, yani sergilendiği günün
+          ardından sunuculardan silinirler. Kötüye kullanımı önlemek amacıyla DOOMSCRLL®, platformda sergilenen projelere yönelik
+          kuralları uygulamak için bir arşiv sistemi kullanır: Birincisi, bir yaratıcı iki haftada bir DOOMLIT rezerve edebilir,
+          yani ayda en fazla iki DOOMLIT. İkincisi, bir proje iki hafta boyunca tekrar rezerve edilemez. Bu aynı zamanda
+          bir projenin ayda en fazla iki kez sergilenebileceği anlamına gelir.`,
+			},
+			{
+				label: "DOOMSCRLL ücretsiz mi?",
+				body: ctsr`DOOMSCRLL® web sitesi ve ilgili uygulamaları, kendi alanlarındaki bağımsız projeleri keşfetmek isteyen kullanıcılar
+          için KULLANIMI ÜCRETSİZDİR ve kullanmak için bir hesap gerektirmez. Yaratıcılar için ise, rezervasyon sayfasında
+          belirtildiği gibi bir DOOMLIT rezerve etmenin küçük bir ücreti vardır.`,
+			},
+			{
+				label: "Kullanmak için bir hesaba ihtiyacım var mı?",
+				body: ctsr`Hayır. Sergilenen projeleri görüntülemek ve keşfetmek için DOOMSCRLL® web sitesini ve uygulamalarını ücretsiz
+          olarak, bir hesap olmadan kullanabilirsin.`,
+			},
+			{
+				label: "DOOMSCRLL® üzerinde projeleri nasıl keşfedebilirim?",
+				body: ctsr`DOOMSCRLL® üzerinde her gün sınırlı sayıda DOOMLIT® yuvası (günde 256 adet) bulunur, bu da her gün reklamların,
+          sponsorların veya algoritmaların müdahalesi olmadan karşına çıkan yeni projeler göreceğin anlamına gelir. Ve her
+          DOOMLIT®'in bir kategorisi ve ilgili "etiketleri" vardır, böylece filtreleme yaparak aradığını bulabilirsin.
+          Aksi takdirde, seçili kategori altındaki projeler sana rastgele sıralanmış bir seçki olarak sunulur.`,
+			},
+			{
+				label: "DOOMSCRLL® projeleri nasıl derliyor?",
+				body: ctsr`Aslında derlemiyor! DOOMSCRLL® üzerinde sergilenen projeler, sadece yaratıcısının seçtiği günde 24 saat boyunca
+          gösterilir. Her gün, o günün tüm projelerini rastgele oluşturulmuş bir akışta görebilirsin. Ayrıca favori ilgi
+          alanların, özellikler veya platformlar için etiketleri kullanarak filtreleme yapabilirsin.`,
+			},
+			{
+				label: "DOOMSCRLL keşifleri/derlemeleri yönlendirmek için bir algoritma kullanıyor mu?",
+				body: "Hayır! Keşfine veya projelerinin görünürlüğüne müdahale edecek hiçbir şey yok.",
+			},
+			{
+				label: "Projemi DOOMSCRLL'de nasıl sergilerim?",
+				body: ctsr`Eğer bir yaratıcıysan, seçtiğin bir günde sadece 1$ karşılığında 24 saatliğine bir DOOMLIT rezerve edebilirsin.
+          Her gün için sınırlı sayıda yuva (günde 256 adet) mevcuttur.`,
+			},
+			{
+				label: "DOOMLIT rezervasyonu nasıl çalışıyor?",
+				body: ctsr`Kayıt olup DOOMLIT® panelinden (doomlit.doomscrll.com) yaratıcı hesabına giriş yaptıktan sonra, takvimden bir gün
+          seçebilir, her gün için müsait yuvalara bakabilir ve hatta daha önce rezerve edilmiş projeleri önizleyebilirsin.
+          Bir gün seçip, projenle ilgili temel bilgileri (kategori, isim, ana platform ve platform bağlantısı) girerek bir
+          rezervasyon taslağı oluşturduktan sonra, projen için bir yuva ayırtmış olursun. Rezervasyon ücreti ödendikten sonra
+          taslak tamamlanacak ve bilgilerini görüp güncelleyebileceksin. Projenin sergilenmeye hazır olması için profilindeki
+          DOOMLIT'ler sayfasından ek bilgiler eklemen gerekecek. DOOMLIT'in sergilenme tarihine kadar yönetilebilir ve
+          güncellenebilir. Son olarak, rezervasyon ücreti 15 dakika içinde ödenmezse, rezervasyon taslağın silinir.`,
+			},
+			{ label: "Bir DOOMLIT rezervasyonunun ücreti nedir?", body: "Sadece 1$." },
+			{
+				label: "DOOMLIT rezervasyonlarının kuralları nelerdir?",
+				body: ctsr`Birincisi, bir profil iki haftada bir DOOMLIT® rezerve edebilir. Yani bir yaratıcı ayda en fazla iki proje
+          sergileyebilir. İkincisi, bir proje DOOMLIT® tarihinden itibaren iki hafta boyunca tekrar sergilenemez. Bu kurallar,
+          sunucudaki bir arşiv sistemi tarafından uygulanır. Ve son olarak, bir DOOMLIT® yasa dışı veya ahlak dışı materyalleri
+          sergilemek için kullanılamaz. DOOMSCRLL® üzerinde rezerve edilen şeyler manuel olarak izlenir ve denetlenir.`,
+			},
+			{
+				label: "DOOMLIT rezervasyonları için hangi ödeme yöntemlerini kullanabilirim?",
+				body: ctsr`Şu an için bir DOOMLIT rezerve etmek amacıyla kredi kartını kullanabilirsin. Faturan, rezervasyon için kullandığın
+          e-posta adresine gönderilecek.`,
+			},
+			{
+				label: "Rezervasyonumdan sonra faturamı nerede bulabilirim?",
+				body: "Rezervasyon için kullandığın e-posta adresine gönderilecek.",
+			},
+			{
+				label: "Rezervasyondan sonra bir DOOMLIT®'i güncelleyebilir miyim?",
+				body: ctsr`Bir DOOMLIT®'in ayrıntılarını güncelleyebilir, iptal edebilir veya ertelenmesini talep edebilirsin. Sana yardım
+          etmekten her zaman mutluluk duyarız.`,
+			},
+			{
+				label: "Bir DOOMLIT'i iptal edebilir miyim?",
+				body: "Evet. Herhangi bir DOOMLIT'i sergilenme tarihinden önce iptal edebilirsin.",
+			},
+			{
+				label: "DOOMSCRLL'de ne tür projeler sergileyebilirim?",
+				body: ctsr`Şu anda DOOMSCRLL; 'Video Oyunları, Masa Oyunları, Yazılım ve Araçlar, Dijital Varlıklar, Yayıncılık, Ses, Video,
+          Ürünler, Yiyecek ve Yerel İşletmeler' proje kategorilerini, her kategori için geniş bir platform yelpazesini ve sosyal
+          ile kitle fonlaması platformlarını desteklemektedir. DOOMSCRLL® üzerinde başka türde bir proje görmek istersen,
+          lütfen bize bildir!`,
+			},
+			{
+				label: "Bir yaratıcı olarak profilimi nasıl yönetirim?",
+				body: "Üst kısımdaki avatarından profil menüsüne girerek profil ayarları sayfasını ziyaret edebilirsin.",
+			},
+			{
+				label: "DOOMSCRLL hangi platformları destekliyor?",
+				body: ctsr`DOOMSCRLL®, her kategori için geniş bir platform yelpazesini destekler ve bağlantıların ilgili platformun logosuyla
+          markalanır.`,
+			},
+			{
+				label: "Verilerim nasıl işleniyor ve saklanıyor?",
+				body: ctsr`İzleyiciler için tasarlanan web sitesi ve uygulamalar kullanmak için bir hesap gerektirmez ve DOOMSCRLL® senden
+          veya cihazından başka hiçbir bilgi toplamaz; ayrıca reklam göstermez veya sponsorluk almayız. Yaratıcılara gelince,
+          profilini ve projelerini tanımlamak için gereken bilgiler dışında hiçbir şey sunucularda saklanmaz. Projeler için
+          ise, kuralları uygulamak ve DOOMSCRLL® kurallarının kötüye kullanımını önlemek amacıyla arşivde yalnızca benzersiz
+          tanımlayıcı bilgiler saklanır. Profilinin silinmesini istersen lütfen bizimle iletişime geç. Yardımcı olmaktan
+          mutluluk duyarız.`,
+			},
+			{
+				label: "Sizinle nasıl iletişime geçebilirim?",
+				body: "Bize hello@doomscrll.com adresinden e-posta gönderebilirsin.",
+			},
+			{
+				label: "Hizmet Şartları'nı nerede bulabilirim?",
+				body: "Lütfen şu adresi ziyaret et: doomscrll.com/legal.txt",
+			},
+		],
+	},
 } satisfies Dictionary
