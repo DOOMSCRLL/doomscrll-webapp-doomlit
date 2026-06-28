@@ -10,7 +10,7 @@
 	import Icon from "./icons/icon.svelte"
 	import Popover from "./popover.svelte"
 
-	const dict = $derived(getDictionaryOf(LocaleContext.context.value))
+	const dict = $derived(getDictionaryOf(LocaleContext.context.value).profileMenu.popover)
 	const profile = $derived(ProfileContext.context.value)
 	$effect(() => {
 		if (profile) applySwatchToTokens(generateAvatarSwatchFrom(profile.id))
@@ -22,7 +22,7 @@
 {#if profile === undefined}
 	<SlabAnchor href="/login" alignment="right" fit="min" size="normal" variant="text">
 		<Icon icon="ArrowExternal" size="small" />
-		{dict.reservation.profile.labelAnon}
+		{dict.labelAnon}
 		<Icon icon="AvatarAnon" />
 	</SlabAnchor>
 {:else}
@@ -38,13 +38,13 @@
 		bind:trigger={profileButton}>
 		<!-- FIXME: Add and include the profile route for changing profile settings here. -->
 		<SlabAnchor href="/" alignment="left" fit="max" variant="outlined">
-			<Icon icon="ArrowExternal" /> MISSING_LABEL_PROFILE</SlabAnchor>
+			<Icon icon="Settings" /> {dict.labelSettings}</SlabAnchor>
 		<SlabButton fit="max" variant="text" renderDecors={true}>
-			<Icon icon="Doomeye" /> MISSING_LABEL_DOOMLITS</SlabButton>
+			<Icon icon="Doomeye" /> {dict.labelProjects}</SlabButton>
 		<form method="POST" action="/logout" class="contents" use:enhance>
 			<SlabButton buttonType="submit" fit="max" variant="text" hasAccent={true} renderDecors={true}>
 				<Icon icon="DoomeyeClosed" />
-				MISSING_LABEL_LOGOUT
+				{dict.labelLogout}
 			</SlabButton>
 		</form>
 	</Popover>

@@ -13,14 +13,6 @@ export default {
 			title: "DOOMSCRLL",
 			description: "Reserve a day to DOOMLIT your project for 24 hours.",
 		},
-		profile: {
-			labelAnon: "Not signed in.",
-			menu: {
-				labelProfile: "Profile",
-				labelDoomlits: "DOOMLITs",
-				labelSignout: "Sign out",
-			},
-		},
 		copy: "Reserve a day to DOOMLIT your project.",
 		calendar: {
 			labelPrevious: "Previous month",
@@ -102,7 +94,12 @@ export default {
 		},
 	},
 	profileMenu: {
-		// TODO: Write strings for profile settings screen
+		popover: {
+			labelAnon: "Not signed in.",
+			labelSettings: "Profile Settings",
+			labelProjects: "Your DOOMLITs",
+			labelLogout: "Log out",
+		},
 	},
 	projectMenu: {
 		// TODO: Write strings for project details screen

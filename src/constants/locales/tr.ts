@@ -14,14 +14,6 @@ export default {
 			title: "DOOMSCRLL",
 			description: "Projeni 24 saat sergilemek için bir DOOMLIT ayırt.",
 		},
-		profile: {
-			labelAnon: "Giriş yapılmadı",
-			menu: {
-				labelProfile: "Hesap",
-				labelDoomlits: "DOOMLIT'ler",
-				labelSignout: "Çıkış yap",
-			},
-		},
 		copy: "DOOMLIT için bir gün seç.",
 		calendar: {
 			labelPrevious: "Previous month",
@@ -103,6 +95,13 @@ export default {
 			cta: "Doğrula",
 		},
 	},
-	profileMenu: {},
+	profileMenu: {
+		popover: {
+			labelAnon: "Giriş Yapılmadı",
+			labelSettings: "Hesap Ayarları",
+			labelProjects: "Senin DOOMLIT'lerin",
+			labelLogout: "Çıkış Yap",
+		},
+	},
 	projectMenu: {},
 } satisfies Dictionary
