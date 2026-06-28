@@ -9,6 +9,8 @@
 	import DoomscrllWordmark from "comps/icons/doomscrll-wordmark.svelte"
 	import Icon from "comps/icons/icon.svelte"
 
+	let { form } = $props()
+
 	const profile = $derived(ProfileContext.context.value!)
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).profileMenu.settings)
 </script>
@@ -16,25 +18,28 @@
 <main class="flex h-full w-full flex-col items-center justify-between px-12 py-4">
 	<DoomscrllWordmark />
 
-	<!-- FIXME: `input` elements have weird widths, take a look at why. -->
-	<form method="POST" class="flex w-full flex-col items-center gap-8" use:enhance>
+	<form method="POST" class="flex w-full flex-col items-center gap-10 px-16" use:enhance>
 		<TextInput
 			name="username"
 			label={dict.username.label}
 			placeholder={dict.username.placeholder}
-			layout="column"
-			isRequired={profile.username === undefined} />
+			isRequired={profile.username === undefined}
+			value={profile.username} />
 		<TextInput
 			name="description"
 			label={dict.description.label}
 			placeholder={dict.description.placeholder}
-			layout="column" />
-		<TextInput name="url" label={dict.url.label} placeholder={dict.url.placeholder} layout="column" />
+			value={profile.description} />
+		<TextInput name="url" label={dict.url.label} placeholder={dict.url.placeholder} value={profile.url} />
 
 		<SlabButton alignment="left" fit="max" variant="filled" buttonType="submit">
 			<Icon icon="Settings" />
 			{dict.labelCta}
 		</SlabButton>
+
+		{#if form?.message}
+			<p class="font-serif text-xl font-medium tracking-wide text-inverse">{form.message}</p>
+		{/if}
 	</form>
 
 	<ol role="list" class="super-markers font-serif text-xl font-medium tracking-tight break-normal">

@@ -27,8 +27,8 @@
 <label
 	for={name}
 	class={[
-		"flex h-min w-fit cursor-text font-serif text-2xl font-medium tracking-tighter text-inverse",
-		layout === "row" ? "flex-row items-center gap-4" : "flex-col justify-start",
+		"flex h-min cursor-text font-serif text-2xl font-medium tracking-tighter text-inverse",
+		layout === "row" ? "w-full flex-row items-center gap-4" : " w-fit flex-col justify-start",
 	]}>
 	<span class="flex gap-2 whitespace-nowrap">
 		<Icon icon="Starmark" size="small" />
