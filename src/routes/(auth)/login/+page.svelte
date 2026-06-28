@@ -4,13 +4,16 @@
 	import { LocaleContext } from "contexts/shared.svelte.js"
 	import { getDictionaryOf } from "repos/locale-repo.js"
 
+	import SlabAnchor from "comps/buttons/slab-anchor.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import TextInput from "comps/form/text-input.svelte"
 	import DoomscrllWordmark from "comps/icons/doomscrll-wordmark.svelte"
+	import Icon from "comps/icons/icon.svelte"
 
 	const { form } = $props()
 
-	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).auth)
+	const allDicts = $derived(getDictionaryOf(LocaleContext.context.value!))
+	const dict = $derived(allDicts.auth)
 </script>
 
 <svelte:head>
@@ -31,9 +34,13 @@
 				inputType="email"
 				isRequired={true}
 				layout="column" />
-			<SlabButton fit="max" variant="filled" buttonType="submit">
-				{dict.email.cta}
-			</SlabButton>
+			<section role="group" class="flex justify-center gap-4">
+				<SlabAnchor href="/" fit="max" alignment="left" variant="outlined">
+					<Icon icon="ArrowBack" />
+					{allDicts.common.labelReturnHome}
+				</SlabAnchor>
+				<SlabButton variant="filled" buttonType="submit">{dict.email.cta}</SlabButton>
+			</section>
 		</form>
 	{:else}
 		<form method="POST" action="?/verify" class="flex flex-col gap-16 [&_input]:tracking-widest">
