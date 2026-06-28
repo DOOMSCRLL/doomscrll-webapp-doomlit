@@ -9,13 +9,25 @@
 
 	let { trigger = $bindable() }: Props = $props()
 
-	const dict = $derived(getDictionaryOf(LocaleContext.context.value).reservation.helpModal)
+	const dict = $derived(getDictionaryOf(LocaleContext.context.value).helpMenu)
 	const dictCommon = $derived(getDictionaryOf(LocaleContext.context.value).common)
 </script>
 
-<Modal bind:trigger header={dict.title} closeLabel={dictCommon.labelCloseMenu}>
-	<p class="font-serif text-xl tracking-wide text-inverse">{dict.body}</p>
-	<!-- TODO: Write help topics, and add each of them here as a collapsible section. -->
+<Modal header={dict.title} closeLabel={dictCommon.labelCloseMenu} width="max" bind:trigger>
+	<p class="font-serif text-2xl text-inverse">{dict.body}</p>
+	<hr class="w-full border-inverse" />
+	<section class="flex h-full w-full pretty-scrollbar flex-col gap-6 overflow-auto">
+		{#each dict.topics as topic (topic.label)}
+			<details
+				name="help-topic"
+				class={["group flex-col gap-4 open:flex", "rounded-xl border-accent open:border open:p-2 hover:bg-inverse/40"]}>
+				<summary class="border-inverse font-serif text-xl text-inverse group-open:border-b group-open:italic">
+					{topic.label}
+				</summary>
+				<p class="font-serif text-xl tracking-tight text-inverse">{topic.body}</p>
+			</details>
+		{/each}
+	</section>
 	<hr class="w-full border-inverse" />
 	<footer class="pl-4 font-serif tracking-wide text-inverse italic">
 		➝ {dict.footerPrefix}

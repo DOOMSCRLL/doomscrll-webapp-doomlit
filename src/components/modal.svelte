@@ -8,10 +8,11 @@
 		header: string
 		closeLabel: string
 		children: Snippet
+		width?: "min" | "max"
 		trigger?: HTMLElement
 	}
 
-	const { header, closeLabel, trigger = $bindable(), children }: Props = $props()
+	const { header, closeLabel, width = "min", trigger = $bindable(), children }: Props = $props()
 
 	let ref = $state<HTMLDialogElement>()
 	const id = `modal_${Math.random().toString(36).slice(2, 9)}`
@@ -47,7 +48,8 @@
 	aria-modal="true"
 	aria-labelledby="title_{id}"
 	class={[
-		"m-auto h-min max-h-full min-w-md p-4 open:z-50",
+		width === "min" ? "min-w-md" : "w-full",
+		"m-auto h-min max-h-full p-4 open:z-50",
 		"rounded-3xl border-3 border-inverse bg-obverse backdrop:bg-[black]/90",
 		"flex-col items-start gap-4 open:box-border open:flex",
 	]}

@@ -62,12 +62,7 @@ export default {
 			infoEdit: "DOOMLIT'in yayınlanacağı tarihe kadar düzenlenebilir.",
 			infoExpiration: "Eğer ücreti ödenmemişse, ayırtılan bir DOOMLIT 15 dakika sonra silinecektir.",
 		},
-		helpModal: {
-			title: "Yardım",
-			body: "Buradan, DOOMSCRLL projesi ve DOOMLIT'ler hakkında bilgi edinebilirsiniz.",
-			footerPrefix: "Bir sorunuz varsa, ya da desteğe ihtiyacınız varsa, ulaşmaktan çekinmeyin:",
-			topics: [{ title: "", body: "" }],
-		},
+		labelHelpButton: "Buradan, DOOMSCRLL projesi ve DOOMLIT'ler hakkında bilgi edinebilirsiniz.",
 		doomlitMenu: {
 			copy: "Düzenlemek için bir DOOMLIT seç:",
 			labelClose: "Kapat",
@@ -133,6 +128,9 @@ export default {
 	},
 	projectMenu: {},
 	helpMenu: {
+		title: "Yardım Konuları",
+		body: "DOOMSCRLL projesi hakkında daha fazla şey öğrenebilir, SSS'ye bakabilirsin.",
+		footerPrefix: "Eğer herhangi bir sorunuz varsa, bize ulaşmaktan çekinmeyin:",
 		topics: [
 			{
 				label: "DOOMSCRLL nedir?",

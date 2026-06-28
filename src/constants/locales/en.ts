@@ -61,12 +61,7 @@ export default {
 			infoEdit: "A DOOMLIT can be edited before it's airing date.",
 			infoExpiration: "If it's fee isn't paid, a reserved DOOMLIT will expire after 15 minutes.",
 		},
-		helpModal: {
-			title: "Help",
-			body: "You can find learn more about DOOMLITs and DOOMSCRLL project here.",
-			footerPrefix: "If you have any questions or facing problems, don't hesitate to reach out:",
-			topics: [{ title: "", body: "" }],
-		},
+		labelHelpButton: "You can find learn more about DOOMLITs and DOOMSCRLL project here.",
 		doomlitMenu: {
 			copy: "Select a DOOMLIT to update:",
 			labelClose: "Close",
@@ -132,6 +127,9 @@ export default {
 		// TODO: Write strings for project details screen
 	},
 	helpMenu: {
+		title: "Help Topics",
+		body: "You can learn more about the DOOMSCRLL project, and find FAQ.",
+		footerPrefix: "If you have any questions, don't hesitate to reach out:",
 		topics: [
 			{
 				label: "What is DOOMSCRLL?",
