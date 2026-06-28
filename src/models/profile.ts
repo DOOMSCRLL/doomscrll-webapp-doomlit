@@ -1,7 +1,7 @@
 type Profile = {
 	id: string
 	email: string
-	username: string
+	username?: string
 	description?: string
 	url?: string
 }

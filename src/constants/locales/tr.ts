@@ -8,6 +8,13 @@ export default {
 			ariaLabelLangSelect: "DOOMSCRLL'da kullanmak için bir dil seçin.",
 			suffixReservationProgress: "DOOMLIT ayırtıldı.",
 		},
+		copyableText: {
+			status: {
+				labelCopied: "Metin panona kopyalandı.",
+				labelFailed: "Metin kopyalanamadı.",
+			},
+			labelInstructions: "Metni panona kopyalamak için buraya tıkla.",
+		},
 	},
 	reservation: {
 		meta: {

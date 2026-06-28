@@ -37,7 +37,7 @@
 		doManageTrigger={true}
 		bind:trigger={profileButton}>
 		<!-- FIXME: Add and include the profile route for changing profile settings here. -->
-		<SlabAnchor href="/" alignment="left" fit="max" variant="outlined">
+		<SlabAnchor href="/profile-settings" alignment="left" fit="max" variant="outlined">
 			<Icon icon="Settings" /> {dict.labelSettings}</SlabAnchor>
 		<SlabButton fit="max" variant="text" renderDecors={true}>
 			<Icon icon="Doomeye" /> {dict.labelProjects}</SlabButton>

@@ -7,6 +7,13 @@ export default {
 			ariaLabelLangSelect: "Choose a language to use DOOMSCRLL in.",
 			suffixReservationProgress: "DOOMLITs reserved",
 		},
+		copyableText: {
+			status: {
+				labelCopied: "Text copied to clipboard.",
+				labelFailed: "Failed to copy the text.",
+			},
+			labelInstructions: "Click to copy this text to your clipboard.",
+		},
 	},
 	reservation: {
 		meta: {
