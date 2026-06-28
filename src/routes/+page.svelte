@@ -26,7 +26,8 @@
 
 	const currentProfile = ProfileContext.context.value
 
-	const dict = $derived(getDictionaryOf(LocaleContext.context.value).reservation)
+	const locale = $derived(LocaleContext.context.value!)
+	const dict = $derived(getDictionaryOf().reservation)
 	const fmt = $derived(
 		DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT),
 	)
@@ -119,7 +120,7 @@
 								name="preview-category"
 								placeholder={dict.cta.categoryDropdown.placeholder}
 								doHideLabel={true}
-								options={getCategories().map((c) => ({ label: getCategoryLabelFor(c), value: c }))}
+								options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
 								bind:value={selectedCategory} />
 							<SlabAnchor href={previewHref} alignment="center" fit="max" variant="outlined">
 								<Icon icon="Doomeye" />
