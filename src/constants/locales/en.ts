@@ -107,6 +107,25 @@ export default {
 			labelProjects: "Your DOOMLITs",
 			labelLogout: "Log out",
 		},
+		settings: {
+			username: {
+				label: "Username",
+				placeholder: "Choose an username.",
+			},
+			description: {
+				label: "Description (optional)",
+				placeholder: "Write a description for your profile. (Optional)",
+			},
+			url: {
+				label: "Website (optional)",
+				placeholder: "Paste your website, social links, whatever. (Optional)",
+			},
+			labelCta: "Update your profile",
+			subtext: {
+				infoValidUpdates: "You can update your user name, description or website; but can't update your email.",
+				infoUsername: "If your account is new, you need to choose an user name for yourself.",
+			},
+		},
 	},
 	projectMenu: {
 		// TODO: Write strings for project details screen

@@ -27,10 +27,10 @@
 <label
 	for={name}
 	class={[
-		"flex h-min w-full cursor-text font-serif text-2xl font-medium tracking-tighter text-inverse",
+		"flex h-min w-fit cursor-text font-serif text-2xl font-medium tracking-tighter text-inverse",
 		layout === "row" ? "flex-row items-center gap-4" : "flex-col justify-start",
 	]}>
-	<span class="flex gap-2">
+	<span class="flex gap-2 whitespace-nowrap">
 		<Icon icon="Starmark" size="small" />
 		{label}:
 	</span>

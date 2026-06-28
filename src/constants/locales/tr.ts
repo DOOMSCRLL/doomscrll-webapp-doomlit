@@ -109,6 +109,26 @@ export default {
 			labelProjects: "Senin DOOMLIT'lerin",
 			labelLogout: "Çıkış Yap",
 		},
+		settings: {
+			username: {
+				label: "Kullanıcı Adı",
+				placeholder: "Bir kullanıcı adı seç.",
+			},
+			description: {
+				label: "Hakkımda (isteğe bağlı)",
+				placeholder: "Kendinden bahset, projelerinden bahset... (İsteğe bağlı)",
+			},
+			url: {
+				label: "Websiten (isteğe bağlı)",
+				placeholder: "Websiteni, sosyal medyanı, ne istersen onu yaz. (İsteğe bağlı)",
+			},
+			labelCta: "Hesabını güncelle",
+			subtext: {
+				infoValidUpdates:
+					"Kullanıcı adını, hakkımda metnini ve website bağlantını güncelleyebilirsin; fakat epostanı değiştiremezsin.",
+				infoUsername: "Hesabın yeniyse, kendine bir kullanıcı adı seçmen gerekiyor.",
+			},
+		},
 	},
 	projectMenu: {},
 } satisfies Dictionary
