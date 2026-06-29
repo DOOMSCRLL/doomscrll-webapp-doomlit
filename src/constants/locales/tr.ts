@@ -130,7 +130,6 @@ export default {
 	helpMenu: {
 		title: "Yardım Konuları",
 		body: "DOOMSCRLL projesi hakkında daha fazla şey öğrenebilir, SSS'ye bakabilirsin.",
-		footerPrefix: "Eğer herhangi bir sorunuz varsa, bize ulaşmaktan çekinmeyin:",
 		topics: [
 			{
 				label: "DOOMSCRLL nedir?",
@@ -261,5 +260,9 @@ export default {
 				body: "Lütfen şu adresi ziyaret et: doomscrll.com/legal.txt",
 			},
 		],
+		footer: {
+			contentContactPrefix: "Herhangi bir sorunuz varsa, bize ulaşmaktan çekinmeyin:",
+			contentLegalPrefix: "Yasal bilgilendirme ve marka tescilleri için şu adresi ziyaret edin:",
+		},
 	},
 } satisfies Dictionary

@@ -129,7 +129,6 @@ export default {
 	helpMenu: {
 		title: "Help Topics",
 		body: "You can learn more about the DOOMSCRLL project, and find FAQ.",
-		footerPrefix: "If you have any questions, don't hesitate to reach out:",
 		topics: [
 			{
 				label: "What is DOOMSCRLL?",
@@ -250,5 +249,9 @@ export default {
 				body: "Please refer to this address: doomscrll.com/legal.txt",
 			},
 		],
+		footer: {
+			contentContactPrefix: "If you have any questions, don't hesitate to reach out:",
+			contentLegalPrefix: "For legal information, and trademarks, refer to:",
+		},
 	},
 }
