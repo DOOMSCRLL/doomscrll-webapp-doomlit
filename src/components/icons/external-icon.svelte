@@ -21,7 +21,11 @@
 
 <div
 	aria-labelledby="EXTERNAL_ICON_{platform}"
-	class={["bg-[black] p-2", asset.isBadge ? "rounded-lg" : "rounded-full"]}>
+	class={[
+		"h-14 shrink-0 overflow-hidden bg-[black]",
+		asset.isBadge ? "w-auto rounded-lg" : "w-14 rounded-full",
+		"flex items-center justify-center",
+	]}>
 	<img
 		alt="{getPlatformName(platform)} {labelSuffix}"
 		id="EXTERNAL_ICON_{platform}"

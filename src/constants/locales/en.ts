@@ -43,19 +43,19 @@ export default {
 		noReservationCopy:
 			"Hmm... It seems that all the DOOMLITs have been reserved for selected date. You can choose another date from the calendar, or take a look at next month.",
 		reservationForm: {
-			labelProjectName: {
+			inputProjectName: {
 				label: "Project's name is",
 				placeholder: "Give it a name.",
 			},
-			labelCategory: {
+			inputCategory: {
 				label: "It's category is",
 				placeholder: "Choose a category.",
 			},
-			labelPlatform: {
+			inputPlatform: {
 				label: "It's primary platform is",
 				placeholder: "Choose a platform.",
 			},
-			labelPrimaryUrl: {
+			inputPrimaryUrl: {
 				label: "It's URL is",
 				placeholder: "Paste platform's URL here.",
 			},

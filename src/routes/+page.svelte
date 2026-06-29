@@ -4,6 +4,7 @@
 	import { LOCALE_DEFAULT } from "const/locales"
 	import { DateFmtContext, LocaleContext, ProfileContext } from "contexts/shared.svelte"
 	import type Category from "models/category"
+	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 	import StylisticTimeFormat from "utils/stylistic-time-fmt"
@@ -16,7 +17,7 @@
 	import HelpModal from "comps/help-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import InlineDoomlitIndicator from "comps/inline-doomlit-indicator.svelte"
-	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
+	import ReservationForm from "comps/reservation-form.svelte"
 
 	type Props = {
 		data: PageData
@@ -76,12 +77,52 @@
 	})
 
 	let helpModalTrigger = $state<HTMLButtonElement>()
+
+	let isReserving = $state(false)
 </script>
 
 <svelte:head>
 	<title>{dict.meta.title}</title>
 	<meta name="description" content={dict.meta.description} />
 </svelte:head>
+
+{#snippet reservationPreview()}
+	<div class="flex w-full justify-center gap-2">
+		<InlineDoomlitIndicator current={selectedProgress} max={data.rules.maxReservationsPerDay} />
+		<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.cta.suffixSlotInfo}</p>
+	</div>
+	{#if selectedProgress >= data.rules.maxReservationsPerDay}
+		<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.noReservationCopy}</p>
+	{:else}
+		<div class="flex flex-col gap-4">
+			<section class="flex gap-4">
+				<Dropdown
+					label={dict.cta.categoryDropdown.label}
+					name="preview-category"
+					placeholder={dict.cta.categoryDropdown.placeholder}
+					doHideLabel={true}
+					options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
+					bind:value={selectedCategory} />
+				<SlabAnchor href={previewHref} alignment="center" fit="max" variant="outlined">
+					<Icon icon="Doomeye" />
+					{dict.cta.labelPreview}
+				</SlabAnchor>
+			</section>
+
+			{#if !currentProfile}
+				<SlabButton alignment="center" fit="max" variant="filled" isDisabled={true}>
+					<Icon icon="DoomeyeClosed" />
+					{dict.cta.labelSignin}
+				</SlabButton>
+			{:else}
+				<SlabButton alignment="center" fit="max" variant="filled">
+					<Icon icon="Purchase" />
+					{dict.cta.labelReserve}
+				</SlabButton>
+			{/if}
+		</div>
+	{/if}
+{/snippet}
 
 <main class="grid h-screen w-full grid-rows-[auto_1fr] gap-4 overflow-hidden px-6 supports-[height:100dvh]:h-dvh">
 	<BrandNav bind:helpModalTrigger />
@@ -106,43 +147,13 @@
 					<p class="font-mono text-xl tracking-wider uppercase">{fmt.getFullDate(selectedDate)}</p>
 					<p class="font-mono font-bold tracking-widest uppercase">{fmt.getLongDayName(selectedDate)}</p>
 				</div>
-				<div class="flex w-full justify-center gap-2">
-					<InlineDoomlitIndicator current={selectedProgress} max={data.rules.maxReservationsPerDay} />
-					<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.cta.suffixSlotInfo}</p>
-				</div>
-				{#if selectedProgress >= data.rules.maxReservationsPerDay}
-					<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.noReservationCopy}</p>
-				{:else}
-					<div class="flex flex-col gap-4">
-						<section class="flex gap-4">
-							<Dropdown
-								label={dict.cta.categoryDropdown.label}
-								name="preview-category"
-								placeholder={dict.cta.categoryDropdown.placeholder}
-								doHideLabel={true}
-								options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
-								bind:value={selectedCategory} />
-							<SlabAnchor href={previewHref} alignment="center" fit="max" variant="outlined">
-								<Icon icon="Doomeye" />
-								{dict.cta.labelPreview}
-							</SlabAnchor>
-						</section>
 
-						{#if !currentProfile}
-							<SlabButton alignment="center" fit="max" variant="filled" isDisabled={true}>
-								<Icon icon="DoomeyeClosed" />
-								{dict.cta.labelSignin}
-							</SlabButton>
-						{:else}
-							<SlabButton alignment="center" fit="max" variant="filled">
-								<Icon icon="Purchase" />
-								{dict.cta.labelReserve}
-							</SlabButton>
-						{/if}
-					</div>
+				{#if !isReserving}
+					{@render reservationPreview()}
+				{:else}
+					<ReservationForm />
 				{/if}
 			</section>
-
 			<ol role="list" class="super-markers font-serif text-xl font-medium tracking-tight break-normal">
 				{#each Object.values(dict.disclaimer) as d (d)}<li>{d}</li>{/each}
 			</ol>

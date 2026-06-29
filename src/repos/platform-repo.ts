@@ -13,6 +13,14 @@ export function getPlatformSlug(platform: PlatformName): string {
 	return PLATFORMS[platform].slug
 }
 
+const LOOKUP_MAP_PLATFORM_SLUG_TO_KEY = Object.freeze(
+	Object.fromEntries(Object.entries(PLATFORMS).map(([key, p]) => [p.slug, key])),
+)
+export function slugToPlatformName(slug?: string): PlatformName | undefined {
+	if (!slug) return undefined
+	return LOOKUP_MAP_PLATFORM_SLUG_TO_KEY[slug] as PlatformName
+}
+
 // #region Platform icons helper
 const BUNDLED_LOGO_PLATFORMS = new Set<PlatformName>([
 	"appStore",

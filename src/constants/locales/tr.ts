@@ -44,19 +44,19 @@ export default {
 			labelReserve: "DOOMLIT ayırt",
 		},
 		reservationForm: {
-			labelProjectName: {
+			inputProjectName: {
 				label: "Projenin ismi",
 				placeholder: "Projene bir isim ver.",
 			},
-			labelCategory: {
+			inputCategory: {
 				label: "Kategorisi",
 				placeholder: "Bir kategori seç.",
 			},
-			labelPlatform: {
+			inputPlatform: {
 				label: "Yayınlandığı birincil platform",
 				placeholder: "Bir platform seç.",
 			},
-			labelPrimaryUrl: {
+			inputPrimaryUrl: {
 				label: "Platform bağlantısı",
 				placeholder: "Platformun bağlantısını buraya yapıştır.",
 			},
