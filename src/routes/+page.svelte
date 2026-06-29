@@ -79,6 +79,12 @@
 	let helpModalTrigger = $state<HTMLButtonElement>()
 
 	let isReserving = $state(false)
+	function handleReserveClick() {
+		isReserving = true
+	}
+	function handleReservationCancel() {
+		isReserving = false
+	}
 </script>
 
 <svelte:head>
@@ -115,7 +121,7 @@
 					{dict.cta.labelSignin}
 				</SlabButton>
 			{:else}
-				<SlabButton alignment="center" fit="max" variant="filled">
+				<SlabButton alignment="center" fit="max" variant="filled" onClick={handleReserveClick}>
 					<Icon icon="Purchase" />
 					{dict.cta.labelReserve}
 				</SlabButton>
@@ -151,7 +157,7 @@
 				{#if !isReserving}
 					{@render reservationPreview()}
 				{:else}
-					<ReservationForm />
+					<ReservationForm date={selectedDate} onCancel={handleReservationCancel} />
 				{/if}
 			</section>
 			<ol role="list" class="super-markers font-serif text-xl font-medium tracking-tight break-normal">
