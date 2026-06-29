@@ -17,6 +17,10 @@ export default {
 			labelInstructions: "Metni panona kopyalamak için buraya tıkla.",
 		},
 	},
+	errorPage: {
+		header: "Aha, bir hata yakaladın!",
+		labelReturn: "Ana sayfaya dön",
+	},
 	reservation: {
 		meta: {
 			title: "DOOMSCRLL",

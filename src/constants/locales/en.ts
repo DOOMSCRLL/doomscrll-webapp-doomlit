@@ -16,6 +16,10 @@ export default {
 			labelInstructions: "Click to copy this text to your clipboard.",
 		},
 	},
+	errorPage: {
+		header: "Hey, you found an error!",
+		labelReturn: "Return home",
+	},
 	reservation: {
 		meta: {
 			title: "DOOMSCRLL",
