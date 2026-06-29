@@ -5,12 +5,19 @@
 	import { getCategories, getCategoryLabelFor, isCategory } from "repos/category-repo"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import { getPlatform, getPlatformsFor, slugToPlatformName } from "repos/platform-repo"
+	import type DDate from "utils/d-date"
 
 	import SlabButton from "./buttons/slab-button.svelte"
 	import Dropdown from "./form/dropdown.svelte"
 	import TextInput from "./form/text-input.svelte"
 	import ExternalIcon from "./icons/external-icon.svelte"
 	import Icon from "./icons/icon.svelte"
+
+	type Props = {
+		date: DDate
+		onCancel: () => void
+	}
+	const { date, onCancel }: Props = $props()
 
 	const locale = $derived(LocaleContext.context.value!)
 	const dict = $derived(getDictionaryOf(locale).reservation.reservationForm)
@@ -32,7 +39,8 @@
 	})
 </script>
 
-<form action="" method="POST" class="flex flex-col gap-12" use:enhance>
+<form action="?/reserve" method="POST" class="flex flex-col gap-12" use:enhance>
+	<input type="hidden" name="showcase-date" value={date.toISOString()} />
 	<section class="flex flex-col gap-6">
 		<TextInput
 			name="project-name"
@@ -68,8 +76,14 @@
 		{/if}
 	</section>
 
-	<SlabButton variant="filled" alignment="left" fit="max" buttonType="submit">
-		<Icon icon="Upload" />
-		{dict.labelReserve}
-	</SlabButton>
+	<section class="flex gap-4">
+		<SlabButton variant="outlined" alignment="left" fit="min" onClick={onCancel}>
+			<Icon icon="ArrowBack" />
+			{dict.labelCancel}
+		</SlabButton>
+		<SlabButton variant="filled" alignment="left" fit="max" buttonType="submit">
+			<Icon icon="Upload" />
+			{dict.labelReserve}
+		</SlabButton>
+	</section>
 </form>

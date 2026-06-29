@@ -61,6 +61,7 @@ export default {
 				placeholder: "Platformun bağlantısını buraya yapıştır.",
 			},
 			labelReserve: "Öde ve bir DOOMLIT ayırt.",
+			labelCancel: "Vazgeç",
 		},
 		disclaimer: {
 			infoEdit: "DOOMLIT'in yayınlanacağı tarihe kadar düzenlenebilir.",

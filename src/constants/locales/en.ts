@@ -60,6 +60,7 @@ export default {
 				placeholder: "Paste platform's URL here.",
 			},
 			labelReserve: "Pay & reserve a DOOMLIT",
+			labelCancel: "Cancel",
 		},
 		disclaimer: {
 			infoEdit: "A DOOMLIT can be edited before it's airing date.",
