@@ -56,7 +56,7 @@
 		}),
 		ttm(fit, {
 			max: "w-full",
-			min: "w-min",
+			min: "w-min shrink-0",
 			square: "aspect-square p-0",
 		}),
 		/* button appearance: */
