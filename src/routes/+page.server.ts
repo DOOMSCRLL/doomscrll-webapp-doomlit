@@ -2,9 +2,9 @@ import { fail, type Actions } from "@sveltejs/kit"
 import type { PageServerLoad } from "./$types"
 
 import { API_BASE_URL } from "$env/static/private"
-import { getReservationsFor, getRules } from "repos/project-repo"
+import { getReservationsFor, getRules, getDraft } from "repos/project-repo"
 
-export const load: PageServerLoad = async ({ fetch, url }) => {
+export const load: PageServerLoad = async ({ fetch, url, cookies }) => {
 	const now = new Date()
 
 	const qYear = url.searchParams.get("year")
@@ -13,11 +13,23 @@ export const load: PageServerLoad = async ({ fetch, url }) => {
 	const targetYear = qYear ? parseInt(qYear, 10) : now.getFullYear()
 	const targetMonth = qMonth ? parseInt(qMonth, 10) : now.getMonth() + 1
 
+	const activeDraftId = cookies.get("activeDraftId")
+	let activeDraft = null
+
+	if (activeDraftId) {
+		try {
+			activeDraft = await getDraft(activeDraftId, fetch)
+		} catch (e) {
+			cookies.delete("activeDraftId", { path: "/" })
+		}
+	}
+
 	const [rules, reservations] = await Promise.all([getRules(fetch), getReservationsFor(targetYear, targetMonth, fetch)])
 
 	return {
 		rules,
 		reservations,
+		activeDraft,
 		currentCalendar: {
 			year: targetYear,
 			month: targetMonth,
@@ -26,7 +38,7 @@ export const load: PageServerLoad = async ({ fetch, url }) => {
 }
 
 export const actions: Actions = {
-	reserve: async ({ request, fetch }) => {
+	reserve: async ({ request, fetch, cookies }) => {
 		const data = await request.formData()
 
 		const name = data.get("project-name")?.toString()
@@ -70,6 +82,8 @@ export const actions: Actions = {
 					message: result.error?.message || result.error || "Failed to create reservation draft.",
 				})
 			}
+
+			cookies.set("activeDraftId", result.data.referenceId, { path: "/", maxAge: 60 * 15 }) // Expires in 15 mins
 
 			return {
 				success: true,
