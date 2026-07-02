@@ -6,3 +6,14 @@ export type ReservationCountsData = {
 	}
 	counts: Record<string, number>
 }
+
+export type ProjectDraft = {
+	referenceId: string
+	name: string
+	status: string
+	showcaseDate: string
+	reservedAt: string
+	createdAt: string
+	authorHandle: string
+	category: string
+}

@@ -24,4 +24,4 @@
 		"group flex h-12 w-min max-w-full min-w-0 items-center justify-center gap-4 rounded-2xl pr-6 pl-2",
 		"overflow-hidden font-mono font-bold tracking-wider text-ellipsis whitespace-nowrap text-obverse uppercase",
 		"bg-inverse hover:bg-inverse/40 active:bg-accent",
-	]}><Icon icon="Purchase" /> {label}</a>
+	]}><Icon icon="Purchase" />{label}</a>

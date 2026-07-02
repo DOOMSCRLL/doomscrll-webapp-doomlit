@@ -3,7 +3,7 @@ import { error, fail } from "@sveltejs/kit"
 import { env } from "$env/dynamic/private"
 import type { Actions, PageServerLoad } from "./$types"
 
-import type Project from "models/project"
+import type { ProjectDraft } from "models/internal/projects"
 
 export const load: PageServerLoad = async ({ params, fetch, cookies }) => {
 	const referenceId = params.referenceId
@@ -19,7 +19,7 @@ export const load: PageServerLoad = async ({ params, fetch, cookies }) => {
 			throw error(response.status || 404, result.error?.message || "Reservation not found")
 		}
 
-		return { project: result.data as Project }
+		return { project: result.data as ProjectDraft }
 	} catch (err) {
 		console.error("Failed to load project:", err)
 		if (cookies.get("activeDraftId") === referenceId) {
@@ -34,7 +34,7 @@ export const actions: Actions = {
 		try {
 			const csrfRes = await fetch(`${env.API_BASE_URL}/auth/csrf`)
 			const csrfData = await csrfRes.json()
-			
+
 			if (!csrfRes.ok || !csrfData.success) {
 				return fail(500, { success: false, message: "Failed to acquire CSRF token." })
 			}

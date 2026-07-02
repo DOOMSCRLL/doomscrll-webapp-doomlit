@@ -15,16 +15,19 @@
 	<p>MISSING_LABEL_RESERVATION_DETAILS</p>
 	<section class="flex flex-col gap-2">
 		<p class="font-serif text-xl font-medium text-inverse italic">
-			LABEL_AUTHOR_NAME: <span class="font-bold not-italic">@{project.authorHandle}</span>
-		</p>
-		<p class="font-serif text-xl font-medium text-inverse italic">
-			LABEL_REF_ID: <span class="font-bold not-italic">{project.referenceId}</span>
+			LABEL_RESERV_DATE: <span class="font-bold not-italic">{project.showcaseDate}</span>
 		</p>
 		<p class="font-serif text-xl font-medium text-inverse italic">
 			LABEL_PROJECT_NAME: <span class="font-bold not-italic">{project.name}</span>
 		</p>
 		<p class="font-serif text-xl font-medium text-inverse italic">
-			LABEL_RESERV_DATE: <span class="font-bold not-italic">{project.showcaseDate}</span>
+			LABEL_CATEGORY_NAME: <span class="font-bold not-italic">{project.category}</span>
+		</p>
+		<p class="font-serif text-xl font-medium text-inverse italic">
+			LABEL_AUTHOR_NAME: <span class="font-bold not-italic">@{project.authorHandle}</span>
+		</p>
+		<p class="font-serif text-xl font-medium text-inverse italic">
+			LABEL_REF_ID: <span class="font-bold not-italic">{project.referenceId}</span>
 		</p>
 	</section>
 

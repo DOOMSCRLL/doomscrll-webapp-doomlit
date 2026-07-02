@@ -4,7 +4,7 @@ import { error } from "@sveltejs/kit"
 
 import type Category from "models/category"
 import type { APIResponse } from "models/internal/api"
-import type { ReservationCountsData } from "models/internal/projects"
+import type { ProjectDraft, ReservationCountsData } from "models/internal/projects"
 import type { ProjectRules } from "models/internal/rules"
 import type { ProjectPreview } from "models/project"
 import DDate from "utils/d-date"
@@ -67,11 +67,9 @@ export async function getPreviewsFor(
 	return result.data
 }
 
-export async function getDraft(
-	referenceId: string,
-	customFetch: typeof fetch = fetch,
-): Promise<{ referenceId: string; name: string; status: string; showcaseDate: string; createdAt: string }> {
+export async function getDraft(referenceId: string, customFetch: typeof fetch = fetch): Promise<ProjectDraft> {
 	const response = await customFetch(`${API_BASE_URL}/projects/drafts/${referenceId}`)
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const result = (await response.json()) as APIResponse<any>
 
 	if (!result.success) {
