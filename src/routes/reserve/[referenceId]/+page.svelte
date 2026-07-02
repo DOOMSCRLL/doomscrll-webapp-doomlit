@@ -12,7 +12,6 @@
 	const fmt = $derived(DateFmtContext.context.value!)
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).payment)
 
-	// TODO: Change lable of reserve button on root route
 	const project = $derived(data.project)
 </script>
 

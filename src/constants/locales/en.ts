@@ -7,6 +7,7 @@ export default {
 		navbar: {
 			ariaLabelLangSelect: "Choose a language to use DOOMSCRLL in.",
 			suffixReservationProgress: "DOOMLITs reserved",
+			labelActiveDraftWarning: "See Active Drafts",
 		},
 		copyableText: {
 			status: {

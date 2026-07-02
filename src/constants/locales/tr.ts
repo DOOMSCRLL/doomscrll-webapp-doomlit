@@ -8,6 +8,7 @@ export default {
 		navbar: {
 			ariaLabelLangSelect: "DOOMSCRLL'da kullanmak için bir dil seçin.",
 			suffixReservationProgress: "DOOMLIT ayırtıldı.",
+			labelActiveDraftWarning: "Aktif Şablonları Gör",
 		},
 		copyableText: {
 			status: {

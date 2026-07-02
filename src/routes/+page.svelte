@@ -131,7 +131,7 @@
 {/snippet}
 
 <main class="grid h-screen w-full grid-rows-[auto_1fr] gap-4 overflow-hidden px-6 supports-[height:100dvh]:h-dvh">
-	<BrandNav bind:helpModalTrigger />
+	<BrandNav bind:helpModalTrigger activeDraftRefId={data.activeDraftId} />
 	<section class="grid h-full w-full grid-cols-2 gap-12">
 		<!-- < Calendar View -->
 		<section class="flex flex-col items-start justify-center gap-4">

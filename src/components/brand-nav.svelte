@@ -20,10 +20,11 @@
 
 	type Props = {
 		helpModalTrigger?: HTMLButtonElement
+		activeDraftRefId?: string
 		comps?: NavComponents
 	}
 
-	let { helpModalTrigger = $bindable(), comps }: Props = $props()
+	let { helpModalTrigger = $bindable(), activeDraftRefId, comps }: Props = $props()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).common)
 	const fmt = $derived(DateFmtContext.context.value!)
@@ -38,6 +39,9 @@
 			<LanguageSelector label={dict.navbar.ariaLabelLangSelect} />
 			<IconButton icon="Help" variant="text" renderDecors={false} bind:reference={helpModalTrigger} />
 		</section>
+		{#if activeDraftRefId}
+			<SlabAnchor href="/reserve/{activeDraftRefId}">{dict.navbar.labelActiveDraftWarning}</SlabAnchor>
+		{/if}
 		<ProfileButton />
 	</section>
 {/snippet}
