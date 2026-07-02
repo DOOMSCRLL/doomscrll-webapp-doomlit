@@ -13,24 +13,18 @@ export const load: PageServerLoad = async ({ params, fetch, cookies }) => {
 		const result = await response.json()
 
 		if (!response.ok || !result.success) {
-			if (cookies.get("activeDraftId") === referenceId) {
-				cookies.delete("activeDraftId", { path: "/" })
-			}
 			throw error(response.status || 404, result.error?.message || "Reservation not found")
 		}
 
 		return { project: result.data as ProjectDraft }
 	} catch (err) {
 		console.error("Failed to load project:", err)
-		if (cookies.get("activeDraftId") === referenceId) {
-			cookies.delete("activeDraftId", { path: "/" })
-		}
 		throw error(404, "Reservation not found")
 	}
 }
 
 export const actions: Actions = {
-	cancelDraft: async ({ params, fetch, cookies }) => {
+	cancelDraft: async ({ params, fetch }) => {
 		try {
 			const csrfRes = await fetch(`${env.API_BASE_URL}/auth/csrf`)
 			const csrfData = await csrfRes.json()
@@ -48,10 +42,6 @@ export const actions: Actions = {
 
 			if (!response.ok) {
 				return fail(response.status, { success: false, message: "Failed to cancel draft" })
-			}
-
-			if (cookies.get("activeDraftId") === params.referenceId) {
-				cookies.delete("activeDraftId", { path: "/" })
 			}
 
 			return { success: true }
