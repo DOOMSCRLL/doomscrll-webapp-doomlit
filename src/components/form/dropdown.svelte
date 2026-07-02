@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from "comps/icons/icon.svelte"
+	import { sortByStringProp } from "utils/sort-by"
 
 	type Option = {
 		value: string
@@ -25,6 +26,8 @@
 		doHideLabel = false,
 		value = $bindable(),
 	}: Props = $props()
+
+	const sortedOpts = $derived(sortByStringProp(options, "label"))
 </script>
 
 {#if !doHideLabel}
@@ -46,7 +49,7 @@
 			]}
 			bind:value>
 			<option value={undefined} disabled hidden>{placeholder}</option>
-			{#each options as opt (opt)}
+			{#each sortedOpts as opt (opt)}
 				<option value={opt.value}>{opt.label}</option>
 			{/each}
 		</select>

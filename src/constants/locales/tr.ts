@@ -60,7 +60,7 @@ export default {
 				label: "Platform bağlantısı",
 				placeholder: "Platformun bağlantısını buraya yapıştır.",
 			},
-			labelReserve: "Öde ve bir DOOMLIT ayırt.",
+			labelReserve: "DOOMLIT ayırt.",
 			labelCancel: "Vazgeç",
 		},
 		disclaimer: {
@@ -71,6 +71,24 @@ export default {
 		doomlitMenu: {
 			copy: "Düzenlemek için bir DOOMLIT seç:",
 			labelClose: "Kapat",
+		},
+	},
+	payment: {
+		meta: {
+			titlePrefix: "Reservasyon Onayı",
+			description: "Buradan, DOOMLIT'in için yaptığın rezervasyonu, rezervasyon ücretini ödeyerek tamamlayabilirsin.",
+		},
+		copy: "You can review your DOOMLIT's details here. If everything looks fine, you can proceed with your payment.\nAfter the payment you can update your DOOMLIT from the profile menu to add more information regarding it.",
+		details: {
+			labelReservationDate: "Gösterim Tarihi",
+			labelProjectName: "Proje Adı",
+			labelCategory: "Kategori",
+			labelAuthor: "Yaratıcısı",
+			labelRefId: "Referans ID",
+		},
+		actions: {
+			labelCancel: "Cancel",
+			labelProceed: "Proceed to payment",
 		},
 	},
 	preview: {

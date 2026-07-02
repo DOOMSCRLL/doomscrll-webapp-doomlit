@@ -59,7 +59,7 @@ export default {
 				label: "It's URL is",
 				placeholder: "Paste platform's URL here.",
 			},
-			labelReserve: "Pay & reserve a DOOMLIT",
+			labelReserve: "Reserve a DOOMLIT",
 			labelCancel: "Cancel",
 		},
 		disclaimer: {
@@ -70,6 +70,24 @@ export default {
 		doomlitMenu: {
 			copy: "Select a DOOMLIT to update:",
 			labelClose: "Close",
+		},
+	},
+	payment: {
+		meta: {
+			titlePrefix: "Confirm Reservation For",
+			description: "From here, you can complete your DOOMLIT reservation by completing it's payment.",
+		},
+		copy: "You can review your DOOMLIT's details here. If everything looks fine, you can proceed with your payment.\nAfter the payment you can update your DOOMLIT from the profile menu to add more information regarding it.",
+		details: {
+			labelReservationDate: "Showcase Date",
+			labelProjectName: "Project Name",
+			labelCategory: "Category",
+			labelAuthor: "Created By",
+			labelRefId: "Reference ID",
+		},
+		actions: {
+			labelCancel: "Cancel",
+			labelProceed: "Proceed to payment",
 		},
 	},
 	preview: {
