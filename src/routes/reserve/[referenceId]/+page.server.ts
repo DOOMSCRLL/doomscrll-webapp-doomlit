@@ -16,7 +16,7 @@ export const load: PageServerLoad = async ({ params, fetch, cookies }) => {
 			if (cookies.get("activeDraftId") === referenceId) {
 				cookies.delete("activeDraftId", { path: "/" })
 			}
-			throw error(response.status || 404, result.error || "Reservation not found")
+			throw error(response.status || 404, result.error?.message || "Reservation not found")
 		}
 
 		return { project: result.data as Project }
@@ -39,7 +39,7 @@ export const actions: Actions = {
 				return fail(500, { success: false, message: "Failed to acquire CSRF token." })
 			}
 
-			const response = await fetch(`${env.API_BASE_URL}/projects/drafts/${params.referenceId}`, {
+			const response = await fetch(`${env.API_BASE_URL}/projects/${params.referenceId}`, {
 				method: "DELETE",
 				headers: {
 					"csrf-token": csrfData.csrfToken,
@@ -74,7 +74,7 @@ export const actions: Actions = {
 					attributes: {
 						checkout_data: {
 							custom: {
-								referenceId: params.referenceId,
+								project_reference_id: params.referenceId,
 							},
 						},
 					},

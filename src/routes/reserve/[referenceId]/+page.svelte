@@ -1,4 +1,5 @@
 <script lang="ts">
+	import DoomlitReservationAnchor from "comps/buttons/doomlit-reservation-anchor.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import DoomscrllWordmark from "comps/icons/doomscrll-wordmark.svelte"
 	import Icon from "comps/icons/icon.svelte"
@@ -28,15 +29,11 @@
 	</section>
 
 	<section class="flex gap-4">
-		<form action="?/cancelDraft">
+		<form action="?/cancelDraft" method="POST">
 			<SlabButton alignment="left" fit="min" hasAccent={true} variant="outlined" buttonType="submit">
 				<Icon icon="ArrowBack" />MISSING_LABEL_CANCEL
 			</SlabButton>
 		</form>
-		<form action="?/startPayment">
-			<SlabButton alignment="left" fit="max" variant="filled" buttonType="submit">
-				<Icon icon="Purchase" /> MISSING_LABEL_PROCEED_TO_PAYMENT
-			</SlabButton>
-		</form>
+		<DoomlitReservationAnchor label="MISSING_LABEL_PROCEED_TO_PAYMENT" referenceId={project.referenceId} />
 	</section>
 </main>
