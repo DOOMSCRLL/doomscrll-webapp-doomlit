@@ -10,6 +10,7 @@ type Project = {
 	name: string
 	authorHandle: string
 	tags: ProjectTag[]
+	createdAt?: string
 }
 
 export type ProjectPreview = {

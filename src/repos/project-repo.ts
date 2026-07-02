@@ -70,7 +70,7 @@ export async function getPreviewsFor(
 export async function getDraft(
 	referenceId: string,
 	customFetch: typeof fetch = fetch,
-): Promise<{ referenceId: string; name: string; status: string; showcaseDate: string; reservedAt: string }> {
+): Promise<{ referenceId: string; name: string; status: string; showcaseDate: string; createdAt: string }> {
 	const response = await customFetch(`${API_BASE_URL}/projects/drafts/${referenceId}`)
 	const result = (await response.json()) as APIResponse<any>
 
