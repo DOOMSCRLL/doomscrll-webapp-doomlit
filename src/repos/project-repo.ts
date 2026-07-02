@@ -81,3 +81,15 @@ export async function getDraft(referenceId: string, customFetch: typeof fetch = 
 
 	return result.data
 }
+
+export async function getActiveDraftReference(customFetch: typeof fetch = fetch): Promise<string | null> {
+	const response = await customFetch(`${API_BASE_URL}/projects/drafts/active`)
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const result = (await response.json()) as APIResponse<any>
+
+	if (!result.success) {
+		return null
+	}
+
+	return result.data?.referenceId || null
+}
