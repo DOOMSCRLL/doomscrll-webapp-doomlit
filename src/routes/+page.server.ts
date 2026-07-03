@@ -85,4 +85,31 @@ export const actions: Actions = {
 			return fail(500, { success: false, message: "An unexpected error occurred." })
 		}
 	},
+	cancelDraft: async ({ request, fetch }) => {
+		try {
+			const csrfRes = await fetch(`${env.API_BASE_URL}/auth/csrf`)
+			const csrfData = await csrfRes.json()
+
+			if (!csrfRes.ok || !csrfData.success) {
+				return fail(500, { success: false, message: "Failed to acquire CSRF token." })
+			}
+
+			const form = await request.formData()
+			const response = await fetch(`${env.API_BASE_URL}/projects/${form.get("activeDraftId")}`, {
+				method: "DELETE",
+				headers: {
+					"csrf-token": csrfData.csrfToken,
+				},
+			})
+
+			if (!response.ok) {
+				return fail(response.status, { success: false, message: "Failed to cancel draft" })
+			}
+
+			return { success: true }
+		} catch (err) {
+			console.error("Error cancelling draft:", err)
+			return fail(500, { success: false, message: "An internal error occurred" })
+		}
+	},
 }

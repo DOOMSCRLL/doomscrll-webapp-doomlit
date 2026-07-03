@@ -9,6 +9,8 @@
 	import DDate from "utils/d-date"
 	import StylisticTimeFormat from "utils/stylistic-time-fmt"
 
+	import { enhance } from "$app/forms"
+	import { afterNavigate, invalidateAll } from "$app/navigation"
 	import BrandNav from "comps/brand-nav.svelte"
 	import SlabAnchor from "comps/buttons/slab-anchor.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
@@ -85,6 +87,11 @@
 	function handleReservationCancel() {
 		isReserving = false
 	}
+
+	// Guard for the case where user navigates back after confirming/cancelling their DOOMLIT.
+	afterNavigate(({ type }) => {
+		if (type === "popstate") invalidateAll()
+	})
 </script>
 
 <svelte:head>
