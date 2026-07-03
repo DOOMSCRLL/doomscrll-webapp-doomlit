@@ -81,9 +81,9 @@
 			<Icon icon="ArrowBack" />
 			{dict.labelCancel}
 		</SlabButton>
-		<SlabButton variant="filled" alignment="left" fit="max" buttonType="submit">
-			<Icon icon="Upload" />
+		<SlabButton variant="filled" fit="max" buttonType="submit">
 			{dict.labelReserve}
+			<Icon icon="ArrowForward" />
 		</SlabButton>
 	</section>
 </form>

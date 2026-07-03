@@ -1,7 +1,8 @@
+import { env } from "$env/dynamic/private"
+
 import { fail, type Actions } from "@sveltejs/kit"
 import type { PageServerLoad } from "./$types"
 
-import { API_BASE_URL } from "$env/static/private"
 import { getActiveDraftReference, getReservationsFor, getRules } from "repos/project-repo"
 
 export const load: PageServerLoad = async ({ fetch, url }) => {
@@ -43,14 +44,14 @@ export const actions: Actions = {
 		}
 
 		try {
-			const csrfRes = await fetch(`${API_BASE_URL}/auth/csrf`)
+			const csrfRes = await fetch(`${env.API_BASE_URL}/auth/csrf`)
 			const csrfData = await csrfRes.json()
 
 			if (!csrfRes.ok || !csrfData.success) {
 				return fail(500, { success: false, message: "Failed to acquire CSRF token." })
 			}
 
-			const response = await fetch(`${API_BASE_URL}/projects/reserve`, {
+			const response = await fetch(`${env.API_BASE_URL}/projects/reserve`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

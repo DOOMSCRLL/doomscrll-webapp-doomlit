@@ -5,7 +5,7 @@ import type { Actions, PageServerLoad } from "./$types"
 
 import type { ProjectDraft } from "models/internal/projects"
 
-export const load: PageServerLoad = async ({ params, fetch, cookies }) => {
+export const load: PageServerLoad = async ({ params, fetch }) => {
 	const referenceId = params.referenceId
 
 	try {
@@ -50,7 +50,6 @@ export const actions: Actions = {
 			return fail(500, { success: false, message: "An internal error occurred" })
 		}
 	},
-
 	startPayment: async ({ params, fetch }) => {
 		try {
 			if (!env.LEMONSQUEEZY_API_KEY || !env.LEMONSQUEEZY_STORE_ID || !env.LEMONSQUEEZY_VARIANT_ID) {
