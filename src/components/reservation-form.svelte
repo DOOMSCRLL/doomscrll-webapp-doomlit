@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { enhance } from "$app/forms"
-
 	import { LocaleContext } from "contexts/shared.svelte"
 	import { getCategories, getCategoryLabelFor, isCategory } from "repos/category-repo"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import { getPlatform, getPlatformsFor, slugToPlatformName } from "repos/platform-repo"
 	import type DDate from "utils/d-date"
 
+	import { enhance } from "$app/forms"
 	import SlabButton from "./buttons/slab-button.svelte"
 	import Dropdown from "./form/dropdown.svelte"
 	import TextInput from "./form/text-input.svelte"
@@ -39,7 +38,15 @@
 	})
 </script>
 
-<form action="?/reserve" method="POST" class="flex flex-col gap-12" use:enhance>
+<form
+	action="?/reserve"
+	method="POST"
+	class="flex flex-col gap-12"
+	use:enhance={() =>
+		async ({ result, update }) => {
+			if (result.type === "redirect") window.location.href = result.location
+			else update()
+		}}>
 	<input type="hidden" name="showcase-date" value={date.toISOString()} />
 	<section class="flex flex-col gap-6">
 		<TextInput
