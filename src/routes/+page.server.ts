@@ -1,6 +1,6 @@
 import { env } from "$env/dynamic/private"
 
-import { fail, redirect, type Actions } from "@sveltejs/kit"
+import { fail, redirect, isRedirect, type Actions } from "@sveltejs/kit"
 import type { PageServerLoad } from "./$types"
 
 import { getActiveDraftReference, getReservationsFor, getRules } from "repos/project-repo"
@@ -77,6 +77,7 @@ export const actions: Actions = {
 
 			throw redirect(303, `/reserve/${result.data?.referenceId}`)
 		} catch (error) {
+			if (isRedirect(error)) throw error
 			console.error("Reservation error:", error)
 			return fail(500, { success: false, message: "An unexpected error occurred." })
 		}

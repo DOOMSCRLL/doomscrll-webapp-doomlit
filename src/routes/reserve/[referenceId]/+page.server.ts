@@ -1,4 +1,4 @@
-import { error, fail, redirect } from "@sveltejs/kit"
+import { error, fail, redirect, isRedirect } from "@sveltejs/kit"
 
 import { env } from "$env/dynamic/private"
 import type { Actions, PageServerLoad } from "./$types"
@@ -46,6 +46,7 @@ export const actions: Actions = {
 
 			throw redirect(303, "/")
 		} catch (err) {
+			if (isRedirect(err)) throw err
 			console.error("Error cancelling draft:", err)
 			return fail(500, { success: false, message: "An internal error occurred" })
 		}
