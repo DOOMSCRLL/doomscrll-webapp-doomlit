@@ -8,7 +8,7 @@ export default {
 		navbar: {
 			ariaLabelLangSelect: "DOOMSCRLL'da kullanmak için bir dil seçin.",
 			suffixReservationProgress: "DOOMLIT ayırtıldı.",
-			labelActiveDraftWarning: "Aktif Şablonları Gör",
+			labelActiveDraftWarning: "Aktif Taslakları Gör",
 		},
 		copyableText: {
 			status: {
@@ -61,8 +61,16 @@ export default {
 				label: "Platform bağlantısı",
 				placeholder: "Platformun bağlantısını buraya yapıştır.",
 			},
-			labelReserve: "DOOMLIT ayırt.",
+			labelReserve: "Taslağı kaydet",
 			labelCancel: "Vazgeç",
+		},
+		activeDraftWarning: {
+			title: "Halihazırda bekleyen bir DOOMLIT taslağın var!",
+			body: ctsr`Bir DOOMLIT ayırttın fakat o, ücreti ödenene kadar onaylanmayacak. DOOMLIT taslakları 15 dakika sonra silinir.
+        &NewLine;İstersen taslağı iptal ederek onu silebilirsin, ya da onay sayfasına devam edebilirsin. Orada DOOMLIT taslağını
+        inceleyebilir ve ödemesini yapabilirsin.`,
+			labelCancel: "İptal et ve taslağı sil",
+			labelProceed: "İnceleme ve ödeme sayfasına git",
 		},
 		disclaimer: {
 			infoEdit: "DOOMLIT'in yayınlanacağı tarihe kadar düzenlenebilir.",

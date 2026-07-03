@@ -122,8 +122,8 @@
 				</SlabButton>
 			{:else}
 				<SlabButton alignment="center" fit="max" variant="filled" onClick={handleReserveClick}>
-					<Icon icon="Purchase" />
 					{dict.cta.labelReserve}
+					<Icon icon="ArrowForward" />
 				</SlabButton>
 			{/if}
 		</div>

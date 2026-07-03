@@ -1,4 +1,4 @@
-import ctsr from "utils/condense-string"
+import ctsr, { MARKER_NEWLINE } from "utils/condense-string"
 
 export default {
 	common: {
@@ -60,8 +60,16 @@ export default {
 				label: "It's URL is",
 				placeholder: "Paste platform's URL here.",
 			},
-			labelReserve: "Reserve a DOOMLIT",
+			labelReserve: "Reserve a draft",
 			labelCancel: "Cancel",
+		},
+		activeDraftWarning: {
+			title: "You have a DOOMLIT draft waiting!",
+			body: ctsr`You have reserved a DOOMLIT, but it won't be confirmed until it's fee is paid. DOOMLIT drafts expire after 15 minutes.
+        ${MARKER_NEWLINE}You can either cancel this draft to remove it, or you can proceed to the confirmation page, where you can preview details of
+        your draft and pay it's fee.`,
+			labelCancel: "Cancel & remove the draft",
+			labelProceed: "Proceed to review and payment",
 		},
 		disclaimer: {
 			infoEdit: "A DOOMLIT can be edited before it's airing date.",
