@@ -20,6 +20,7 @@
 	import Icon from "comps/icons/icon.svelte"
 	import InlineDoomlitIndicator from "comps/inline-doomlit-indicator.svelte"
 	import ReservationForm from "comps/reservation-form.svelte"
+	import UrgentModal from "comps/urgent-modal.svelte"
 
 	type Props = {
 		data: PageData
@@ -174,5 +175,27 @@
 		<!-- end Reservation View > -->
 	</section>
 </main>
+
+{#if data.activeDraftId !== undefined}
+  {const warndict = $derived(dict.activeDraftWarning)}
+	<UrgentModal header={warndict.title} body={warndict.body}>
+		{#snippet actions()}
+			<form
+				action="?/cancelDraft"
+				method="POST"
+        use:enhance>
+				<input type="hidden" name="activeDraftId" value={data.activeDraftId} />
+				<SlabButton variant="outlined" alignment="left" fit="max" hasAccent={true} buttonType="submit">
+					<Icon icon="Remove" />
+					{warndict.labelCancel}
+				</SlabButton>
+			</form>
+			<SlabAnchor href="/reserve/{data.activeDraftId}" variant="filled" alignment="right" fit="max">
+				{warndict.labelProceed}
+				<Icon icon="ArrowForward" />
+			</SlabAnchor>
+		{/snippet}
+	</UrgentModal>
+{/if}
 
 <HelpModal bind:trigger={helpModalTrigger} />
