@@ -151,6 +151,7 @@
 				dailyReservationLimit={data.rules.maxReservationsPerDay}
 				{prevHref}
 				{nextHref}
+        isInteractive={!isReserving}
 				bind:selectedDay={selectedDayIso} />
 		</section>
 		<!-- end Calendar View > -->

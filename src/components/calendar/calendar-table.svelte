@@ -17,6 +17,7 @@
 		selectedDay?: string
 		prevHref?: `/?year=${number}&month=${number}`
 		nextHref?: `/?year=${number}&month=${number}`
+		isInteractive?: boolean
 	}
 
 	// TODO: Add a floating marker on the right edge of the calendar.
@@ -28,6 +29,7 @@
 		selectedDay = $bindable(),
 		prevHref,
 		nextHref,
+		isInteractive = true,
 	}: Props = $props()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).reservation.calendar)
@@ -45,7 +47,16 @@
 	const dayControlName = "day-control"
 </script>
 
-<div class="flex h-min w-full flex-col items-center gap-4 overflow-clip rounded-3xl border-4 border-inverse px-2 py-2">
+<div
+	class={[
+		"flex h-min w-full flex-col items-center gap-4 overflow-clip rounded-3xl border-4 border-inverse px-2 py-2",
+		!isInteractive && "relative",
+	]}>
+	{#if !isInteractive}
+		<div class="absolute inset-0 z-20 flex h-full w-full items-center justify-center bg-[black]/95">
+			<p class="w-60/100 font-serif text-3xl font-medium text-inverse italic">{dict.textNotInteractiveWarn}</p>
+		</div>
+	{/if}
 	<section class="grid w-fit grid-cols-[1fr_auto_1fr] items-center gap-6 [&>h2]:col-2 [&>h2+a]:col-3">
 		{#if prevHref}
 			<SlabAnchor href={prevHref} ariaLabel={dict.labelPrevious} fit="square">
@@ -59,13 +70,11 @@
 			</SlabAnchor>
 		{/if}
 	</section>
-
 	<section class="grid h-min w-full grid-cols-7 justify-items-center">
 		{#each weekdays as day, i (`CALENDAR_DAY_ROW_DAY_${i}`)}
 			<p class="font-mono text-sm font-bold tracking-widest text-inverse uppercase">{day}</p>
 		{/each}
 	</section>
-
 	<section class="grid w-full auto-rows-[4rem] grid-cols-7 gap-2">
 		{#if monthLayout.leadingDays > 0}
 			{#each { length: monthLayout.leadingDays }, i}

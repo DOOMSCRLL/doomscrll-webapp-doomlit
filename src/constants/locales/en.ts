@@ -30,6 +30,7 @@ export default {
 		calendar: {
 			labelPrevious: "Previous month",
 			labelNext: "Next month",
+			textNotInteractiveWarn: "You can't change selected date while the reservation form is open.",
 		},
 		cta: {
 			suffixSlotInfo: "DOOMLITs reserved for this date.",

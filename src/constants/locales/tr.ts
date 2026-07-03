@@ -31,6 +31,7 @@ export default {
 		calendar: {
 			labelPrevious: "Previous month",
 			labelNext: "Next month",
+			textNotInteractiveWarn: "DOOMLIT ayırtma formu açıkken, seçilen tarihi değiştiremezsin.",
 		},
 		noReservationCopy:
 			"Hmm... Görünüşe göre seçtiğin tarihte tüm DOOMLIT'ler alınmış. Takvimden başka bir gün seçebilir, ya da sonra ki aya göz atabilirsin.",
