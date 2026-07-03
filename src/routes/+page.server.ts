@@ -1,6 +1,6 @@
 import { env } from "$env/dynamic/private"
 
-import { fail, type Actions } from "@sveltejs/kit"
+import { fail, redirect, type Actions } from "@sveltejs/kit"
 import type { PageServerLoad } from "./$types"
 
 import { getActiveDraftReference, getReservationsFor, getRules } from "repos/project-repo"
@@ -75,11 +75,7 @@ export const actions: Actions = {
 				})
 			}
 
-			return {
-				success: true,
-				referenceId: result.data?.referenceId,
-				message: "DOOMLIT draft saved. Please proceed to payment within 15 minutes.",
-			}
+			throw redirect(303, `/reserve/${result.data?.referenceId}`)
 		} catch (error) {
 			console.error("Reservation error:", error)
 			return fail(500, { success: false, message: "An unexpected error occurred." })
