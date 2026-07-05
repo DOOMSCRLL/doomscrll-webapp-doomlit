@@ -40,8 +40,15 @@ export const actions: Actions = {
 				},
 			})
 
-			if (!response.ok) {
-				return fail(response.status, { success: false, message: "Failed to cancel draft" })
+			const result = await response.json().catch(() => null)
+
+			if (!response.ok || !result?.success) {
+				if (response.status !== 404) {
+					return fail(response.status || 500, {
+						success: false,
+						message: result?.error?.message || result?.error || "Failed to cancel draft",
+					})
+				}
 			}
 
 			throw redirect(303, "/")

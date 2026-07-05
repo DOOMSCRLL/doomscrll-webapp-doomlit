@@ -102,6 +102,8 @@ export const actions: Actions = {
 			const result = await response.json().catch(() => null)
 
 			if (!response.ok || !result?.success) {
+				if (response.status === 404) return { success: true }
+
 				return fail(response.status || 500, {
 					success: false,
 					message: result?.error?.message || result?.error || "Failed to cancel draft",
