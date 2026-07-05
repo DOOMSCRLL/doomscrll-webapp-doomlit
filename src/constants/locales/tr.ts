@@ -89,6 +89,7 @@ export default {
 			description: "Buradan, DOOMLIT'in için yaptığın rezervasyonu, rezervasyon ücretini ödeyerek tamamlayabilirsin.",
 		},
 		copy: "You can review your DOOMLIT's details here. If everything looks fine, you can proceed with your payment.\nAfter the payment you can update your DOOMLIT from the profile menu to add more information regarding it.",
+		copyExpiration: "Taslağın süresi doldu. Ana sayfaya dönmek için aşağıdaki düğmeyi kullanabilirsin.",
 		details: {
 			labelReservationDate: "Gösterim Tarihi",
 			labelProjectName: "Proje Adı",
@@ -99,6 +100,7 @@ export default {
 		actions: {
 			labelCancel: "Cancel",
 			labelProceed: "Proceed to payment",
+			labelReturn: "Geri dön",
 		},
 	},
 	preview: {

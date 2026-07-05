@@ -1,9 +1,10 @@
-import { error, fail, redirect, isRedirect } from "@sveltejs/kit"
+import { error, fail, isRedirect, redirect } from "@sveltejs/kit"
 
 import { env } from "$env/dynamic/private"
 import type { Actions, PageServerLoad } from "./$types"
 
 import type { ProjectDraft } from "models/internal/projects"
+import { getRules } from "repos/project-repo"
 
 export const load: PageServerLoad = async ({ params, fetch }) => {
 	const referenceId = params.referenceId
@@ -16,7 +17,10 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 			throw error(response.status || 404, result.error?.message || "Reservation not found")
 		}
 
-		return { project: result.data as ProjectDraft }
+		// FIXME: Rules should be fetched by the root layout server file.
+		const rules = await getRules(fetch)
+
+		return { project: result.data as ProjectDraft, rules }
 	} catch (err) {
 		console.error("Failed to load project:", err)
 		throw error(404, "Reservation not found")

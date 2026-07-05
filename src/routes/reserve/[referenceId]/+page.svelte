@@ -1,18 +1,27 @@
 <script lang="ts">
-	import DoomlitReservationAnchor from "comps/buttons/doomlit-reservation-anchor.svelte"
-	import SlabButton from "comps/buttons/slab-button.svelte"
-	import DoomscrllWordmark from "comps/icons/doomscrll-wordmark.svelte"
-	import Icon from "comps/icons/icon.svelte"
 	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte.js"
 	import { getDictionaryOf } from "repos/locale-repo.js"
 	import DDate from "utils/d-date"
 
-	const { data } = $props()
+	import DoomlitReservationAnchor from "comps/buttons/doomlit-reservation-anchor.svelte"
+	import SlabButton from "comps/buttons/slab-button.svelte"
+	import Countdown from "comps/countdown.svelte"
+	import DoomscrllWordmark from "comps/icons/doomscrll-wordmark.svelte"
+	import Icon from "comps/icons/icon.svelte"
+
+	const { data, form } = $props()
 
 	const fmt = $derived(DateFmtContext.context.value!)
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).payment)
 
 	const project = $derived(data.project)
+
+	//let errorMessage = $derived(form?.message)
+
+	let isDraftExpired = $state(false)
+	function onDraftExpiration() {
+		isDraftExpired = true
+	}
 </script>
 
 <svelte:head>
@@ -27,26 +36,43 @@
 {/snippet}
 
 <main class="flex h-screen w-full flex-col items-center justify-around overflow-hidden supports-[height:100dvh]:h-dvh">
-	<section class="flex h-full w-min flex-col items-stretch justify-evenly">
+	<section class="flex h-full w-min min-w-60/100 flex-col items-stretch justify-evenly">
 		<DoomscrllWordmark />
-		<p class="font-serif text-xl font-medium tracking-tight whitespace-pre-wrap text-inverse">{dict.copy}</p>
-		<section class="flex w-full flex-col gap-2 rounded-3xl border-4 border-inverse p-6">
-			{@render labeledText(
-				dict.details.labelReservationDate,
-				fmt.getFullDate(DDate.fromISOString(project.showcaseDate)),
-			)}
-			{@render labeledText(dict.details.labelProjectName, project.name)}
-			{@render labeledText(dict.details.labelCategory, project.category)}
-			{@render labeledText(dict.details.labelAuthor, `@${project.authorHandle}`)}
-			{@render labeledText(dict.details.labelRefId, project.referenceId)}
-		</section>
-		<section class="flex gap-4">
+
+		{#if !isDraftExpired}
+			<p class="font-serif text-xl font-medium tracking-tight whitespace-pre-wrap text-inverse">{dict.copy}</p>
+			<section class="flex w-full flex-col gap-2 rounded-3xl border-4 border-inverse p-6">
+				{@render labeledText(
+					dict.details.labelReservationDate,
+					fmt.getFullDate(DDate.fromISOString(project.showcaseDate)),
+				)}
+				{@render labeledText(dict.details.labelProjectName, project.name)}
+				{@render labeledText(dict.details.labelCategory, project.category)}
+				{@render labeledText(dict.details.labelAuthor, `@${project.authorHandle}`)}
+				{@render labeledText(dict.details.labelRefId, project.referenceId)}
+			</section>
+			<section class="flex gap-4">
+				<form action="?/cancelDraft" method="POST">
+					<SlabButton alignment="left" fit="min" hasAccent={true} variant="outlined" buttonType="submit">
+						<Icon icon="ArrowBack" />{dict.actions.labelCancel}
+					</SlabButton>
+				</form>
+				<DoomlitReservationAnchor label={dict.actions.labelProceed} referenceId={project.referenceId} />
+			</section>
+			<Countdown
+				/*durationMins={data.rules.draftExpirationMinutes}*/
+				durationMins={1}
+				startTimestamp={new Date(data.project.reservedAt)}
+				onCountdownEnd={onDraftExpiration} />
+		{:else}
+			<p class="font-serif text-2xl font-medium tracking-tight whitespace-pre-wrap text-inverse">
+				{dict.copyExpiration}
+			</p>
 			<form action="?/cancelDraft" method="POST">
-				<SlabButton alignment="left" fit="min" hasAccent={true} variant="outlined" buttonType="submit">
-					<Icon icon="ArrowBack" />{dict.actions.labelCancel}
+				<SlabButton alignment="left" fit="max" hasAccent={true} variant="outlined" buttonType="submit">
+					<Icon icon="ArrowBack" />{dict.actions.labelReturn}
 				</SlabButton>
 			</form>
-			<DoomlitReservationAnchor label={dict.actions.labelProceed} referenceId={project.referenceId} />
-		</section>
+		{/if}
 	</section>
 </main>
