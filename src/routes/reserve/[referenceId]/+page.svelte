@@ -1,8 +1,12 @@
 <script lang="ts">
+	import { onMount } from "svelte"
+
 	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte.js"
 	import { getDictionaryOf } from "repos/locale-repo.js"
 	import DDate from "utils/d-date"
 
+	import { goto } from "$app/navigation"
+	import { resolve } from "$app/paths"
 	import DoomlitReservationAnchor from "comps/buttons/doomlit-reservation-anchor.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import Countdown from "comps/countdown.svelte"
@@ -10,6 +14,17 @@
 	import Icon from "comps/icons/icon.svelte"
 
 	const { data } = $props()
+
+	onMount(() => {
+		if (window.LemonSqueezy) {
+			window.LemonSqueezy.Setup({
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				eventHandler: (event: any) => {
+					if (event.event === "Checkout.Success") goto(resolve("/?reservationConfirmed=true"))
+				},
+			})
+		}
+	})
 
 	const fmt = $derived(DateFmtContext.context.value!)
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).payment)
