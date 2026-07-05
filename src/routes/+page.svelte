@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { enhance } from "$app/forms"
-	import { afterNavigate, invalidateAll } from "$app/navigation"
-	import type { PageData } from "./$types"
+  import { enhance } from "$app/forms"
+  import { afterNavigate, invalidateAll } from "$app/navigation"
+  import { page } from "$app/state"
+  import type { PageData } from "./$types"
 
 	import { LOCALE_DEFAULT } from "const/locales"
 	import { DateFmtContext, LocaleContext, ProfileContext } from "contexts/shared.svelte"
@@ -102,6 +103,24 @@
 	}
 	// #endregion
 
+  // #region Success Redirection Management
+  let doBlockDraftWarning = $state(false)
+  $effect(() => {
+    if (page.url.searchParams.get("reservationConfirmed") === "true") {
+      doBlockDraftWarning = true
+
+      alertMsg = {
+        title: dict.reservationSuccessModal.title,
+        body: dict.reservationSuccessModal.body,
+      }
+
+      const cleanUrl = new URL(page.url)
+      cleanUrl.searchParams.delete("reservationConfirmed")
+      window.history.replaceState(window.history.state, "", cleanUrl)
+    }
+  })
+  // #endregion
+
 	// Guard for the case where user navigates back after confirming/cancelling their DOOMLIT.
 	afterNavigate(({ type }) => {
 		if (type === "popstate") invalidateAll()
@@ -194,7 +213,7 @@
 	</section>
 </main>
 
-{#if data.activeDraftId !== undefined}
+{#if data.activeDraftId !== undefined && !doBlockDraftWarning}
 	{const header = $derived(!hasDraftExpired ? dict.activeDraftWarning.title : dict.activeDraftWarning.postExpiration.title)}
 	{const body = $derived(!hasDraftExpired ? dict.activeDraftWarning.body : dict.activeDraftWarning.postExpiration.body)}
 	<UrgentModal {header} {body}>

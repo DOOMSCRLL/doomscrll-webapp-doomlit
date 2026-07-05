@@ -78,6 +78,12 @@ export default {
 				labelReturn: "Return home",
 			},
 		},
+		reservationSuccessModal: {
+			title: "DOOMLIT reservation is confirmed!",
+			body: ctsr`Your DOOMLIT reservation, and it's payment is confirmed.${MARKER_NEWLINE}You can view and update your
+          DOOMLIT from the DOOMLITs menu under profile menu, until the showcase date.${MARKER_NEWLINE}Also, to make sure
+          it's ready for showcase, you will need to add more details to it.`,
+		},
 		disclaimer: {
 			infoEdit: "A DOOMLIT can be edited before it's airing date.",
 			infoExpiration: "If it's fee isn't paid, a reserved DOOMLIT will expire after 15 minutes.",

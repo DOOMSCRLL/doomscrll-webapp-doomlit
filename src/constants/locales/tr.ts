@@ -76,8 +76,15 @@ export default {
 				title: "Ah! Taslağının süresi doldu...",
 				body: ctsr`Her DOOMLIT taslağı, ücreti ödenmediği takdirde, 15 dakika sonra sistemden silinir.
         ${MARKER_NEWLINE}Bu bildirimi kapatarak ana sayfaya dönebilirsin.`,
-				labelReturn: "Return home",
+				labelReturn: "Ana sayfaya dön",
 			},
+		},
+		reservationSuccessModal: {
+			title: "DOOMLIT rezervasyonun onaylandı!",
+			body: ctsr`DOOMLIT rezervasyonun ve ödemen onaylandı.${MARKER_NEWLINE}Gösterim tarihine kadar, DOOMLIT'ini
+          inceleyebilir ve güncelleyebilirsin. Bunun için hesap menüsünden DOOMLIT'lerim bölümünü tıklayabilirsin.
+          ${MARKER_NEWLINE}Ayrıca, DOOMLIT'inin gösterime hazır olduğundan emin olmak için eksik kalan bilgileri
+          doldurmayı unutma.`,
 		},
 		disclaimer: {
 			infoEdit: "DOOMLIT'in yayınlanacağı tarihe kadar düzenlenebilir.",
