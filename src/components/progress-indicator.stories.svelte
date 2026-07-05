@@ -1,10 +1,10 @@
 <script lang="ts" module>
 	import { defineMeta } from "@storybook/addon-svelte-csf"
-	import InlineDoomlitIndicator from "./inline-doomlit-indicator.svelte"
+	import ProgressIndicator from "./progress-indicator.svelte"
 
 	const { Story } = defineMeta({
-		title: "Decorators/Numerical DOOMLIT indicator",
-		component: InlineDoomlitIndicator,
+		title: "Decorators/Progress Indicator",
+		component: ProgressIndicator,
 	})
 </script>
 
