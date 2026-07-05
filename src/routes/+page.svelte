@@ -15,6 +15,7 @@
 	import SlabAnchor from "comps/buttons/slab-anchor.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import CalendarTable from "comps/calendar/calendar-table.svelte"
+	import Countdown from "comps/countdown.svelte"
 	import Dropdown from "comps/form/dropdown.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
@@ -35,6 +36,8 @@
 	const fmt = $derived(
 		DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT),
 	)
+
+	let hasDraftExpired = $state(false)
 
 	let selectedCategory = $state<Category>("Video Games")
 
@@ -79,10 +82,10 @@
 		return `/preview/${selectedDayIso}?category=${ctg}&reservations=${selectedProgress}`
 	})
 
-  let alertMsg = $state<{title: string, body: string}>()
+	let alertMsg = $state<{ title: string; body: string }>()
 	let helpModalTrigger = $state<HTMLButtonElement>()
 
-  // #region Reservation Management
+	// #region Reservation Management
 	let isReserving = $state(false)
 	function handleReserveClick() {
 		isReserving = true
@@ -91,13 +94,13 @@
 		isReserving = false
 	}
 
-  function handleReservationError(details?: {status?: string, message?: string}) {
-    alertMsg = {title: dict.statusAlerts.reservation.error.title, body: details?.message ?? ""}
-  }
-  function handleReservationFail(details?: {status?: string, message?: string}) {
-    alertMsg = {title: dict.statusAlerts.reservation.failure.title, body: details?.message ?? ""}
-  }
-  // #endregion
+	function handleReservationError(details?: { status?: string; message?: string }) {
+		alertMsg = { title: dict.statusAlerts.reservation.error.title, body: details?.message ?? "" }
+	}
+	function handleReservationFail(details?: { status?: string; message?: string }) {
+		alertMsg = { title: dict.statusAlerts.reservation.failure.title, body: details?.message ?? "" }
+	}
+	// #endregion
 
 	// Guard for the case where user navigates back after confirming/cancelling their DOOMLIT.
 	afterNavigate(({ type }) => {
@@ -161,7 +164,7 @@
 				dailyReservationLimit={data.rules.maxReservationsPerDay}
 				{prevHref}
 				{nextHref}
-        isInteractive={!isReserving}
+				isInteractive={!isReserving}
 				bind:selectedDay={selectedDayIso} />
 		</section>
 		<!-- #endregion Calendar View > -->
@@ -177,9 +180,10 @@
 					{@render reservationPreview()}
 				{:else}
 					<ReservationForm
-            date={selectedDate} onCancel={handleReservationCancel}
-            onError={handleReservationError} onFail={handleReservationFail}
-          />
+						date={selectedDate}
+						onCancel={handleReservationCancel}
+						onError={handleReservationError}
+						onFail={handleReservationFail} />
 				{/if}
 			</section>
 			<ol role="list" class="super-markers font-serif text-xl font-medium tracking-tight break-normal">
@@ -191,43 +195,74 @@
 </main>
 
 {#if data.activeDraftId !== undefined}
-  {const warndict = $derived(dict.activeDraftWarning)}
-	<UrgentModal header={warndict.title} body={warndict.body}>
+	{const header = $derived(!hasDraftExpired ? dict.activeDraftWarning.title : dict.activeDraftWarning.postExpiration.title)}
+	{const body = $derived(!hasDraftExpired ? dict.activeDraftWarning.body : dict.activeDraftWarning.postExpiration.body)}
+	<UrgentModal {header} {body}>
 		{#snippet actions()}
-			<form
-				action="?/cancelDraft"
-				method="POST"
-        use:enhance={() => async ({result,update}) => {
-          const cancelDict = dict.statusAlerts.cancellation
-          if (result.type === "success") {
-            alertMsg = {title: cancelDict.success.title, body: cancelDict.success.body}
-          } else if (result.type === "failure") {
-            alertMsg = {title: cancelDict.failure.title, body: result.data!.message as string}
-          } else {
-            alertMsg = {title: cancelDict.error.title, body: `${cancelDict.error.bodyPrefix} ${result.status}`}
-          }
-          update()
-        }}>
-				<input type="hidden" name="activeDraftId" value={data.activeDraftId} />
-				<SlabButton variant="outlined" alignment="left" fit="max" hasAccent={true} buttonType="submit">
-					<Icon icon="Remove" />
-					{warndict.labelCancel}
-				</SlabButton>
-			</form>
-			<SlabAnchor href="/reserve/{data.activeDraftId}" variant="filled" alignment="right" fit="max">
-				{warndict.labelProceed}
-				<Icon icon="ArrowForward" />
-			</SlabAnchor>
+			{#if !hasDraftExpired}
+				<form
+					action="?/cancelDraft"
+					method="POST"
+					use:enhance={() =>
+						async ({ result, update }) => {
+							const cancelDict = dict.statusAlerts.cancellation
+							if (result.type === "success") {
+								alertMsg = { title: cancelDict.success.title, body: cancelDict.success.body }
+							} else if (result.type === "failure") {
+								alertMsg = { title: cancelDict.failure.title, body: result.data!.message as string }
+							} else {
+								alertMsg = { title: cancelDict.error.title, body: `${cancelDict.error.bodyPrefix} ${result.status}` }
+							}
+							update()
+						}}>
+					<input type="hidden" name="activeDraftId" value={data.activeDraftId} />
+					<SlabButton variant="outlined" alignment="left" fit="max" hasAccent={true} buttonType="submit">
+						<Icon icon="Remove" />
+						{dict.activeDraftWarning.labelCancel}
+					</SlabButton>
+				</form>
+				<SlabAnchor href="/reserve/{data.activeDraftId}" variant="filled" alignment="right" fit="max">
+					{dict.activeDraftWarning.labelProceed}
+					<Icon icon="ArrowForward" />
+				</SlabAnchor>
+				<Countdown
+					durationMins={data.rules.draftExpirationMinutes}
+					startTimestamp={new Date(data.activeDraftReservedAt!)}
+					onCountdownEnd={() => (hasDraftExpired = true)} />
+			{:else}
+				<form
+					action="?/cancelDraft"
+					method="POST"
+					use:enhance={() =>
+						async ({ result, update }) => {
+							const cancelDict = dict.statusAlerts.cancellation
+							if (result.type === "success") {
+								alertMsg = { title: cancelDict.success.title, body: cancelDict.success.body }
+							} else if (result.type === "failure") {
+								alertMsg = { title: cancelDict.failure.title, body: result.data!.message as string }
+							} else {
+								alertMsg = { title: cancelDict.error.title, body: `${cancelDict.error.bodyPrefix} ${result.status}` }
+							}
+							update()
+						}}>
+					<input type="hidden" name="activeDraftId" value={data.activeDraftId} />
+					<SlabButton variant="outlined" alignment="left" fit="max" hasAccent={true} buttonType="submit">
+						<Icon icon="ArrowBack" />
+						{dict.activeDraftWarning.postExpiration.labelReturn}
+					</SlabButton>
+				</form>
+			{/if}
 		{/snippet}
 	</UrgentModal>
 {/if}
 
 {#if alertMsg}
-  <UrgentModal header={alertMsg.title} body={alertMsg.body}>
-    {#snippet actions()}
-      <SlabButton variant="filled" fit="max" onClick={() => alertMsg = undefined}>{dict.statusAlerts.labelClose}</SlabButton>
-    {/snippet}
-  </UrgentModal>
+	<UrgentModal header={alertMsg.title} body={alertMsg.body}>
+		{#snippet actions()}
+			<SlabButton variant="filled" fit="max" onClick={() => (alertMsg = undefined)}
+				>{dict.statusAlerts.labelClose}</SlabButton>
+		{/snippet}
+	</UrgentModal>
 {/if}
 
 <HelpModal bind:trigger={helpModalTrigger} />

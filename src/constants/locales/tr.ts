@@ -72,6 +72,12 @@ export default {
         inceleyebilir ve ödemesini yapabilirsin.`,
 			labelCancel: "İptal et ve taslağı sil",
 			labelProceed: "İnceleme ve ödeme sayfasına git",
+			postExpiration: {
+				title: "Ah! Taslağının süresi doldu...",
+				body: ctsr`Her DOOMLIT taslağı, ücreti ödenmediği takdirde, 15 dakika sonra sistemden silinir.
+        ${MARKER_NEWLINE}Bu bildirimi kapatarak ana sayfaya dönebilirsin.`,
+				labelReturn: "Return home",
+			},
 		},
 		disclaimer: {
 			infoEdit: "DOOMLIT'in yayınlanacağı tarihe kadar düzenlenebilir.",

@@ -71,6 +71,12 @@ export default {
         your draft and pay it's fee.`,
 			labelCancel: "Cancel & remove the draft",
 			labelProceed: "Proceed to review and payment",
+			postExpiration: {
+				title: "Oh! Your draft has expired...",
+				body: ctsr`Each DOOMLIT drafts expire after 15 minutes if the fee is not paid.
+        ${MARKER_NEWLINE}You can close this popup to return to the home page.`,
+				labelReturn: "Return home",
+			},
 		},
 		disclaimer: {
 			infoEdit: "A DOOMLIT can be edited before it's airing date.",
