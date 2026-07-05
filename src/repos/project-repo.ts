@@ -4,7 +4,7 @@ import { error } from "@sveltejs/kit"
 
 import type Category from "models/category"
 import type { APIResponse } from "models/internal/api"
-import type { ProjectDraft, ReservationCountsData } from "models/internal/projects"
+import type { ActiveDraftReference, ProjectDraft, ReservationCountsData } from "models/internal/projects"
 import type { ProjectRules } from "models/internal/rules"
 import type { ProjectPreview } from "models/project"
 import DDate from "utils/d-date"
@@ -82,14 +82,13 @@ export async function getDraft(referenceId: string, customFetch: typeof fetch = 
 	return result.data
 }
 
-export async function getActiveDraftReference(customFetch: typeof fetch = fetch): Promise<string | null> {
+export async function getActiveDraftReference(customFetch: typeof fetch = fetch): Promise<ActiveDraftReference | null> {
 	const response = await customFetch(`${API_BASE_URL}/projects/drafts/active`)
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const result = (await response.json()) as APIResponse<any>
+	const result = (await response.json()) as APIResponse<ActiveDraftReference>
 
-	if (!result.success) {
+	if (!result.success || !result.data) {
 		return null
 	}
 
-	return result.data?.referenceId || null
+	return result.data
 }

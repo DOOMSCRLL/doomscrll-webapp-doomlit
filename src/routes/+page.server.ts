@@ -14,13 +14,14 @@ export const load: PageServerLoad = async ({ fetch, url }) => {
 	const targetYear = qYear ? parseInt(qYear, 10) : now.getFullYear()
 	const targetMonth = qMonth ? parseInt(qMonth, 10) : now.getMonth() + 1
 
-	const activeDraftId = (await getActiveDraftReference(fetch)) ?? undefined
+	const activeDraft = (await getActiveDraftReference(fetch)) ?? undefined
 
 	const reservations = await getReservationsFor(targetYear, targetMonth, fetch)
 
 	return {
 		reservations,
-		activeDraftId,
+		activeDraftId: activeDraft?.referenceId,
+		activeDraftReservedAt: activeDraft?.reservedAt,
 		currentCalendar: {
 			year: targetYear,
 			month: targetMonth,

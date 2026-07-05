@@ -1,3 +1,8 @@
+export type ActiveDraftReference = {
+	referenceId: string
+	reservedAt: string
+}
+
 export type ReservationCountsData = {
 	meta: {
 		year: number
