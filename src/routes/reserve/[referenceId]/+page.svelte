@@ -60,8 +60,7 @@
 				<DoomlitReservationAnchor label={dict.actions.labelProceed} referenceId={project.referenceId} />
 			</section>
 			<Countdown
-				/*durationMins={data.rules.draftExpirationMinutes}*/
-				durationMins={1}
+				durationMins={data.rules.draftExpirationMinutes}
 				startTimestamp={new Date(data.project.reservedAt)}
 				onCountdownEnd={onDraftExpiration} />
 		{:else}
