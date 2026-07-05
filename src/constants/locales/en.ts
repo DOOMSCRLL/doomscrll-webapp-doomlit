@@ -82,6 +82,7 @@ export default {
 			labelClose: "Close",
 		},
 		statusAlerts: {
+			labelClose: "Close the popup",
 			cancellation: {
 				success: {
 					title: "Cancellation Successful",
@@ -89,6 +90,10 @@ export default {
 				},
 				failure: { title: "Cancellation Failed" },
 				error: { title: "An Error Occurred While Cancelling", bodyPrefix: "Error:" },
+			},
+			reservation: {
+				failure: { title: "Reservation Failed" },
+				error: { title: "An Error Occurred While Reserving" },
 			},
 		},
 	},

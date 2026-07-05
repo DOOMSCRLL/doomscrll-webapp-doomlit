@@ -83,6 +83,7 @@ export default {
 			labelClose: "Kapat",
 		},
 		statusAlerts: {
+			labelClose: "Bildirimi Kapat",
 			cancellation: {
 				success: {
 					title: "İptal Başarılı",
@@ -90,6 +91,10 @@ export default {
 				},
 				failure: { title: "İptal Başarısız" },
 				error: { title: "İptal Sırasında Bir Hata Oluştu", bodyPrefix: "Hata:" },
+			},
+			reservation: {
+				failure: { title: "Yer Ayırtma Başarısız" },
+				error: { title: "Yer Ayırtırken Bir Hata Oluştu" },
 			},
 		},
 	},

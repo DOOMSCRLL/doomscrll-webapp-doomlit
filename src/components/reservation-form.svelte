@@ -12,15 +12,15 @@
 	import ExternalIcon from "./icons/external-icon.svelte"
 	import Icon from "./icons/icon.svelte"
 
-	type FailureCallback = (details?: Record<string, unknown>) => void
+	type FailureCallback = (details?: { status?: string; message?: string }) => void
 
 	type Props = {
 		date: DDate
 		onCancel: () => void
-		onReservationFail?: FailureCallback
+		onFail?: FailureCallback
 		onError?: FailureCallback
 	}
-	const { date, onCancel, onReservationFail, onError }: Props = $props()
+	const { date, onCancel, onFail, onError }: Props = $props()
 
 	const locale = $derived(LocaleContext.context.value!)
 	const dict = $derived(getDictionaryOf(locale).reservation.reservationForm)
@@ -51,10 +51,10 @@
 			if (result.type === "redirect") {
 				window.location.href = result.location
 			} else if (result.type === "failure") {
-				onReservationFail?.(result.data)
+				onFail?.(result.data)
 				update()
 			} else {
-				onError?.({ status: result.status })
+				onError?.({ status: String(result.status) })
 				update()
 			}
 		}}>

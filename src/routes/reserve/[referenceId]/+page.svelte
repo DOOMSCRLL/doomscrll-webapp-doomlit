@@ -9,14 +9,14 @@
 	import DoomscrllWordmark from "comps/icons/doomscrll-wordmark.svelte"
 	import Icon from "comps/icons/icon.svelte"
 
-	const { data, form } = $props()
+	const { data } = $props()
 
 	const fmt = $derived(DateFmtContext.context.value!)
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).payment)
 
 	const project = $derived(data.project)
 
-	//let errorMessage = $derived(form?.message)
+	//let errorDetails = $state<Record<string, unknown>>()
 
 	let isDraftExpired = $state(false)
 	function onDraftExpiration() {

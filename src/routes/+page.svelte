@@ -79,8 +79,10 @@
 		return `/preview/${selectedDayIso}?category=${ctg}&reservations=${selectedProgress}`
 	})
 
+  let alertMsg = $state<{title: string, body: string}>()
 	let helpModalTrigger = $state<HTMLButtonElement>()
 
+  // #region Reservation Management
 	let isReserving = $state(false)
 	function handleReserveClick() {
 		isReserving = true
@@ -89,7 +91,13 @@
 		isReserving = false
 	}
 
-  let alertMsg = $state<{title: string, body: string}>()
+  function handleReservationError(details?: {status?: string, message?: string}) {
+    alertMsg = {title: dict.statusAlerts.reservation.error.title, body: details?.message ?? ""}
+  }
+  function handleReservationFail(details?: {status?: string, message?: string}) {
+    alertMsg = {title: dict.statusAlerts.reservation.failure.title, body: details?.message ?? ""}
+  }
+  // #endregion
 
 	// Guard for the case where user navigates back after confirming/cancelling their DOOMLIT.
 	afterNavigate(({ type }) => {
@@ -143,7 +151,7 @@
 <main class="grid h-screen w-full grid-rows-[auto_1fr] gap-4 overflow-hidden px-6 supports-[height:100dvh]:h-dvh">
 	<BrandNav bind:helpModalTrigger activeDraftRefId={data.activeDraftId} />
 	<section class="grid h-full w-full grid-cols-2 gap-12">
-		<!-- < Calendar View -->
+		<!-- #region Calendar View -->
 		<section class="flex flex-col items-start justify-center gap-4">
 			<p class="font-serif text-2xl font-medium tracking-tighter">{dict.copy}</p>
 			<CalendarTable
@@ -156,8 +164,8 @@
         isInteractive={!isReserving}
 				bind:selectedDay={selectedDayIso} />
 		</section>
-		<!-- end Calendar View > -->
-		<!-- < Reservation View -->
+		<!-- #endregion Calendar View > -->
+		<!-- #region Reservation View -->
 		<section class="flex h-full flex-col justify-between pb-4">
 			<section class="flex h-full flex-col justify-center gap-12">
 				<div class="flex flex-col items-center justify-center gap-2">
@@ -168,14 +176,17 @@
 				{#if !isReserving}
 					{@render reservationPreview()}
 				{:else}
-					<ReservationForm date={selectedDate} onCancel={handleReservationCancel} />
+					<ReservationForm
+            date={selectedDate} onCancel={handleReservationCancel}
+            onError={handleReservationError} onFail={handleReservationFail}
+          />
 				{/if}
 			</section>
 			<ol role="list" class="super-markers font-serif text-xl font-medium tracking-tight break-normal">
 				{#each Object.values(dict.disclaimer) as d (d)}<li>{d}</li>{/each}
 			</ol>
 		</section>
-		<!-- end Reservation View > -->
+		<!-- #endregion Reservation View > -->
 	</section>
 </main>
 
@@ -214,7 +225,7 @@
 {#if alertMsg}
   <UrgentModal header={alertMsg.title} body={alertMsg.body}>
     {#snippet actions()}
-      <SlabButton onClick={() => alertMsg = undefined}>MISSING_RETURN_LABEL</SlabButton>
+      <SlabButton variant="filled" fit="max" onClick={() => alertMsg = undefined}>{dict.statusAlerts.labelClose}</SlabButton>
     {/snippet}
   </UrgentModal>
 {/if}
