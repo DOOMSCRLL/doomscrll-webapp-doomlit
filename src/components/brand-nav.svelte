@@ -7,9 +7,9 @@
 	import SlabAnchor from "./buttons/slab-anchor.svelte"
 	import DoomscrllWordmark from "./icons/doomscrll-wordmark.svelte"
 	import Icon from "./icons/icon.svelte"
-	import InlineDoomlitIndicator from "./inline-doomlit-indicator.svelte"
 	import LanguageSelector from "./language-selector.svelte"
 	import ProfileButton from "./profile-button.svelte"
+	import ReservationProgress from "./reservation-progress.svelte"
 
 	type NavComponents = {
 		returnHref?: `/?year=${number}&month=${number}`
@@ -65,7 +65,7 @@
 				{#if comps?.reservationProgress !== undefined && comps?.reservationLimit !== undefined}
 					<Icon icon="Starmark" size="small" />
 					<div class="flex items-center gap-2">
-						<InlineDoomlitIndicator current={comps.reservationProgress} max={comps.reservationLimit} />
+						<ReservationProgress current={comps.reservationProgress} max={comps.reservationLimit} />
 						<p class="font-serif text-2xl font-medium tracking-tight text-inverse">
 							{dict.navbar.suffixReservationProgress}
 						</p>

@@ -18,8 +18,8 @@
 	import Dropdown from "comps/form/dropdown.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
-	import InlineDoomlitIndicator from "comps/inline-doomlit-indicator.svelte"
 	import ReservationForm from "comps/reservation-form.svelte"
+	import ReservationProgress from "comps/reservation-progress.svelte"
 	import UrgentModal from "comps/urgent-modal.svelte"
 
 	type Props = {
@@ -102,7 +102,7 @@
 
 {#snippet reservationPreview()}
 	<div class="flex w-full justify-center gap-2">
-		<InlineDoomlitIndicator current={selectedProgress} max={data.rules.maxReservationsPerDay} />
+		<ReservationProgress current={selectedProgress} max={data.rules.maxReservationsPerDay} />
 		<p class="font-serif text-2xl font-medium tracking-tight text-inverse">{dict.cta.suffixSlotInfo}</p>
 	</div>
 	{#if selectedProgress >= data.rules.maxReservationsPerDay}
