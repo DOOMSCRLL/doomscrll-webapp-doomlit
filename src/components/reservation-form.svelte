@@ -12,11 +12,15 @@
 	import ExternalIcon from "./icons/external-icon.svelte"
 	import Icon from "./icons/icon.svelte"
 
+	type FailureCallback = (details?: Record<string, unknown>) => void
+
 	type Props = {
 		date: DDate
 		onCancel: () => void
+		onReservationFail?: FailureCallback
+		onError?: FailureCallback
 	}
-	const { date, onCancel }: Props = $props()
+	const { date, onCancel, onReservationFail, onError }: Props = $props()
 
 	const locale = $derived(LocaleContext.context.value!)
 	const dict = $derived(getDictionaryOf(locale).reservation.reservationForm)
@@ -44,8 +48,15 @@
 	class="flex flex-col gap-12"
 	use:enhance={() =>
 		async ({ result, update }) => {
-			if (result.type === "redirect") window.location.href = result.location
-			else update()
+			if (result.type === "redirect") {
+				window.location.href = result.location
+			} else if (result.type === "failure") {
+				onReservationFail?.(result.data)
+				update()
+			} else {
+				onError?.({ status: result.status })
+				update()
+			}
 		}}>
 	<input type="hidden" name="showcase-date" value={date.toISOString()} />
 	<section class="flex flex-col gap-6">

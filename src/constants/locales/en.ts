@@ -81,13 +81,24 @@ export default {
 			copy: "Select a DOOMLIT to update:",
 			labelClose: "Close",
 		},
+		statusAlerts: {
+			cancellation: {
+				success: {
+					title: "Cancellation Successful",
+					body: "You have canceled the DOOMLIT draft successfully. You can close this popup.",
+				},
+				failure: { title: "Cancellation Failed" },
+				error: { title: "An Error Occurred While Cancelling", bodyPrefix: "Error:" },
+			},
+		},
 	},
 	payment: {
 		meta: {
 			titlePrefix: "Confirm Reservation For",
 			description: "From here, you can complete your DOOMLIT reservation by completing it's payment.",
 		},
-		copy: "You can review your DOOMLIT's details here. If everything looks fine, you can proceed with your payment.\nAfter the payment you can update your DOOMLIT from the profile menu to add more information regarding it.",
+		copy: ctsr`You can review your DOOMLIT's details here. If everything looks fine, you can proceed with your payment.
+        ${MARKER_NEWLINE}After the payment you can update your DOOMLIT from the profile menu to add more information regarding it.`,
 		copyExpiration:
 			"Your draft has expired, and automatically deleted from the system. You can return to the homepage using the button below.",
 		details: {

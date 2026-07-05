@@ -1,5 +1,5 @@
 import type { Dictionary } from "models/internal/locale"
-import ctsr from "utils/condense-string"
+import ctsr, { MARKER_NEWLINE } from "utils/condense-string"
 
 export default {
 	common: {
@@ -29,8 +29,8 @@ export default {
 		},
 		copy: "DOOMLIT için bir gün seç.",
 		calendar: {
-			labelPrevious: "Previous month",
-			labelNext: "Next month",
+			labelPrevious: "Önceki ay",
+			labelNext: "Sonraki ay",
 			textNotInteractiveWarn: "DOOMLIT ayırtma formu açıkken, seçilen tarihi değiştiremezsin.",
 		},
 		noReservationCopy:
@@ -82,13 +82,24 @@ export default {
 			copy: "Düzenlemek için bir DOOMLIT seç:",
 			labelClose: "Kapat",
 		},
+		statusAlerts: {
+			cancellation: {
+				success: {
+					title: "İptal Başarılı",
+					body: "DOOMLIT taslağını başarıyla iptal ettin. Bu bildirimi kapatabilirsin.",
+				},
+				failure: { title: "İptal Başarısız" },
+				error: { title: "İptal Sırasında Bir Hata Oluştu", bodyPrefix: "Hata:" },
+			},
+		},
 	},
 	payment: {
 		meta: {
 			titlePrefix: "Reservasyon Onayı",
 			description: "Buradan, DOOMLIT'in için yaptığın rezervasyonu, rezervasyon ücretini ödeyerek tamamlayabilirsin.",
 		},
-		copy: "You can review your DOOMLIT's details here. If everything looks fine, you can proceed with your payment.\nAfter the payment you can update your DOOMLIT from the profile menu to add more information regarding it.",
+		copy: ctsr`Buradan DOOMLIT taslağınızı inceleyebilirsin. Her şey olması gerektiği gibiyse, ödeme ekranına geçebilirsin.
+        ${MARKER_NEWLINE}Ödemesini yaptıktan sonra DOOMLIT'ini güncellemek için hesap menüsünden DOOMLIT menüsünü ziyaret edebilirsin.`,
 		copyExpiration: "Taslağın süresi doldu. Ana sayfaya dönmek için aşağıdaki düğmeyi kullanabilirsin.",
 		details: {
 			labelReservationDate: "Gösterim Tarihi",

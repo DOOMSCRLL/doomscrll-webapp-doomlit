@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { enhance } from "$app/forms"
+	import { afterNavigate, invalidateAll } from "$app/navigation"
 	import type { PageData } from "./$types"
 
 	import { LOCALE_DEFAULT } from "const/locales"
@@ -9,8 +11,6 @@
 	import DDate from "utils/d-date"
 	import StylisticTimeFormat from "utils/stylistic-time-fmt"
 
-	import { enhance } from "$app/forms"
-	import { afterNavigate, invalidateAll } from "$app/navigation"
 	import BrandNav from "comps/brand-nav.svelte"
 	import SlabAnchor from "comps/buttons/slab-anchor.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
@@ -88,6 +88,8 @@
 	function handleReservationCancel() {
 		isReserving = false
 	}
+
+  let alertMsg = $state<{title: string, body: string}>()
 
 	// Guard for the case where user navigates back after confirming/cancelling their DOOMLIT.
 	afterNavigate(({ type }) => {
@@ -184,7 +186,17 @@
 			<form
 				action="?/cancelDraft"
 				method="POST"
-        use:enhance>
+        use:enhance={() => async ({result,update}) => {
+          const cancelDict = dict.statusAlerts.cancellation
+          if (result.type === "success") {
+            alertMsg = {title: cancelDict.success.title, body: cancelDict.success.body}
+          } else if (result.type === "failure") {
+            alertMsg = {title: cancelDict.failure.title, body: result.data!.message as string}
+          } else {
+            alertMsg = {title: cancelDict.error.title, body: `${cancelDict.error.bodyPrefix} ${result.status}`}
+          }
+          update()
+        }}>
 				<input type="hidden" name="activeDraftId" value={data.activeDraftId} />
 				<SlabButton variant="outlined" alignment="left" fit="max" hasAccent={true} buttonType="submit">
 					<Icon icon="Remove" />
@@ -197,6 +209,14 @@
 			</SlabAnchor>
 		{/snippet}
 	</UrgentModal>
+{/if}
+
+{#if alertMsg}
+  <UrgentModal header={alertMsg.title} body={alertMsg.body}>
+    {#snippet actions()}
+      <SlabButton onClick={() => alertMsg = undefined}>MISSING_RETURN_LABEL</SlabButton>
+    {/snippet}
+  </UrgentModal>
 {/if}
 
 <HelpModal bind:trigger={helpModalTrigger} />
