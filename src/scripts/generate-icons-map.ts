@@ -40,6 +40,10 @@ export type DoomscrllIcon = keyof typeof ICONS
 export function getDoomscrllIcon(name: DoomscrllIcon) {
   return ICONS[name]
 }
+
+export function getAllDoomscrllIcons() {
+  return Object.keys(ICONS)
+}
   `
 
 	fs.writeFileSync(INDEX_FILE, fileContent, "utf-8")

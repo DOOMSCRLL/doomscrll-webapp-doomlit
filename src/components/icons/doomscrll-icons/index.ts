@@ -42,6 +42,9 @@ const ICONS = {
 export type DoomscrllIcon = keyof typeof ICONS
 
 export function getDoomscrllIcon(name: DoomscrllIcon) {
-  return ICONS[name]
+	return ICONS[name]
 }
-  
+
+export function getAllDoomscrllIcons() {
+	return Object.keys(ICONS)
+}
