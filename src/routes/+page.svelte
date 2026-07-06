@@ -98,8 +98,13 @@
 	function handleReservationError(details?: { status?: string; message?: string }) {
 		alertMsg = { title: dict.statusAlerts.reservation.error.title, body: details?.message ?? "" }
 	}
-	function handleReservationFail(details?: { status?: string; message?: string }) {
-		alertMsg = { title: dict.statusAlerts.reservation.failure.title, body: details?.message ?? "" }
+	function handleReservationFail(details?: { status?: string; message?: string; details?: unknown }) {
+		let bodyText = details?.message ?? ""
+		if (details?.details) {
+			const d = details.details
+			bodyText += `\n\n${typeof d === "string" ? d : JSON.stringify(d, null, 2)}`
+		}
+		alertMsg = { title: dict.statusAlerts.reservation.failure.title, body: bodyText }
 	}
 	// #endregion
 
@@ -228,7 +233,10 @@
 							if (result.type === "success") {
 								alertMsg = { title: cancelDict.success.title, body: cancelDict.success.body }
 							} else if (result.type === "failure") {
-								alertMsg = { title: cancelDict.failure.title, body: result.data!.message as string }
+								const d = result.data as Record<string, unknown> | undefined
+								let bodyText = (d?.message as string) || ""
+								if (d?.details) bodyText += `\n\n${typeof d.details === "string" ? d.details : JSON.stringify(d.details, null, 2)}`
+								alertMsg = { title: cancelDict.failure.title, body: bodyText }
 							} else {
 								alertMsg = { title: cancelDict.error.title, body: `${cancelDict.error.bodyPrefix} ${result.status}` }
 							}
@@ -258,7 +266,10 @@
 							if (result.type === "success") {
 								alertMsg = { title: cancelDict.success.title, body: cancelDict.success.body }
 							} else if (result.type === "failure") {
-								alertMsg = { title: cancelDict.failure.title, body: result.data!.message as string }
+								const d = result.data as Record<string, unknown> | undefined
+								let bodyText = (d?.message as string) || ""
+								if (d?.details) bodyText += `\n\n${typeof d.details === "string" ? d.details : JSON.stringify(d.details, null, 2)}`
+								alertMsg = { title: cancelDict.failure.title, body: bodyText }
 							} else {
 								alertMsg = { title: cancelDict.error.title, body: `${cancelDict.error.bodyPrefix} ${result.status}` }
 							}

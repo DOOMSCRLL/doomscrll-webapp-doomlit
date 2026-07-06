@@ -72,6 +72,7 @@ export const actions: Actions = {
 				return fail(response.status || 500, {
 					success: false,
 					message: result.error?.message || result.error || "Failed to create reservation draft.",
+					details: result.error?.details,
 				})
 			}
 
@@ -107,6 +108,7 @@ export const actions: Actions = {
 				return fail(response.status || 500, {
 					success: false,
 					message: result?.error?.message || result?.error || "Failed to cancel draft",
+					details: result?.error?.details,
 				})
 			}
 

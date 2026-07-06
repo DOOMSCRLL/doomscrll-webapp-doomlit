@@ -12,7 +12,7 @@
 	import ExternalIcon from "./icons/external-icon.svelte"
 	import Icon from "./icons/icon.svelte"
 
-	type FailureCallback = (details?: { status?: string; message?: string }) => void
+	type FailureCallback = (details?: { status?: string; message?: string; details?: unknown }) => void
 
 	type Props = {
 		date: DDate
