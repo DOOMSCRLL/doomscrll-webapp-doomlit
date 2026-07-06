@@ -8,7 +8,7 @@
 	})
 </script>
 
-<Story name="P_0/256" args={{ current: 0, max: 256 }} />
-<Story name="P_36/256" args={{ current: 36, max: 256 }} />
-<Story name="P_184/256" args={{ current: 184, max: 256 }} />
-<Story name="P_256/256" args={{ current: 256, max: 256 }} />
+<Story name="P_0/256" args={{ progress: 0, label: "0/256" }} />
+<Story name="P_36/256" args={{ progress: (36 / 256) * 100, label: "36/256" }} />
+<Story name="P_184/256" args={{ progress: (184 / 256) * 100, label: "184/256" }} />
+<Story name="P_256/256" args={{ progress: 100, label: "256/256" }} />

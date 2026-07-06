@@ -8,15 +8,6 @@
 	})
 </script>
 
-<Story name="Anonymous" />
-<Story
-	name="Signed"
-	args={{
-		profile: {
-			id: "9e662589-6490-4abb-8dbf-b7952fb0c515",
-			email: "author@doomscrll.com",
-			username: "DOOMSCRLL",
-			description: "Lorem ipsum dorem...",
-			url: "example.com",
-		},
-	}} />
+<Story name="Default" />
+
+<Story name="Signed" />
