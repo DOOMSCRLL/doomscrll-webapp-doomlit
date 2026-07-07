@@ -4,9 +4,16 @@ import { error } from "@sveltejs/kit"
 
 import type Category from "models/category"
 import type { APIResponse } from "models/internal/api"
-import type { ActiveDraftReference, ProjectDraft, ReservationCountsData } from "models/internal/projects"
+import type {
+	ActiveDraftReference,
+	PatchContentPayload,
+	ProjectDraft,
+	ReservationCountsData,
+	UploadUrlsData,
+} from "models/internal/projects"
 import type { ProjectRules } from "models/internal/rules"
-import type { ProjectPreview } from "models/project"
+import type Project from "models/project"
+import type { CreatorProjectEntry, ProjectPreview } from "models/project"
 import DDate from "utils/d-date"
 
 export async function getRules(customFetch: typeof fetch = fetch): Promise<ProjectRules> {
@@ -91,4 +98,105 @@ export async function getActiveDraftReference(customFetch: typeof fetch = fetch)
 	}
 
 	return result.data
+}
+
+export async function getCreatorProjectEntries(customFetch: typeof fetch = fetch): Promise<CreatorProjectEntry[]> {
+	const response = await customFetch(`${API_BASE_URL}/projects/me`)
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const result = (await response.json()) as APIResponse<any[]>
+
+	if (!result.success) {
+		throw error(response.status, {
+			message: result.error?.message || "Failed to fetch confirmed projects.",
+			code: result.error?.code || "ERROR",
+		})
+	}
+
+	return result.data.map((item) => ({
+		...item,
+		showcaseDate: DDate.fromISOString(item.showcaseDate),
+	})) as CreatorProjectEntry[]
+}
+
+export async function getCreatorProject(referenceId: string, customFetch: typeof fetch = fetch): Promise<Project> {
+	const response = await customFetch(`${API_BASE_URL}/projects/me/${referenceId}`)
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const result = (await response.json()) as APIResponse<any>
+
+	if (!result.success) {
+		throw error(response.status, {
+			message: result.error?.message || "Failed to fetch project details.",
+			code: result.error?.code || "ERROR",
+		})
+	}
+
+	const p = result.data
+
+	if (p.status !== "incomplete" && p.status !== "ready") {
+		throw error(403, {
+			message: "This DOOMLIT cannot be managed in its current state.",
+			code: "INVALID_STATE",
+		})
+	}
+
+	return {
+		...p,
+		showcaseDate: DDate.fromISOString(p.showcaseDate),
+	} as Project
+}
+
+export async function getUploadUrls(
+	referenceId: string,
+	screenshotCount: number,
+	customFetch: typeof fetch = fetch,
+): Promise<UploadUrlsData> {
+	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}/upload-urls`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ screenshotCount }),
+	})
+	const result = (await response.json()) as APIResponse<UploadUrlsData>
+
+	if (!result.success) {
+		throw error(response.status, {
+			message: result.error?.message || "Failed to get upload URLs.",
+			code: result.error?.code || "ERROR",
+		})
+	}
+
+	return result.data
+}
+
+export async function updateCreatorProject(
+	referenceId: string,
+	payload: PatchContentPayload,
+	customFetch: typeof fetch = fetch,
+): Promise<void> {
+	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}`, {
+		method: "PATCH",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(payload),
+	})
+	const result = (await response.json()) as APIResponse<{ message?: string }>
+
+	if (!result.success) {
+		throw error(response.status, {
+			message: result.error?.message || "Failed to update project.",
+			code: result.error?.code || "ERROR",
+		})
+	}
+}
+
+export async function publishCreatorProject(referenceId: string, customFetch: typeof fetch = fetch): Promise<void> {
+	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}/publish`, {
+		method: "POST",
+	})
+	const result = (await response.json()) as APIResponse<{ message?: string }>
+
+	if (!result.success) {
+		throw error(response.status, {
+			message: result.error?.message || "Failed to publish project.",
+			code: result.error?.code || "ERROR",
+		})
+	}
 }
