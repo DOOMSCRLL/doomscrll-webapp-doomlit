@@ -112,10 +112,7 @@ export async function getCreatorProjectEntries(customFetch: typeof fetch = fetch
 		})
 	}
 
-	return result.data.map((item) => ({
-		...item,
-		showcaseDate: DDate.fromISOString(item.showcaseDate),
-	})) as CreatorProjectEntry[]
+	return result.data as CreatorProjectEntry[]
 }
 
 export async function getCreatorProject(referenceId: string, customFetch: typeof fetch = fetch): Promise<Project> {
@@ -139,10 +136,7 @@ export async function getCreatorProject(referenceId: string, customFetch: typeof
 		})
 	}
 
-	return {
-		...p,
-		showcaseDate: DDate.fromISOString(p.showcaseDate),
-	} as Project
+	return p as Project
 }
 
 export async function getUploadUrls(
