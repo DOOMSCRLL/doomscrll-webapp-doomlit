@@ -1,16 +1,27 @@
 import type DDate from "utils/d-date"
 import type Category from "./category"
+import type { PlatformName } from "./platform"
 import type ProjectTag from "./project-tag"
 
+export type ProjectStatus = "draft" | "incomplete" | "ready" | "canceled"
+
 type Project = {
-	id: string
 	referenceId: string
-	category: Category
 	showcaseDate: DDate
+	status: ProjectStatus
+	reservedAt: string | null
 	name: string
-	authorHandle: string
-	tags: ProjectTag[]
-	createdAt?: string
+	category: Category
+	primaryPlatform: PlatformName
+	primaryUrl: string
+	description: string | null
+	tags: ProjectTag[] | null
+	features: string[] | null
+	coverImagePath: string | null
+	screenshotPaths: string[] | null
+	secondaryPlatforms: { platform: PlatformName; url: string }[] | null
+	videoUrl: string | null
+	createdAt: string
 }
 
 export type ProjectPreview = {
@@ -18,6 +29,14 @@ export type ProjectPreview = {
 	authorUsername: string
 	category: Category
 	tags: ProjectTag[]
+}
+
+export type CreatorProjectEntry = {
+	referenceId: string
+	category: Category
+	name: string
+	showcaseDate: DDate
+	status: ProjectStatus
 }
 
 export type { Project as default }

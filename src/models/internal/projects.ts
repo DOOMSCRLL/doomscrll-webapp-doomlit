@@ -22,3 +22,19 @@ export type ProjectDraft = {
 	authorHandle: string
 	category: string
 }
+
+
+export type PatchContentPayload = {
+	description?: string
+	tags?: string[]
+	features?: string[]
+	coverImagePath?: string
+	screenshotPaths?: string[]
+	secondaryPlatforms?: { platform: string; url: string }[]
+	videoUrl?: string
+}
+
+export type UploadUrlsData = {
+	cover: { uploadUrl: string; path: string }
+	screenshots: { uploadUrl: string; path: string }[]
+}
