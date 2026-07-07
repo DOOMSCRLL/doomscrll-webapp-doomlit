@@ -90,7 +90,10 @@ export default {
 		},
 		labelHelpButton: "You can find learn more about DOOMLITs and DOOMSCRLL project here.",
 		doomlitMenu: {
-			copy: "Select a DOOMLIT to update:",
+			title: "Select a DOOMLIT to manage:",
+			copy: "You can view and manage your DOOMLITs, update it's details, get it's reference ID, or refund it from DOOMLIT management page.",
+			noProjectsCopy:
+				"It seems that you have no DOOMLITs. If you have an active draft, make sure that it's fee is paid before it expires. Then you can manage it from here.",
 			labelClose: "Close",
 		},
 		statusAlerts: {

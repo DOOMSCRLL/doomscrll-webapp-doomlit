@@ -92,7 +92,10 @@ export default {
 		},
 		labelHelpButton: "Buradan, DOOMSCRLL projesi ve DOOMLIT'ler hakkında bilgi edinebilirsiniz.",
 		doomlitMenu: {
-			copy: "Düzenlemek için bir DOOMLIT seç:",
+			title: "Düzenlemek için bir DOOMLIT seç:",
+			copy: "DOOMLIT yönetim sayfasından DOOMLIT'lerini görebilir ve düzenleyebilir, ayrıntılarını güncelleyebilir, referans tanımlayıcısını öğrenebilir, ya da gösterimi iptal edebilirsin.",
+			noProjectsCopy:
+				"Görünüşe göre hiç DOOMLIT'in yok. Eğer bekleyen bir taslağın varsa, süresi dolmadan önce ödemesini yaptığından emin ol. Sonrasında onu burada görebilirsin.",
 			labelClose: "Kapat",
 		},
 		statusAlerts: {
