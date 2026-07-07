@@ -17,6 +17,7 @@
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import CalendarTable from "comps/calendar/calendar-table.svelte"
 	import Countdown from "comps/countdown.svelte"
+	import DoomlitsModal from "comps/doomlits-modal.svelte"
 	import Dropdown from "comps/form/dropdown.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
@@ -85,6 +86,7 @@
 
 	let alertMsg = $state<{ title: string; body: string }>()
 	let helpModalTrigger = $state<HTMLButtonElement>()
+  let doomlitMenuTrigger = $state<HTMLButtonElement>()
 
 	// #region Reservation Management
 	let isReserving = $state(false)
@@ -176,7 +178,7 @@
 {/snippet}
 
 <main class="grid h-screen w-full grid-rows-[auto_1fr] gap-4 overflow-hidden px-6 supports-[height:100dvh]:h-dvh">
-	<BrandNav bind:helpModalTrigger activeDraftRefId={data.activeDraftId} />
+	<BrandNav activeDraftRefId={data.activeDraftId} bind:helpModalTrigger bind:doomlitMenuTrigger />
 	<section class="grid h-full w-full grid-cols-2 gap-12">
 		<!-- #region Calendar View -->
 		<section class="flex flex-col items-start justify-center gap-4">
@@ -296,3 +298,4 @@
 {/if}
 
 <HelpModal bind:trigger={helpModalTrigger} />
+<DoomlitsModal projectEntries={data.creatorProjectEntries} bind:trigger={doomlitMenuTrigger} />
