@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { enhance } from "$app/forms"
-
 	import { LocaleContext, ProfileContext } from "contexts/shared.svelte"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import { applySwatchToTokens, generateAvatarSwatchFrom } from "utils/uuid-to-avatar"
@@ -9,6 +7,8 @@
 	import SlabAnchor from "./buttons/slab-anchor.svelte"
 	import Icon from "./icons/icon.svelte"
 	import Popover from "./popover.svelte"
+
+	let { doomlitMenuTrigger = $bindable() } = $props()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value).profileMenu.popover)
 	const profile = $derived(ProfileContext.context.value)
@@ -36,11 +36,14 @@
 		verticalAlignment="bottom"
 		doManageTrigger={true}
 		bind:trigger={profileButton}>
-		<!-- FIXME: Add and include the profile route for changing profile settings here. -->
 		<SlabAnchor href="/profile-settings" alignment="left" fit="max" variant="outlined">
-			<Icon icon="Settings" /> {dict.labelSettings}</SlabAnchor>
-		<SlabButton fit="max" variant="text" renderDecors={true}>
-			<Icon icon="Doomeye" /> {dict.labelProjects}</SlabButton>
+			<Icon icon="Settings" />
+			{dict.labelSettings}
+		</SlabAnchor>
+		<SlabButton fit="max" variant="text" renderDecors={true} bind:reference={doomlitMenuTrigger}>
+			<Icon icon="Doomeye" />
+			{dict.labelProjects}
+		</SlabButton>
 		<form method="POST" action="/logout" class="contents">
 			<SlabButton buttonType="submit" fit="max" variant="text" hasAccent={true} renderDecors={true}>
 				<Icon icon="DoomeyeClosed" />

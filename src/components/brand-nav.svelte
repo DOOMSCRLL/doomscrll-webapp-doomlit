@@ -20,11 +20,12 @@
 
 	type Props = {
 		helpModalTrigger?: HTMLButtonElement
+		doomlitMenuTrigger?: HTMLButtonElement
 		activeDraftRefId?: string
 		comps?: NavComponents
 	}
 
-	let { helpModalTrigger = $bindable(), activeDraftRefId, comps }: Props = $props()
+	let { helpModalTrigger = $bindable(), doomlitMenuTrigger = $bindable(), activeDraftRefId, comps }: Props = $props()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).common)
 	const fmt = $derived(DateFmtContext.context.value!)
@@ -42,7 +43,7 @@
 		{#if activeDraftRefId}
 			<SlabAnchor href="/reserve/{activeDraftRefId}">{dict.navbar.labelActiveDraftWarning}</SlabAnchor>
 		{/if}
-		<ProfileButton />
+		<ProfileButton bind:doomlitMenuTrigger />
 	</section>
 {/snippet}
 
