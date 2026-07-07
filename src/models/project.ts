@@ -1,4 +1,3 @@
-import type DDate from "utils/d-date"
 import type Category from "./category"
 import type { PlatformName } from "./platform"
 import type ProjectTag from "./project-tag"
@@ -7,7 +6,7 @@ export type ProjectStatus = "draft" | "incomplete" | "ready" | "canceled"
 
 type Project = {
 	referenceId: string
-	showcaseDate: DDate
+	showcaseDate: string
 	status: ProjectStatus
 	reservedAt: string | null
 	name: string
@@ -35,7 +34,7 @@ export type CreatorProjectEntry = {
 	referenceId: string
 	category: Category
 	name: string
-	showcaseDate: DDate
+	showcaseDate: string
 	status: ProjectStatus
 }
 
