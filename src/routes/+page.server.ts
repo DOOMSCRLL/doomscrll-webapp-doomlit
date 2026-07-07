@@ -3,7 +3,7 @@ import { env } from "$env/dynamic/private"
 import { fail, redirect, isRedirect, type Actions } from "@sveltejs/kit"
 import type { PageServerLoad } from "./$types"
 
-import { getActiveDraftReference, getReservationsFor } from "repos/project-repo"
+import { getActiveDraftReference, getCreatorProjectEntries, getReservationsFor } from "repos/project-repo"
 
 export const load: PageServerLoad = async ({ fetch, url }) => {
 	const now = new Date()
@@ -14,12 +14,15 @@ export const load: PageServerLoad = async ({ fetch, url }) => {
 	const targetYear = qYear ? parseInt(qYear, 10) : now.getFullYear()
 	const targetMonth = qMonth ? parseInt(qMonth, 10) : now.getMonth() + 1
 
-	const activeDraft = (await getActiveDraftReference(fetch)) ?? undefined
-
-	const reservations = await getReservationsFor(targetYear, targetMonth, fetch)
+	const [activeDraft, reservations, creatorProjectEntries] = await Promise.all([
+		getActiveDraftReference(fetch).then((d) => d ?? undefined),
+		getReservationsFor(targetYear, targetMonth, fetch),
+		getCreatorProjectEntries(fetch).catch(() => []),
+	])
 
 	return {
 		reservations,
+		creatorProjectEntries,
 		activeDraftId: activeDraft?.referenceId,
 		activeDraftReservedAt: activeDraft?.reservedAt,
 		currentCalendar: {
