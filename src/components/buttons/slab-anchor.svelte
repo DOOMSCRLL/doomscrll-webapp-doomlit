@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { resolve } from "$app/paths"
 	import type { Snippet } from "svelte"
+
+	import { resolve } from "$app/paths"
+
 	import ttm from "utils/type-literal-to-class"
 
 	type ButtonVariant = "filled" | "outlined" | "text"
@@ -16,6 +18,8 @@
 			| "/login"
 			| "/profile-settings"
 			| `/reserve/${string}`
+			| `/doomlits/${string}`
+		/*href: ReturnType<AppTypes["Pathname"]> */
 		variant?: ButtonVariant
 		size?: ButtonSize
 		alignment?: HorizontalAlignment
