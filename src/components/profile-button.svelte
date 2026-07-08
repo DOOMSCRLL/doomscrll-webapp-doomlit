@@ -40,10 +40,12 @@
 			<Icon icon="Settings" />
 			{dict.labelSettings}
 		</SlabAnchor>
-		<SlabButton fit="max" variant="text" renderDecors={true} bind:reference={doomlitMenuTrigger}>
-			<Icon icon="Doomeye" />
-			{dict.labelProjects}
-		</SlabButton>
+		{#if doomlitMenuTrigger}
+			<SlabButton fit="max" variant="text" renderDecors={true} bind:reference={doomlitMenuTrigger}>
+				<Icon icon="Doomeye" />
+				{dict.labelProjects}
+			</SlabButton>
+		{/if}
 		<form method="POST" action="/logout" class="contents">
 			<SlabButton buttonType="submit" fit="max" variant="text" hasAccent={true} renderDecors={true}>
 				<Icon icon="DoomeyeClosed" />
