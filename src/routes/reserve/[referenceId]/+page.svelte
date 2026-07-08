@@ -1,12 +1,12 @@
 <script lang="ts">
+	import { goto } from "$app/navigation"
+	import { resolve } from "$app/paths"
 	import { onMount } from "svelte"
 
 	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte.js"
 	import { getDictionaryOf } from "repos/locale-repo.js"
 	import DDate from "utils/d-date"
 
-	import { goto } from "$app/navigation"
-	import { resolve } from "$app/paths"
 	import DoomlitReservationAnchor from "comps/buttons/doomlit-reservation-anchor.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import Countdown from "comps/countdown.svelte"
