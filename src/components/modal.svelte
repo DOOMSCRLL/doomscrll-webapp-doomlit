@@ -20,20 +20,22 @@
 	$effect(() => {
 		if (!trigger || !ref) return
 
-		trigger.setAttribute("aria-haspopup", "dialog")
-		trigger.setAttribute("aria-controls", id)
-		trigger.setAttribute("aria-expanded", ref.open ? "true" : "false")
+		const currentTrigger = trigger
+
+		currentTrigger.setAttribute("aria-haspopup", "dialog")
+		currentTrigger.setAttribute("aria-controls", id)
+		currentTrigger.setAttribute("aria-expanded", ref.open ? "true" : "false")
 
 		function openModal() {
 			ref?.showModal()
 		}
 
-		trigger.addEventListener("click", openModal)
+		currentTrigger.addEventListener("click", openModal)
 		return () => {
-			trigger.removeEventListener("click", openModal)
-			trigger.removeAttribute("aria-haspopup")
-			trigger.removeAttribute("aria-controls")
-			trigger.removeAttribute("aria-expanded")
+			currentTrigger.removeEventListener("click", openModal)
+			currentTrigger.removeAttribute("aria-haspopup")
+			currentTrigger.removeAttribute("aria-controls")
+			currentTrigger.removeAttribute("aria-expanded")
 		}
 	})
 

@@ -31,9 +31,11 @@
 	$effect(() => {
 		if (!trigger || !ref) return
 
-		trigger.setAttribute("aria-haspopup", "dialog")
-		trigger.setAttribute("aria-controls", id)
-		trigger.setAttribute("aria-expanded", ref.open ? "true" : "false")
+		const currentTrigger = trigger
+
+		currentTrigger.setAttribute("aria-haspopup", "dialog")
+		currentTrigger.setAttribute("aria-controls", id)
+		currentTrigger.setAttribute("aria-expanded", ref.open ? "true" : "false")
 
 		function togglePopover() {
 			if (!ref) return
@@ -41,14 +43,14 @@
 			else ref.show()
 		}
 
-		if (doManageTrigger) trigger.addEventListener("click", togglePopover)
+		if (doManageTrigger) currentTrigger.addEventListener("click", togglePopover)
 
 		return () => {
-			if (doManageTrigger) trigger.removeEventListener("click", togglePopover)
+			if (doManageTrigger) currentTrigger.removeEventListener("click", togglePopover)
 
-			trigger.removeAttribute("aria-haspopup")
-			trigger.removeAttribute("aria-controls")
-			trigger.removeAttribute("aria-expanded")
+			currentTrigger.removeAttribute("aria-haspopup")
+			currentTrigger.removeAttribute("aria-controls")
+			currentTrigger.removeAttribute("aria-expanded")
 		}
 	})
 
