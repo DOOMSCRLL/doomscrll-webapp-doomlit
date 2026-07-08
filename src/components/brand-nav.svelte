@@ -12,7 +12,7 @@
 	import ReservationProgress from "./reservation-progress.svelte"
 
 	type NavComponents = {
-		returnHref?: `/?year=${number}&month=${number}`
+		returnHref?: "/" | `/?year=${number}&month=${number}`
 		date?: DDate
 		reservationProgress?: number
 		reservationLimit?: number
