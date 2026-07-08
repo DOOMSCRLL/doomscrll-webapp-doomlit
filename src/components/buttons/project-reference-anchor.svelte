@@ -15,10 +15,10 @@
 	let fmt = DateFmtContext.context.value!
 </script>
 
-<li class="flex items-center gap-2 [&>span:first-child_svg]:fill-inverse">
+<li class="flex w-fit items-center gap-2 [&>span:first-child_svg]:fill-inverse">
 	<Icon icon="Starmark" />
 	<SlabAnchor href="/doomlits/{entry.referenceId}" variant="outlined" size="normal" alignment="right" fit="min">
-		<span class="font-serif text-2xl font-medium tracking-tight normal-case">{entry.name}</span>
+		<span class="font-serif text-2xl font-medium tracking-wide normal-case">{entry.name}</span>
 		•
 		{fmt.getFullDate(DDate.fromISOString(entry.showcaseDate))}
 		<Icon icon="ArrowForward" />
