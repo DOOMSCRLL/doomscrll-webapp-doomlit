@@ -46,6 +46,8 @@
 		"wrangler": "^4.81.0"
 	},
 	"dependencies": {
+		"@jsquash/resize": "^2.1.1",
+		"@jsquash/webp": "^1.5.0",
 		"country-flag-emoji-polyfill": "^0.1.8"
 	},
 	"overrides": {
