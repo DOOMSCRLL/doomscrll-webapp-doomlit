@@ -1,6 +1,10 @@
 <script lang="ts">
+	import type ImageAsset from "models/internal/image-asset"
 	import type { ImageType } from "services/image-service"
 	import { ImageService } from "services/image-service"
+
+	import ImgPreviewRow from "./img-preview-row.svelte"
+	import ImgPreview from "./img-preview.svelte"
 
 	type Props = {
 		name: string
@@ -20,12 +24,26 @@
 		canSelectMultiple = false,
 		maxImages,
 		imageType,
+		// eslint-disable-next-line no-useless-assignment
 		processedBlobs = $bindable([]),
 		onPreviewClick,
 	}: Props = $props()
 
 	let isProcessing = $state(false)
 	let previewUrls = $state<string[]>([])
+
+	function getImgs(): ImageAsset[] {
+		return previewUrls.map<ImageAsset>((purl, index) => ({
+			aspectRatio: imageType === "cover" ? "1:1" : "9:16",
+			src: purl,
+			index,
+		}))
+	}
+
+	function handlePreviewClick(index: number) {
+		if (!previewUrls || previewUrls.length <= 0) return
+		else onPreviewClick?.(previewUrls[index])
+	}
 
 	$effect(() => {
 		return () => previewUrls.forEach((url) => URL.revokeObjectURL(url))
@@ -55,13 +73,6 @@
 			target.value = ""
 		}
 	}
-
-	function removeImage(index: number) {
-		processedBlobs = processedBlobs.filter((_, i) => i !== index)
-
-		URL.revokeObjectURL(previewUrls[index])
-		previewUrls = previewUrls.filter((_, i) => i !== index)
-	}
 </script>
 
 <div class="flex w-full flex-col gap-4">
@@ -77,9 +88,17 @@
 			onchange={handleFileChange}
 			disabled={isProcessing}
 			class={[
-				"font-mono text-[1rem] font-bold tracking-wide text-inverse file:uppercase",
+				"overflow-hidden font-mono text-[1rem] font-bold tracking-wider text-ellipsis text-inverse file:uppercase",
 				"file:mr-4 file:h-10 file:rounded-xl file:border-3 file:border-inverse file:bg-obverse file:px-4",
 				"hover:file:bg-inverse hover:file:text-obverse active:file:bg-accent",
 			]} />
 	</label>
+
+	{#if previewUrls && previewUrls.length > 0}
+		{#if !canSelectMultiple}
+			<ImgPreview img={getImgs()[0]} onClickPreview={handlePreviewClick} />
+		{:else}
+			<ImgPreviewRow imgs={getImgs()} onPreviewClick={handlePreviewClick} />
+		{/if}
+	{/if}
 </div>

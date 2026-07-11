@@ -3,9 +3,8 @@
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 
-	import BrandNav from "comps/brand-nav.svelte"
 	import CopyableText from "comps/copyable-text.svelte"
-	import ImgInput from "comps/form/img-input.svelte"
+	import ImgInput from "comps/form/img-selector/img-input.svelte"
 	import TextInput from "comps/form/text-input.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 
@@ -46,7 +45,8 @@
 </svelte:head>
 
 <main class="flex h-screen flex-col overflow-hidden px-2 pb-2 supports-[height:100dvh]:h-dvh">
-	<BrandNav comps={{ date: showcaseDate, returnHref: "/" }} bind:helpModalTrigger />
+	<!--<BrandNav comps={{ date: showcaseDate, returnHref: "/" }} bind:helpModalTrigger />
+-->
 	<section
 		class={[
 			"h-full w-full overflow-y-auto p-4",

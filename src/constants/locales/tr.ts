@@ -144,6 +144,21 @@ export default {
 		labelClose: "Kapat",
 		tooltipInvalidMessage: "Önizlemek için bir projenin üzerinde dur!",
 	},
+	doomlits: {
+		meta: { description: "Bu sayfadan, ayırttığın DOOMLIT'i görüntüleyebilir ve düzenleyebilirsin." },
+		imgPreview: {
+			cta: {
+				expand: "Buraya tıklayarak görüntüyü tam boyutlu olarak görebilirsin.",
+				remove: "Buraya tıklayarak görüntüyü projeden silebilirsin.",
+			},
+			coverImg: {
+				alt: "Projenin kapak görüntüsü.",
+			},
+			ssImg: {
+				alt: "Projenin ekran görüntülerinden biri.",
+			},
+		},
+	},
 	auth: {
 		meta: {
 			title: "Giriş yap | DOOMSCRLL",
@@ -193,7 +208,6 @@ export default {
 			},
 		},
 	},
-	projectMenu: {},
 	helpMenu: {
 		title: "Yardım Konuları",
 		body: "DOOMSCRLL projesi hakkında daha fazla şey öğrenebilir, SSS'ye bakabilirsin.",

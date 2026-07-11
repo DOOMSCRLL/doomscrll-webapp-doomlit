@@ -143,6 +143,21 @@ export default {
 		labelClose: "Close",
 		tooltipInvalidMessage: "Hover over a project to preview it!",
 	},
+	doomlits: {
+		meta: { description: "From this page, you can view and manage details for the reserved DOOMLIT." },
+		imgPreview: {
+			cta: {
+				expand: "Click to view the image in full size.",
+				remove: "Click to remove this image from project assets.",
+			},
+			coverImg: {
+				alt: "The cover image for the project.",
+			},
+			ssImg: {
+				alt: "One of the screenshots for the project.",
+			},
+		},
+	},
 	auth: {
 		meta: {
 			title: "Log in | DOOMSCRLL",
@@ -189,9 +204,6 @@ export default {
 				infoUsername: "If your account is new, you need to choose an user name for yourself.",
 			},
 		},
-	},
-	projectMenu: {
-		// TODO: Write strings for project details screen
 	},
 	helpMenu: {
 		title: "Help Topics",
