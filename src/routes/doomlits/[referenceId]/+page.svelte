@@ -3,16 +3,19 @@
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 
+	import BrandNav from "comps/brand-nav.svelte"
 	import CopyableText from "comps/copyable-text.svelte"
 	import ImgInput from "comps/form/img-selector/img-input.svelte"
 	import TextArea from "comps/form/text-area.svelte"
 	import TextInput from "comps/form/text-input.svelte"
+	import YoutubeVideoInput from "comps/form/youtube-video-input.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 
 	const { data } = $props()
 
 	const locale = $derived(LocaleContext.context.value!)
 	const dict = $derived(getDictionaryOf(locale).doomlits)
+	const formDict = $derived(dict.projectForm)
 	const fmt = $derived(DateFmtContext.context.value!)
 
 	let helpModalTrigger = $state<HTMLButtonElement>()
@@ -46,27 +49,28 @@
 </svelte:head>
 
 <main class="flex h-screen flex-col overflow-hidden px-2 pb-2 supports-[height:100dvh]:h-dvh">
-	<!--<BrandNav comps={{ date: showcaseDate, returnHref: "/" }} bind:helpModalTrigger />
--->
-	<section
-		class={[
-			"h-full w-full overflow-y-auto p-4",
-			"[scrollbar-color:var(--color-accent)_transparent] rounded-3xl border-4 border-inverse",
-			"flex flex-col items-start justify-start",
-		]}>
-		<section class="flex gap-4">
-			<p>MISSING_LABEL_COPYABLE_REF_ID</p>
-			<CopyableText content={project.referenceId} />
-		</section>
-		<form action="" class="grid h-full w-full auto-rows-min grid-cols-2 justify-items-center gap-4">
-			<TextInput
-				name="project-name"
-				label="MISSING_LABEL_PROJECT_NAME"
-				inputType="text"
-				isRequired={true}
-				placeholder="MISSING_PLACEHOLDER_PROJECT_NAME"
-				value={project.name} />
-			<!-- FIXME: Enable after implementing category and tag management.
+	<BrandNav comps={{ date: showcaseDate, returnHref: "/" }} bind:helpModalTrigger />
+
+	<section class="h-full w-full overflow-hidden rounded-3xl border-4 border-inverse p-4">
+		<div
+			class={[
+				"flex h-full w-full flex-col items-start justify-start gap-4 overflow-y-auto",
+				"[scrollbar-color:var(--color-accent)_transparent]",
+			]}>
+			<section class="flex items-center gap-4">
+				<p class="font-serif text-2xl font-medium text-inverse">{formDict.refId.label}:</p>
+				<CopyableText content={project.referenceId} />
+			</section>
+			<form action="" class="grid h-full w-full auto-rows-min grid-cols-2 justify-items-center gap-10">
+				<TextInput
+					name="project-name"
+					inputType="text"
+					label={formDict.name.label}
+					placeholder={formDict.name.placeholder}
+					hasBulletMark={false}
+					isRequired={true}
+					value={project.name} />
+				<!-- FIXME: Enable after implementing category and tag management.
       <Dropdown
 				name="project-category"
 				label="MISSING_LABEL_CATEGORY"
@@ -85,14 +89,31 @@
 				<section class="flex flex-wrap gap-4 wrap-normal"></section>
 			</section>
       -->
-			<div class="h-full w-full bg-[darkorange] text-[red]">DELETE ME!</div>
-			<ImgInput
-				name="project-cover"
-				label="MISSING_LABEL_IMG_COVER"
-				placeholder="MISSING_PLACEHOLDER_IMG_COVER"
-				imageType="cover" />
-			<TextArea name="project-description" label="MISSING_LABEL_DESC" placeholder="MISSING_PLACEHOLDER_DESC" />
-		</form>
+				<div class="h-full w-full bg-[darkorange] text-[red]">DELETE ME!</div>
+				<ImgInput
+					name="project-cover"
+					label={formDict.coverImg.label}
+					placeholder={formDict.coverImg.placeholder}
+					imageType="cover"
+					maxFileSizeMB={10} />
+				<TextArea
+					name="project-description"
+					label={formDict.description.label}
+					placeholder={formDict.description.placeholder} />
+				<YoutubeVideoInput
+					name="project-trailer-url"
+					label={formDict.video.label}
+					placeholder={formDict.video.placeholder} />
+				<ImgInput
+					name="project-screenshots"
+					label={formDict.screenshots.label}
+					placeholder={formDict.screenshots.placeholder}
+					imageType="screenshot"
+					canSelectMultiple={true}
+					maxImages={8}
+					maxFileSizeMB={10} />
+			</form>
+		</div>
 	</section>
 </main>
 
