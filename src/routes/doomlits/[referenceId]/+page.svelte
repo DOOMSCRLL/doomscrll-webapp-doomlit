@@ -5,6 +5,7 @@
 
 	import CopyableText from "comps/copyable-text.svelte"
 	import ImgInput from "comps/form/img-selector/img-input.svelte"
+	import TextArea from "comps/form/text-area.svelte"
 	import TextInput from "comps/form/text-input.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 
@@ -90,6 +91,7 @@
 				label="MISSING_LABEL_IMG_COVER"
 				placeholder="MISSING_PLACEHOLDER_IMG_COVER"
 				imageType="cover" />
+			<TextArea name="project-description" label="MISSING_LABEL_DESC" placeholder="MISSING_PLACEHOLDER_DESC" />
 		</form>
 	</section>
 </main>
