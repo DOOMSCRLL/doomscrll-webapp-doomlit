@@ -16,6 +16,7 @@ const config = {
 			"models/*": "src/models/*",
 			"repos/*": "src/repos/*",
 			"routes/*": "src/routes/*",
+			"services/*": "src/services/*",
 			"styles/*": "src/styles/*",
 			"utils/*": "src/utils/*",
 		},
