@@ -12,6 +12,7 @@
 		placeholder?: string
 		canSelectMultiple?: boolean
 		maxImages?: number
+		maxFileSizeMB?: number
 		imageType: ImageType
 		processedBlobs?: Blob[]
 		onPreviewClick?: (url: string) => void
@@ -23,6 +24,7 @@
 		placeholder = "",
 		canSelectMultiple = false,
 		maxImages,
+		maxFileSizeMB = 10,
 		imageType,
 		// eslint-disable-next-line no-useless-assignment
 		processedBlobs = $bindable([]),
@@ -55,7 +57,7 @@
 
 		isProcessing = true
 
-		const filesToProcess = Array.from(target.files)
+		const filesToProcess = Array.from(target.files).filter((file) => file.size <= maxFileSizeMB * 1024 * 1024)
 		if (maxImages && filesToProcess.length > maxImages) {
 			filesToProcess.length = maxImages
 		}
@@ -76,7 +78,7 @@
 </script>
 
 <div class="flex w-full flex-col gap-4">
-	<label class="flex flex-row items-center gap-4 font-serif text-2xl font-medium tracking-tight">
+	<label class="flex cursor-text flex-col gap-4 font-serif text-2xl font-medium tracking-tight">
 		{label}:
 		<input
 			id={name}
@@ -90,7 +92,7 @@
 			class={[
 				"overflow-hidden font-mono text-[1rem] font-bold tracking-wider text-ellipsis text-inverse file:uppercase",
 				"file:mr-4 file:h-10 file:rounded-xl file:border-3 file:border-inverse file:bg-obverse file:px-4",
-				"hover:file:bg-inverse hover:file:text-obverse active:file:bg-accent",
+				"cursor-pointer hover:file:bg-inverse hover:file:text-obverse active:file:bg-accent",
 			]} />
 	</label>
 
