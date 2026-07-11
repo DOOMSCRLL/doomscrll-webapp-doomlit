@@ -19,7 +19,6 @@
 			| "/profile-settings"
 			| `/reserve/${string}`
 			| `/doomlits/${string}`
-		/*href: ReturnType<AppTypes["Pathname"]> */
 		variant?: ButtonVariant
 		size?: ButtonSize
 		alignment?: HorizontalAlignment
