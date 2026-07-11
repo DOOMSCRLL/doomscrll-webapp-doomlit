@@ -146,6 +146,43 @@ export default {
 	},
 	doomlits: {
 		meta: { description: "Bu sayfadan, ayırttığın DOOMLIT'i görüntüleyebilir ve düzenleyebilirsin." },
+		projectForm: {
+			refId: {
+				label: "Sorgu kodu",
+			},
+			category: {
+				label: "Proje kategorisi",
+				placeholder: "Proje için bir kategori seçmelisin.",
+			},
+			tags: {
+				label: "Proje etiketleri",
+				placeholder: "Seçilen etiketler kullanıcıların projeni bulmasına yardım eder.",
+			},
+			platforms: {
+				label: "Yayınlandığı platformlar",
+				placeholder: "Kullanıcıların projene ulaşabileceği platformları ekle.",
+			},
+			name: {
+				label: "Projenin adı",
+				placeholder: "Projene bir isim ver!",
+			},
+			coverImg: {
+				label: "Bir kapak fotoğrafı yükle",
+				placeholder: "En boy oranı kare olan bir görüntü yükle. Bu görüntü, projenin kapağında görünecek.",
+			},
+			description: {
+				label: "Projeni anlat",
+				placeholder: "Dünyaya projeni anlat!",
+			},
+			video: {
+				label: "YouTube'dan tanıtım videosu",
+				placeholder: "Videonun bağlantısını buraya yapıştır!",
+			},
+			screenshots: {
+				label: "Bir kaç görsel ekle",
+				placeholder: "Proje ile ilgili görüntüler ekle; ekran görüntüleri, hikayeler, pazarlama görselleri...",
+			},
+		},
 		imgPreview: {
 			cta: {
 				expand: "Buraya tıklayarak görüntüyü tam boyutlu olarak görebilirsin.",
@@ -157,6 +194,10 @@ export default {
 			ssImg: {
 				alt: "Projenin ekran görüntülerinden biri.",
 			},
+		},
+		videoPreview: {
+			altThumbnail: "Seçtiğin YouTube videosunun önizleme görseli.",
+			labelYoutubeAnchor: "İlgili videoyu yeni sekmede aç.",
 		},
 	},
 	auth: {

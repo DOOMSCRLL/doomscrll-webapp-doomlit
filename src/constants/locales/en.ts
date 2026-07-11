@@ -145,6 +145,43 @@ export default {
 	},
 	doomlits: {
 		meta: { description: "From this page, you can view and manage details for the reserved DOOMLIT." },
+		projectForm: {
+			refId: {
+				label: "Reference ID",
+			},
+			name: {
+				label: "Project Name",
+				placeholder: "Give it a name!",
+			},
+			category: {
+				label: "Project's category",
+				placeholder: "You need to choose a category for your project.",
+			},
+			tags: {
+				label: "Project tags",
+				placeholder: "Selected tags will help users filter your project.",
+			},
+			platforms: {
+				label: "Platforms it's on",
+				placeholder: "Add platforms that users can access your project on.",
+			},
+			coverImg: {
+				label: "Upload a cover image",
+				placeholder: "Upload an image with square aspect ratio. This will be shown in the preview of your project.",
+			},
+			description: {
+				label: "Describe your project",
+				placeholder: "Tell the world about your project!",
+			},
+			video: {
+				label: "YouTube URL of it's trailer",
+				placeholder: "Paste video's link here!",
+			},
+			screenshots: {
+				label: "Add a few screenshots",
+				placeholder: "Add images related to the project; screenshots, stories, marketing images...",
+			},
+		},
 		imgPreview: {
 			cta: {
 				expand: "Click to view the image in full size.",
@@ -156,6 +193,10 @@ export default {
 			ssImg: {
 				alt: "One of the screenshots for the project.",
 			},
+		},
+		videoPreview: {
+			altThumbnail: "The thumbnail of selected YouTube video.",
+			labelYoutubeAnchor: "Open the linked video in new tab.",
 		},
 	},
 	auth: {
