@@ -17,7 +17,7 @@ function validateYoutubeURL(url: string): ValidatedYoutubeURL {
 	else return { isValid: true, videoId: match[1] }
 }
 
-type YoutubeVideoDetails = {
+export type YoutubeVideoDetails = {
 	videoId: string
 	title: string
 	authorName: string
@@ -26,7 +26,7 @@ type YoutubeVideoDetails = {
 
 type YoutubeOEmbedURL = `https://www.youtube.com/oembed?url=${string}&format=json`
 
-async function fetchYoutubeVideoDetails(url: string): Promise<YoutubeVideoDetails> {
+export async function fetchYoutubeVideoDetails(url: string): Promise<YoutubeVideoDetails> {
 	const validationResult = validateYoutubeURL(url)
 	if (!validationResult.isValid) throw Error("URL is not a valid YouTube URL.")
 
@@ -51,4 +51,7 @@ async function fetchYoutubeVideoDetails(url: string): Promise<YoutubeVideoDetail
 	}
 }
 
-export default fetchYoutubeVideoDetails
+type CanonYoutubeURL = `https://youtu.be/${string}`
+export function toShortYoutubeURL(videoId: string): CanonYoutubeURL {
+	return `https://youtu.be/${videoId}`
+}
