@@ -12,18 +12,18 @@
 	let { name, label, placeholder, constraints, value }: Props = $props()
 </script>
 
-<label class="flex w-full flex-col gap-4">
-	{label}
+<label class="flex h-full w-full flex-col gap-4 font-serif text-2xl tracking-tight text-inverse">
+	{label}:
 	{#if constraints}
 		<BadgeText text={constraints} />
 	{/if}
 	<textarea
 		{name}
 		{placeholder}
-		rows={3}
 		cols={1}
+		rows={2}
 		class={[
-			"w-full border-b-3 border-inverse bg-obverse",
+			"w-full grow border-b-3 border-inverse bg-obverse",
 			"cursor-pointer font-serif text-2xl font-medium tracking-tighter text-inverse",
 			"placeholder:text-accent placeholder:italic placeholder:brightness-200",
 		]}
