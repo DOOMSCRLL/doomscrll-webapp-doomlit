@@ -1,21 +1,22 @@
 <script lang="ts">
+	import { LocaleContext } from "contexts/shared.svelte"
+	import { getDictionaryOf } from "repos/locale-repo"
 	import { fetchYoutubeVideoDetails, toShortYoutubeURL, type YoutubeVideoDetails } from "utils/youtube-video-utils"
 
 	import SlabAnchorExternal from "comps/buttons/slab-anchor-external.svelte"
 	import Icon from "comps/icons/icon.svelte"
-	import { LocaleContext } from "contexts/shared.svelte"
-	import { getDictionaryOf } from "repos/locale-repo"
 	import TextInput from "./text-input.svelte"
 
 	type Props = {
 		name: string
 		label: string
 		placeholder: string
+		instructions?: string
 		url?: string
 		normalizedUrl?: string
 	}
 
-	let { name, label, placeholder, url = $bindable(), normalizedUrl = $bindable() }: Props = $props()
+	let { name, label, placeholder, instructions, url = $bindable(), normalizedUrl = $bindable() }: Props = $props()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).doomlits.videoPreview)
 
@@ -42,9 +43,9 @@
 		{name}
 		{label}
 		{placeholder}
+		{instructions}
 		inputType="url"
 		layout="column"
-		hasBulletMark={false}
 		isRequired={true}
 		bind:value={url} />
 

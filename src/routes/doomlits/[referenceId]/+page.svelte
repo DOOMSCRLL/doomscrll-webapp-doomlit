@@ -10,6 +10,7 @@
 	import TextInput from "comps/form/text-input.svelte"
 	import YoutubeVideoInput from "comps/form/youtube-video-input.svelte"
 	import HelpModal from "comps/help-modal.svelte"
+	import Icon from "comps/icons/icon.svelte"
 
 	const { data } = $props()
 
@@ -54,20 +55,23 @@
 	<section class="h-full w-full overflow-hidden rounded-3xl border-4 border-inverse p-4">
 		<div
 			class={[
-				"flex h-full w-full flex-col items-start justify-start gap-4 overflow-y-auto",
+				"flex h-full w-full flex-col items-start justify-start gap-12 overflow-y-auto",
 				"[scrollbar-color:var(--color-accent)_transparent]",
 			]}>
 			<section class="flex items-center gap-4">
-				<p class="font-serif text-2xl font-medium text-inverse">{formDict.refId.label}:</p>
+				<p class="font-serif text-2xl font-medium text-inverse">
+					<Icon icon="Starmark" size="small" />
+					{formDict.refId.label}:
+				</p>
 				<CopyableText content={project.referenceId} />
 			</section>
-			<form action="" class="grid h-full w-full auto-rows-min grid-cols-2 justify-items-center gap-10">
+			<form action="" class="grid h-full w-full auto-rows-min grid-cols-2 justify-items-center gap-12">
 				<TextInput
 					name="project-name"
 					inputType="text"
 					label={formDict.name.label}
 					placeholder={formDict.name.placeholder}
-					hasBulletMark={false}
+					instructions={formDict.name.instructions}
 					isRequired={true}
 					value={project.name} />
 				<!-- FIXME: Enable after implementing category and tag management.
@@ -94,20 +98,24 @@
 					name="project-cover"
 					label={formDict.coverImg.label}
 					placeholder={formDict.coverImg.placeholder}
+					instructions={formDict.coverImg.instructions}
 					imageType="cover"
 					maxFileSizeMB={10} />
 				<TextArea
 					name="project-description"
 					label={formDict.description.label}
-					placeholder={formDict.description.placeholder} />
+					placeholder={formDict.description.placeholder}
+					instructions={formDict.description.instructions} />
 				<YoutubeVideoInput
 					name="project-trailer-url"
 					label={formDict.video.label}
-					placeholder={formDict.video.placeholder} />
+					placeholder={formDict.video.placeholder}
+					instructions={formDict.video.instructions} />
 				<ImgInput
 					name="project-screenshots"
 					label={formDict.screenshots.label}
 					placeholder={formDict.screenshots.placeholder}
+					instructions={formDict.screenshots.instructions}
 					imageType="screenshot"
 					canSelectMultiple={true}
 					maxImages={8}

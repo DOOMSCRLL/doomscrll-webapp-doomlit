@@ -6,21 +6,18 @@
 		name: string
 		label: string
 		placeholder: string
-		constraints?: string
+		instructions?: string
 		value?: string
 	}
 
-	let { name, label, placeholder, constraints, value }: Props = $props()
+	let { name, label, placeholder, instructions, value }: Props = $props()
 </script>
 
 <label class="flex h-full w-full flex-col gap-4 font-serif text-2xl tracking-tight text-inverse">
 	<span class="flex gap-2">
 		<Icon icon="Starmark" size="small" />
-		{label}:
+		{label}{#if instructions}<BadgeText text={instructions} />{/if}:
 	</span>
-	{#if constraints}
-		<BadgeText text={constraints} />
-	{/if}
 	<textarea
 		{name}
 		{placeholder}

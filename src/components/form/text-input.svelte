@@ -1,10 +1,12 @@
 <script lang="ts">
+	import BadgeText from "comps/badge-text.svelte"
 	import Icon from "comps/icons/icon.svelte"
 
 	type Props = {
 		name: string
 		label: string
 		placeholder: string
+		instructions?: string
 		value?: string
 		inputType?: "text" | "url" | "email" | "otp"
 		layout?: "column" | "row"
@@ -15,6 +17,7 @@
 		label,
 		name,
 		placeholder,
+		instructions,
 		value = $bindable(),
 		inputType = "text",
 		layout = "row",
@@ -32,7 +35,7 @@
 	]}>
 	<span class="flex gap-2">
 		<Icon icon="Starmark" size="small" />
-		{label}:
+		{label}{#if instructions}<BadgeText text={instructions} />{/if}:
 	</span>
 
 	<input

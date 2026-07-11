@@ -3,6 +3,7 @@
 	import type { ImageType } from "services/image-service"
 	import { ImageService } from "services/image-service"
 
+	import BadgeText from "comps/badge-text.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import ImgPreviewRow from "./img-preview-row.svelte"
 	import ImgPreview from "./img-preview.svelte"
@@ -11,6 +12,7 @@
 		name: string
 		label: string
 		placeholder?: string
+		instructions?: string
 		canSelectMultiple?: boolean
 		maxImages?: number
 		maxFileSizeMB?: number
@@ -22,7 +24,8 @@
 	let {
 		name,
 		label,
-		placeholder = "",
+		placeholder,
+		instructions,
 		canSelectMultiple = false,
 		maxImages,
 		maxFileSizeMB = 10,
@@ -82,7 +85,7 @@
 	<label class="flex cursor-text flex-col gap-4 font-serif text-2xl font-medium tracking-tight">
 		<span class="flex gap-2">
 			<Icon icon="Starmark" size="small" />
-			{label}:
+			{label}{#if instructions}<BadgeText text={instructions} />{/if}:
 		</span>
 		<input
 			id={name}

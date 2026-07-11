@@ -160,6 +160,7 @@ export default {
 			tags: {
 				label: "Project tags",
 				placeholder: "Selected tags will help users filter your project.",
+				instructions: "max. 5",
 			},
 			platforms: {
 				label: "Platforms it's on",
@@ -168,18 +169,22 @@ export default {
 			coverImg: {
 				label: "Upload a cover image",
 				placeholder: "Upload an image with square aspect ratio. This will be shown in the preview of your project.",
+				instructions: "1:1 aspect ratio, max. 10MB",
 			},
 			description: {
 				label: "Describe your project",
 				placeholder: "Tell the world about your project!",
+				instructions: "max. 256 chars.",
 			},
 			video: {
 				label: "YouTube URL of it's trailer",
 				placeholder: "Paste video's link here!",
+				instructions: "Only YouTube videos",
 			},
 			screenshots: {
 				label: "Add a few screenshots",
 				placeholder: "Add images related to the project; screenshots, stories, marketing images...",
+				instructions: "9:16 aspect ratio, max 10MB, max. 8 images",
 			},
 		},
 		imgPreview: {
