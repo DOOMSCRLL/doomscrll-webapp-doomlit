@@ -3,6 +3,7 @@
 	import type { ImageType } from "services/image-service"
 	import { ImageService } from "services/image-service"
 
+	import Icon from "comps/icons/icon.svelte"
 	import ImgPreviewRow from "./img-preview-row.svelte"
 	import ImgPreview from "./img-preview.svelte"
 
@@ -79,7 +80,10 @@
 
 <div class="flex w-full flex-col gap-4">
 	<label class="flex cursor-text flex-col gap-4 font-serif text-2xl font-medium tracking-tight">
-		{label}:
+		<span class="flex gap-2">
+			<Icon icon="Starmark" size="small" />
+			{label}:
+		</span>
 		<input
 			id={name}
 			type="file"

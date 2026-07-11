@@ -1,5 +1,6 @@
 <script lang="ts">
 	import BadgeText from "comps/badge-text.svelte"
+	import Icon from "comps/icons/icon.svelte"
 
 	type Props = {
 		name: string
@@ -13,7 +14,10 @@
 </script>
 
 <label class="flex h-full w-full flex-col gap-4 font-serif text-2xl tracking-tight text-inverse">
-	{label}:
+	<span class="flex gap-2">
+		<Icon icon="Starmark" size="small" />
+		{label}:
+	</span>
 	{#if constraints}
 		<BadgeText text={constraints} />
 	{/if}
