@@ -169,7 +169,7 @@ export default {
 			coverImg: {
 				label: "Upload a cover image",
 				placeholder: "Upload an image with square aspect ratio. This will be shown in the preview of your project.",
-				instructions: "1:1 aspect ratio, max. 10MB",
+				instructions: "1:1, max. 10MB",
 			},
 			description: {
 				label: "Describe your project",
@@ -179,12 +179,12 @@ export default {
 			video: {
 				label: "YouTube URL of it's trailer",
 				placeholder: "Paste video's link here!",
-				instructions: "Only YouTube videos",
+				instructions: "Only YouTube URLs",
 			},
 			screenshots: {
 				label: "Add a few screenshots",
 				placeholder: "Add images related to the project; screenshots, stories, marketing images...",
-				instructions: "9:16 aspect ratio, max 10MB, max. 8 images",
+				instructions: "9:16, max. 10MB, max. 8 files",
 			},
 		},
 		imgPreview: {

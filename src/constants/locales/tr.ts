@@ -157,7 +157,7 @@ export default {
 			tags: {
 				label: "Proje etiketleri",
 				placeholder: "Seçilen etiketler kullanıcıların projeni bulmasına yardım eder.",
-				instructions: "max 5",
+				instructions: "max. 5",
 			},
 			platforms: {
 				label: "Yayınlandığı platformlar",
@@ -170,7 +170,7 @@ export default {
 			coverImg: {
 				label: "Bir kapak fotoğrafı yükle",
 				placeholder: "En boy oranı kare olan bir görüntü yükle. Bu görüntü, projenin kapağında görünecek.",
-				instructions: "1:1 en boy oranı, max. 10MB",
+				instructions: "1:1, max. 10MB",
 			},
 			description: {
 				label: "Projeni anlat",
@@ -180,12 +180,12 @@ export default {
 			video: {
 				label: "YouTube'dan tanıtım videosu",
 				placeholder: "Videonun bağlantısını buraya yapıştır!",
-				instructions: "Yalnızca YouTube videosu",
+				instructions: "YouTube bağl.",
 			},
 			screenshots: {
 				label: "Bir kaç görsel ekle",
 				placeholder: "Proje ile ilgili görüntüler ekle; ekran görüntüleri, hikayeler, pazarlama görselleri...",
-				instructions: "9:16 en boy oranı, max 10MB, max. 8 görüntü",
+				instructions: "9:16, max 10MB, max. 8 gör.",
 			},
 		},
 		imgPreview: {
