@@ -3,12 +3,18 @@
 	import TooltipButton from "comps/buttons/tooltip-button.svelte"
 	import Icon from "comps/icons/icon.svelte"
 
+	type StatusMessage = {
+		message?: string
+		type?: "error" | "info"
+	}
+
 	type Props = {
 		name: string
 		label: string
 		placeholder: string
 		instructions?: string
 		tooltip?: string
+		status?: StatusMessage
 		value?: string
 		inputType?: "text" | "url" | "email" | "otp"
 		layout?: "column" | "row"
@@ -21,6 +27,7 @@
 		placeholder,
 		instructions,
 		tooltip,
+		status,
 		value = $bindable(),
 		inputType = "text",
 		layout = "row",
@@ -28,9 +35,10 @@
 	}: Props = $props()
 
 	const nativeInputType = $derived(inputType === "otp" ? "text" : inputType)
+	let isFocused = $state(false)
 </script>
 
-<section class="flex h-min w-full flex-col items-start">
+<section class="flex h-min w-full flex-col items-start gap-4">
 	{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
 
 	<label
@@ -55,11 +63,25 @@
 			required={isRequired}
 			{placeholder}
 			aria-describedby="{name}-tooltip"
-			bind:value
 			class={[
 				"w-full border-b-3 border-inverse bg-obverse",
 				"cursor-pointer text-center font-serif text-2xl font-medium tracking-tighter text-inverse",
 				"placeholder:text-accent placeholder:italic placeholder:brightness-200",
-			]} />
+			]}
+			onfocus={() => (isFocused = true)}
+			onblur={() => (isFocused = false)}
+			bind:value />
 	</label>
+
+	{#if status?.message && (status.type === "error" || isFocused)}
+		<p
+			class={[
+				"font-serif text-xl font-medium tracking-tight",
+				status.type === "error" ? "text-accent" : "text-inverse",
+				"ml-4 flex items-center gap-2",
+			]}>
+			<Icon icon={status.type === "error" ? "Cancel" : "Help"} />
+			{status.message}
+		</p>
+	{/if}
 </section>
