@@ -24,6 +24,7 @@
 		instructions?: string
 		tooltip?: string
 		canSelectMultiple?: boolean
+		isRequired?: boolean
 		maxImages?: number
 		maxFileSizeMB?: number
 		imageType: ImageType
@@ -38,6 +39,7 @@
 		instructions,
 		tooltip,
 		canSelectMultiple = false,
+		isRequired = false,
 		maxImages,
 		maxFileSizeMB = 10,
 		imageType,
@@ -131,6 +133,7 @@
 			{placeholder}
 			accept="image/jpeg, image/png, image/webp"
 			multiple={canSelectMultiple}
+			required={isRequired}
 			onchange={handleFileChange}
 			onfocus={() => (isFocused = true)}
 			onblur={() => (isFocused = false)}
