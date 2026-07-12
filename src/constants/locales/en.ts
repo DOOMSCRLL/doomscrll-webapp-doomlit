@@ -19,6 +19,11 @@ export default {
 			labelInstructions: "Click to copy this text to your clipboard.",
 		},
 		labelTooltip: "You can hover over this button to see the tooltip attached.",
+		dataChips: {
+			tagChip: {
+				labelRemove: "Click to remove this tag from project.",
+			},
+		},
 	},
 	errorPage: {
 		header: "Hey, you found an error!",

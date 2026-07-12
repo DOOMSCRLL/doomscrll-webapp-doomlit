@@ -20,6 +20,11 @@ export default {
 			labelInstructions: "Metni panona kopyalamak için buraya tıkla.",
 		},
 		labelTooltip: "Fareni bu düğmenin üzerine getirerek bağlı araç ipuçlarını görebilirsin.",
+		dataChips: {
+			tagChip: {
+				labelRemove: "Seçili etiketi projeden kaldırmak için tıkla.",
+			},
+		},
 	},
 	errorPage: {
 		header: "Aha, bir hata yakaladın!",
