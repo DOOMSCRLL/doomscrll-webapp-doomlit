@@ -11,7 +11,7 @@
 	import TagGroup from "comps/preview/tag-group.svelte"
 	import Tooltip from "comps/tooltip.svelte"
 	import { getCategoryLabelFor } from "repos/category-repo.js"
-	import { generateHslFrom, hslStrToCss } from "utils/generate-hsl-from.js"
+	import { generateColorFrom, hslStrToCss } from "utils/generate-color-from.js"
 
 	const { params, data } = $props()
 
@@ -85,7 +85,7 @@
 
 <HelpModal bind:trigger={helpModalTrigger} />
 
-<Tooltip trigger={activeTrigger} open={activePreview !== undefined}>
+<Tooltip trigger={activeTrigger} isOpen={activePreview !== undefined}>
 	{#if activePreview}
 		<p class="font-serif font-medium text-inverse italic">
 			<Icon icon="Starmark" size="small" />
@@ -95,7 +95,7 @@
 		<p class="font-serif text-2xl font-medium tracking-tighter text-inverse">{activePreview.name}</p>
 		<section class="flex flex-col">
 			{#each activePreview.tags as tag (`${activePreview.name}_${tag}`)}
-				<p class="font-serif font-bold italic" style="color:{hslStrToCss(generateHslFrom(tag))}">
+				<p class="font-serif font-bold italic" style="color:{hslStrToCss(generateColorFrom(tag))}">
 					{tag}
 				</p>
 			{/each}
