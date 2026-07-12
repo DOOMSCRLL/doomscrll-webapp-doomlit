@@ -6,7 +6,7 @@
 	type Props = {
 		id?: string
 		isOpen?: boolean
-		trigger?: HTMLButtonElement
+		trigger?: HTMLElement
 		children?: Snippet
 	}
 	const { children, trigger, isOpen = false, id }: Props = $props()
