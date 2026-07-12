@@ -16,6 +16,7 @@ export default {
 			},
 			labelInstructions: "Click to copy this text to your clipboard.",
 		},
+		labelTooltip: "You can hover over this button to see the tooltip attached.",
 	},
 	errorPage: {
 		header: "Hey, you found an error!",
@@ -169,7 +170,12 @@ export default {
 			coverImg: {
 				label: "Upload a cover image",
 				placeholder: "Upload an image with square aspect ratio. This will be shown in the preview of your project.",
-				instructions: "1:1, max. 10MB",
+				instructions: "1:1, <10MB",
+				tooltip: ctsr`• Cover image is shown in the project feed.
+          ${MARKER_NEWLINE}• Selected cover image should be at 1:1 aspect ratio, otherwise it will be cropped from center.
+          ${MARKER_NEWLINE}• Image's width and height should ideally be 1080x1080 or higher. It will be resized if necessary.
+          ${MARKER_NEWLINE}• Image's file size should be less than 10MB.
+          ${MARKER_NEWLINE}• Image will be compressed down before uploading it to the server, albeit the compression doesn't hurt image quality noticably.`,
 			},
 			description: {
 				label: "Describe your project",
@@ -184,7 +190,12 @@ export default {
 			screenshots: {
 				label: "Add a few screenshots",
 				placeholder: "Add images related to the project; screenshots, stories, marketing images...",
-				instructions: "9:16, max. 10MB, max. 8 files",
+				instructions: "9:16, <10MB, max. 8 imgs",
+				tooltip: ctsr`• Screenshots will be shown in the project page.
+          ${MARKER_NEWLINE}• Selected screenshot images should be at 9:16 aspect ratio, otherwise they will be cropped from center.
+          ${MARKER_NEWLINE}• Images' widths and heights should ideally be 1080x1920 or higher. They will be resized if necessary.
+          ${MARKER_NEWLINE}• Images' file sizes should be less than 10MB.
+          ${MARKER_NEWLINE}• Images will be compressed down before uploading it to the server, albeit the compression doesn't hurt image quality noticably.`,
 			},
 		},
 		imgPreview: {
@@ -200,6 +211,8 @@ export default {
 			},
 		},
 		videoPreview: {
+			tooltip: ctsr`To show a video for your project you should upload it to YouTube first, then paste it's URL here.
+          ${MARKER_NEWLINE}The video can be public or unlisted.`,
 			altThumbnail: "The thumbnail of selected YouTube video.",
 			labelYoutubeAnchor: "Open the linked video in new tab.",
 		},

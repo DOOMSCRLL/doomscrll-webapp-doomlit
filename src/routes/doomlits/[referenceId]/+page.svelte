@@ -51,7 +51,6 @@
 
 <main class="flex h-screen flex-col overflow-hidden px-2 pb-2 supports-[height:100dvh]:h-dvh">
 	<BrandNav comps={{ date: showcaseDate, returnHref: "/" }} bind:helpModalTrigger />
-
 	<section class="h-full w-full overflow-hidden rounded-3xl border-4 border-inverse p-4">
 		<div
 			class={[
@@ -71,7 +70,6 @@
 					inputType="text"
 					label={formDict.name.label}
 					placeholder={formDict.name.placeholder}
-					instructions={formDict.name.instructions}
 					isRequired={true}
 					value={project.name} />
 				<!-- FIXME: Enable after implementing category and tag management.
@@ -99,6 +97,7 @@
 					label={formDict.coverImg.label}
 					placeholder={formDict.coverImg.placeholder}
 					instructions={formDict.coverImg.instructions}
+					tooltip={formDict.coverImg.tooltip}
 					imageType="cover"
 					maxFileSizeMB={10} />
 				<TextArea
@@ -116,6 +115,7 @@
 					label={formDict.screenshots.label}
 					placeholder={formDict.screenshots.placeholder}
 					instructions={formDict.screenshots.instructions}
+					tooltip={formDict.screenshots.tooltip}
 					imageType="screenshot"
 					canSelectMultiple={true}
 					maxImages={8}

@@ -17,6 +17,7 @@ export default {
 			},
 			labelInstructions: "Metni panona kopyalamak için buraya tıkla.",
 		},
+		labelTooltip: "Fareni bu düğmenin üzerine getirerek bağlı araç ipuçlarını görebilirsin.",
 	},
 	errorPage: {
 		header: "Aha, bir hata yakaladın!",
@@ -171,6 +172,11 @@ export default {
 				label: "Bir kapak fotoğrafı yükle",
 				placeholder: "En boy oranı kare olan bir görüntü yükle. Bu görüntü, projenin kapağında görünecek.",
 				instructions: "1:1, max. 10MB",
+				tooltip: ctsr`• Kapak fotoğrafı, proje akışında görünecektir.
+          ${MARKER_NEWLINE}• Seçilen kapak fotoğrafı 1:1 en-boy oranında olmalı, değilse kırpılacaktır.
+          ${MARKER_NEWLINE}• Görüntünün en ve boyu ideal olarak 1080x1080 ya da daha fazla olmalı. Gerektiğinde fotoğraf yeniden boyutlandırılacaktır.
+          ${MARKER_NEWLINE}• Görüntünün dosya boyutu 10MB'dan az olmalı.
+          ${MARKER_NEWLINE}• Görüntü sunucuya yüklenmeden önce sıkıştırılacak, bu görüntü kalitesini etkilemeyecektir.`,
 			},
 			description: {
 				label: "Projeni anlat",
@@ -183,9 +189,14 @@ export default {
 				instructions: "YouTube bağl.",
 			},
 			screenshots: {
-				label: "Bir kaç görsel ekle",
+				label: "Bir kaç ekran görüntüsü ekle",
 				placeholder: "Proje ile ilgili görüntüler ekle; ekran görüntüleri, hikayeler, pazarlama görselleri...",
 				instructions: "9:16, max 10MB, max. 8 gör.",
+				tooltip: ctsr`• Ekran görüntüleri proje bilgileri ekranında görünecektir.
+          ${MARKER_NEWLINE}• Seçilen ekran görüntüleri 9:16 en-boy oranında olmalı, değilse kırpılacaklar.
+          ${MARKER_NEWLINE}• Görüntülerin en ve boyu ideal olarak 1080x1920 ya da daha fazla olmalı. Gerektiğinde fotoğraflar yeniden boyutlandırılacaktır.
+          ${MARKER_NEWLINE}• Görüntülerin dosya boyutu 10MB'dan az olmalı.
+          ${MARKER_NEWLINE}• Görüntüler sunucuya yüklenmeden önce sıkıştırılacak, bu görüntü kalitesini etkilemeyecektir.`,
 			},
 		},
 		imgPreview: {
@@ -201,6 +212,8 @@ export default {
 			},
 		},
 		videoPreview: {
+			tooltip: ctsr`Projeni gösteren bir video yüklemek için videoyu öncelikle YouTube'a yükleyip, sonra bağlantısını
+          buraya yapıştırmalısın.${MARKER_NEWLINE}Video liste dışı ya da herkese açık olabilir.`,
 			altThumbnail: "Seçtiğin YouTube videosunun önizleme görseli.",
 			labelYoutubeAnchor: "İlgili videoyu yeni sekmede aç.",
 		},
