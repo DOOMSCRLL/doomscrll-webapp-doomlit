@@ -15,7 +15,7 @@ type HSL = {
 	l: number
 }
 
-export function generateHslFrom(str: string, options: ColorOptions = {}): HSL {
+export function generateColorFrom(str: string, options: ColorOptions = {}): HSL {
 	const hash = hashCode(str)
 
 	const h = hash % 360
