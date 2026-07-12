@@ -4,6 +4,7 @@
 	import { ImageService } from "services/image-service"
 
 	import BadgeText from "comps/badge-text.svelte"
+	import TooltipButton from "comps/buttons/tooltip-button.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import ImgPreviewRow from "./img-preview-row.svelte"
 	import ImgPreview from "./img-preview.svelte"
@@ -13,6 +14,7 @@
 		label: string
 		placeholder?: string
 		instructions?: string
+		tooltip?: string
 		canSelectMultiple?: boolean
 		maxImages?: number
 		maxFileSizeMB?: number
@@ -26,6 +28,7 @@
 		label,
 		placeholder,
 		instructions,
+		tooltip,
 		canSelectMultiple = false,
 		maxImages,
 		maxFileSizeMB = 10,
@@ -81,7 +84,8 @@
 	}
 </script>
 
-<div class="flex w-full flex-col gap-4">
+<div class="flex w-full flex-col items-start gap-4">
+	{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
 	<label class="flex cursor-text flex-col gap-4 font-serif text-2xl font-medium tracking-tight">
 		<span class="flex gap-2">
 			<Icon icon="Starmark" size="small" />

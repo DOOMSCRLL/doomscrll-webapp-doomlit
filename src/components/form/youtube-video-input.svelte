@@ -44,6 +44,7 @@
 		{label}
 		{placeholder}
 		{instructions}
+		tooltip={dict.tooltip}
 		inputType="url"
 		layout="column"
 		isRequired={true}
