@@ -38,7 +38,7 @@
 	})
 </script>
 
-<section class="flex w-full flex-col gap-2">
+<section class="flex w-full flex-col gap-4">
 	<TextInput
 		{name}
 		{label}
