@@ -8,6 +8,7 @@
 	type HorizontalFit = "max" | "min" | "square"
 
 	type Props = {
+		ariaLabel?: string
 		variant?: ButtonVariant
 		hasAccent?: boolean
 		size?: ButtonSize
@@ -22,6 +23,7 @@
 	}
 
 	let {
+		ariaLabel,
 		alignment = "center",
 		fit = "max",
 		size = "normal",
@@ -77,5 +79,6 @@
 				: "text-accent hover:text-obverse active:text-obverse",
 		}),
 	]}>
+	{#if ariaLabel}<span class="sr-only">{ariaLabel}</span>{/if}
 	{@render children?.()}
 </button>

@@ -32,8 +32,7 @@
 	})
 </script>
 
-<SlabButton variant="text" fit="square" size="small" bind:reference={buttonRef}>
-	<span class="sr-only">{tooltipLabel}</span>
+<SlabButton variant="text" fit="square" size="small" ariaLabel={tooltipLabel} bind:reference={buttonRef}>
 	<Icon icon="Help" size="small" />
 </SlabButton>
 

@@ -37,12 +37,10 @@
 		style="width: {width}px; height: {height}px;" />
 
 	<section class="flex h-min items-center justify-between gap-4" style="width: {width}px">
-		<SlabButton variant="text" size="small" onClick={handleClickPreview}>
-			<span class="sr-only">{dict.cta.expand}</span>
+		<SlabButton variant="text" size="small" ariaLabel={dict.cta.expand} onClick={handleClickPreview}>
 			<Icon icon="Doomeye" size="small" />
 		</SlabButton>
-		<SlabButton variant="text" size="small" onClick={handleClickRemove}>
-			<span class="sr-only">{dict.cta.remove}</span>
+		<SlabButton variant="text" size="small" ariaLabel={dict.cta.remove} onClick={handleClickRemove}>
 			<Icon icon="Remove" size="small" />
 		</SlabButton>
 	</section>

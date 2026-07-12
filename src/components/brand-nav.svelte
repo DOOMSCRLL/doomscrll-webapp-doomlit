@@ -3,8 +3,8 @@
 	import { getDictionaryOf } from "repos/locale-repo"
 	import type DDate from "utils/d-date"
 
-	import IconButton from "./buttons/icon-button.svelte"
 	import SlabAnchor from "./buttons/slab-anchor.svelte"
+	import SlabButton from "./buttons/slab-button.svelte"
 	import DoomscrllWordmark from "./icons/doomscrll-wordmark.svelte"
 	import Icon from "./icons/icon.svelte"
 	import LanguageSelector from "./language-selector.svelte"
@@ -38,7 +38,12 @@
 	<section class="flex h-min w-full items-center justify-between">
 		<section class="flex gap-4">
 			<LanguageSelector label={dict.navbar.ariaLabelLangSelect} />
-			<IconButton icon="Help" variant="text" renderDecors={false} bind:reference={helpModalTrigger} />
+			<SlabButton
+				variant="text"
+				fit="square"
+				ariaLabel={dict.navbar.ariaLabelHelp}
+				renderDecors={false}
+				bind:reference={helpModalTrigger}><Icon icon="Help" /></SlabButton>
 		</section>
 		{#if activeDraftRefId}
 			<SlabAnchor href="/reserve/{activeDraftRefId}">{dict.navbar.labelActiveDraftWarning}</SlabAnchor>
