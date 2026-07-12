@@ -9,6 +9,14 @@
 	import ImgPreviewRow from "./img-preview-row.svelte"
 	import ImgPreview from "./img-preview.svelte"
 
+	import { LocaleContext } from "contexts/shared.svelte"
+	import { getDictionaryOf } from "repos/locale-repo"
+
+	type StatusMessage = {
+		message?: string
+		type?: "error" | "info"
+	}
+
 	type Props = {
 		name: string
 		label: string
@@ -38,7 +46,11 @@
 		onPreviewClick,
 	}: Props = $props()
 
+	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).doomlits.projectForm)
+
 	let isProcessing = $state(false)
+	let isFocused = $state(false)
+	let status = $state<StatusMessage>()
 	let previewUrls = $state<string[]>([])
 
 	function getImgs(): ImageAsset[] {
@@ -60,12 +72,31 @@
 
 	async function handleFileChange(event: Event) {
 		const target = event.target as HTMLInputElement
-		if (!target.files || target.files.length === 0) return
+		if (!target.files || target.files.length === 0) {
+			status = undefined
+			return
+		}
 
 		isProcessing = true
+		status = undefined
 
-		const filesToProcess = Array.from(target.files).filter((file) => file.size <= maxFileSizeMB * 1024 * 1024)
+		const allFiles = Array.from(target.files)
+		const validSizeFiles = allFiles.filter((file) => file.size <= maxFileSizeMB * 1024 * 1024)
+
+		if (validSizeFiles.length < allFiles.length) {
+			// @ts-expect-error - Dictionary keys to be added by user
+			status = { message: dict.status.fileTooLarge, type: "error" }
+			if (validSizeFiles.length === 0) {
+				isProcessing = false
+				target.value = ""
+				return
+			}
+		}
+
+		let filesToProcess = validSizeFiles
 		if (maxImages && filesToProcess.length > maxImages) {
+			// @ts-expect-error - Dictionary keys to be added by user
+			status = { message: dict.status.tooManyFiles, type: "info" }
 			filesToProcess.length = maxImages
 		}
 
@@ -77,6 +108,8 @@
 			previewUrls = blobs.map((blob) => URL.createObjectURL(blob))
 		} catch (error) {
 			console.error("Failed to process images:", error)
+			// @ts-expect-error - Dictionary keys to be added by user
+			status = { message: dict.status.internalError, type: "error" }
 		} finally {
 			isProcessing = false
 			target.value = ""
@@ -99,6 +132,8 @@
 			accept="image/jpeg, image/png, image/webp"
 			multiple={canSelectMultiple}
 			onchange={handleFileChange}
+			onfocus={() => (isFocused = true)}
+			onblur={() => (isFocused = false)}
 			disabled={isProcessing}
 			class={[
 				"overflow-hidden font-mono text-[1rem] font-bold tracking-wider text-ellipsis text-inverse file:uppercase",
@@ -106,6 +141,18 @@
 				"cursor-pointer hover:file:bg-inverse hover:file:text-obverse active:file:bg-accent",
 			]} />
 	</label>
+
+	{#if status?.message && (status.type === "error" || isFocused)}
+		<p
+			class={[
+				"font-serif text-xl font-medium tracking-tight",
+				status.type === "error" ? "text-accent" : "text-inverse",
+				"ml-4 flex items-center gap-2",
+			]}>
+			<Icon icon={status.type === "error" ? "Cancel" : "Help"} />
+			{status.message}
+		</p>
+	{/if}
 
 	{#if previewUrls && previewUrls.length > 0}
 		{#if !canSelectMultiple}
