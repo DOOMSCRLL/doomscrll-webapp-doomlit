@@ -7,6 +7,7 @@ export default {
 		labelReturnHome: "Geri Dön",
 		navbar: {
 			ariaLabelLangSelect: "DOOMSCRLL'da kullanmak için bir dil seçin.",
+			ariaLabelHelp: "Yardım menüsünü aç.",
 			suffixReservationProgress: "DOOMLIT ayırtıldı.",
 			labelActiveDraftWarning: "Aktif Taslakları Gör",
 		},

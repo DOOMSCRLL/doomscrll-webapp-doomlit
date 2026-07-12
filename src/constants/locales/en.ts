@@ -6,6 +6,7 @@ export default {
 		labelReturnHome: "Return",
 		navbar: {
 			ariaLabelLangSelect: "Choose a language to use DOOMSCRLL in.",
+			ariaLabelHelp: "Open help modal.",
 			suffixReservationProgress: "DOOMLITs reserved",
 			labelActiveDraftWarning: "See Active Drafts",
 		},
