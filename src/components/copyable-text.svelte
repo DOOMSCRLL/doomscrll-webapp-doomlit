@@ -28,7 +28,8 @@
 
 <div class="flex gap-2">
 	<SlabButton hasAccent={true} variant="text" onClick={copyText}>{content}</SlabButton>
-	<SlabButton variant="text" fit="square" onClick={copyText}><Icon icon="Copy" /></SlabButton>
+	<SlabButton variant="text" fit="square" ariaLabel={dict.ariaLabelCopy} onClick={copyText}
+		><Icon icon="Copy" /></SlabButton>
 	<p class="sr-only" aria-live="polite">{status}</p>
 	<p class="sr-only">{dict.labelInstructions}</p>
 </div>

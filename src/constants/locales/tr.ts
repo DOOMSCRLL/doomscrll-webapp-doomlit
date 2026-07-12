@@ -12,6 +12,7 @@ export default {
 			labelActiveDraftWarning: "Aktif Taslakları Gör",
 		},
 		copyableText: {
+			ariaLabelCopy: "Sorgu kodunu kopyalamak için buraya tıkla.",
 			status: {
 				labelCopied: "Metin panona kopyalandı.",
 				labelFailed: "Metin kopyalanamadı.",

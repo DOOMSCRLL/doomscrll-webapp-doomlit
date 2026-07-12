@@ -11,6 +11,7 @@ export default {
 			labelActiveDraftWarning: "See Active Drafts",
 		},
 		copyableText: {
+			ariaLabelCopy: "Click to copy your reference ID.",
 			status: {
 				labelCopied: "Text copied to clipboard.",
 				labelFailed: "Failed to copy the text.",
