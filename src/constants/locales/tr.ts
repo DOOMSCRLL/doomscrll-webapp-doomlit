@@ -187,6 +187,11 @@ export default {
 				label: "YouTube'dan tanıtım videosu",
 				placeholder: "Videonun bağlantısını buraya yapıştır!",
 				instructions: "YouTube bağl.",
+				status: {
+					invalidUrl: "Girdiğin adres geçerli bir YouTube bağlantısı değil.",
+					unavailable: "Video bulunamadı. Lütfen girdiğin adresi kontrol et.",
+					internalError: "Bir hata oluştu. Lütfen girdiğin adresi kontrol et.",
+				},
 			},
 			screenshots: {
 				label: "Bir kaç ekran görüntüsü ekle",

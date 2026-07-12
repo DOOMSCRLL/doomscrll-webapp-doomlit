@@ -186,6 +186,11 @@ export default {
 				label: "YouTube URL of it's trailer",
 				placeholder: "Paste video's link here!",
 				instructions: "Only YouTube URLs",
+				status: {
+					invalidUrl: "Input isn't a valid YouTube URL.",
+					unavailable: "Video seems to be unavailable. Please check the URL.",
+					internalError: "An internal error occurred. Please check the URL.",
+				},
 			},
 			screenshots: {
 				label: "Add a few screenshots",
