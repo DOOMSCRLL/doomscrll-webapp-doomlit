@@ -1,10 +1,15 @@
 <script lang="ts">
+	import { untrack } from "svelte"
+
 	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte"
+	import type Category from "models/category"
+	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
 
 	import BrandNav from "comps/brand-nav.svelte"
 	import CopyableText from "comps/copyable-text.svelte"
+	import Dropdown from "comps/form/dropdown.svelte"
 	import ImgInput from "comps/form/img-selector/img-input.svelte"
 	import TextArea from "comps/form/text-area.svelte"
 	import TextInput from "comps/form/text-input.svelte"
@@ -24,10 +29,11 @@
 	const project = $derived(data.project)
 	const showcaseDate = $derived(DDate.fromISOString(project.showcaseDate))
 
-	// #region Category and Tag Management
+	// #region Category and Dependants' Management
 	// FIXME: Category and Tag dropdowns need to be implemented properly.
-	/*let category = $state<Category>(untrack(() => project.category))
-  let tags = $state<SvelteSet<ProjectTag>>(untrack(() => new SvelteSet(project.tags ?? [])))
+	let category = $state<Category>(untrack(() => project.category))
+
+	/*let tags = $state<SvelteSet<ProjectTag>>(untrack(() => new SvelteSet(project.tags ?? [])))
 
   let selectedCategory = $state(untrack(() => project.category))
   let selectedTag = $state<ProjectTag>()
@@ -72,14 +78,14 @@
 					placeholder={formDict.name.placeholder}
 					isRequired={true}
 					value={project.name} />
+				<Dropdown
+					name="project-category"
+					label={formDict.category.label}
+					placeholder={formDict.category.placeholder}
+					options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
+					bind:value={category}
+					isRequired={true} />
 				<!-- FIXME: Enable after implementing category and tag management.
-      <Dropdown
-				name="project-category"
-				label="MISSING_LABEL_CATEGORY"
-				placeholder="MISSING_PLACEHOLDER_CATEGORY"
-				options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
-				bind:value={category}
-				isRequired={true} />
 			<section class="flex w-full flex-col items-start gap-4">
 				<DDropdown
 					name="project-tags"
@@ -91,7 +97,6 @@
 				<section class="flex flex-wrap gap-4 wrap-normal"></section>
 			</section>
       -->
-				<div class="h-full w-full bg-[darkorange] text-[red]">DELETE ME!</div>
 				<ImgInput
 					name="project-cover"
 					label={formDict.coverImg.label}
@@ -99,6 +104,7 @@
 					instructions={formDict.coverImg.instructions}
 					tooltip={formDict.coverImg.tooltip}
 					imageType="cover"
+					isRequired={true}
 					maxFileSizeMB={10} />
 				<TextArea
 					name="project-description"
