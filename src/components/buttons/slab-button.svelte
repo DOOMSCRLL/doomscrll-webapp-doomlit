@@ -73,10 +73,10 @@
 		/* content appearance: */
 		ttm(variant, {
 			filled: "text-obverse",
-			outlined: "text-inverse hover:text-obverse active:text-obverse",
+			outlined: "text-inverse not-disabled:hover:text-obverse not-disabled:active:text-obverse",
 			text: !hasAccent
-				? "text-inverse hover:text-obverse active:text-obverse"
-				: "text-accent hover:text-obverse active:text-obverse",
+				? "text-inverse not-disabled:hover:text-obverse not-disabled:active:text-obverse"
+				: "text-accent not-disabled:hover:text-obverse not-disabled:active:text-obverse",
 		}),
 	]}>
 	{#if ariaLabel}<span class="sr-only">{ariaLabel}</span>{/if}
