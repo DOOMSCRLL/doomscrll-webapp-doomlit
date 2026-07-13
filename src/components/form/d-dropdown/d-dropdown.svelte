@@ -1,9 +1,16 @@
 <script lang="ts">
+	import BadgeText from "comps/badge-text.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
+	import TooltipButton from "comps/buttons/tooltip-button.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import Popover from "comps/popover.svelte"
 	import DOptionGroup from "./d-option-group.svelte"
 	import DOption from "./d-option.svelte"
+
+	type StatusMessage = {
+		message?: string
+		type?: "error" | "info"
+	}
 
 	type OptData = {
 		value: string
@@ -16,13 +23,31 @@
 
 	type Props = {
 		name: string
+		label: string
 		placeholder: string
+		instructions?: string
+		tooltip?: string
+		status?: StatusMessage
 		emptyQueryLabel: string
 		options: OptGroupData[]
+		isDisabled?: boolean
 		selectedValue?: string
+		onChange?: (value: string) => void
 	}
 
-	let { name, placeholder, emptyQueryLabel, options, selectedValue = $bindable() }: Props = $props()
+	let {
+		name,
+		label,
+		placeholder,
+		instructions,
+		tooltip,
+		status,
+		emptyQueryLabel,
+		options,
+		isDisabled = false,
+		selectedValue = $bindable(),
+		onChange,
+	}: Props = $props()
 
 	let trigger = $state<HTMLButtonElement>()
 	let inputRef = $state<HTMLInputElement>()
@@ -53,6 +78,7 @@
 		return flatOpts.find((o) => o.value === selectedValue)?.label ?? placeholder
 	})
 
+	// #region Focus management
 	function handleHover(event: PointerEvent, value: string): void {
 		if (event.movementX === 0 && event.movementY === 0) return
 		else if (highlightedValue !== value) highlightedValue = value
@@ -60,6 +86,7 @@
 
 	function handleSelect(value: string): void {
 		selectedValue = value
+		onChange?.(value)
 		searchQuery = ""
 		isOpen = false
 		trigger?.focus()
@@ -110,6 +137,7 @@
 				break
 		}
 	}
+	// #endregion
 </script>
 
 {#snippet dopt(opt: OptData)}
@@ -122,13 +150,40 @@
 		onSelect={handleSelect} />
 {/snippet}
 
-<section class="h-min w-min">
+<section class="flex h-min w-full flex-col items-start gap-4">
 	<input type="hidden" {name} bind:value={selectedValue} />
+	{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
+	<div class="flex w-full flex-col items-start gap-4">
+		<div class="flex gap-2">
+			<Icon icon="Starmark" size="small" />
+			<p class="cursor-text font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
+				{label}
+				{#if instructions}<BadgeText text={instructions} />{/if}:
+			</p>
+		</div>
+		<SlabButton
+			variant="outlined"
+			alignment="right"
+      fit="max"
+			{isDisabled}
+			onClick={handleTriggerOnClick}
+			bind:reference={trigger}>
+			{triggerLabel}
+			<Icon icon="ArrowDropdown" size="small" />
+		</SlabButton>
+	</div>
 
-	<SlabButton variant="outlined" alignment="right" onClick={handleTriggerOnClick} bind:reference={trigger}>
-		{triggerLabel}
-		<Icon icon="ArrowDropdown" size="small" />
-	</SlabButton>
+	{#if status?.message}
+		<p
+			class={[
+				"font-serif text-xl font-medium tracking-tight",
+				status.type === "error" ? "text-accent" : "text-inverse",
+				"ml-4 flex items-center gap-2",
+			]}>
+			<Icon icon={status.type === "error" ? "Cancel" : "Help"} />
+			{status.message}
+		</p>
+	{/if}
 
 	{#if isOpen}
 		<Popover
@@ -157,7 +212,7 @@
 			<ul
 				id={listboxId}
 				role="listbox"
-				class="flex h-full max-h-60 w-full pretty-scrollbar flex-col gap-1 overflow-x-hidden overflow-y-auto px-2">
+				class="flex h-full max-h-60 w-full pretty-scrollbar flex-col gap-2 overflow-x-hidden overflow-y-auto px-2">
 				{#if filteredOptions !== undefined}
 					{#each filteredOptions as opt (opt.value)}
 						{@render dopt(opt)}
