@@ -9,22 +9,26 @@
 
 	type Props = {
 		tag: ProjectTag
-		index: number
-		onRemove: (index: number) => void
+		onRemove: (tag: ProjectTag) => void
 	}
 
-	const { tag, index, onRemove }: Props = $props()
+	const { tag, onRemove }: Props = $props()
 	const removeLabel = $derived(getDictionaryOf(LocaleContext.context.value!).common.dataChips.tagChip.labelRemove)
 </script>
 
-<li class="flex w-full items-center justify-start gap-4">
-	<!--<Icon icon="Starmark" size="small" /> -->
-	<p
-		class="font-serif text-2xl font-bold tracking-wide even:italic"
-		style="color: {hslStrToCss(generateColorFrom(tag))}">
-		{tag}
-	</p>
-	<SlabButton variant="text" fit="square" ariaLabel={removeLabel} size="small" onClick={() => onRemove(index)}>
-		<Icon icon="Remove" />
+<li class="group flex w-min items-center justify-start">
+	<div class="rounded-full px-4 py-2" style="background-color: {hslStrToCss(generateColorFrom(tag))}">
+		<p class="font-serif text-xl font-bold whitespace-nowrap text-obverse group-even:italic">
+			{tag}
+		</p>
+	</div>
+	<SlabButton
+		variant="text"
+		hasAccent={true}
+		fit="square"
+		ariaLabel={removeLabel}
+		size="normal"
+		onClick={() => onRemove(tag)}>
+		<Icon icon="Cancel" size="normal" />
 	</SlabButton>
 </li>
