@@ -4,6 +4,7 @@ export default {
 	common: {
 		labelCloseMenu: "Close",
 		labelReturnHome: "Return",
+		labelExternalIconSuffix: "platform logo.",
 		navbar: {
 			ariaLabelLangSelect: "Choose a language to use DOOMSCRLL in.",
 			ariaLabelHelp: "Open help modal.",
@@ -22,6 +23,12 @@ export default {
 		dataChips: {
 			tagChip: {
 				labelRemove: "Click to remove this tag from project.",
+			},
+			platformChip: {
+				labelRemove: "Click to remove this platform from the project.",
+			},
+			featureChip: {
+				labelRemove: "Click to remove this feature from the project.",
 			},
 		},
 	},

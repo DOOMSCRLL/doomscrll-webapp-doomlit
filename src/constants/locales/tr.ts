@@ -5,6 +5,7 @@ export default {
 	common: {
 		labelCloseMenu: "Kapat",
 		labelReturnHome: "Geri Dön",
+		labelExternalIconSuffix: "platformunun logosu.",
 		navbar: {
 			ariaLabelLangSelect: "DOOMSCRLL'da kullanmak için bir dil seçin.",
 			ariaLabelHelp: "Yardım menüsünü aç.",
@@ -23,6 +24,12 @@ export default {
 		dataChips: {
 			tagChip: {
 				labelRemove: "Seçili etiketi projeden kaldırmak için tıkla.",
+			},
+			platformChip: {
+				labelRemove: "Seçili platformu projeden kaldırmak için tıkla.",
+			},
+			featureChip: {
+				labelRemove: "Seçili özelliği projeden kaldırmak için tıkla.",
 			},
 		},
 	},
