@@ -170,9 +170,18 @@ export default {
 				placeholder: "Proje için bir kategori seçmelisin.",
 			},
 			tags: {
-				label: "Proje etiketleri",
-				placeholder: "Seçilen etiketler kullanıcıların projeni bulmasına yardım eder.",
-				instructions: "max. 5",
+				label: {
+					text: "Proje etiketleri",
+					placeholder: "Bir etiket seç",
+					instructions: "max. 5",
+				},
+				tooltip: ctsr`• Seçtiğin etiketler, kullanıcıların projeni bulmasına yardımcı olur.
+          ${MARKER_NEWLINE}• Kullanıcılar, etiketleri kullanarak projeleri süzebilir ve tür, özellik ya da temalarına göre arama ayırabilir.
+          ${MARKER_NEWLINE}• Bir proje en fazla 5 etikete sahip olabilir.`,
+				dropdown: {
+					labelTagGroup: "Etiketler",
+					labelEmptyQuery: "Hiçbir etiket bulunamadı.",
+				},
 			},
 			platforms: {
 				label: "Yayınlandığı platformlar",

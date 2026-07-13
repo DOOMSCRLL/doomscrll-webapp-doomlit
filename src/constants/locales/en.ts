@@ -173,9 +173,18 @@ export default {
 				placeholder: "You need to choose a category for your project.",
 			},
 			tags: {
-				label: "Project tags",
-				placeholder: "Selected tags will help users filter your project.",
-				instructions: "max. 5",
+				label: {
+					text: "Project tags",
+					placeholder: "Select a tag",
+					instructions: "max. 5",
+				},
+				tooltip: ctsr`• Tags will help the audience find your project.
+          ${MARKER_NEWLINE}• Users can use tags to filter projects, and search for specific genres, features or themes.
+          ${MARKER_NEWLINE}• A project can have upto 5 tags.`,
+				dropdown: {
+					labelTagGroup: "Tags",
+					labelEmptyQuery: "Couldn't find any tags.",
+				},
 			},
 			platforms: {
 				label: "Platforms it's on",
