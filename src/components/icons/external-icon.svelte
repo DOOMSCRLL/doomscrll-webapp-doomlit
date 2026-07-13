@@ -1,17 +1,22 @@
 <script lang="ts">
+	import { LocaleContext } from "contexts/shared.svelte"
 	import type { PlatformName } from "models/platform"
+	import { getDictionaryOf } from "repos/locale-repo"
 	import { getPlatformIconPathFor, getPlatformName } from "repos/platform-repo"
 
 	type Props = {
 		platform: PlatformName
-		labelSuffix: string
 	}
 
-	const { platform, labelSuffix }: Props = $props()
+	const { platform }: Props = $props()
 
 	let asset = $derived(getPlatformIconPathFor(platform))
 	let primaryUrl = $derived(asset.isLocal ? asset.path : `${asset.path}.svg`)
 	let fallbackUrl = $derived(asset.isLocal ? asset.path : `${asset.path}.webp`)
+
+	const iconAlt = $derived(
+		`${getPlatformName(platform)} ${getDictionaryOf(LocaleContext.context.value!).common.labelExternalIconSuffix}`,
+	)
 
 	function handleError(event: Event) {
 		const img = event.currentTarget as HTMLImageElement
@@ -27,7 +32,7 @@
 		"flex items-center justify-center",
 	]}>
 	<img
-		alt="{getPlatformName(platform)} {labelSuffix}"
+		alt={iconAlt}
 		id="EXTERNAL_ICON_{platform}"
 		src={primaryUrl}
 		onerror={handleError}
