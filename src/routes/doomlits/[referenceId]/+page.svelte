@@ -12,6 +12,7 @@
 	import BrandNav from "comps/brand-nav.svelte"
 	import CopyableText from "comps/copyable-text.svelte"
 	import Dropdown from "comps/form/dropdown.svelte"
+	import FeatureDdropdown from "comps/form/feature-ddropdown.svelte"
 	import ImgInput from "comps/form/img-selector/img-input.svelte"
 	import PlatformDdropdown from "comps/form/platform-ddropdown.svelte"
 	import TagDdropdown from "comps/form/tag-ddropdown.svelte"
@@ -38,6 +39,7 @@
 	let category = $state<Category>(untrack(() => project.category))
 	let selectedTags = new SvelteSet<ProjectTag>() // Reactive collection
 	let selectedPlatforms = $state<PlatformURL[]>([])
+	let selectedFeatures = new SvelteSet<string>()
 	// #endregion
 </script>
 
@@ -78,6 +80,7 @@
 					isRequired={true} />
 				<TagDdropdown {category} {selectedTags} maxTagCount={5} />
 				<PlatformDdropdown {category} bind:selectedPlatforms />
+				<FeatureDdropdown {category} {selectedFeatures} />
 				<ImgInput
 					name="project-cover"
 					label={formDict.coverImg.label}
