@@ -39,7 +39,7 @@
 	aria-label={ariaLabel}
 	class={[
 		"group flex max-w-full min-w-0 items-center justify-center gap-4 rounded-2xl",
-		"overflow-hidden font-mono font-bold tracking-wider text-ellipsis whitespace-nowrap uppercase disabled:not-allowed",
+		"overflow-hidden font-mono tracking-wide text-ellipsis whitespace-nowrap lowercase disabled:not-allowed",
 		!(size === "small") &&
 			ttm(alignment, {
 				center: "px-6",
