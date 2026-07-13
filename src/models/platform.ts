@@ -9,4 +9,9 @@ type Platform = {
 	isBadge?: boolean
 }
 
+export type PlatformURL = {
+	name: PlatformName
+	url: string
+}
+
 export type { Platform as default }
