@@ -187,6 +187,19 @@ export default {
 				label: "Yayınlandığı platformlar",
 				placeholder: "Kullanıcıların projene ulaşabileceği platformları ekle.",
 			},
+			features: {
+				label: {
+					text: "Projenine ait özellikleri seç",
+					placeholder: "Bir özellik seç",
+				},
+				tooltip: ctsr`• Seçenekler arasından, projenin sahip olduğu özellikleri seçebilirsin.
+          ${MARKER_NEWLINE}• Kullanıcılar özellikleri kullanarak projeleri süzebilir.
+          ${MARKER_NEWLINE}• Özellikler proje sayfasında görünür.`,
+				dropdown: {
+					labelFeatGroup: "Özellikler",
+					labelEmptyQuery: "Hiçbir özellik bulunamadı.",
+				},
+			},
 			name: {
 				label: "Projenin adı",
 				placeholder: "Projene bir isim ver!",

@@ -190,6 +190,18 @@ export default {
 				label: "Platforms it's on",
 				placeholder: "Add platforms that users can access your project on.",
 			},
+			features: {
+				label: {
+					text: "You can select features",
+					placeholder: "Select a feature",
+				},
+				tooltip: ctsr`• You can add features your project has from the dropdown.
+          ${MARKER_NEWLINE}• Users can use features to filter projects, and search for specific features.`,
+				dropdown: {
+					labelFeatGroup: "Features",
+					labelEmptyQuery: "Couldn't find any features.",
+				},
+			},
 			coverImg: {
 				label: "Upload a cover image",
 				placeholder: "Upload an image with square aspect ratio. This will be shown in the preview of your project.",
