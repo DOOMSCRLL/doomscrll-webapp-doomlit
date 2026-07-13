@@ -1,21 +1,28 @@
 <script lang="ts">
 	import { untrack } from "svelte"
+	import { SvelteSet } from "svelte/reactivity"
 
 	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte"
 	import type Category from "models/category"
+	import type ProjectTag from "models/project-tag.js"
 	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
 	import { getDictionaryOf } from "repos/locale-repo"
+	import { getTagsFor } from "repos/tag-repo.js"
 	import DDate from "utils/d-date"
 
 	import BrandNav from "comps/brand-nav.svelte"
 	import CopyableText from "comps/copyable-text.svelte"
 	import Dropdown from "comps/form/dropdown.svelte"
 	import ImgInput from "comps/form/img-selector/img-input.svelte"
+	import PlatformDdropdown from "comps/form/platform-ddropdown.svelte"
+	import TagDdropdown from "comps/form/tag-ddropdown.svelte"
 	import TextArea from "comps/form/text-area.svelte"
 	import TextInput from "comps/form/text-input.svelte"
 	import YoutubeVideoInput from "comps/form/youtube-video-input.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
+	import type { PlatformName, PlatformURL } from "models/platform.js"
+	import { getPlatformsListFor } from "repos/platform-repo.js"
 
 	const { data } = $props()
 
@@ -33,20 +40,15 @@
 	// FIXME: Category and Tag dropdowns need to be implemented properly.
 	let category = $state<Category>(untrack(() => project.category))
 
-	/*let tags = $state<SvelteSet<ProjectTag>>(untrack(() => new SvelteSet(project.tags ?? [])))
+	const tagOpts = $derived<ProjectTag[]>(getTagsFor(category))
+	let selectedTags = new SvelteSet<ProjectTag>() // Reactive collection
 
-  let selectedCategory = $state(untrack(() => project.category))
-  let selectedTag = $state<ProjectTag>()
-
-  $effect(() => {
-    if (selectedCategory !== category) {
-      category = selectedCategory
-      tags = new SvelteSet()
-    }
-  })
-  $effect(() => {
-    if (selectedTag && !tags.has(selectedTag)) tags.add(selectedTag)
-  })*/
+	const platformOpts = $derived<PlatformName[]>([
+		...getPlatformsListFor(category),
+		...getPlatformsListFor("Internal_Socials"),
+		...getPlatformsListFor("Internal_Crowdfunding"),
+	])
+	let selectedPlatforms = $state<PlatformURL[]>([])
 	// #endregion
 </script>
 
@@ -85,18 +87,8 @@
 					options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
 					bind:value={category}
 					isRequired={true} />
-				<!-- FIXME: Enable after implementing category and tag management.
-			<section class="flex w-full flex-col items-start gap-4">
-				<DDropdown
-					name="project-tags"
-					emptyQueryLabel="MISSING_LABEL_TAGS_NO_QUERY"
-					placeholder="MISSING_PLACEHOLDER_TAGS"
-					options={[
-						{ label: "MISSING_LABEL_TAGS", opts: getTagsFor(category).map((t) => ({ label: t, value: t })) },
-					]} />
-				<section class="flex flex-wrap gap-4 wrap-normal"></section>
-			</section>
-      -->
+				<TagDdropdown tags={tagOpts} {selectedTags} maxTagCount={5} />
+				<PlatformDdropdown platforms={platformOpts} bind:selectedPlatforms />
 				<ImgInput
 					name="project-cover"
 					label={formDict.coverImg.label}
