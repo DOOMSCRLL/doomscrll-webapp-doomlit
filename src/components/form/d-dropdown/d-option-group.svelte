@@ -15,7 +15,7 @@
 	{@render children()}
 {:else}
 	<li role="presentation">
-		<ul role="group" aria-labelledby={groupId} class="flex w-full flex-col">
+		<ul role="group" aria-labelledby={groupId} class="flex w-full flex-col gap-2">
 			<li id={groupId} role="presentation" aria-hidden="true">
 				{label}
 			</li>
