@@ -7,7 +7,6 @@
 	import type ProjectTag from "models/project-tag.js"
 	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
 	import { getDictionaryOf } from "repos/locale-repo"
-	import { getTagsFor } from "repos/tag-repo.js"
 	import DDate from "utils/d-date"
 
 	import BrandNav from "comps/brand-nav.svelte"
@@ -21,8 +20,7 @@
 	import YoutubeVideoInput from "comps/form/youtube-video-input.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
-	import type { PlatformName, PlatformURL } from "models/platform.js"
-	import { getPlatformsListFor } from "repos/platform-repo.js"
+	import type { PlatformURL } from "models/platform.js"
 
 	const { data } = $props()
 
@@ -37,17 +35,8 @@
 	const showcaseDate = $derived(DDate.fromISOString(project.showcaseDate))
 
 	// #region Category and Dependants' Management
-	// FIXME: Category and Tag dropdowns need to be implemented properly.
 	let category = $state<Category>(untrack(() => project.category))
-
-	const tagOpts = $derived<ProjectTag[]>(getTagsFor(category))
 	let selectedTags = new SvelteSet<ProjectTag>() // Reactive collection
-
-	const platformOpts = $derived<PlatformName[]>([
-		...getPlatformsListFor(category),
-		...getPlatformsListFor("Internal_Socials"),
-		...getPlatformsListFor("Internal_Crowdfunding"),
-	])
 	let selectedPlatforms = $state<PlatformURL[]>([])
 	// #endregion
 </script>
@@ -87,8 +76,8 @@
 					options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
 					bind:value={category}
 					isRequired={true} />
-				<TagDdropdown tags={tagOpts} {selectedTags} maxTagCount={5} />
-				<PlatformDdropdown platforms={platformOpts} bind:selectedPlatforms />
+				<TagDdropdown {category} {selectedTags} maxTagCount={5} />
+				<PlatformDdropdown {category} bind:selectedPlatforms />
 				<ImgInput
 					name="project-cover"
 					label={formDict.coverImg.label}

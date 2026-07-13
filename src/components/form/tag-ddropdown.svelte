@@ -5,21 +5,24 @@
 	import type ProjectTag from "models/project-tag"
 	import { getDictionaryOf } from "repos/locale-repo"
 
+	import type Category from "models/category"
+	import { getTagsFor } from "repos/tag-repo"
 	import DDropdown from "./d-dropdown/d-dropdown.svelte"
 	import DataChipContainer from "./data-chips/data-chip-container.svelte"
 	import TagChip from "./data-chips/tag-chip.svelte"
 
 	type Props = {
-		tags: ProjectTag[]
+		category: Category
 		selectedTags: SvelteSet<ProjectTag>
 		maxTagCount: number
 	}
 
-	let { tags, selectedTags, /*= $bindable(new SvelteSet())*/ maxTagCount }: Props = $props()
+	let { category, selectedTags, /*= $bindable(new SvelteSet())*/ maxTagCount }: Props = $props()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).doomlits.projectForm.tags)
-
 	let isDisabled = $derived(selectedTags.size >= maxTagCount)
+
+	const tags = $derived<ProjectTag[]>(getTagsFor(category))
 
 	function handleTagSelection(value: string) {
 		selectedTags.add(value as ProjectTag)
