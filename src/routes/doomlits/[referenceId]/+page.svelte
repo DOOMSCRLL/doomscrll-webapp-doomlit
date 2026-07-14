@@ -4,7 +4,8 @@
 
 	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte"
 	import type Category from "models/category"
-	import type ProjectTag from "models/project-tag.js"
+	import type { PlatformRecord } from "models/platform"
+	import type ProjectTag from "models/project-tag"
 	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
@@ -21,7 +22,6 @@
 	import YoutubeVideoInput from "comps/form/youtube-video-input.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
-	import type { PlatformURL } from "models/platform.js"
 
 	const { data } = $props()
 
@@ -38,13 +38,13 @@
 	// #region Category and Dependants' Management
 	let category = $state<Category>(untrack(() => project.category))
 	let selectedTags = new SvelteSet<ProjectTag>() // Reactive collection
-	let selectedPlatforms = $state<PlatformURL[]>([])
+	let selectedPlatforms = new SvelteSet<PlatformRecord>() // Reactive collection
 	let selectedFeatures = new SvelteSet<string>()
 	// #endregion
 </script>
 
 <svelte:head>
-	<title>{data.project.name} • {fmt.getFullDate(showcaseDate)}</title>
+	<title>{data.project.name} • {fmt.getFullDate(showcaseDate)} | DOOMSCRLL</title>
 	<meta name="description" content={dict.meta.description} />
 </svelte:head>
 
@@ -79,8 +79,7 @@
 					bind:value={category}
 					isRequired={true} />
 				<TagDdropdown {category} {selectedTags} maxTagCount={5} />
-				<PlatformDdropdown {category} bind:selectedPlatforms />
-				<div class="bg-[red]">TESTING. DELETE ME.</div>
+				<PlatformDdropdown {category} {selectedPlatforms} />
 				<ImgInput
 					name="project-cover"
 					label={formDict.coverImg.label}
