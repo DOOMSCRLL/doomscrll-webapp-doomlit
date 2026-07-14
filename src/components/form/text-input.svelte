@@ -14,6 +14,7 @@
 		placeholder: string
 		instructions?: string
 		tooltip?: string
+		doRenderLabel?: boolean
 		status?: StatusMessage
 		value?: string
 		inputType?: "text" | "url" | "email" | "otp"
@@ -27,6 +28,7 @@
 		placeholder,
 		instructions,
 		tooltip,
+		doRenderLabel = true,
 		status,
 		value = $bindable(),
 		inputType = "text",
@@ -40,15 +42,19 @@
 
 <section class="flex h-min w-full flex-col items-start gap-4">
 	<section class={["flex h-fit w-full items-center justify-start gap-4", layout === "row" ? "flex-row" : "flex-col"]}>
-		<div class="flex justify-start {layout === 'row' ? 'w-min' : 'w-full'} gap-2">
-			<label
-				for={name}
-				class="flex cursor-text gap-2 font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
-				<Icon icon="Starmark" size="small" />
-				{label}{#if instructions}<BadgeText text={instructions} />{/if}:
-			</label>
-			{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
-		</div>
+		{#if doRenderLabel}
+			<div class="flex justify-start {layout === 'row' ? 'w-min' : 'w-full'} gap-2">
+				<label
+					for={name}
+					class="flex cursor-text gap-2 font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
+					<Icon icon="Starmark" size="small" />
+					{label}{#if instructions}<BadgeText text={instructions} />{/if}:
+				</label>
+				{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
+			</div>
+		{:else}
+			<label for={name} class="sr-only">{label}</label>
+		{/if}
 		<input
 			id={name}
 			{name}
