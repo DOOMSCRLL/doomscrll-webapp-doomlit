@@ -120,30 +120,32 @@
 </script>
 
 <div class="flex w-full flex-col items-start gap-4">
-	{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
-	<label class="flex cursor-text flex-col gap-4 font-serif text-2xl font-medium tracking-tight">
-		<span class="flex gap-2">
+	<div class="flex w-full justify-start gap-2">
+		<label
+			for={name}
+			class="flex cursor-text gap-2 font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
 			<Icon icon="Starmark" size="small" />
 			{label}{#if instructions}<BadgeText text={instructions} />{/if}:
-		</span>
-		<input
-			id={name}
-			type="file"
-			{name}
-			{placeholder}
-			accept="image/jpeg, image/png, image/webp"
-			multiple={canSelectMultiple}
-			required={isRequired}
-			onchange={handleFileChange}
-			onfocus={() => (isFocused = true)}
-			onblur={() => (isFocused = false)}
-			disabled={isProcessing}
-			class={[
-				"overflow-hidden font-mono text-[1rem] font-bold tracking-wider text-ellipsis text-inverse file:uppercase",
-				"file:mr-4 file:h-10 file:rounded-xl file:border-3 file:border-inverse file:bg-obverse file:px-4",
-				"cursor-pointer hover:file:bg-inverse hover:file:text-obverse active:file:bg-accent",
-			]} />
-	</label>
+		</label>
+		{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
+	</div>
+	<input
+		id={name}
+		type="file"
+		{name}
+		{placeholder}
+		accept="image/jpeg, image/png, image/webp"
+		multiple={canSelectMultiple}
+		required={isRequired}
+		onchange={handleFileChange}
+		onfocus={() => (isFocused = true)}
+		onblur={() => (isFocused = false)}
+		disabled={isProcessing}
+		class={[
+			"overflow-hidden font-mono text-[1rem] font-bold tracking-wider text-ellipsis text-inverse file:uppercase",
+			"file:mr-4 file:h-10 file:rounded-xl file:border-3 file:border-inverse file:bg-obverse file:px-4",
+			"cursor-pointer hover:file:bg-inverse hover:file:text-obverse active:file:bg-accent",
+		]} />
 
 	{#if status?.message && (status.type === "error" || isFocused)}
 		<p
