@@ -189,7 +189,7 @@ export default {
 			},
 			features: {
 				label: {
-					text: "Projenine ait özellikleri seç",
+					text: "Projene ait özellikleri seç",
 					placeholder: "Bir özellik seç",
 				},
 				tooltip: ctsr`• Seçenekler arasından, projenin sahip olduğu özellikleri seçebilirsin.
