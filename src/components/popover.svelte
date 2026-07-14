@@ -93,7 +93,7 @@
 	open={doManageTrigger ? undefined : true}
 	onclose={handleClose}
 	class={[
-		"m-0 h-min max-h-full w-min min-w-xs p-4 open:z-50",
+		"m-0 max-h-full w-min min-w-xs p-4 open:z-50",
 		"rounded-3xl border-3 border-inverse bg-obverse",
 		"flex-col items-center justify-center gap-4 open:box-border open:flex",
 		activeArrow !== undefined &&
