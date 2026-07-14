@@ -27,6 +27,7 @@
 		placeholder: string
 		instructions?: string
 		tooltip?: string
+		doRenderLabel?: boolean
 		status?: StatusMessage
 		emptyQueryLabel: string
 		layout?: "row" | "column"
@@ -42,6 +43,7 @@
 		placeholder,
 		instructions,
 		tooltip,
+		doRenderLabel = true,
 		status,
 		emptyQueryLabel,
 		layout = "column",
@@ -158,16 +160,20 @@
 	<section
 		class="flex w-full {layout === 'column' ? 'flex-col items-start gap-4' : 'flex-row items-center gap-10'}"
 		aria-describedby="{name}-label">
-		<div class="flex justify-center gap-2">
-			<Icon icon="Starmark" size="small" />
-			<p
-				id="{name}-label"
-				class="cursor-text font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
-				{label}
-				{#if instructions}<BadgeText text={instructions} />{/if}:
-			</p>
-			{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
-		</div>
+		{#if doRenderLabel}
+			<div class="flex justify-center gap-2">
+				<Icon icon="Starmark" size="small" />
+				<p
+					id="{name}-label"
+					class="cursor-text font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
+					{label}
+					{#if instructions}<BadgeText text={instructions} />{/if}:
+				</p>
+				{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
+			</div>
+		{:else}
+			<p id="{name}-label" class="sr-only">{label}</p>
+		{/if}
 		<SlabButton
 			variant="outlined"
 			alignment="right"
@@ -220,7 +226,7 @@
 			<ul
 				id={listboxId}
 				role="listbox"
-				class="flex h-full max-h-60 w-full pretty-scrollbar flex-col gap-2 overflow-x-hidden overflow-y-auto px-2">
+				class="flex max-h-80 min-h-0 w-full pretty-scrollbar flex-col gap-2 overflow-x-hidden overflow-y-auto px-2">
 				{#if filteredOptions !== undefined}
 					{#each filteredOptions as opt (opt.value)}
 						{@render dopt(opt)}
@@ -230,10 +236,11 @@
 						</li>
 					{/each}
 				{:else}
-					{#each options as group (group.label || "flat")}
+					{#each options as group, i (group.label || "flat")}
 						<DOptionGroup label={group.label}>
 							{#each group.opts as opt (opt.value)}{@render dopt(opt)}{/each}
 						</DOptionGroup>
+						{#if i < options.length}<hr class="my-2 border border-inverse" />{/if}
 					{/each}
 				{/if}
 			</ul>
