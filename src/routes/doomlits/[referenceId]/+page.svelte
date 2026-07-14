@@ -69,7 +69,6 @@
 					inputType="text"
 					label={formDict.name.label}
 					placeholder={formDict.name.placeholder}
-					tooltip="TESTING. REMOVE THIS."
 					isRequired={true}
 					value={project.name} />
 				<Dropdown
