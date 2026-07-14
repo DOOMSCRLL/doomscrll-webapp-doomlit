@@ -40,7 +40,7 @@
 
 <section class="flex h-min w-full flex-col items-start gap-4">
 	<section class={["flex h-fit w-full items-center justify-start gap-4", layout === "row" ? "flex-row" : "flex-col"]}>
-		<div class="flex {layout === 'column' ? 'w-full justify-between' : 'w-min gap-4'}">
+		<div class="flex justify-start {layout === 'row' ? 'w-min' : 'w-full'} gap-2">
 			<label
 				for={name}
 				class="flex cursor-text gap-2 font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
