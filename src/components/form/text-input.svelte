@@ -39,19 +39,16 @@
 </script>
 
 <section class="flex h-min w-full flex-col items-start gap-4">
-	{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
-
-	<label
-		for={name}
-		class={[
-			"flex h-min w-full cursor-text gap-4 font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse",
-			layout === "row" ? "flex-row items-center" : "flex-col justify-start",
-		]}>
-		<span class="flex gap-2">
-			<Icon icon="Starmark" size="small" />
-			{label}{#if instructions}<BadgeText text={instructions} />{/if}:
-		</span>
-
+	<section class={["flex h-fit w-full items-center justify-start gap-4", layout === "row" ? "flex-row" : "flex-col"]}>
+		<div class="flex {layout === 'column' ? 'w-full justify-between' : 'w-min gap-4'}">
+			<label
+				for={name}
+				class="flex cursor-text gap-2 font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
+				<Icon icon="Starmark" size="small" />
+				{label}{#if instructions}<BadgeText text={instructions} />{/if}:
+			</label>
+			{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
+		</div>
 		<input
 			id={name}
 			{name}
@@ -65,13 +62,13 @@
 			aria-describedby="{name}-tooltip"
 			class={[
 				"w-full border-b-3 border-inverse bg-obverse",
-				"cursor-pointer text-center font-serif text-2xl font-medium tracking-tighter text-inverse",
+				"cursor-text text-center font-serif text-2xl font-medium tracking-tighter text-inverse",
 				"placeholder:text-accent placeholder:italic placeholder:brightness-200",
 			]}
 			onfocus={() => (isFocused = true)}
 			onblur={() => (isFocused = false)}
 			bind:value />
-	</label>
+	</section>
 
 	{#if status?.message && (status.type === "error" || isFocused)}
 		<p
