@@ -82,7 +82,7 @@
 			bind:value={selectedPlatformSlug} />
 		{#if selectedPlatformName}
 			<div class="flex items-end gap-12">
-				<ExternalIcon labelSuffix="MISSING_LABEL_PLATFORM_ICON" platform={selectedPlatformName} />
+				<ExternalIcon platform={selectedPlatformName} />
 				<TextInput
 					name="project-url"
 					label={dict.inputPrimaryUrl.label}
