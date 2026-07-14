@@ -172,7 +172,7 @@ export default {
 			tags: {
 				label: {
 					text: "Proje etiketleri",
-					placeholder: "Bir etiket seç",
+					placeholder: "Bir etiket ara.",
 					instructions: "max. 5",
 				},
 				tooltip: ctsr`• Seçtiğin etiketler, kullanıcıların projeni bulmasına yardımcı olur.
@@ -190,7 +190,7 @@ export default {
 			features: {
 				label: {
 					text: "Projene ait özellikleri seç",
-					placeholder: "Bir özellik seç",
+					placeholder: "Bir özellik ara.",
 				},
 				tooltip: ctsr`• Seçenekler arasından, projenin sahip olduğu özellikleri seçebilirsin.
           ${MARKER_NEWLINE}• Kullanıcılar özellikleri kullanarak projeleri süzebilir.

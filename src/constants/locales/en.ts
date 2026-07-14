@@ -175,7 +175,7 @@ export default {
 			tags: {
 				label: {
 					text: "Project tags",
-					placeholder: "Select a tag",
+					placeholder: "Search a tag",
 					instructions: "max. 5",
 				},
 				tooltip: ctsr`• Tags will help the audience find your project.
@@ -193,7 +193,7 @@ export default {
 			features: {
 				label: {
 					text: "You can select features",
-					placeholder: "Select a feature",
+					placeholder: "Search a feature",
 				},
 				tooltip: ctsr`• You can add features your project has from the dropdown.
           ${MARKER_NEWLINE}• Users can use features to filter projects, and search for specific features.`,
