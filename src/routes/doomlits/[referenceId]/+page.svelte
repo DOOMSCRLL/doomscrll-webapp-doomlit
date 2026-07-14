@@ -80,7 +80,7 @@
 					isRequired={true} />
 				<TagDdropdown {category} {selectedTags} maxTagCount={5} />
 				<PlatformDdropdown {category} bind:selectedPlatforms />
-				<FeatureDdropdown {category} {selectedFeatures} />
+				<div class="bg-[red]">TESTING. DELETE ME.</div>
 				<ImgInput
 					name="project-cover"
 					label={formDict.coverImg.label}
@@ -110,6 +110,9 @@
 					canSelectMultiple={true}
 					maxImages={8}
 					maxFileSizeMB={10} />
+				<section class="col-[span_2] w-full">
+					<FeatureDdropdown {category} {selectedFeatures} />
+				</section>
 			</form>
 		</div>
 	</section>
