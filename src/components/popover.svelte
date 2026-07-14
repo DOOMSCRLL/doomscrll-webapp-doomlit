@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Snippet } from "svelte"
+	import { untrack, type Snippet } from "svelte"
 
 	import closedByAny from "attcs/closed-by-any"
 	import positionRelativeTo, { type HorizontalAlignment, type VerticalAlignment } from "attcs/position-relative-to"
@@ -14,6 +14,7 @@
 		arrowPosition?: ArrowPosition
 		trigger?: HTMLElement
 		doManageTrigger?: boolean
+		onClose?: () => void
 	}
 
 	const {
@@ -23,10 +24,23 @@
 		arrowPosition,
 		trigger = $bindable(),
 		doManageTrigger = true,
+		onClose,
 	}: Props = $props()
 
 	let ref = $state<HTMLDialogElement>()
 	const id = `popover_${Math.random().toString(36).slice(2, 9)}`
+
+	let renderedVAlign = $state<VerticalAlignment>(untrack(() => verticalAlignment))
+	let renderedHAlign = $state<HorizontalAlignment>(untrack(() => horizontalAlignment))
+
+	let activeArrow = $derived.by<ArrowPosition | undefined>(() => {
+		if (arrowPosition === undefined) return undefined
+		if (renderedVAlign === "top") return "bottom"
+		if (renderedVAlign === "bottom") return "top"
+		if (renderedHAlign === "left") return "right"
+		if (renderedHAlign === "right") return "left"
+		return arrowPosition
+	})
 
 	$effect(() => {
 		if (!trigger || !ref) return
@@ -58,12 +72,23 @@
 		if (!trigger) return
 		trigger.setAttribute("aria-expanded", "false")
 		trigger.focus()
+		onClose?.()
+	}
+
+	function handlePositionChange(vAlign: VerticalAlignment, hAlign: HorizontalAlignment) {
+		renderedVAlign = vAlign
+		renderedHAlign = hAlign
 	}
 </script>
 
 <dialog
 	{@attach closedByAny({ trigger })}
-	{@attach positionRelativeTo({ horizontalAlignment, verticalAlignment, anchor: trigger })}
+	{@attach positionRelativeTo({
+		horizontalAlignment,
+		verticalAlignment,
+		anchor: trigger,
+		onPositionChange: handlePositionChange,
+	})}
 	{id}
 	open={doManageTrigger ? undefined : true}
 	onclose={handleClose}
@@ -71,8 +96,8 @@
 		"m-0 h-min max-h-full w-min min-w-xs p-4 open:z-50",
 		"rounded-3xl border-3 border-inverse bg-obverse",
 		"flex-col items-center justify-center gap-4 open:box-border open:flex",
-		arrowPosition !== undefined &&
-			ttm(arrowPosition, {
+		activeArrow !== undefined &&
+			ttm(activeArrow, {
 				bottom: "arrow-decor-bottom mb-4",
 				left: "arrow-decor-left ml-4",
 				right: "arrow-decor-right mr-4",
