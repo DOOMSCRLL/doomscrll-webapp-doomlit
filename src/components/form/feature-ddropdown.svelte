@@ -43,6 +43,7 @@
 		placeholder={dict.label.placeholder}
 		tooltip={dict.tooltip}
 		emptyQueryLabel={dict.dropdown.labelEmptyQuery}
+		layout="row"
 		{isDisabled}
 		onChange={handleFeatSelect}
 		options={[
