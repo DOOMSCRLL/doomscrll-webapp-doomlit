@@ -29,6 +29,7 @@
 		tooltip?: string
 		status?: StatusMessage
 		emptyQueryLabel: string
+		layout?: "row" | "column"
 		options: OptGroupData[]
 		isDisabled?: boolean
 		selectedValue?: string
@@ -43,6 +44,7 @@
 		tooltip,
 		status,
 		emptyQueryLabel,
+		layout = "column",
 		options,
 		isDisabled = false,
 		selectedValue = $bindable(),
@@ -153,7 +155,9 @@
 <section class="flex h-min w-full flex-col items-start gap-4">
 	<input type="hidden" {name} bind:value={selectedValue} />
 
-	<section class="flex w-full flex-col items-start gap-4" aria-describedby="{name}-label">
+	<section
+		class="flex w-full {layout === 'column' ? 'flex-col items-start gap-4' : 'flex-row items-center gap-10'}"
+		aria-describedby="{name}-label">
 		<div class="flex justify-center gap-2">
 			<Icon icon="Starmark" size="small" />
 			<p
@@ -195,9 +199,7 @@
 			horizontalAlignment="center"
 			verticalAlignment="bottom"
 			doManageTrigger={false}
-			onClose={() => {
-				isOpen = false
-			}}>
+			onClose={() => (isOpen = false)}>
 			<input
 				type="text"
 				role="combobox"
@@ -224,7 +226,7 @@
 						{@render dopt(opt)}
 					{:else}
 						<li role="presentation">
-							<p>{emptyQueryLabel}</p>
+							<p class="text-inverse text-2xl text-center italic font-serif">{emptyQueryLabel}</p>
 						</li>
 					{/each}
 				{:else}
