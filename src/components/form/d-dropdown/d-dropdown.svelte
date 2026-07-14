@@ -194,7 +194,10 @@
 			arrowPosition="top"
 			horizontalAlignment="center"
 			verticalAlignment="bottom"
-			doManageTrigger={false}>
+			doManageTrigger={false}
+			onClose={() => {
+				isOpen = false
+			}}>
 			<input
 				type="text"
 				role="combobox"
