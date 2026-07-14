@@ -50,7 +50,7 @@
 
 <main class="flex h-screen flex-col overflow-hidden px-2 pb-2 supports-[height:100dvh]:h-dvh">
 	<BrandNav comps={{ date: showcaseDate, returnHref: "/" }} bind:helpModalTrigger />
-	<section class="h-full w-full overflow-hidden rounded-3xl border-4 border-inverse p-4">
+	<section class="h-full w-full overflow-hidden rounded-3xl border-4 border-inverse p-4 pr-1">
 		<div
 			class={[
 				"flex h-full w-full flex-col items-start justify-start gap-12 overflow-y-auto",
@@ -69,6 +69,7 @@
 					inputType="text"
 					label={formDict.name.label}
 					placeholder={formDict.name.placeholder}
+					tooltip="TESTING. REMOVE THIS."
 					isRequired={true}
 					value={project.name} />
 				<Dropdown
