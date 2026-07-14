@@ -184,8 +184,28 @@ export default {
 				},
 			},
 			platforms: {
-				label: "Yayınlandığı platformlar",
-				placeholder: "Kullanıcıların projene ulaşabileceği platformları ekle.",
+				label: {
+					text: "Hangi platformlarda yayında?",
+					placeholder: "Platform seç",
+				},
+				tooltip: ctsr`• Buradan, kullanıcıların projene ulaşabileceği platformları ekleyebilirsin.
+          ${MARKER_NEWLINE}• Seçtiğin kategoriye ait bir platform, ya da bir sosyal medya veya kitle fonlaması platformu ekleyebilirsin.
+          ${MARKER_NEWLINE}• Bir platform eklemek için, o platformdan projene ulaşılabilecek bir bağlantı girmelisin.
+          ${MARKER_NEWLINE}• Kullanıcılar proje sayfasında bu bağlantılara erişebilirler.`,
+				dropdown: {
+					label: "Projenin yayınlandığı platform",
+					placeholder: "Kullanıcıların projene ulaşabileceği bir platform seç.",
+					labelPlatformGroup: {
+						social: "Sosyal Medya",
+						crowdfunding: "Halk Fonlaması",
+					},
+					labelEmptyQuery: "Hiçbir platform bulunamadı.",
+				},
+				urlInput: {
+					label: "Platform bağlantısını buraya yaz",
+					placeholder: "https://s.team/a/",
+				},
+				cta: "Platformu ekle",
 			},
 			features: {
 				label: {

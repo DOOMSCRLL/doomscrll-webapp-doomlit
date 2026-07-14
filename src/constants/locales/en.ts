@@ -187,8 +187,25 @@ export default {
 				},
 			},
 			platforms: {
-				label: "Platforms it's on",
-				placeholder: "Add platforms that users can access your project on.",
+				label: { text: "Platforms it's on", placeholder: "Add platforms that users can access your project on." },
+				tooltip: ctsr`• You can add platforms where users can access your project on.
+          ${MARKER_NEWLINE}• You can choose a platform for the category you chose, or a social or crowdfunding platform to add.
+          ${MARKER_NEWLINE}• To add a platform, you need to enter a valid URL pointing to your project on that platform.
+          ${MARKER_NEWLINE}• Users can see and access these links from project page.`,
+				dropdown: {
+					label: "Platforms project is available on",
+					placeholder: "Select a platform",
+					labelPlatformGroup: {
+						social: "Social",
+						crowdfunding: "Crowdfunding",
+					},
+					labelEmptyQuery: "Couldn't find any platforms.",
+				},
+				urlInput: {
+					label: "Type the platform link to your project",
+					placeholder: "https://s.team/a/...",
+				},
+				cta: "Add platform",
 			},
 			features: {
 				label: {
