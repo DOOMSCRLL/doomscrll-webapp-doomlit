@@ -152,26 +152,29 @@
 
 <section class="flex h-min w-full flex-col items-start gap-4">
 	<input type="hidden" {name} bind:value={selectedValue} />
-	{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
-	<div class="flex w-full flex-col items-start gap-4">
-		<div class="flex gap-2">
+
+	<section class="flex w-full flex-col items-start gap-4" aria-describedby="{name}-label">
+		<div class="flex justify-center gap-2">
 			<Icon icon="Starmark" size="small" />
-			<p class="cursor-text font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
+			<p
+				id="{name}-label"
+				class="cursor-text font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
 				{label}
 				{#if instructions}<BadgeText text={instructions} />{/if}:
 			</p>
+			{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
 		</div>
 		<SlabButton
 			variant="outlined"
 			alignment="right"
-      fit="max"
+			fit="max"
 			{isDisabled}
 			onClick={handleTriggerOnClick}
 			bind:reference={trigger}>
 			{triggerLabel}
 			<Icon icon="ArrowDropdown" size="small" />
 		</SlabButton>
-	</div>
+	</section>
 
 	{#if status?.message}
 		<p
