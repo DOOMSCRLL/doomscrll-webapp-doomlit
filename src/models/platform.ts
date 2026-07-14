@@ -9,7 +9,7 @@ type Platform = {
 	isBadge?: boolean
 }
 
-export type PlatformURL = {
+export type PlatformRecord = {
 	name: PlatformName
 	url: string
 }
