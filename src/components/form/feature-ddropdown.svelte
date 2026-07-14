@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { tick } from "svelte"
 	import type { SvelteSet } from "svelte/reactivity"
 
 	import { LocaleContext } from "contexts/shared.svelte"
@@ -21,16 +22,21 @@
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).doomlits.projectForm.features)
 	let isDisabled = $derived(selectedFeatures.size >= (maxFeatCount ?? 1e4))
 
+	let sectionRef = $state<HTMLElement>()
+
 	const feats = $derived<string[]>(getFeaturesFor(category))
 	function handleFeatSelect(value: string) {
 		selectedFeatures.add(value)
+		tick().then(() => {
+			sectionRef?.scrollIntoView({ behavior: "smooth", block: "end" })
+		})
 	}
 	function handleFeatRemove(value: string) {
 		selectedFeatures.delete(value)
 	}
 </script>
 
-<section class="flex w-full flex-col items-start gap-4">
+<section class="flex w-full flex-col items-start gap-4" bind:this={sectionRef}>
 	<DDropdown
 		name="project-feature"
 		label={dict.label.text}
