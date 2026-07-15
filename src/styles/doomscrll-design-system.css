@@ -49,7 +49,6 @@
 
 	input {
 		appearance: none;
-		caret-color: var(--color-accent);
 		text-rendering: optimizeLegibility;
 	}
 }
