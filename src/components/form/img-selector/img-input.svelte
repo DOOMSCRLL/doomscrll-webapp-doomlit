@@ -10,6 +10,7 @@
 	import BadgeText from "comps/badge-text.svelte"
 	import TooltipButton from "comps/buttons/tooltip-button.svelte"
 	import Icon from "comps/icons/icon.svelte"
+	import ImagePreviewModal from "comps/image-preview-modal.svelte"
 	import ImgPreviewRow from "./img-preview-row.svelte"
 	import ImgPreview from "./img-preview.svelte"
 
@@ -45,7 +46,6 @@
 		maxImages,
 		maxFileSizeMB = 10,
 		imageType,
-		// eslint-disable-next-line no-useless-assignment
 		processedBlobs = $bindable([]),
 		initialUrls = [],
 		onPreviewClick,
@@ -57,6 +57,7 @@
 	let isFocused = $state(false)
 	let status = $state<StatusMessage>()
 	let previewUrls = $state<string[]>(untrack(() => initialUrls))
+	let activePreviewUrl = $state<string | null>(null)
 
 	function getImgs(): ImageAsset[] {
 		return previewUrls.map<ImageAsset>((purl, index) => ({
@@ -68,7 +69,23 @@
 
 	function handlePreviewClick(index: number) {
 		if (!previewUrls || previewUrls.length <= 0) return
-		else onPreviewClick?.(previewUrls[index])
+		activePreviewUrl = previewUrls[index]
+		onPreviewClick?.(previewUrls[index])
+	}
+
+	function closePreviewModal() {
+		activePreviewUrl = null
+	}
+
+	function handlePreviewRemove(index: number) {
+		const urlToRemove = previewUrls[index]
+
+		if (!initialUrls.includes(urlToRemove)) {
+			URL.revokeObjectURL(urlToRemove)
+			processedBlobs.splice(index, 1)
+		}
+
+		previewUrls.splice(index, 1)
 	}
 
 	$effect(() => {
@@ -166,9 +183,13 @@
 
 	{#if previewUrls && previewUrls.length > 0}
 		{#if !canSelectMultiple}
-			<ImgPreview img={getImgs()[0]} onClickPreview={handlePreviewClick} />
+			<ImgPreview img={getImgs()[0]} onClickPreview={handlePreviewClick} onClickRemove={handlePreviewRemove} />
 		{:else}
-			<ImgPreviewRow imgs={getImgs()} onPreviewClick={handlePreviewClick} />
+			<ImgPreviewRow imgs={getImgs()} onPreviewClick={handlePreviewClick} onRemoveClick={handlePreviewRemove} />
 		{/if}
+	{/if}
+
+	{#if activePreviewUrl}
+		<ImagePreviewModal img={getImgs().find((i) => i.src === activePreviewUrl)!} onClose={closePreviewModal} />
 	{/if}
 </div>
