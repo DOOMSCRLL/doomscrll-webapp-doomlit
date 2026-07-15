@@ -147,7 +147,8 @@
 			for={name}
 			class="flex cursor-text gap-2 font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
 			<Icon icon="Starmark" size="small" />
-			{label}{#if instructions}<BadgeText text={instructions} />{/if}:
+			{#if isRequired}<span class="text-[red]">*</span>{/if}{label}{#if instructions}<BadgeText
+					text={instructions} />{/if}:
 		</label>
 		{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
 	</div>

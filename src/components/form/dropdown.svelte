@@ -36,7 +36,7 @@
 		class="flex h-min w-full cursor-text gap-4 font-serif text-2xl font-medium tracking-tighter text-inverse">
 		<span class="flex w-full gap-2">
 			<Icon icon="Starmark" size="small" />
-			{label}:
+			{#if isRequired}<span class="text-[red]">*</span>{/if}{label}:
 		</span>
 
 		<select

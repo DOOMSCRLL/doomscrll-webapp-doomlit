@@ -31,6 +31,7 @@
 		emptyQueryLabel: string
 		layout?: "row" | "column"
 		options: OptGroupData[]
+		isRequired?: boolean
 		isDisabled?: boolean
 		selectedValue?: string
 		onChange?: (value: string) => void
@@ -46,6 +47,7 @@
 		emptyQueryLabel,
 		layout = "column",
 		options,
+		isRequired = false,
 		isDisabled = false,
 		selectedValue = $bindable(),
 		onChange,
@@ -153,7 +155,7 @@
 {/snippet}
 
 <section class="flex h-min w-full flex-col items-start gap-4">
-	<input type="hidden" {name} bind:value={selectedValue} />
+	<input type="hidden" required={isRequired} {name} bind:value={selectedValue} />
 
 	<section
 		class="flex w-full {layout === 'column' ? 'flex-col items-start gap-4' : 'flex-row items-center gap-10'}"
@@ -163,6 +165,7 @@
 			<p
 				id="{name}-label"
 				class="cursor-text font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
+				{#if isRequired}<span class="text-[red]">*&nbsp;</span>{/if}
 				{label}
 				{#if instructions}<BadgeText text={instructions} />{/if}:
 			</p>

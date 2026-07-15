@@ -60,6 +60,7 @@
 		placeholder={dict.dropdown.placeholder}
 		layout="row"
 		emptyQueryLabel={dict.dropdown.labelEmptyQuery}
+		isRequired={true}
 		onChange={handlePlatformSelect}
 		options={[
 			{
