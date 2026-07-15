@@ -91,7 +91,7 @@
 					options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
 					isRequired={true}
 					bind:value={category} />
-				<TagDdropdown {category} {selectedTags} maxTagCount={5} />
+				<TagDdropdown {category} {selectedTags} maxTagCount={data.rules.maxTagCount} />
 				<PlatformDdropdown {category} {primaryPlatform} {selectedPlatforms} />
 				<ImgInput
 					name="project-cover"
@@ -101,7 +101,7 @@
 					tooltip={formDict.coverImg.tooltip}
 					imageType="cover"
 					isRequired={true}
-					maxFileSizeMB={10}
+					maxFileSizeMB={data.rules.maxImageFileSizeMB}
 					initialUrls={project.coverImagePath ? [project.coverImagePath] : []} />
 				<TextArea
 					name="project-description"
@@ -123,8 +123,8 @@
 					tooltip={formDict.screenshots.tooltip}
 					imageType="screenshot"
 					canSelectMultiple={true}
-					maxImages={8}
-					maxFileSizeMB={10}
+					maxImages={data.rules.maxScreenshotCount}
+					maxFileSizeMB={data.rules.maxImageFileSizeMB}
 					initialUrls={project.screenshotPaths ?? []} />
 				<section class="col-[span_2] w-full">
 					<FeatureDdropdown {category} {selectedFeatures} />
