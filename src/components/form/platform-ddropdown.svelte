@@ -83,7 +83,7 @@
 			fit="min"
 			isDisabled={!isRecordValid}
 			onClick={handlePlatformRecord}>
-			<Icon icon="Upload" />
+			<Icon icon="Add" />
 			{dict.cta}
 		</SlabButton>
 	</section>
