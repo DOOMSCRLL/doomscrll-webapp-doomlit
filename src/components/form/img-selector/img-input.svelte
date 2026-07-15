@@ -1,5 +1,9 @@
 <script lang="ts">
+	import { untrack } from "svelte"
+
+	import { LocaleContext } from "contexts/shared.svelte"
 	import type ImageAsset from "models/internal/image-asset"
+	import { getDictionaryOf } from "repos/locale-repo"
 	import type { ImageType } from "services/image-service"
 	import { ImageService } from "services/image-service"
 
@@ -8,9 +12,6 @@
 	import Icon from "comps/icons/icon.svelte"
 	import ImgPreviewRow from "./img-preview-row.svelte"
 	import ImgPreview from "./img-preview.svelte"
-
-	import { LocaleContext } from "contexts/shared.svelte"
-	import { getDictionaryOf } from "repos/locale-repo"
 
 	type StatusMessage = {
 		message?: string
@@ -29,6 +30,7 @@
 		maxFileSizeMB?: number
 		imageType: ImageType
 		processedBlobs?: Blob[]
+		initialUrls?: string[]
 		onPreviewClick?: (url: string) => void
 	}
 
@@ -45,6 +47,7 @@
 		imageType,
 		// eslint-disable-next-line no-useless-assignment
 		processedBlobs = $bindable([]),
+		initialUrls = [],
 		onPreviewClick,
 	}: Props = $props()
 
@@ -53,7 +56,7 @@
 	let isProcessing = $state(false)
 	let isFocused = $state(false)
 	let status = $state<StatusMessage>()
-	let previewUrls = $state<string[]>([])
+	let previewUrls = $state<string[]>(untrack(() => initialUrls))
 
 	function getImgs(): ImageAsset[] {
 		return previewUrls.map<ImageAsset>((purl, index) => ({
@@ -69,7 +72,10 @@
 	}
 
 	$effect(() => {
-		return () => previewUrls.forEach((url) => URL.revokeObjectURL(url))
+		return () =>
+			previewUrls.forEach((url) => {
+				if (!initialUrls.includes(url)) URL.revokeObjectURL(url)
+			})
 	})
 
 	async function handleFileChange(event: Event) {
@@ -86,8 +92,7 @@
 		const validSizeFiles = allFiles.filter((file) => file.size <= maxFileSizeMB * 1024 * 1024)
 
 		if (validSizeFiles.length < allFiles.length) {
-			// @ts-expect-error - Dictionary keys to be added by user
-			status = { message: dict.status.fileTooLarge, type: "error" }
+			status = { message: dict.allImgSelectStatus.fileTooLarge, type: "error" }
 			if (validSizeFiles.length === 0) {
 				isProcessing = false
 				target.value = ""
@@ -97,8 +102,7 @@
 
 		let filesToProcess = validSizeFiles
 		if (maxImages && filesToProcess.length > maxImages) {
-			// @ts-expect-error - Dictionary keys to be added by user
-			status = { message: dict.status.tooManyFiles, type: "info" }
+			status = { message: dict.allImgSelectStatus.tooManyFiles, type: "info" }
 			filesToProcess.length = maxImages
 		}
 
@@ -106,12 +110,13 @@
 			const blobs = await Promise.all(filesToProcess.map((file) => ImageService.process(file, imageType)))
 			processedBlobs = blobs
 
-			previewUrls.forEach((url) => URL.revokeObjectURL(url))
+			previewUrls.forEach((url) => {
+				if (!initialUrls.includes(url)) URL.revokeObjectURL(url)
+			})
 			previewUrls = blobs.map((blob) => URL.createObjectURL(blob))
 		} catch (error) {
 			console.error("Failed to process images:", error)
-			// @ts-expect-error - Dictionary keys to be added by user
-			status = { message: dict.status.internalError, type: "error" }
+			status = { message: dict.allImgSelectStatus.internalError, type: "error" }
 		} finally {
 			isProcessing = false
 			target.value = ""
