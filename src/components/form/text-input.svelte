@@ -69,7 +69,7 @@
 			class={[
 				"w-full border-b-3 border-inverse bg-obverse",
 				"cursor-text text-center font-serif text-2xl font-medium tracking-tighter text-inverse",
-				"placeholder:text-accent placeholder:italic placeholder:brightness-200",
+				"placeholder:text-[darkgray] placeholder:italic",
 			]}
 			onfocus={() => (isFocused = true)}
 			onblur={() => (isFocused = false)}

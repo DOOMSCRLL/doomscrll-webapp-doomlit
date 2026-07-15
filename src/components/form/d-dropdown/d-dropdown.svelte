@@ -213,7 +213,7 @@
 				class={[
 					"w-full border-b-3 border-inverse bg-obverse",
 					"cursor-pointer text-center font-serif text-2xl font-medium tracking-tighter text-inverse",
-					"placeholder:text-accent placeholder:italic placeholder:brightness-200",
+					"placeholder:text-[darkgray] placeholder:italic",
 				]}
 				bind:this={inputRef}
 				bind:value={searchQuery} />

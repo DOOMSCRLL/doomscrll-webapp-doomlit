@@ -26,7 +26,7 @@
 		class={[
 			"w-full grow border-b-3 border-inverse bg-obverse",
 			"cursor-pointer font-serif text-2xl font-medium tracking-tighter text-inverse",
-			"placeholder:text-accent placeholder:italic placeholder:brightness-200",
+			"placeholder:text-[darkgray] placeholder:italic",
 		]}
 		bind:value></textarea>
 </label>
