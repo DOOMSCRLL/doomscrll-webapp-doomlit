@@ -205,7 +205,7 @@ export default {
 					label: "Type the platform link to your project",
 					placeholder: "https://s.team/a/...",
 				},
-				cta: "Add platform",
+				cta: "Add",
 			},
 			features: {
 				label: {

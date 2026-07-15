@@ -205,7 +205,7 @@ export default {
 					label: "Platform bağlantısını buraya yaz",
 					placeholder: "https://s.team/a/",
 				},
-				cta: "Platformu ekle",
+				cta: "Ekle",
 			},
 			features: {
 				label: {
