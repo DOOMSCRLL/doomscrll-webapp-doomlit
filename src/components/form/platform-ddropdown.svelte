@@ -53,27 +53,22 @@
 </script>
 
 <section class="flex w-full flex-col items-start gap-4">
-	<p class="flex cursor-text gap-2 font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
-		<Icon icon="Starmark" size="small" />
-		{dict.label.text}:
-	</p>
-	<section class="flex w-full items-start gap-4">
-		<DDropdown
-			name="project-platform"
-			label={dict.dropdown.label}
-			placeholder={dict.dropdown.placeholder}
-			layout="row"
-			emptyQueryLabel={dict.dropdown.labelEmptyQuery}
-			doRenderLabel={false}
-			onChange={handlePlatformSelect}
-			options={[
-				{
-					label: getCategoryLabelFor(category, locale),
-					opts: platformOpts.map((p) => ({ value: p, label: getPlatformName(p) })),
-				},
-				{ label: dict.dropdown.labelPlatformGroup.social, opts: socialPlatformOpts },
-				{ label: dict.dropdown.labelPlatformGroup.crowdfunding, opts: crowdfundPlatformOpts },
-			]} />
+	<DDropdown
+		name="project-platform"
+		label={dict.label.text}
+		placeholder={dict.dropdown.placeholder}
+		layout="row"
+		emptyQueryLabel={dict.dropdown.labelEmptyQuery}
+		onChange={handlePlatformSelect}
+		options={[
+			{
+				label: getCategoryLabelFor(category, locale),
+				opts: platformOpts.map((p) => ({ value: p, label: getPlatformName(p) })),
+			},
+			{ label: dict.dropdown.labelPlatformGroup.social, opts: socialPlatformOpts },
+			{ label: dict.dropdown.labelPlatformGroup.crowdfunding, opts: crowdfundPlatformOpts },
+		]} />
+	<section class="flex w-full items-center gap-4">
 		<TextInput
 			name="project-platform-url"
 			inputType="url"
@@ -82,11 +77,16 @@
 			doRenderLabel={false}
 			isRequired={true}
 			bind:value={selectUrl} />
+		<SlabButton
+			variant="outlined"
+			alignment="left"
+			fit="min"
+			isDisabled={!isRecordValid}
+			onClick={handlePlatformRecord}>
+			<Icon icon="Upload" />
+			{dict.cta}
+		</SlabButton>
 	</section>
-	<SlabButton variant="outlined" isDisabled={!isRecordValid} onClick={handlePlatformRecord}>
-		<Icon icon="Upload" />
-		{dict.cta}
-	</SlabButton>
 	<DataChipContainer layout="column">
 		{#each selectedPlatforms as platform (platform.name)}
 			<PlatformChip {platform} onRemove={handlePlatformRemove} />
