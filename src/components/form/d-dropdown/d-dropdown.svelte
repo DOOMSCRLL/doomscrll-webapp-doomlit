@@ -27,7 +27,6 @@
 		placeholder: string
 		instructions?: string
 		tooltip?: string
-		doRenderLabel?: boolean
 		status?: StatusMessage
 		emptyQueryLabel: string
 		layout?: "row" | "column"
@@ -43,7 +42,6 @@
 		placeholder,
 		instructions,
 		tooltip,
-		doRenderLabel = true,
 		status,
 		emptyQueryLabel,
 		layout = "column",
@@ -160,20 +158,17 @@
 	<section
 		class="flex w-full {layout === 'column' ? 'flex-col items-start gap-4' : 'flex-row items-center gap-10'}"
 		aria-describedby="{name}-label">
-		{#if doRenderLabel}
-			<div class="flex justify-center gap-2">
-				<Icon icon="Starmark" size="small" />
-				<p
-					id="{name}-label"
-					class="cursor-text font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
-					{label}
-					{#if instructions}<BadgeText text={instructions} />{/if}:
-				</p>
-				{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
-			</div>
-		{:else}
-			<p id="{name}-label" class="sr-only">{label}</p>
-		{/if}
+		<div class="flex justify-center gap-2">
+			<Icon icon="Starmark" size="small" />
+			<p
+				id="{name}-label"
+				class="cursor-text font-serif text-2xl font-medium tracking-tighter whitespace-nowrap text-inverse">
+				{label}
+				{#if instructions}<BadgeText text={instructions} />{/if}:
+			</p>
+			{#if tooltip}<TooltipButton id="{name}-tooltip" content={tooltip} />{/if}
+		</div>
+
 		<SlabButton
 			variant="outlined"
 			alignment="right"
