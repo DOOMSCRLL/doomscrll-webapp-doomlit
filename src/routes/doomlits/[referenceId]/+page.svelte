@@ -1,4 +1,5 @@
 <script lang="ts">
+	//#region Imports
 	import { untrack } from "svelte"
 	import { SvelteSet } from "svelte/reactivity"
 
@@ -22,6 +23,7 @@
 	import YoutubeVideoInput from "comps/form/youtube-video-input.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
+	// #endregion
 
 	const { data } = $props()
 
@@ -38,6 +40,7 @@
 	// #region Category and Dependants' Management
 	let category = $state<Category>(untrack(() => project.category))
 	let selectedTags = new SvelteSet<ProjectTag>() // Reactive collection
+	const primaryPlatform = $derived<PlatformRecord>({ name: project.primaryPlatform, url: project.primaryUrl })
 	let selectedPlatforms = new SvelteSet<PlatformRecord>() // Reactive collection
 	let selectedFeatures = new SvelteSet<string>()
 	// #endregion
@@ -79,7 +82,7 @@
 					bind:value={category}
 					isRequired={true} />
 				<TagDdropdown {category} {selectedTags} maxTagCount={5} />
-				<PlatformDdropdown {category} {selectedPlatforms} />
+				<PlatformDdropdown {category} {primaryPlatform} {selectedPlatforms} />
 				<ImgInput
 					name="project-cover"
 					label={formDict.coverImg.label}
