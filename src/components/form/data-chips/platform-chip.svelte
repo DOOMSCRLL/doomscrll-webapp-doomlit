@@ -10,7 +10,7 @@
 
 	type Props = {
 		platform: PlatformRecord
-		onRemove: (platform: PlatformRecord) => void
+		onRemove?: (platform: PlatformRecord) => void
 	}
 
 	const { platform, onRemove }: Props = $props()
@@ -27,6 +27,14 @@
 		<span class="w-full overflow-hidden text-ellipsis">{urlLabel}</span>
 		<Icon icon="ArrowExternal" />
 	</SlabAnchorExternal>
-	<SlabButton variant="text" fit="square" size="small" ariaLabel={dict.labelRemove} onClick={() => onRemove(platform)}
-		><Icon icon="Remove" size="small" /></SlabButton>
+	{#if onRemove}
+		<SlabButton
+			variant="text"
+			fit="square"
+			size="small"
+			ariaLabel={dict.labelRemove}
+			onClick={() => onRemove(platform)}>
+			<Icon icon="Remove" size="small" />
+		</SlabButton>
+	{/if}
 </li>
