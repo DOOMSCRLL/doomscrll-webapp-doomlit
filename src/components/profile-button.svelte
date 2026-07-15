@@ -8,7 +8,7 @@
 	import Icon from "./icons/icon.svelte"
 	import Popover from "./popover.svelte"
 
-	let { doomlitMenuTrigger = $bindable() } = $props()
+	let { doomlitMenuTrigger = $bindable(), hasDoomlitsMenu = true } = $props()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value).profileMenu.popover)
 	const profile = $derived(ProfileContext.context.value)
@@ -40,7 +40,7 @@
 			<Icon icon="Settings" />
 			{dict.labelSettings}
 		</SlabAnchor>
-		{#if doomlitMenuTrigger}
+		{#if hasDoomlitsMenu}
 			<SlabButton fit="max" variant="text" renderDecors={true} bind:reference={doomlitMenuTrigger}>
 				<Icon icon="Doomeye" />
 				{dict.labelProjects}

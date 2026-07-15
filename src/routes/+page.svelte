@@ -178,7 +178,7 @@
 {/snippet}
 
 <main class="grid h-screen w-full grid-rows-[auto_1fr] gap-4 overflow-hidden px-6 supports-[height:100dvh]:h-dvh">
-	<BrandNav activeDraftRefId={data.activeDraftId} bind:helpModalTrigger bind:doomlitMenuTrigger />
+	<BrandNav activeDraftRefId={data.activeDraftId} hasDoomlitsMenu={true} bind:helpModalTrigger bind:doomlitMenuTrigger />
 	<section class="grid h-full w-full grid-cols-2 gap-12">
 		<!-- #region Calendar View -->
 		<section class="flex flex-col items-start justify-center gap-4">
