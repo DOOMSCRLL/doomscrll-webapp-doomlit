@@ -10,4 +10,9 @@ export type ProjectRules = {
 	cooldownPeriodDays: number
 	draftExpirationMinutes: number
 	deadzoneWindow: DeadzoneWindow
+	maxTagCount: number
+	maxScreenshotCount: number
+	maxImageFileSizeMB: number
+	maxLengthProjectName: number
+	maxLengthProjectDescription: number
 }
