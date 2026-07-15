@@ -1,5 +1,5 @@
 import type Category from "./category"
-import type { PlatformName } from "./platform"
+import type { PlatformName, PlatformRecord } from "./platform"
 import type ProjectTag from "./project-tag"
 
 export type ProjectStatus = "draft" | "incomplete" | "ready" | "canceled"
@@ -18,7 +18,7 @@ type Project = {
 	features: string[] | null
 	coverImagePath: string | null
 	screenshotPaths: string[] | null
-	secondaryPlatforms: { platform: PlatformName; url: string }[] | null
+	secondaryPlatforms: PlatformRecord[] | null
 	videoUrl: string | null
 	createdAt: string
 }
