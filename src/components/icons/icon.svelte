@@ -21,7 +21,7 @@
 		class={[
 			ttm(size, {
 				normal: "h-8 w-8",
-				small: "h-4 w-4",
+				small: "h-6 w-6",
 			}),
 		]}>
 		<IconToRender />
