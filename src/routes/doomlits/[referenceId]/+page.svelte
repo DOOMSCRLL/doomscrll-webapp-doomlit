@@ -38,10 +38,9 @@
 	const showcaseDate = $derived(DDate.fromISOString(project.showcaseDate))
 
 	// #region Category and Dependants' Management
-	const primaryPlatform = $derived<PlatformRecord>({ name: project.primaryPlatform, url: project.primaryUrl })
-
 	let category = $state<Category>(untrack(() => project.category))
 	let selectedTags = new SvelteSet<ProjectTag>(untrack(() => project.tags ?? []))
+	const primaryPlatform = $derived<PlatformRecord>({ name: project.primaryPlatform, url: project.primaryUrl })
 	let selectedPlatforms = new SvelteSet<PlatformRecord>(untrack(() => project.secondaryPlatforms ?? []))
 	let selectedFeatures = new SvelteSet<string>(untrack(() => project.features ?? []))
 
@@ -90,8 +89,8 @@
 					label={formDict.category.label}
 					placeholder={formDict.category.placeholder}
 					options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
-					bind:value={category}
-					isRequired={true} />
+					isRequired={true}
+					bind:value={category} />
 				<TagDdropdown {category} {selectedTags} maxTagCount={5} />
 				<PlatformDdropdown {category} {primaryPlatform} {selectedPlatforms} />
 				<ImgInput
@@ -102,7 +101,8 @@
 					tooltip={formDict.coverImg.tooltip}
 					imageType="cover"
 					isRequired={true}
-					maxFileSizeMB={10} />
+					maxFileSizeMB={10}
+					initialUrls={project.coverImagePath ? [project.coverImagePath] : []} />
 				<TextArea
 					name="project-description"
 					label={formDict.description.label}
@@ -124,7 +124,8 @@
 					imageType="screenshot"
 					canSelectMultiple={true}
 					maxImages={8}
-					maxFileSizeMB={10} />
+					maxFileSizeMB={10}
+					initialUrls={project.screenshotPaths ?? []} />
 				<section class="col-[span_2] w-full">
 					<FeatureDdropdown {category} {selectedFeatures} />
 				</section>
