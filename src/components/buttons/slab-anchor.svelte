@@ -54,7 +54,7 @@
 			}),
 		ttm(size, {
 			normal: "h-12",
-			small: "h-4 text-sm",
+			small: "h-8 text-sm",
 		}),
 		ttm(fit, {
 			max: "w-full",
