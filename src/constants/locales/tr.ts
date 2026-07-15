@@ -162,6 +162,10 @@ export default {
 	doomlits: {
 		meta: { description: "Bu sayfadan, ayırttığın DOOMLIT'i görüntüleyebilir ve düzenleyebilirsin." },
 		projectForm: {
+			name: {
+				label: "Projenin adı",
+				placeholder: "Projene bir isim ver!",
+			},
 			refId: {
 				label: "Sorgu kodu",
 			},
@@ -219,10 +223,6 @@ export default {
 					labelFeatGroup: "Özellikler",
 					labelEmptyQuery: "Hiçbir özellik bulunamadı.",
 				},
-			},
-			name: {
-				label: "Projenin adı",
-				placeholder: "Projene bir isim ver!",
 			},
 			coverImg: {
 				label: "Bir kapak fotoğrafı yükle",

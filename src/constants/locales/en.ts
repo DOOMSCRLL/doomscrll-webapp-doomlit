@@ -165,7 +165,7 @@ export default {
 				label: "Reference ID",
 			},
 			name: {
-				label: "Project Name",
+				label: "Project name",
 				placeholder: "Give it a name!",
 			},
 			category: {
