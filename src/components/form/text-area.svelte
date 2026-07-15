@@ -10,7 +10,7 @@
 		value?: string
 	}
 
-	let { name, label, placeholder, instructions, value }: Props = $props()
+	let { name, label, placeholder, instructions, value = $bindable() }: Props = $props()
 </script>
 
 <label class="flex h-full w-full flex-col gap-4 font-serif text-2xl tracking-tight text-inverse">
