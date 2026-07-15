@@ -24,7 +24,7 @@
 	<Icon icon="Starmark" size="small" />
 	<SlabAnchorExternal href={platform.url} variant="filled" alignment="center" fit="min">
 		<Icon icon="Link" />
-		{urlLabel}
+		<span class="w-full overflow-hidden text-ellipsis">{urlLabel}</span>
 		<Icon icon="ArrowExternal" />
 	</SlabAnchorExternal>
 	<SlabButton variant="text" fit="square" size="small" ariaLabel={dict.labelRemove} onClick={() => onRemove(platform)}
