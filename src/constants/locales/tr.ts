@@ -224,6 +224,11 @@ export default {
 					labelEmptyQuery: "Hiçbir özellik bulunamadı.",
 				},
 			},
+			allImgSelectStatus: {
+				fileTooLarge: "Seçtiğin görüntü çok büyük! (maks. 10MB)",
+				tooManyFiles: "Çok fazla görüntü seçtin. Yalnızca ilk 8 görüntü yüklenecek.",
+				internalError: "Görüntülerini işleyemiyoruz... Lütfen yeniden yüklemeyi dene.",
+			},
 			coverImg: {
 				label: "Bir kapak fotoğrafı yükle",
 				placeholder: "En boy oranı kare olan bir görüntü yükle. Bu görüntü, projenin kapağında görünecek.",

@@ -219,6 +219,11 @@ export default {
 					labelEmptyQuery: "Couldn't find any features.",
 				},
 			},
+			allImgSelectStatus: {
+				fileTooLarge: "Image you have selected is too large! (max. 10MB)",
+				tooManyFiles: "You have selected too many images. Only first 8 images will be uploaded.",
+				internalError: "Can't process your images. Please re-upload them.",
+			},
 			coverImg: {
 				label: "Upload a cover image",
 				placeholder: "Upload an image with square aspect ratio. This will be shown in the preview of your project.",
