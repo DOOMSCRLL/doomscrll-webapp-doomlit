@@ -17,10 +17,11 @@
 
 	type Props = {
 		category: Category
+		primaryPlatform: PlatformRecord
 		selectedPlatforms: SvelteSet<PlatformRecord>
 	}
 
-	const { category, selectedPlatforms /*= $bindable()*/ }: Props = $props()
+	const { category, primaryPlatform, selectedPlatforms /*= $bindable()*/ }: Props = $props()
 
 	const locale = $derived(LocaleContext.context.value!)
 	const dict = $derived(getDictionaryOf(locale).doomlits.projectForm.platforms)
@@ -88,6 +89,7 @@
 		</SlabButton>
 	</section>
 	<DataChipContainer layout="column">
+		<PlatformChip platform={primaryPlatform} />
 		{#each selectedPlatforms as platform (platform.name)}
 			<PlatformChip {platform} onRemove={handlePlatformRemove} />
 		{/each}
