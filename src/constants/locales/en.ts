@@ -271,6 +271,11 @@ export default {
 			ssImg: {
 				alt: "One of the screenshots for the project.",
 			},
+			modal: {
+				title: "Here is the full-screen preview of the selected image.",
+				imgAlt: "Full-screen preview of selected image.",
+				labelClose: "Close preview",
+			},
 		},
 		videoPreview: {
 			tooltip: ctsr`To show a video for your project you should upload it to YouTube first, then paste it's URL here.

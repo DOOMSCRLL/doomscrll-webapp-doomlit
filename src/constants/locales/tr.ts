@@ -276,6 +276,11 @@ export default {
 			ssImg: {
 				alt: "Projenin ekran görüntülerinden biri.",
 			},
+			modal: {
+				title: "Buradan seçtiğin görüntünün önizlemesini tam boyutlu olarak görebilirsin.",
+				imgAlt: "Seçilen görüntünün tam boyutlu önizlemesi",
+				labelClose: "Önizlemeyi kapat",
+			},
 		},
 		videoPreview: {
 			tooltip: ctsr`Projeni gösteren bir video yüklemek için videoyu öncelikle YouTube'a yükleyip, sonra bağlantısını
