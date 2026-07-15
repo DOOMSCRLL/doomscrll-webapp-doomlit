@@ -38,11 +38,22 @@
 	const showcaseDate = $derived(DDate.fromISOString(project.showcaseDate))
 
 	// #region Category and Dependants' Management
-	let category = $state<Category>(untrack(() => project.category))
-	let selectedTags = new SvelteSet<ProjectTag>() // Reactive collection
 	const primaryPlatform = $derived<PlatformRecord>({ name: project.primaryPlatform, url: project.primaryUrl })
-	let selectedPlatforms = new SvelteSet<PlatformRecord>() // Reactive collection
-	let selectedFeatures = new SvelteSet<string>()
+
+	let category = $state<Category>(untrack(() => project.category))
+	let selectedTags = new SvelteSet<ProjectTag>(untrack(() => project.tags ?? []))
+	let selectedPlatforms = new SvelteSet<PlatformRecord>(untrack(() => project.secondaryPlatforms ?? []))
+	let selectedFeatures = new SvelteSet<string>(untrack(() => project.features ?? []))
+
+	$effect(() => {
+		if (category !== project.category) {
+			untrack(() => {
+				selectedTags.clear()
+				selectedPlatforms.clear()
+				selectedFeatures.clear()
+			})
+		}
+	})
 	// #endregion
 </script>
 
@@ -96,12 +107,14 @@
 					name="project-description"
 					label={formDict.description.label}
 					placeholder={formDict.description.placeholder}
-					instructions={formDict.description.instructions} />
+					instructions={formDict.description.instructions}
+					value={project.description ?? undefined} />
 				<YoutubeVideoInput
 					name="project-trailer-url"
 					label={formDict.video.label}
 					placeholder={formDict.video.placeholder}
-					instructions={formDict.video.instructions} />
+					instructions={formDict.video.instructions}
+					url={project.videoUrl ?? undefined} />
 				<ImgInput
 					name="project-screenshots"
 					label={formDict.screenshots.label}
