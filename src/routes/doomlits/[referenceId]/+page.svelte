@@ -1,10 +1,13 @@
 <script lang="ts">
 	//#region Imports
+	import { enhance } from "$app/forms"
+	import type { SubmitFunction } from "@sveltejs/kit"
 	import { untrack } from "svelte"
 	import { SvelteSet } from "svelte/reactivity"
 
 	import { DateFmtContext, LocaleContext } from "contexts/shared.svelte"
 	import type Category from "models/category"
+	import type { UploadUrlsData } from "models/internal/projects"
 	import type { PlatformRecord } from "models/platform"
 	import type ProjectTag from "models/project-tag"
 	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
@@ -64,6 +67,88 @@
 	let screenshotBlobs = $state<Blob[]>([])
 	let screenshotPreviewUrls = $state<string[]>(untrack(() => project.screenshotPaths) ?? [])
 	// #endregion
+
+	let isPublishing = $state(false)
+
+	async function processImagesToCDN() {
+		const response = await fetch(
+			`/api/doomlits/${project.referenceId}/upload-urls?screenshotCount=${screenshotBlobs.length}`,
+		)
+		const uploadData = (await response.json()) as UploadUrlsData
+
+		let finalCoverUrl = project.coverImagePath
+
+		if (coverBlobs.length > 0) {
+			await fetch(uploadData.cover.uploadUrl, {
+				method: "PUT",
+				body: coverBlobs[0],
+				headers: { "Content-Type": "image/webp" },
+			})
+			finalCoverUrl = uploadData.cover.path
+		}
+
+		const finalScreenshotUrls: string[] = []
+		let newScreenshotIndex = 0
+
+		for (const purl of screenshotPreviewUrls) {
+			if (purl.startsWith("blob:")) {
+				const blob = screenshotBlobs[newScreenshotIndex]
+				const targetUrlData = uploadData.screenshots[newScreenshotIndex]
+
+				await fetch(targetUrlData.uploadUrl, {
+					method: "PUT",
+					body: blob,
+					headers: { "Content-Type": "image/webp" },
+				})
+				finalScreenshotUrls.push(targetUrlData.path)
+
+				newScreenshotIndex++
+			} else {
+				finalScreenshotUrls.push(purl)
+			}
+		}
+
+		return { finalCoverUrl, finalScreenshotUrls }
+	}
+
+	const handlePublish: SubmitFunction = async ({ formData, cancel }) => {
+		isPublishing = true
+
+		try {
+			const { finalCoverUrl, finalScreenshotUrls } = await processImagesToCDN()
+
+			formData.set("tags", JSON.stringify(Array.from(selectedTags)))
+			formData.set("features", JSON.stringify(Array.from(selectedFeatures)))
+
+			const mappedPlatforms = Array.from(selectedPlatforms).map((p) => ({ platform: p.name, url: p.url }))
+			formData.set("secondaryPlatforms", JSON.stringify(mappedPlatforms))
+
+			formData.delete("coverImagePath")
+			if (finalCoverUrl) formData.set("coverImagePath", finalCoverUrl)
+
+			formData.delete("screenshotPaths")
+			formData.set("screenshotPaths", JSON.stringify(finalScreenshotUrls))
+		} catch (err) {
+			isPublishing = false
+			cancel()
+			console.error("Upload failed", err)
+			return
+		}
+
+		return async ({ result, update }) => {
+			isPublishing = false
+
+			if (result.type === "success") {
+				if (result.data?.isReady) {
+					window.location.assign("?published=true")
+				} else {
+					update({ reset: false })
+				}
+			} else if (result.type === "failure") {
+				update({ reset: false })
+			}
+		}
+	}
 </script>
 
 <svelte:head>
@@ -76,6 +161,7 @@
 	<section class="h-full w-full overflow-hidden rounded-3xl border-4 border-inverse p-4 pr-1">
 		<form
 			action="?/publish"
+			use:enhance={handlePublish}
 			class="grid h-full w-full [scrollbar-color:var(--color-accent)_transparent] auto-rows-min grid-cols-2 justify-items-center gap-12 overflow-y-auto">
 			<section class="flex w-full items-center gap-4">
 				<Icon icon="Starmark" size="small" />
@@ -85,7 +171,7 @@
 			<section class="flex w-full items-center justify-evenly gap-4">
 				<ProjectStatusChip status={project.status} />
 				<ManageMenu />
-				<SlabButton variant="filled" fit="min" alignment="left" isDisabled={true}>
+				<SlabButton variant="filled" fit="min" alignment="left" isDisabled={isPublishing}>
 					<Icon icon="Upload" />
 					{formDict.publish.label}
 				</SlabButton>
@@ -107,7 +193,7 @@
 			<TagDdropdown {category} {selectedTags} maxTagCount={data.rules.maxTagCount} />
 			<PlatformDdropdown {category} {primaryPlatform} {selectedPlatforms} />
 			<ImgInput
-				name="project-cover"
+				name="coverImagePath"
 				label={formDict.coverImg.label}
 				placeholder={formDict.coverImg.placeholder}
 				instructions={formDict.coverImg.instructions}
@@ -119,19 +205,19 @@
 				bind:previewUrls={coverPreviewUrls}
 				initialUrls={project.coverImagePath ? [project.coverImagePath] : []} />
 			<TextArea
-				name="project-description"
+				name="description"
 				label={formDict.description.label}
 				placeholder={formDict.description.placeholder}
 				instructions={formDict.description.instructions}
 				value={project.description ?? undefined} />
 			<YoutubeVideoInput
-				name="project-trailer-url"
+				name="videoUrl"
 				label={formDict.video.label}
 				placeholder={formDict.video.placeholder}
 				instructions={formDict.video.instructions}
 				url={project.videoUrl ?? undefined} />
 			<ImgInput
-				name="project-screenshots"
+				name="screenshotPaths"
 				label={formDict.screenshots.label}
 				placeholder={formDict.screenshots.placeholder}
 				instructions={formDict.screenshots.instructions}
