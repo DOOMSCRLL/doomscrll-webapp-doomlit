@@ -70,7 +70,6 @@
 		tooltip={previewDict.tooltip}
 		inputType="url"
 		layout="column"
-		isRequired={true}
 		{status}
 		bind:value={url} />
 

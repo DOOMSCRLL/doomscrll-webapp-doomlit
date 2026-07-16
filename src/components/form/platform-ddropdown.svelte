@@ -60,7 +60,6 @@
 		placeholder={dict.dropdown.placeholder}
 		layout="row"
 		emptyQueryLabel={dict.dropdown.labelEmptyQuery}
-		isRequired={true}
 		onChange={handlePlatformSelect}
 		options={[
 			{
@@ -77,7 +76,6 @@
 			label={dict.urlInput.label}
 			placeholder={dict.urlInput.placeholder}
 			doRenderLabel={false}
-			isRequired={true}
 			bind:value={selectUrl} />
 		<SlabButton
 			variant="outlined"

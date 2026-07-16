@@ -181,14 +181,12 @@
 				inputType="text"
 				label={formDict.name.label}
 				placeholder={formDict.name.placeholder}
-				isRequired={true}
 				value={project.name} />
 			<Dropdown
 				name="project-category"
 				label={formDict.category.label}
 				placeholder={formDict.category.placeholder}
 				options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
-				isRequired={true}
 				bind:value={category} />
 			<TagDdropdown {category} {selectedTags} maxTagCount={data.rules.maxTagCount} />
 			<PlatformDdropdown {category} {primaryPlatform} {selectedPlatforms} />
@@ -199,7 +197,6 @@
 				instructions={formDict.coverImg.instructions}
 				tooltip={formDict.coverImg.tooltip}
 				imageType="cover"
-				isRequired={true}
 				maxFileSizeMB={data.rules.maxImageFileSizeMB}
 				bind:processedBlobs={coverBlobs}
 				bind:previewUrls={coverPreviewUrls}

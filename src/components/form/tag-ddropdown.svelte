@@ -42,7 +42,6 @@
 		tooltip={dict.tooltip}
 		onChange={handleTagSelection}
 		{isDisabled}
-		isRequired={true}
 		options={[
 			{
 				label: dict.dropdown.labelTagGroup,
