@@ -13,10 +13,7 @@
 	import ImgPreviewRow from "./img-preview-row.svelte"
 	import ImgPreview from "./img-preview.svelte"
 
-	type StatusMessage = {
-		message?: string
-		type?: "error" | "info"
-	}
+	import type { StatusMessage } from "validators/doomlit"
 
 	type Props = {
 		name: string

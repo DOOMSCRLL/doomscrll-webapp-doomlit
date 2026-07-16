@@ -1,6 +1,6 @@
 import type { Dictionary } from "models/internal/locale"
 
-export type StatusMessage = { type: "error" | "info" | "success"; message: string }
+export type StatusMessage = { type?: "error" | "info"; message?: string }
 
 export class DoomlitValidator {
 	dict: Dictionary["doomlits"]

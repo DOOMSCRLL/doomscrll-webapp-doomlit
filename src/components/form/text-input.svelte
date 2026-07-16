@@ -3,10 +3,7 @@
 	import TooltipButton from "comps/buttons/tooltip-button.svelte"
 	import Icon from "comps/icons/icon.svelte"
 
-	type StatusMessage = {
-		message?: string
-		type?: "error" | "info"
-	}
+	import type { StatusMessage } from "validators/doomlit"
 
 	type Props = {
 		name: string

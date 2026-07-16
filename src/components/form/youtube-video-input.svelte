@@ -7,10 +7,7 @@
 	import Icon from "comps/icons/icon.svelte"
 	import TextInput from "./text-input.svelte"
 
-	type StatusMessage = {
-		message?: string
-		type?: "error" | "info"
-	}
+	import type { StatusMessage } from "validators/doomlit"
 
 	type Props = {
 		name: string

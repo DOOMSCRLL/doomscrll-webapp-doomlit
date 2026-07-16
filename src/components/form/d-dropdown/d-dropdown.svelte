@@ -7,10 +7,7 @@
 	import DOptionGroup from "./d-option-group.svelte"
 	import DOption from "./d-option.svelte"
 
-	type StatusMessage = {
-		message?: string
-		type?: "error" | "info"
-	}
+	import type { StatusMessage } from "validators/doomlit"
 
 	type OptData = {
 		value: string

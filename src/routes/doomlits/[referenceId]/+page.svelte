@@ -13,6 +13,7 @@
 	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
+	import { DoomlitValidator } from "validators/doomlit"
 
 	import BrandNav from "comps/brand-nav.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
@@ -37,6 +38,8 @@
 	const dict = $derived(getDictionaryOf(locale).doomlits)
 	const formDict = $derived(dict.projectForm)
 	const fmt = $derived(DateFmtContext.context.value!)
+
+	const validator = $derived(new DoomlitValidator(dict))
 
 	let helpModalTrigger = $state<HTMLButtonElement>()
 
@@ -187,7 +190,7 @@
 				options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
 				bind:value={category} />
 			<TagDdropdown {category} {selectedTags} maxTagCount={data.rules.maxTagCount} />
-			<PlatformDdropdown {category} {primaryPlatform} {selectedPlatforms} />
+			<PlatformDdropdown {category} {primaryPlatform} {selectedPlatforms} urlValidator={validator.validatePlatformUrl} />
 			<ImgInput
 				name="coverImagePath"
 				label={formDict.coverImg.label}
@@ -204,13 +207,15 @@
 				label={formDict.description.label}
 				placeholder={formDict.description.placeholder}
 				instructions={formDict.description.instructions}
-				value={project.description ?? undefined} />
+				value={project.description ?? undefined}
+				validator={validator.validateDescription} />
 			<YoutubeVideoInput
 				name="videoUrl"
 				label={formDict.video.label}
 				placeholder={formDict.video.placeholder}
 				instructions={formDict.video.instructions}
-				url={project.videoUrl ?? undefined} />
+				url={project.videoUrl ?? undefined}
+				validator={validator.validateVideoUrl} />
 			<ImgInput
 				name="screenshotPaths"
 				label={formDict.screenshots.label}
