@@ -57,6 +57,13 @@
 		}
 	})
 	// #endregion
+
+	// #region Image Management
+	let coverBlobs = $state<Blob[]>([])
+	let coverPreviewUrls = $state<string[]>(untrack(() => (project.coverImagePath ? [project.coverImagePath] : [])))
+	let screenshotBlobs = $state<Blob[]>([])
+	let screenshotPreviewUrls = $state<string[]>(untrack(() => project.screenshotPaths) ?? [])
+	// #endregion
 </script>
 
 <svelte:head>
@@ -108,6 +115,8 @@
 				imageType="cover"
 				isRequired={true}
 				maxFileSizeMB={data.rules.maxImageFileSizeMB}
+				bind:processedBlobs={coverBlobs}
+				bind:previewUrls={coverPreviewUrls}
 				initialUrls={project.coverImagePath ? [project.coverImagePath] : []} />
 			<TextArea
 				name="project-description"
@@ -131,6 +140,8 @@
 				canSelectMultiple={true}
 				maxImages={data.rules.maxScreenshotCount}
 				maxFileSizeMB={data.rules.maxImageFileSizeMB}
+				bind:processedBlobs={screenshotBlobs}
+				bind:previewUrls={screenshotPreviewUrls}
 				initialUrls={project.screenshotPaths ?? []} />
 			<section class="col-[span_2] w-full">
 				<FeatureDdropdown {category} {selectedFeatures} />
