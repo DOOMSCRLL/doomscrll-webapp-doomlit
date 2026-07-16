@@ -161,6 +161,13 @@ export default {
 	},
 	doomlits: {
 		meta: { description: "Bu sayfadan, ayırttığın DOOMLIT'i görüntüleyebilir ve düzenleyebilirsin." },
+		projectStatusLabels: {
+			incomplete: "Eksik",
+			ready: "Gösterime hazır",
+		},
+		manage: {
+			label: "Manage",
+		},
 		projectForm: {
 			name: {
 				label: "Projenin adı",
@@ -168,6 +175,9 @@ export default {
 			},
 			refId: {
 				label: "Sorgu kodu",
+			},
+			publish: {
+				label: "Publish",
 			},
 			category: {
 				label: "Proje kategorisi",

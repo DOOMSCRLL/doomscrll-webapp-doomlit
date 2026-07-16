@@ -160,9 +160,19 @@ export default {
 	},
 	doomlits: {
 		meta: { description: "From this page, you can view and manage details for the reserved DOOMLIT." },
+		projectStatusLabels: {
+			incomplete: "Incomplete",
+			ready: "Ready for showcase",
+		},
+		manage: {
+			label: "Manage",
+		},
 		projectForm: {
 			refId: {
 				label: "Reference ID",
+			},
+			publish: {
+				label: "Publish",
 			},
 			name: {
 				label: "Project name",
