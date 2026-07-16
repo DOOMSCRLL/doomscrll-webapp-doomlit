@@ -16,6 +16,7 @@
 		tooltip?: string
 		doRenderLabel?: boolean
 		status?: StatusMessage
+		validator?: (value: string | undefined) => StatusMessage | undefined
 		value?: string
 		inputType?: "text" | "url" | "email" | "otp"
 		layout?: "column" | "row"
@@ -29,7 +30,8 @@
 		instructions,
 		tooltip,
 		doRenderLabel = true,
-		status,
+		status = $bindable(),
+		validator,
 		value = $bindable(),
 		inputType = "text",
 		layout = "row",
@@ -38,6 +40,10 @@
 
 	const nativeInputType = $derived(inputType === "otp" ? "text" : inputType)
 	let isFocused = $state(false)
+
+	$effect(() => {
+		if (validator) status = validator(value)
+	})
 </script>
 
 <section class="flex h-min w-full flex-col items-start gap-4">

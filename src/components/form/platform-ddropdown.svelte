@@ -15,13 +15,16 @@
 	import PlatformChip from "./data-chips/platform-chip.svelte"
 	import TextInput from "./text-input.svelte"
 
+	import type { StatusMessage } from "validators/doomlit"
+
 	type Props = {
 		category: Category
 		primaryPlatform: PlatformRecord
 		selectedPlatforms: SvelteSet<PlatformRecord>
+		urlValidator?: (value: string | undefined) => StatusMessage | undefined
 	}
 
-	const { category, primaryPlatform, selectedPlatforms /*= $bindable()*/ }: Props = $props()
+	const { category, primaryPlatform, selectedPlatforms, urlValidator }: Props = $props()
 
 	const locale = $derived(LocaleContext.context.value!)
 	const dict = $derived(getDictionaryOf(locale).doomlits.projectForm.platforms)
@@ -38,7 +41,8 @@
 
 	let selectName = $state<string>()
 	let selectUrl = $state<string>()
-	const isRecordValid = $derived(!(!selectName || !selectUrl))
+	let urlStatus = $state<StatusMessage>()
+	const isRecordValid = $derived(!(!selectName || !selectUrl || urlStatus?.type === "error"))
 
 	function handlePlatformRecord() {
 		if (!selectName || !selectUrl) return
@@ -76,7 +80,9 @@
 			label={dict.urlInput.label}
 			placeholder={dict.urlInput.placeholder}
 			doRenderLabel={false}
-			bind:value={selectUrl} />
+			bind:value={selectUrl}
+			bind:status={urlStatus}
+			validator={urlValidator} />
 		<SlabButton
 			variant="outlined"
 			alignment="left"

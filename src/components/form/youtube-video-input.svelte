@@ -19,9 +19,10 @@
 		instructions?: string
 		url?: string
 		normalizedUrl?: string
+		validator?: (value: string | undefined) => StatusMessage | undefined
 	}
 
-	let { name, label, placeholder, instructions, url = $bindable(), normalizedUrl = $bindable() }: Props = $props()
+	let { name, label, placeholder, instructions, url = $bindable(), normalizedUrl = $bindable(), validator }: Props = $props()
 
 	const parentDict = $derived(getDictionaryOf(LocaleContext.context.value!).doomlits)
 	const previewDict = $derived(parentDict.videoPreview)
@@ -36,6 +37,15 @@
 			videoDetails = undefined
 			status = undefined
 			return
+		}
+
+		if (validator) {
+			const validationStatus = validator(url)
+			if (validationStatus?.type === "error") {
+				status = validationStatus
+				videoDetails = undefined
+				return
+			}
 		}
 
 		try {
