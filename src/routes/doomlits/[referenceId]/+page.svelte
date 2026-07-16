@@ -30,6 +30,7 @@
 	import TextInput from "comps/form/text-input.svelte"
 	import YoutubeVideoInput from "comps/form/youtube-video-input.svelte"
 	import HelpModal from "comps/help-modal.svelte"
+	import UrgentModal from "comps/urgent-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	// #endregion
 
@@ -91,6 +92,9 @@
 	const isDirty = $derived(validator.checkIsDirty(project, publishData))
 
 	let isPublishing = $state(false)
+	let publishIssues = $state<string[]>([])
+	let publishError = $state<string>()
+	let isUrgentModalOpen = $state(false)
 
 	async function processImagesToCDN() {
 		const response = await fetch(
@@ -163,9 +167,15 @@
 					window.location.assign("?published=true")
 				} else {
 					update({ reset: false })
+					publishIssues = validator.mapPublishIssues(result.data?.validationErrors || {})
+					publishError = undefined
+					isUrgentModalOpen = true
 				}
 			} else if (result.type === "failure") {
 				update({ reset: false })
+				publishIssues = []
+				publishError = result.data?.error?.message || "MISSING_ERROR_GENERIC_PUBLISH_FAIL"
+				isUrgentModalOpen = true
 			}
 		}
 	}
@@ -260,3 +270,18 @@
 </main>
 
 <HelpModal bind:trigger={helpModalTrigger} />
+
+{#if isUrgentModalOpen}
+	<UrgentModal
+		header={publishError ? "MISSING_MODAL_HEADER_PUBLISH_ERROR" : "MISSING_MODAL_HEADER_PUBLISH_INCOMPLETE"}
+		body={publishError
+			? publishError
+			: "MISSING_MODAL_BODY_PUBLISH_INCOMPLETE\n\n" + publishIssues.map((i) => "• " + i).join("\n")}
+	>
+		{#snippet actions()}
+			<SlabButton variant="outlined" alignment="center" onClick={() => (isUrgentModalOpen = false)}>
+				MISSING_LABEL_CLOSE
+			</SlabButton>
+		{/snippet}
+	</UrgentModal>
+{/if}
