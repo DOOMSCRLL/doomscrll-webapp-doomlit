@@ -9,6 +9,7 @@
 	import type Category from "models/category"
 	import type { UploadUrlsData } from "models/internal/projects"
 	import type { PlatformRecord } from "models/platform"
+	import type Project from "models/project"
 	import type ProjectTag from "models/project-tag"
 	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
 	import { getDictionaryOf } from "repos/locale-repo"
@@ -46,6 +47,10 @@
 	const project = $derived(data.project)
 	const showcaseDate = $derived(DDate.fromISOString(project.showcaseDate))
 
+	let projectName = $state(untrack(() => project.name))
+	let projectDescription = $state(untrack(() => project.description ?? undefined))
+	let projectVideoUrl = $state(untrack(() => project.videoUrl ?? undefined))
+
 	// #region Category and Dependants' Management
 	let category = $state<Category>(untrack(() => project.category))
 	let selectedTags = new SvelteSet<ProjectTag>(untrack(() => project.tags ?? []))
@@ -70,6 +75,20 @@
 	let screenshotBlobs = $state<Blob[]>([])
 	let screenshotPreviewUrls = $state<string[]>(untrack(() => project.screenshotPaths) ?? [])
 	// #endregion
+
+	const publishData = $derived<Partial<Project>>({
+		name: projectName,
+		category,
+		description: projectDescription,
+		videoUrl: projectVideoUrl,
+		tags: Array.from(selectedTags),
+		secondaryPlatforms: Array.from(selectedPlatforms).map((p) => ({ name: p.name, url: p.url })),
+		features: Array.from(selectedFeatures),
+		coverImagePath: coverPreviewUrls.length > 0 ? coverPreviewUrls[0] : undefined,
+		screenshotPaths: screenshotPreviewUrls,
+	})
+
+	const isDirty = $derived(validator.checkIsDirty(project, publishData))
 
 	let isPublishing = $state(false)
 
@@ -172,7 +191,7 @@
 			<section class="flex w-full items-center justify-evenly gap-4">
 				<ProjectStatusChip status={project.status} />
 				<ManageMenu />
-				<SlabButton variant="filled" fit="min" alignment="left" isDisabled={isPublishing}>
+				<SlabButton variant="filled" fit="min" alignment="left" isDisabled={isPublishing || !isDirty}>
 					<Icon icon="Upload" />
 					{formDict.publish.label}
 				</SlabButton>
@@ -182,7 +201,7 @@
 				inputType="text"
 				label={formDict.name.label}
 				placeholder={formDict.name.placeholder}
-				value={project.name} />
+				bind:value={projectName} />
 			<Dropdown
 				name="project-category"
 				label={formDict.category.label}
@@ -190,7 +209,11 @@
 				options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
 				bind:value={category} />
 			<TagDdropdown {category} {selectedTags} maxTagCount={data.rules.maxTagCount} />
-			<PlatformDdropdown {category} {primaryPlatform} {selectedPlatforms} urlValidator={validator.validatePlatformUrl} />
+			<PlatformDdropdown
+				{category}
+				{primaryPlatform}
+				{selectedPlatforms}
+				urlValidator={validator.validatePlatformUrl} />
 			<ImgInput
 				name="coverImagePath"
 				label={formDict.coverImg.label}
@@ -207,14 +230,14 @@
 				label={formDict.description.label}
 				placeholder={formDict.description.placeholder}
 				instructions={formDict.description.instructions}
-				value={project.description ?? undefined}
+				bind:value={projectDescription}
 				validator={validator.validateDescription} />
 			<YoutubeVideoInput
 				name="videoUrl"
 				label={formDict.video.label}
 				placeholder={formDict.video.placeholder}
 				instructions={formDict.video.instructions}
-				url={project.videoUrl ?? undefined}
+				bind:url={projectVideoUrl}
 				validator={validator.validateVideoUrl} />
 			<ImgInput
 				name="screenshotPaths"
