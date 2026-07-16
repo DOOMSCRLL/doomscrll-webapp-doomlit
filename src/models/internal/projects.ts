@@ -23,7 +23,6 @@ export type ProjectDraft = {
 	category: string
 }
 
-
 export type PatchContentPayload = {
 	description?: string
 	tags?: string[]

@@ -49,7 +49,6 @@ export async function getCsrfToken(customFetch: typeof fetch = fetch): Promise<A
 	return result
 }
 
-
 export async function logout(csrfToken: string, customFetch: typeof fetch = fetch): Promise<AuthResponse> {
 	const response = await customFetch(`${API_BASE_URL}/auth/logout`, {
 		method: "POST",

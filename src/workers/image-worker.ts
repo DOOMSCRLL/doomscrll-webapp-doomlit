@@ -2,8 +2,12 @@ import resize from "@jsquash/resize"
 import { encode } from "@jsquash/webp"
 
 interface WorkerContext {
-	postMessage(message: unknown, transfer?: Transferable[]): void;
-	addEventListener(type: string, listener: (this: WorkerContext, ev: MessageEvent) => void, options?: boolean | AddEventListenerOptions): void;
+	postMessage(message: unknown, transfer?: Transferable[]): void
+	addEventListener(
+		type: string,
+		listener: (this: WorkerContext, ev: MessageEvent) => void,
+		options?: boolean | AddEventListenerOptions,
+	): void
 }
 
 const workerScope = self as unknown as WorkerContext

@@ -16,7 +16,7 @@ export interface ImageUploadTask {
 export async function getUploadUrls(
 	referenceId: string,
 	screenshotCount: number,
-	customFetch: typeof fetch = fetch
+	customFetch: typeof fetch = fetch,
 ): Promise<UploadUrlsResponse> {
 	const response = await customFetch(`/api/projects/${referenceId}/upload-urls`, {
 		method: "POST",

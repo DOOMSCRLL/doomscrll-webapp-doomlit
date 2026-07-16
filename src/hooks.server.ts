@@ -50,9 +50,16 @@ export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
 			const name = nameValue.substring(0, eqIdx)
 			const value = nameValue.substring(eqIdx + 1)
 
-			const options: { path: string; httpOnly?: boolean; secure?: boolean; sameSite?: "lax" | "strict" | "none"; expires?: Date; maxAge?: number } = { 
+			const options: {
+				path: string
+				httpOnly?: boolean
+				secure?: boolean
+				sameSite?: "lax" | "strict" | "none"
+				expires?: Date
+				maxAge?: number
+			} = {
 				path: "/",
-				secure: request.url.startsWith("https://")
+				secure: request.url.startsWith("https://"),
 			}
 
 			for (const directive of directives) {
