@@ -40,13 +40,30 @@ export class DoomlitValidator {
 	mapPublishIssues(issues: Record<string, string[]>): string[] {
 		const messages: string[] = []
 
-		if (issues.coverImagePath) messages.push("MISSING_ERROR_COVER_REQUIRED")
-		if (issues.description) messages.push("MISSING_ERROR_DESCRIPTION_REQUIRED")
-		if (issues.tags) messages.push("MISSING_ERROR_TAGS_REQUIRED")
-		if (issues.features) messages.push("MISSING_ERROR_FEATURES_REQUIRED")
-		if (issues.screenshotPaths) messages.push("MISSING_ERROR_SCREENSHOTS_REQUIRED")
-		if (issues.secondaryPlatforms) messages.push("MISSING_ERROR_PLATFORMS_REQUIRED")
-		if (issues.videoUrl) messages.push("MISSING_ERROR_VIDEO_INVALID")
+		for (const key of Object.keys(issues)) {
+			switch (key) {
+				case "description":
+					messages.push("MISSING_ERROR_DESCRIPTION_REQUIRED")
+					break
+				case "tags":
+					messages.push("MISSING_ERROR_TAGS_REQUIRED")
+					break
+				case "coverImagePath":
+					messages.push("MISSING_ERROR_COVER_IMAGE_REQUIRED")
+					break
+				case "screenshotPaths":
+					messages.push("MISSING_ERROR_SCREENSHOTS_INVALID")
+					break
+				case "secondaryPlatforms":
+					messages.push("MISSING_ERROR_PLATFORMS_INVALID")
+					break
+				case "videoUrl":
+					messages.push("MISSING_ERROR_VIDEO_URL_INVALID")
+					break
+				default:
+					messages.push(`MISSING_ERROR_UNKNOWN_FIELD_${key.toUpperCase()}`)
+			}
+		}
 
 		return messages
 	}
