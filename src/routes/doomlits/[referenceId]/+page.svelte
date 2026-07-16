@@ -14,6 +14,7 @@
 	import BrandNav from "comps/brand-nav.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import CopyableText from "comps/copyable-text.svelte"
+	import ProjectStatusChip from "comps/form/data-chips/project-status-chip.svelte"
 	import Dropdown from "comps/form/dropdown.svelte"
 	import FeatureDdropdown from "comps/form/feature-ddropdown.svelte"
 	import ImgInput from "comps/form/img-selector/img-input.svelte"
@@ -74,12 +75,13 @@
 				<p class="font-serif text-2xl font-medium text-inverse">{formDict.refId.label}:</p>
 				<CopyableText content={project.referenceId} />
 			</section>
-			<section class="flex w-full items-center justify-end gap-4">
+			<section class="flex w-full items-center justify-evenly gap-4">
+				<ProjectStatusChip status={project.status} />
+				<ManageMenu />
 				<SlabButton variant="filled" fit="min" alignment="left" isDisabled={true}>
 					<Icon icon="Upload" />
-					MISSING_LABEL
+					{formDict.publish.label}
 				</SlabButton>
-				<ManageMenu />
 			</section>
 			<TextInput
 				name="project-name"
