@@ -77,7 +77,6 @@
 		const uploadData = (await response.json()) as UploadUrlsData
 
 		let finalCoverUrl = project.coverImagePath
-
 		if (coverBlobs.length > 0) {
 			await fetch(uploadData.cover.uploadUrl, {
 				method: "PUT",
@@ -89,7 +88,6 @@
 
 		const finalScreenshotUrls: string[] = []
 		let newScreenshotIndex = 0
-
 		for (const purl of screenshotPreviewUrls) {
 			if (purl.startsWith("blob:")) {
 				const blob = screenshotBlobs[newScreenshotIndex]
