@@ -14,6 +14,8 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 
 function parseFormDataToPayload(formData: FormData): PatchContentPayload {
 	return {
+		name: formData.get("project-name")?.toString(),
+		category: formData.get("project-category")?.toString(),
 		description: formData.get("description")?.toString(),
 		tags: formData.get("tags") ? JSON.parse(formData.get("tags") as string) : undefined,
 		features: formData.get("features") ? JSON.parse(formData.get("features") as string) : undefined,

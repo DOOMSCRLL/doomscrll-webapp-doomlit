@@ -24,6 +24,8 @@ export type ProjectDraft = {
 }
 
 export type PatchContentPayload = {
+	name?: string
+	category?: string
 	description?: string
 	tags?: string[]
 	features?: string[]
