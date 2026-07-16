@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { untrack } from "svelte"
 
 	import { LocaleContext } from "contexts/shared.svelte"
 	import type ImageAsset from "models/internal/image-asset"
@@ -31,6 +30,7 @@
 		maxFileSizeMB?: number
 		imageType: ImageType
 		processedBlobs?: Blob[]
+		previewUrls?: string[]
 		initialUrls?: string[]
 		onPreviewClick?: (url: string) => void
 	}
@@ -47,6 +47,7 @@
 		maxFileSizeMB = 10,
 		imageType,
 		processedBlobs = $bindable([]),
+		previewUrls = $bindable([]),
 		initialUrls = [],
 		onPreviewClick,
 	}: Props = $props()
@@ -56,7 +57,6 @@
 	let isProcessing = $state(false)
 	let isFocused = $state(false)
 	let status = $state<StatusMessage>()
-	let previewUrls = $state<string[]>(untrack(() => initialUrls))
 	let activePreviewUrl = $state<string | null>(null)
 
 	function getImgs(): ImageAsset[] {
