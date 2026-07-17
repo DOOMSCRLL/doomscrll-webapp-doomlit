@@ -1,8 +1,9 @@
-import { error, fail } from "@sveltejs/kit"
+import { fail } from "@sveltejs/kit"
 
 import type { Actions, PageServerLoad } from "./$types"
 
-import type { PatchContentPayload } from "models/internal/projects"
+import type Category from "models/category"
+import type Project from "models/project"
 import { getCreatorProject, publishCreatorProject, updateCreatorProject } from "repos/project-repo"
 
 export const load: PageServerLoad = async ({ params, fetch }) => {
@@ -12,10 +13,10 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 	return { project }
 }
 
-function parseFormDataToPayload(formData: FormData): PatchContentPayload {
+function parseFormDataToPayload(formData: FormData): Partial<Project> {
 	return {
 		name: formData.get("project-name")?.toString(),
-		category: formData.get("project-category")?.toString(),
+		category: formData.get("project-category")?.toString() as Category,
 		description: formData.get("description")?.toString(),
 		tags: formData.get("tags") ? JSON.parse(formData.get("tags") as string) : undefined,
 		features: formData.get("features") ? JSON.parse(formData.get("features") as string) : undefined,
@@ -31,39 +32,52 @@ function parseFormDataToPayload(formData: FormData): PatchContentPayload {
 }
 
 export const actions: Actions = {
-	publish: async ({ request, fetch, params }) => {
+	publish: async ({ request, fetch, params, locals }) => {
 		const referenceId = params.referenceId
-		if (!referenceId) throw error(400, "Missing reference ID")
+		if (!referenceId) return fail(400, { status: "ERROR_MISSING_REF_ID" }) // TODO: Needs a locale string
 
 		const formData = await request.formData()
+		const locale = locals.locale
+
+		let updateMsg: string
 
 		try {
 			const payload = parseFormDataToPayload(formData)
-			await updateCreatorProject(referenceId, payload, fetch)
+			const response = await updateCreatorProject(referenceId, payload, locale, fetch)
+			updateMsg = response.success === true ? response.message : ""
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			console.error("Update action failed:", err)
+			const code = err.body?.code || err.code || "INTERNAL_ERROR"
 			return fail(err.status || 500, {
-				success: false,
-				error: {
-					code: err.body?.code || err.code || "INTERNAL_ERROR",
-					message: err.body?.message || err.message || "Failed to update DOOMLIT.",
-					details: err.body?.details,
-				},
+				status: code,
+				message: err.body?.message || err.message,
+				details: err.body?.details,
 			})
 		}
 
 		try {
-			await publishCreatorProject(referenceId, fetch)
-			return { success: true, isReady: true }
+			const response = await publishCreatorProject(referenceId, locale, fetch)
+			return {
+				status: "PUBLISH_READY" as const,
+				message: response.success ? `${updateMsg}\n\n${response.message}` : undefined,
+			}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			console.error("Publish validation failed:", err)
-			return {
-				success: true,
-				isReady: false,
-				validationErrors: err.body?.details || {},
+
+			if (err.status === 400 || err.status === 422) {
+				return {
+					status: "PUBLISH_INCOMPLETE" as const,
+					message: `${updateMsg}\n\n${err.body?.message || err.message}`,
+				}
 			}
+
+			const code = err.body?.code || err.code || "INTERNAL_ERROR"
+			return fail(err.status || 500, {
+				status: `PUBLISH_${code}`,
+				message: `${updateMsg}\n\n${err.body?.message || err.message}`,
+			})
 		}
 	},
 }
