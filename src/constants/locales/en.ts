@@ -167,12 +167,20 @@ export default {
 		manage: {
 			label: "Manage",
 		},
+		statusModals: {
+			inProgress: {
+				header: "Updating your project",
+				body: "Give it a few seconds.",
+			},
+			complete: {
+				headerError: "Something went wrong...",
+				headerSuccess: "It's complete!",
+			},
+		},
 		projectForm: {
+			labelCtaUpdate: "Update",
 			refId: {
 				label: "Reference ID",
-			},
-			publish: {
-				label: "Publish",
 			},
 			name: {
 				label: "Project name",

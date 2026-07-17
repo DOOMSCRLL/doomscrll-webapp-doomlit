@@ -168,16 +168,24 @@ export default {
 		manage: {
 			label: "Manage",
 		},
+		statusModals: {
+			inProgress: {
+				header: "Projen güncelleniyor",
+				body: "Bir kaç saniye ver...",
+			},
+			complete: {
+				headerError: "Bir şeyler ters gitti...",
+				headerSuccess: "Güncelleme tamamlandı!",
+			},
+		},
 		projectForm: {
+			labelCtaUpdate: "Güncelle",
 			name: {
 				label: "Projenin adı",
 				placeholder: "Projene bir isim ver!",
 			},
 			refId: {
 				label: "Sorgu kodu",
-			},
-			publish: {
-				label: "Publish",
 			},
 			category: {
 				label: "Proje kategorisi",
