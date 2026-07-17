@@ -37,37 +37,6 @@ export class DoomlitValidator {
 		return undefined
 	}
 
-	mapPublishIssues(issues: Record<string, string[]>): string[] {
-		const messages: string[] = []
-
-		for (const key of Object.keys(issues)) {
-			switch (key) {
-				case "description":
-					messages.push("MISSING_ERROR_DESCRIPTION_REQUIRED")
-					break
-				case "tags":
-					messages.push("MISSING_ERROR_TAGS_REQUIRED")
-					break
-				case "coverImagePath":
-					messages.push("MISSING_ERROR_COVER_IMAGE_REQUIRED")
-					break
-				case "screenshotPaths":
-					messages.push("MISSING_ERROR_SCREENSHOTS_INVALID")
-					break
-				case "secondaryPlatforms":
-					messages.push("MISSING_ERROR_PLATFORMS_INVALID")
-					break
-				case "videoUrl":
-					messages.push("MISSING_ERROR_VIDEO_URL_INVALID")
-					break
-				default:
-					messages.push(`MISSING_ERROR_UNKNOWN_FIELD_${key.toUpperCase()}`)
-			}
-		}
-
-		return messages
-	}
-
 	checkIsDirty(original: Project, next: Partial<Project>): boolean {
 		if (original.name !== next.name) return true
 		if (original.category !== next.category) return true
