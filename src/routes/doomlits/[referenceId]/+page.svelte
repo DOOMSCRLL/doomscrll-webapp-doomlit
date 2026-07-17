@@ -30,8 +30,8 @@
 	import TextInput from "comps/form/text-input.svelte"
 	import YoutubeVideoInput from "comps/form/youtube-video-input.svelte"
 	import HelpModal from "comps/help-modal.svelte"
-	import UrgentModal from "comps/urgent-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
+	import UrgentModal from "comps/urgent-modal.svelte"
 	// #endregion
 
 	const { data } = $props()
@@ -77,6 +77,7 @@
 	let screenshotPreviewUrls = $state<string[]>(untrack(() => project.screenshotPaths) ?? [])
 	// #endregion
 
+	// #region From Update action to server action
 	const publishData = $derived<Partial<Project>>({
 		name: projectName,
 		category,
@@ -88,27 +89,30 @@
 		coverImagePath: coverPreviewUrls.length > 0 ? coverPreviewUrls[0] : undefined,
 		screenshotPaths: screenshotPreviewUrls,
 	})
-
 	const isDirty = $derived(validator.checkIsDirty(project, publishData))
-
 	let isPublishing = $state(false)
-	let publishIssues = $state<string[]>([])
-	let publishError = $state<string>()
-	let isUrgentModalOpen = $state(false)
 
 	async function processImagesToCDN() {
-		const response = await fetch(
+		const urlFetchRes = await fetch(
 			`/api/doomlits/${project.referenceId}/upload-urls?screenshotCount=${screenshotBlobs.length}`,
 		)
-		const uploadData = (await response.json()) as UploadUrlsData
+		if (!urlFetchRes.ok) {
+			const errorBody = await urlFetchRes.json().catch(() => ({}))
+			throw new Error(errorBody.message || "Couldn't get URLs for image uploads from server.")
+		}
+		const uploadData = (await urlFetchRes.json()) as UploadUrlsData
 
 		let finalCoverUrl = project.coverImagePath
 		if (coverBlobs.length > 0) {
-			await fetch(uploadData.cover.uploadUrl, {
+			const res = await fetch(uploadData.cover.uploadUrl, {
 				method: "PUT",
 				body: coverBlobs[0],
 				headers: { "Content-Type": "image/webp" },
 			})
+			if (!res.ok) {
+				const errorBody = await res.json().catch(() => ({}))
+				throw new Error(errorBody.message || "Couldn't upload cover image to CDN.")
+			}
 			finalCoverUrl = uploadData.cover.path
 		}
 
@@ -119,11 +123,15 @@
 				const blob = screenshotBlobs[newScreenshotIndex]
 				const targetUrlData = uploadData.screenshots[newScreenshotIndex]
 
-				await fetch(targetUrlData.uploadUrl, {
+				const res = await fetch(targetUrlData.uploadUrl, {
 					method: "PUT",
 					body: blob,
 					headers: { "Content-Type": "image/webp" },
 				})
+				if (!res.ok) {
+					const errorBody = await res.json().catch(() => ({}))
+					throw new Error(errorBody.message || "Couldn't upload screenshots to CDN.")
+				}
 				finalScreenshotUrls.push(targetUrlData.path)
 
 				newScreenshotIndex++
@@ -159,26 +167,19 @@
 			return
 		}
 
-		return async ({ result, update }) => {
-			isPublishing = false
-
-			if (result.type === "success") {
-				if (result.data?.isReady) {
-					window.location.assign("?published=true")
-				} else {
-					update({ reset: false })
-					publishIssues = validator.mapPublishIssues(result.data?.validationErrors || {})
-					publishError = undefined
-					isUrgentModalOpen = true
-				}
-			} else if (result.type === "failure") {
-				update({ reset: false })
-				publishIssues = []
-				publishError = result.data?.error?.message || "MISSING_ERROR_GENERIC_PUBLISH_FAIL"
-				isUrgentModalOpen = true
-			}
-		}
+		return handlePublishResult
 	}
+	// #endregion
+
+	// #region Managing API response
+	let serverResponse = $state<string>()
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	function handlePublishResult({ result, update }: any) {
+		isPublishing = false
+		serverResponse = result.data?.message || result.error?.message || "An unknown error has occurred."
+		update({ reset: false })
+	}
+	// #endregion
 </script>
 
 <svelte:head>
@@ -203,7 +204,7 @@
 				<ManageMenu />
 				<SlabButton variant="filled" fit="min" alignment="left" isDisabled={isPublishing || !isDirty}>
 					<Icon icon="Upload" />
-					{formDict.publish.label}
+					{formDict.labelCtaUpdate}
 				</SlabButton>
 			</section>
 			<TextInput
@@ -271,17 +272,16 @@
 
 <HelpModal bind:trigger={helpModalTrigger} />
 
-{#if isUrgentModalOpen}
-	<UrgentModal
-		header={publishError ? "MISSING_MODAL_HEADER_PUBLISH_ERROR" : "MISSING_MODAL_HEADER_PUBLISH_INCOMPLETE"}
-		body={publishError
-			? publishError
-			: "MISSING_MODAL_BODY_PUBLISH_INCOMPLETE\n\n" + publishIssues.map((i) => "• " + i).join("\n")}
-	>
+{#if isPublishing}
+	<UrgentModal body={dict.statusModals.inProgress.body} header={dict.statusModals.inProgress.header}>
 		{#snippet actions()}
-			<SlabButton variant="outlined" alignment="center" onClick={() => (isUrgentModalOpen = false)}>
-				MISSING_LABEL_CLOSE
-			</SlabButton>
+			<span>ADD A SPINNER</span>
+		{/snippet}
+	</UrgentModal>
+{:else if serverResponse}
+	<UrgentModal body={serverResponse} header={dict.statusModals.complete.headerSuccess}>
+		{#snippet actions()}
+			<SlabButton>MISSING_LABEL_CLOSE</SlabButton>
 		{/snippet}
 	</UrgentModal>
 {/if}
