@@ -6,7 +6,6 @@ import type Category from "models/category"
 import type { APIResponse } from "models/internal/api"
 import type {
 	ActiveDraftReference,
-	PatchContentPayload,
 	ProjectDraft,
 	ReservationCountsData,
 	UploadUrlsData,
@@ -16,6 +15,7 @@ import type Project from "models/project"
 import type { CreatorProjectEntry, ProjectPreview } from "models/project"
 import DDate from "utils/d-date"
 
+// #region Data fetching utils
 export async function getRules(customFetch: typeof fetch = fetch): Promise<ProjectRules> {
 	const response = await customFetch(`${API_BASE_URL}/projects/rules`)
 	const result = (await response.json()) as APIResponse<ProjectRules>
@@ -139,15 +139,18 @@ export async function getCreatorProject(referenceId: string, customFetch: typeof
 	return p as Project
 }
 
+// #endregion
+
 export async function getUploadUrls(
 	referenceId: string,
 	screenshotCount: number,
+	locale?: string,
 	customFetch: typeof fetch = fetch,
 ): Promise<UploadUrlsData> {
 	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}/upload-urls`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ screenshotCount }),
+		body: JSON.stringify({ screenshotCount, locale }),
 	})
 	const result = (await response.json()) as APIResponse<UploadUrlsData>
 
@@ -163,34 +166,54 @@ export async function getUploadUrls(
 
 export async function updateCreatorProject(
 	referenceId: string,
-	payload: PatchContentPayload,
+	payload: Partial<Project>,
+	locale?: string,
 	customFetch: typeof fetch = fetch,
-): Promise<void> {
+): Promise<APIResponse<never>> {
 	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}`, {
 		method: "PATCH",
 		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(payload),
+		body: JSON.stringify({ ...payload, locale }),
 	})
-	const result = (await response.json()) as APIResponse<{ message?: string }>
+	const result = (await response.json()) as APIResponse<never>
 
 	if (!result.success) {
 		throw error(response.status, {
-			message: result.error?.message || "Failed to update project.",
-			code: result.error?.code || "ERROR",
+			message: result.error?.message,
+			code: result.error?.code,
 		})
 	}
+
+	return result
 }
 
-export async function publishCreatorProject(referenceId: string, customFetch: typeof fetch = fetch): Promise<void> {
+export async function publishCreatorProject(
+	referenceId: string,
+	locale?: string,
+	customFetch: typeof fetch = fetch,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<APIResponse<any>> {
 	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}/publish`, {
 		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ locale }),
 	})
-	const result = (await response.json()) as APIResponse<{ message?: string }>
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const result = (await response.json()) as APIResponse<any>
 
 	if (!result.success) {
-		throw error(response.status, {
-			message: result.error?.message || "Failed to publish project.",
-			code: result.error?.code || "ERROR",
-		})
+		if (result.error.code === "VALIDATION_FAILED") {
+			throw error(response.status, {
+				message: `${result.error?.message} ${JSON.stringify(result.error?.details)}`,
+				code: result.error?.code,
+			})
+		} else {
+			throw error(response.status, {
+				message: result.error?.message,
+				code: result.error?.code,
+			})
+		}
 	}
+
+	return result
 }
