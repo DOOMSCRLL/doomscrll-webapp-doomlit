@@ -32,6 +32,7 @@ export default {
 				labelRemove: "Seçili özelliği projeden kaldırmak için tıkla.",
 			},
 		},
+		headerSpinnerModal: ctsr`Projen güncelleniyor, lütfen bu pencereyi kapatma.${MARKER_NEWLINE}Yalnızca birkaç saniye alacak!`,
 	},
 	errorPage: {
 		header: "Aha, bir hata yakaladın!",

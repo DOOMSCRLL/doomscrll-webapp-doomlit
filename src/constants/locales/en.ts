@@ -31,6 +31,7 @@ export default {
 				labelRemove: "Click to remove this feature from the project.",
 			},
 		},
+		headerSpinnerModal: ctsr`Updating your project, please do not close this window.${MARKER_NEWLINE}Will take a few seconds!`,
 	},
 	errorPage: {
 		header: "Hey, you found an error!",
