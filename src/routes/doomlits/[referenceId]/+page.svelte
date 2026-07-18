@@ -31,6 +31,7 @@
 	import YoutubeVideoInput from "comps/form/youtube-video-input.svelte"
 	import HelpModal from "comps/help-modal.svelte"
 	import Icon from "comps/icons/icon.svelte"
+	import SpinnerModal from "comps/spinner-modal.svelte"
 	import UrgentModal from "comps/urgent-modal.svelte"
 	// #endregion
 
@@ -192,6 +193,7 @@
 	<section class="h-full w-full overflow-hidden rounded-3xl border-4 border-inverse p-4 pr-1">
 		<form
 			action="?/publish"
+			method="POST"
 			use:enhance={handlePublish}
 			class="grid h-full w-full [scrollbar-color:var(--color-accent)_transparent] auto-rows-min grid-cols-2 justify-items-center gap-12 overflow-y-auto">
 			<section class="flex w-full items-center gap-4">
@@ -273,11 +275,7 @@
 <HelpModal bind:trigger={helpModalTrigger} />
 
 {#if isPublishing}
-	<UrgentModal body={dict.statusModals.inProgress.body} header={dict.statusModals.inProgress.header}>
-		{#snippet actions()}
-			<span>ADD A SPINNER</span>
-		{/snippet}
-	</UrgentModal>
+	<SpinnerModal />
 {:else if serverResponse}
 	<UrgentModal body={serverResponse} header={dict.statusModals.complete.headerSuccess}>
 		{#snippet actions()}
