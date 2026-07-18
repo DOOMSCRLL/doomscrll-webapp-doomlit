@@ -174,11 +174,19 @@
 
 	// #region Managing API response
 	let serverResponse = $state<string>()
+	let serverStatus = $state<"success" | "failure">()
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	function handlePublishResult({ result, update }: any) {
 		isPublishing = false
 		serverResponse = result.data?.message || result.error?.message || "An unknown error has occurred."
+		serverStatus = result.error ? "failure" : "success"
 		update({ reset: false })
+	}
+
+	function handleStatusModalClick() {
+		if (!serverResponse || !serverStatus) return
+		if (serverStatus === "failure") serverResponse = undefined
+		else if (serverStatus === "success") window.location.reload()
 	}
 	// #endregion
 </script>
@@ -279,7 +287,9 @@
 {:else if serverResponse}
 	<UrgentModal body={serverResponse} header={dict.statusModals.complete.headerSuccess}>
 		{#snippet actions()}
-			<SlabButton>MISSING_LABEL_CLOSE</SlabButton>
+			<SlabButton onClick={handleStatusModalClick}>
+				{serverStatus === "success" ? dict.statusModals.cta.success : dict.statusModals.cta.fail}
+			</SlabButton>
 		{/snippet}
 	</UrgentModal>
 {/if}
