@@ -66,7 +66,7 @@
 				{@render labeledText(dict.details.labelAuthor, `@${project.authorHandle}`)}
 				{@render labeledText(dict.details.labelRefId, project.referenceId)}
 			</section>
-			<section class="flex gap-4">
+			<section class="flex w-full justify-center gap-4">
 				<form action="?/cancelDraft" method="POST">
 					<SlabButton alignment="left" fit="min" hasAccent={true} variant="outlined" buttonType="submit">
 						<Icon icon="ArrowBack" />{dict.actions.labelCancel}
