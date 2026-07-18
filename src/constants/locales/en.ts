@@ -177,6 +177,10 @@ export default {
 				headerError: "Something went wrong...",
 				headerSuccess: "It's complete!",
 			},
+			cta: {
+				success: "Close",
+				fail: "Return",
+			},
 		},
 		projectForm: {
 			labelCtaUpdate: "Update",

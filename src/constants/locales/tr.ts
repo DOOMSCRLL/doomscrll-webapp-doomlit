@@ -178,6 +178,10 @@ export default {
 				headerError: "Bir şeyler ters gitti...",
 				headerSuccess: "Güncelleme tamamlandı!",
 			},
+			cta: {
+				success: "Kapat",
+				fail: "Geri dön",
+			},
 		},
 		projectForm: {
 			labelCtaUpdate: "Güncelle",
