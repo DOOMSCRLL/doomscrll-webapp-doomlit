@@ -1,0 +1,12 @@
+@theme {
+	--animate-rotate: rotate 8s linear 0s infinite;
+	--animate-rotate-reverse: rotate reverse 16s linear 0s infinite;
+	@keyframes rotate {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+}
