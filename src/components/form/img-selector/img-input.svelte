@@ -1,5 +1,4 @@
 <script lang="ts">
-
 	import { LocaleContext } from "contexts/shared.svelte"
 	import type ImageAsset from "models/internal/image-asset"
 	import { getDictionaryOf } from "repos/locale-repo"
@@ -13,7 +12,7 @@
 	import ImgPreviewRow from "./img-preview-row.svelte"
 	import ImgPreview from "./img-preview.svelte"
 
-	import type { StatusMessage } from "validators/doomlit"
+	type StatusMessage = { type?: "error" | "info"; message?: string }
 
 	type Props = {
 		name: string
