@@ -212,7 +212,12 @@
 			<section class="flex w-full items-center justify-evenly gap-4">
 				<ProjectStatusChip status={project.status} />
 				<ManageMenu />
-				<SlabButton variant="filled" fit="min" alignment="left" isDisabled={isPublishing || !isDirty}>
+				<SlabButton
+					variant="filled"
+					fit="min"
+					alignment="left"
+					buttonType="submit"
+					isDisabled={isPublishing || !isDirty}>
 					<Icon icon="Upload" />
 					{formDict.labelCtaUpdate}
 				</SlabButton>
