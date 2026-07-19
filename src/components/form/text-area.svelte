@@ -2,7 +2,7 @@
 	import BadgeText from "comps/badge-text.svelte"
 	import Icon from "comps/icons/icon.svelte"
 
-	import type { StatusMessage } from "validators/doomlit"
+	import { DoomlitValidator } from "validators/doomlit"
 
 	type Props = {
 		name: string
@@ -10,16 +10,16 @@
 		placeholder: string
 		instructions?: string
 		value?: string
-		validator?: (value: string | undefined) => StatusMessage | undefined
 	}
 
-	let { name, label, placeholder, instructions, value = $bindable(), validator }: Props = $props()
-	
-	let status = $state<StatusMessage>()
-	let isFocused = $state(false)
+	let { name, label, placeholder, instructions, value = $bindable() }: Props = $props()
 
+	let errorMessage = $state<string>()
 	$effect(() => {
-		if (validator) status = validator(value)
+		const descValidation = DoomlitValidator.validateDescription(value)
+		if (descValidation?.type === "error") {
+			errorMessage = "MISSING_MSG_DESC_TOO_LONG"
+		}
 	})
 </script>
 
@@ -39,20 +39,13 @@
 				"cursor-text font-serif text-2xl font-medium tracking-tighter text-inverse",
 				"placeholder:text-[darkgray] placeholder:italic",
 			]}
-			onfocus={() => (isFocused = true)}
-			onblur={() => (isFocused = false)}
 			bind:value></textarea>
 	</label>
 
-	{#if status?.message && (status.type === "error" || isFocused)}
-		<p
-			class={[
-				"font-serif text-xl font-medium tracking-tight",
-				status.type === "error" ? "text-accent" : "text-inverse",
-				"ml-4 flex items-center gap-2",
-			]}>
-			<Icon icon={status.type === "error" ? "Cancel" : "Help"} />
-			{status.message}
+	{#if errorMessage}
+		<p class="ml-4 flex items-center gap-2 font-serif text-xl font-medium tracking-tight text-accent">
+			<Icon icon="Cancel" />
+			{errorMessage}
 		</p>
 	{/if}
 </section>
