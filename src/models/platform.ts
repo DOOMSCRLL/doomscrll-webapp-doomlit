@@ -10,7 +10,7 @@ type Platform = {
 }
 
 export type PlatformRecord = {
-	name: PlatformName
+	platform: PlatformName
 	url: string
 }
 
