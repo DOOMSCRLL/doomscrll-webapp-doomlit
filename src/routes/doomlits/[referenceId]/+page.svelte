@@ -1,5 +1,6 @@
 <script lang="ts">
 	//#region Imports
+	import { PUBLIC_CDN_PROJECT_BASE_URL } from "$env/static/public"
 	import { enhance } from "$app/forms"
 	import type { SubmitFunction } from "@sveltejs/kit"
 	import { untrack } from "svelte"
@@ -54,7 +55,7 @@
 	// #region Category and Dependants' Management
 	let category = $state<Category>(untrack(() => project.category))
 	let selectedTags = new SvelteSet<ProjectTag>(untrack(() => project.tags ?? []))
-	const primaryPlatform = $derived<PlatformRecord>({ name: project.primaryPlatform, url: project.primaryUrl })
+	const primaryPlatform = $derived<PlatformRecord>({ platform: project.primaryPlatform, url: project.primaryUrl })
 	let selectedPlatforms = new SvelteSet<PlatformRecord>(untrack(() => project.secondaryPlatforms ?? []))
 	let selectedFeatures = new SvelteSet<string>(untrack(() => project.features ?? []))
 
@@ -71,9 +72,13 @@
 
 	// #region Image Management
 	let coverBlobs = $state<Blob[]>([])
-	let coverPreviewUrls = $state<string[]>(untrack(() => (project.coverImagePath ? [project.coverImagePath] : [])))
+	let coverPreviewUrls = $state<string[]>(
+		untrack(() => (project.coverImagePath ? [`${PUBLIC_CDN_PROJECT_BASE_URL}${project.coverImagePath}`] : [])),
+	)
 	let screenshotBlobs = $state<Blob[]>([])
-	let screenshotPreviewUrls = $state<string[]>(untrack(() => project.screenshotPaths) ?? [])
+	let screenshotPreviewUrls = $state<string[]>(
+		untrack(() => project.screenshotPaths?.map((p) => `${PUBLIC_CDN_PROJECT_BASE_URL}${p}`) ?? []),
+	)
 	// #endregion
 
 	// #region From Update action to server action
@@ -83,10 +88,11 @@
 		description: projectDescription,
 		videoUrl: projectVideoUrl,
 		tags: Array.from(selectedTags),
-		secondaryPlatforms: Array.from(selectedPlatforms).map((p) => ({ name: p.name, url: p.url })),
+		secondaryPlatforms: Array.from(selectedPlatforms),
 		features: Array.from(selectedFeatures),
-		coverImagePath: coverPreviewUrls.length > 0 ? coverPreviewUrls[0] : undefined,
-		screenshotPaths: screenshotPreviewUrls,
+		coverImagePath:
+			coverPreviewUrls.length > 0 ? coverPreviewUrls[0].replace(PUBLIC_CDN_PROJECT_BASE_URL, "") : undefined,
+		screenshotPaths: screenshotPreviewUrls.map((p) => p.replace(PUBLIC_CDN_PROJECT_BASE_URL, "")),
 	})
 	const isDirty = $derived(DoomlitValidator.checkIsDirty(project, updatedProject))
 	let isPublishing = $state(false)
@@ -135,7 +141,7 @@
 
 				newScreenshotIndex++
 			} else {
-				finalScreenshotUrls.push(purl)
+				finalScreenshotUrls.push(purl.replace(PUBLIC_CDN_PROJECT_BASE_URL, ""))
 			}
 		}
 
@@ -151,8 +157,7 @@
 			formData.set("tags", JSON.stringify(Array.from(selectedTags)))
 			formData.set("features", JSON.stringify(Array.from(selectedFeatures)))
 
-			const mappedPlatforms = Array.from(selectedPlatforms).map((p) => ({ platform: p.name, url: p.url }))
-			formData.set("secondaryPlatforms", JSON.stringify(mappedPlatforms))
+			formData.set("secondaryPlatforms", JSON.stringify(Array.from(selectedPlatforms)))
 
 			formData.delete("coverImagePath")
 			if (finalCoverUrl) formData.set("coverImagePath", finalCoverUrl)
