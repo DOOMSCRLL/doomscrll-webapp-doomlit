@@ -50,7 +50,7 @@
 			bind:value>
 			<option value={undefined} disabled hidden>{placeholder}</option>
 			{#each sortedOpts as opt (opt)}
-				<option value={opt.value} hidden={opt.value === value} disabled={opt.value === value}>{opt.label}</option>
+				<option value={opt.value}>{opt.label}</option>
 			{/each}
 		</select>
 	</label>
