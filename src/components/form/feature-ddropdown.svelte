@@ -52,7 +52,7 @@
 				opts: feats.map((t) => ({ value: t, label: t })),
 			},
 		]} />
-	<DataChipContainer layout="column">
+	<DataChipContainer layout="row-wrap">
 		{#each selectedFeatures as feature (feature)}
 			<FeatureChip {feature} onRemove={handleFeatRemove} />
 		{/each}
