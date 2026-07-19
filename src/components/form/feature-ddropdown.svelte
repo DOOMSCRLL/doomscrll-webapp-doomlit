@@ -24,7 +24,11 @@
 
 	let sectionRef = $state<HTMLElement>()
 
-	const feats = $derived<string[]>(getFeaturesFor(category))
+	const featList = $derived(getFeaturesFor(category))
+	const feats = $derived.by<string[]>(() => {
+		if (selectedFeatures.size <= 0) return featList
+		else return featList.filter((f) => !selectedFeatures.has(f))
+	})
 	function handleFeatSelect(value: string) {
 		selectedFeatures.add(value)
 		tick().then(() => {
