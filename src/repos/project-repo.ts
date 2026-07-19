@@ -145,11 +145,12 @@ export async function getUploadUrls(
 	referenceId: string,
 	screenshotCount: number,
 	locale?: string,
+	csrfToken?: string,
 	customFetch: typeof fetch = fetch,
 ): Promise<UploadUrlsData> {
 	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}/upload-urls`, {
 		method: "POST",
-		headers: { "Content-Type": "application/json" },
+		headers: { "Content-Type": "application/json", ...(csrfToken && { "x-csrf-token": csrfToken }) },
 		body: JSON.stringify({ screenshotCount, locale }),
 	})
 	const result = (await response.json()) as APIResponse<UploadUrlsData>
@@ -168,11 +169,12 @@ export async function updateCreatorProject(
 	referenceId: string,
 	payload: Partial<Project>,
 	locale?: string,
+	csrfToken?: string,
 	customFetch: typeof fetch = fetch,
 ): Promise<APIResponse<never>> {
 	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}`, {
 		method: "PATCH",
-		headers: { "Content-Type": "application/json" },
+		headers: { "Content-Type": "application/json", ...(csrfToken && { "x-csrf-token": csrfToken }) },
 		body: JSON.stringify({ ...payload, locale }),
 	})
 	const result = (await response.json()) as APIResponse<never>
@@ -190,12 +192,13 @@ export async function updateCreatorProject(
 export async function publishCreatorProject(
 	referenceId: string,
 	locale?: string,
+	csrfToken?: string,
 	customFetch: typeof fetch = fetch,
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<APIResponse<any>> {
 	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}/publish`, {
 		method: "POST",
-		headers: { "Content-Type": "application/json" },
+		headers: { "Content-Type": "application/json", ...(csrfToken && { "x-csrf-token": csrfToken }) },
 		body: JSON.stringify({ locale }),
 	})
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
