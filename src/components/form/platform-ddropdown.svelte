@@ -4,6 +4,7 @@
 	import type Category from "models/category"
 	import type { PlatformName, PlatformRecord } from "models/platform"
 	import { getPlatformName, getPlatformsListFor } from "repos/platform-repo"
+	import { DoomlitValidator } from "validators/doomlit"
 
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import Icon from "comps/icons/icon.svelte"
@@ -15,16 +16,13 @@
 	import PlatformChip from "./data-chips/platform-chip.svelte"
 	import TextInput from "./text-input.svelte"
 
-	import type { StatusMessage } from "validators/doomlit"
-
 	type Props = {
 		category: Category
 		primaryPlatform: PlatformRecord
 		selectedPlatforms: SvelteSet<PlatformRecord>
-		urlValidator?: (value: string | undefined) => StatusMessage | undefined
 	}
 
-	const { category, primaryPlatform, selectedPlatforms, urlValidator }: Props = $props()
+	const { category, primaryPlatform, selectedPlatforms }: Props = $props()
 
 	const locale = $derived(LocaleContext.context.value!)
 	const dict = $derived(getDictionaryOf(locale).doomlits.projectForm.platforms)
@@ -41,12 +39,17 @@
 
 	let selectName = $state<string>()
 	let selectUrl = $state<string>()
-	let urlStatus = $state<StatusMessage>()
-	const isRecordValid = $derived(!(!selectName || !selectUrl || urlStatus?.type === "error"))
+	let errorMessage = $state<string>()
+	const isRecordValid = $derived(!(!selectName || !selectUrl || errorMessage))
 
 	function handlePlatformRecord() {
 		if (!selectName || !selectUrl) return
-		selectedPlatforms.add({ name: selectName as PlatformName, url: selectUrl })
+		const urlValidation = DoomlitValidator.validatePlatformUrl(selectUrl)
+		if (urlValidation?.type === "error") {
+			errorMessage = "MISSING_MSG_PLATFORM_URL_INVALID"
+		} else {
+			selectedPlatforms.add({ name: selectName as PlatformName, url: selectUrl })
+		}
 	}
 
 	function handlePlatformSelect(platformName: string) {
@@ -79,10 +82,9 @@
 			inputType="url"
 			label={dict.urlInput.label}
 			placeholder={dict.urlInput.placeholder}
+			{errorMessage}
 			doRenderLabel={false}
-			bind:value={selectUrl}
-			bind:status={urlStatus}
-			validator={urlValidator} />
+			bind:value={selectUrl} />
 		<SlabButton
 			variant="outlined"
 			alignment="left"
