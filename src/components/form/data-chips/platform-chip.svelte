@@ -20,7 +20,7 @@
 </script>
 
 <li class="flex w-min items-center gap-4">
-	<ExternalIcon platform={platform.name} />
+	<ExternalIcon platform={platform.platform} />
 	<Icon icon="Starmark" size="small" />
 	<SlabAnchorExternal href={platform.url} variant="filled" alignment="center" fit="min">
 		<Icon icon="Link" />
