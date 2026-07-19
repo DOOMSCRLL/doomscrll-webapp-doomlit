@@ -48,7 +48,7 @@
 		if (urlValidation?.type === "error") {
 			errorMessage = "MISSING_MSG_PLATFORM_URL_INVALID"
 		} else {
-			selectedPlatforms.add({ name: selectName as PlatformName, url: selectUrl })
+			selectedPlatforms.add({ platform: selectName as PlatformName, url: selectUrl })
 		}
 	}
 
@@ -97,7 +97,7 @@
 	</section>
 	<DataChipContainer layout="column">
 		<PlatformChip platform={primaryPlatform} />
-		{#each selectedPlatforms as platform (platform.name)}
+		{#each selectedPlatforms as platform (platform.platform)}
 			<PlatformChip {platform} onRemove={handlePlatformRemove} />
 		{/each}
 	</DataChipContainer>
