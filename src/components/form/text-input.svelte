@@ -3,8 +3,6 @@
 	import TooltipButton from "comps/buttons/tooltip-button.svelte"
 	import Icon from "comps/icons/icon.svelte"
 
-	import type { StatusMessage } from "validators/doomlit"
-
 	type Props = {
 		name: string
 		label: string
@@ -12,8 +10,7 @@
 		instructions?: string
 		tooltip?: string
 		doRenderLabel?: boolean
-		status?: StatusMessage
-		validator?: (value: string | undefined) => StatusMessage | undefined
+		errorMessage?: string
 		value?: string
 		inputType?: "text" | "url" | "email" | "otp"
 		layout?: "column" | "row"
@@ -27,8 +24,7 @@
 		instructions,
 		tooltip,
 		doRenderLabel = true,
-		status = $bindable(),
-		validator,
+		errorMessage,
 		value = $bindable(),
 		inputType = "text",
 		layout = "row",
@@ -36,11 +32,6 @@
 	}: Props = $props()
 
 	const nativeInputType = $derived(inputType === "otp" ? "text" : inputType)
-	let isFocused = $state(false)
-
-	$effect(() => {
-		if (validator) status = validator(value)
-	})
 </script>
 
 <section class="flex h-min w-full flex-col items-start gap-4">
@@ -75,20 +66,13 @@
 				"cursor-text text-center font-serif text-2xl font-medium tracking-tighter text-inverse",
 				"placeholder:text-[darkgray] placeholder:italic",
 			]}
-			onfocus={() => (isFocused = true)}
-			onblur={() => (isFocused = false)}
 			bind:value />
 	</section>
 
-	{#if status?.message && (status.type === "error" || isFocused)}
-		<p
-			class={[
-				"font-serif text-xl font-medium tracking-tight",
-				status.type === "error" ? "text-accent" : "text-inverse",
-				"ml-4 flex items-center gap-2",
-			]}>
-			<Icon icon={status.type === "error" ? "Cancel" : "Help"} />
-			{status.message}
+	{#if errorMessage}
+		<p class="ml-4 flex items-center gap-2 font-serif text-xl font-medium tracking-tight text-accent">
+			<Icon icon="Cancel" />
+			{errorMessage}
 		</p>
 	{/if}
 </section>
