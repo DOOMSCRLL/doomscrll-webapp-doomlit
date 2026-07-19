@@ -4,6 +4,7 @@ import type { Actions, PageServerLoad } from "./$types"
 
 import type Category from "models/category"
 import type Project from "models/project"
+import { getCsrfToken } from "repos/auth-repo"
 import { getCreatorProject, publishCreatorProject, updateCreatorProject } from "repos/project-repo"
 
 export const load: PageServerLoad = async ({ params, fetch }) => {
@@ -39,11 +40,14 @@ export const actions: Actions = {
 		const formData = await request.formData()
 		const locale = locals.locale
 
+		const { csrfToken } = await getCsrfToken(fetch)
+		if (!csrfToken) return fail(403, { status: "ERROR_CSRF", message: "Security token missing. Please try again." })
+
 		let updateMsg: string
 
 		try {
 			const payload = parseFormDataToPayload(formData)
-			const response = await updateCreatorProject(referenceId, payload, locale, fetch)
+			const response = await updateCreatorProject(referenceId, payload, locale, csrfToken, fetch)
 			updateMsg = response.success === true ? response.message : ""
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
@@ -57,7 +61,7 @@ export const actions: Actions = {
 		}
 
 		try {
-			const response = await publishCreatorProject(referenceId, locale, fetch)
+			const response = await publishCreatorProject(referenceId, locale, csrfToken, fetch)
 			return {
 				status: "PUBLISH_READY" as const,
 				message: response.success ? `${updateMsg}\n\n${response.message}` : undefined,
