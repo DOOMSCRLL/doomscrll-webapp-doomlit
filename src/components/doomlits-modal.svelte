@@ -11,14 +11,14 @@
 	}
 
 	let { projectEntries, trigger = $bindable() }: Props = $props()
-	// FIXME: the width of the dialog is off.
+
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).reservation.doomlitMenu)
 </script>
 
 <Modal header={dict.title} closeLabel={dict.labelClose} width="min" bind:trigger>
 	{#if projectEntries}
 		<p class="font-serif text-xl font-medium tracking-tight text-inverse">{dict.copy}</p>
-		<ul class="flex w-fit list-none flex-col gap-4">
+		<ul class="flex w-full list-none flex-col gap-4">
 			{#each projectEntries as p (p.referenceId)}
 				<ProjectReferenceAnchor entry={p} />
 			{/each}
