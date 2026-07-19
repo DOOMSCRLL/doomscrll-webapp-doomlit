@@ -2,11 +2,11 @@
 	import { SvelteSet } from "svelte/reactivity"
 
 	import { LocaleContext } from "contexts/shared.svelte"
+	import type Category from "models/category"
 	import type ProjectTag from "models/project-tag"
 	import { getDictionaryOf } from "repos/locale-repo"
-
-	import type Category from "models/category"
 	import { getTagsFor } from "repos/tag-repo"
+
 	import DDropdown from "./d-dropdown/d-dropdown.svelte"
 	import DataChipContainer from "./data-chips/data-chip-container.svelte"
 	import TagChip from "./data-chips/tag-chip.svelte"
@@ -22,7 +22,11 @@
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).doomlits.projectForm.tags)
 	let isDisabled = $derived(selectedTags.size >= maxTagCount)
 
-	const tags = $derived<ProjectTag[]>(getTagsFor(category))
+	const tagList = $derived(getTagsFor(category))
+	const tags = $derived.by<ProjectTag[]>(() => {
+		if (selectedTags.size <= 0) return tagList
+		else return tagList.filter((t) => !selectedTags.has(t))
+	})
 
 	function handleTagSelection(value: string) {
 		selectedTags.add(value as ProjectTag)
