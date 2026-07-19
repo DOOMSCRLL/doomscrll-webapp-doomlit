@@ -14,7 +14,6 @@
 	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import DDate from "utils/d-date"
-	import { DoomlitValidator } from "validators/doomlit"
 
 	import BrandNav from "comps/brand-nav.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
@@ -33,6 +32,7 @@
 	import Icon from "comps/icons/icon.svelte"
 	import SpinnerModal from "comps/spinner-modal.svelte"
 	import UrgentModal from "comps/urgent-modal.svelte"
+	import { DoomlitValidator } from "validators/doomlit"
 	// #endregion
 
 	const { data } = $props()
@@ -41,8 +41,6 @@
 	const dict = $derived(getDictionaryOf(locale).doomlits)
 	const formDict = $derived(dict.projectForm)
 	const fmt = $derived(DateFmtContext.context.value!)
-
-	const validator = $derived(new DoomlitValidator(dict))
 
 	let helpModalTrigger = $state<HTMLButtonElement>()
 
@@ -79,7 +77,7 @@
 	// #endregion
 
 	// #region From Update action to server action
-	const publishData = $derived<Partial<Project>>({
+	const updatedProject = $derived<Partial<Project>>({
 		name: projectName,
 		category,
 		description: projectDescription,
@@ -90,7 +88,7 @@
 		coverImagePath: coverPreviewUrls.length > 0 ? coverPreviewUrls[0] : undefined,
 		screenshotPaths: screenshotPreviewUrls,
 	})
-	const isDirty = $derived(validator.checkIsDirty(project, publishData))
+	const isDirty = $derived(DoomlitValidator.checkIsDirty(project, updatedProject))
 	let isPublishing = $state(false)
 
 	async function processImagesToCDN() {
@@ -201,6 +199,7 @@
 	<section class="h-full w-full overflow-hidden rounded-3xl border-4 border-inverse p-4 pr-1">
 		<form
 			action="?/publish"
+			enctype="multipart/form-data"
 			method="POST"
 			use:enhance={handlePublish}
 			class="grid h-full w-full [scrollbar-color:var(--color-accent)_transparent] auto-rows-min grid-cols-2 justify-items-center gap-12 overflow-y-auto">
@@ -235,13 +234,10 @@
 				options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
 				bind:value={category} />
 			<TagDdropdown {category} {selectedTags} maxTagCount={data.rules.maxTagCount} />
-			<PlatformDdropdown
-				{category}
-				{primaryPlatform}
-				{selectedPlatforms}
-				urlValidator={validator.validatePlatformUrl} />
+			<PlatformDdropdown {category} {primaryPlatform} {selectedPlatforms} />
 			<ImgInput
 				name="coverImagePath"
+				initialUrls={project.coverImagePath ? [project.coverImagePath] : []}
 				label={formDict.coverImg.label}
 				placeholder={formDict.coverImg.placeholder}
 				instructions={formDict.coverImg.instructions}
@@ -249,24 +245,22 @@
 				imageType="cover"
 				maxFileSizeMB={data.rules.maxImageFileSizeMB}
 				bind:processedBlobs={coverBlobs}
-				bind:previewUrls={coverPreviewUrls}
-				initialUrls={project.coverImagePath ? [project.coverImagePath] : []} />
+				bind:previewUrls={coverPreviewUrls} />
 			<TextArea
 				name="description"
 				label={formDict.description.label}
 				placeholder={formDict.description.placeholder}
 				instructions={formDict.description.instructions}
-				bind:value={projectDescription}
-				validator={validator.validateDescription} />
+				bind:value={projectDescription} />
 			<YoutubeVideoInput
 				name="videoUrl"
 				label={formDict.video.label}
 				placeholder={formDict.video.placeholder}
 				instructions={formDict.video.instructions}
-				bind:url={projectVideoUrl}
-				validator={validator.validateVideoUrl} />
+				bind:url={projectVideoUrl} />
 			<ImgInput
 				name="screenshotPaths"
+				initialUrls={project.screenshotPaths ?? []}
 				label={formDict.screenshots.label}
 				placeholder={formDict.screenshots.placeholder}
 				instructions={formDict.screenshots.instructions}
@@ -276,8 +270,7 @@
 				maxImages={data.rules.maxScreenshotCount}
 				maxFileSizeMB={data.rules.maxImageFileSizeMB}
 				bind:processedBlobs={screenshotBlobs}
-				bind:previewUrls={screenshotPreviewUrls}
-				initialUrls={project.screenshotPaths ?? []} />
+				bind:previewUrls={screenshotPreviewUrls} />
 			<section class="col-[span_2] w-full">
 				<FeatureDdropdown {category} {selectedFeatures} />
 			</section>
