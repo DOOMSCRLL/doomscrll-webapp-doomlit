@@ -235,7 +235,7 @@
 						<DOptionGroup label={group.label}>
 							{#each group.opts as opt (opt.value)}{@render dopt(opt)}{/each}
 						</DOptionGroup>
-						{#if i < options.length}<hr class="my-2 border border-inverse" />{/if}
+						{#if i < options.length - 1}<hr class="my-2 border border-inverse" />{/if}
 					{/each}
 				{/if}
 			</ul>
