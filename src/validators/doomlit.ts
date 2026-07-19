@@ -1,43 +1,38 @@
-import type { Dictionary } from "models/internal/locale"
 import type Project from "models/project"
 
-export type StatusMessage = { type?: "error" | "info"; message?: string }
+export type StatusErrorCode = "ERROR_VIDEO_URL_INVALID" | "ERROR_DESC_TOO_LONG" | "ERROR_PLATFORM_URL_INVALID"
+/*export type StatusInfoCode = ""*/
+export type StatusMessage = { type?: "error"; code?: StatusErrorCode } /*| { type?: "info"; code: StatusInfoCode }*/
 
 export class DoomlitValidator {
-	dict: Dictionary["doomlits"]
-
-	constructor(dict: Dictionary["doomlits"]) {
-		this.dict = dict
+	private constructor() {
+		throw Error("This class shouldn't be instanced.")
 	}
 
-	validateVideoUrl(value: string | undefined): StatusMessage | undefined {
+	static validateVideoUrl(value: string | undefined): StatusMessage | undefined {
 		if (!value) return undefined
 
 		const isValid = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/.test(value)
 
-		if (!isValid) return { type: "error", message: this.dict.projectForm.video.status.invalidUrl }
+		if (!isValid) return { type: "error", code: "ERROR_VIDEO_URL_INVALID" }
 		return undefined
 	}
 
-	validateDescription(value: string | undefined): StatusMessage | undefined {
+	static validateDescription(value: string | undefined): StatusMessage | undefined {
 		if (!value) return undefined
-
-		if (value.length > 256) {
-			return { type: "error", message: "MISSING_ERROR_DESCRIPTION_TOO_LONG" }
-		}
+		if (value.length > 256) return { type: "error", code: "ERROR_DESC_TOO_LONG" }
 		return undefined
 	}
 
-	validatePlatformUrl(value: string | undefined): StatusMessage | undefined {
+	static validatePlatformUrl(value: string | undefined): StatusMessage | undefined {
 		if (!value) return undefined
 
 		const isValid = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(value)
-
-		if (!isValid) return { type: "error", message: "MISSING_ERROR_PLATFORM_URL_INVALID" }
+		if (!isValid) return { type: "error", code: "ERROR_PLATFORM_URL_INVALID" }
 		return undefined
 	}
 
-	checkIsDirty(original: Project, next: Partial<Project>): boolean {
+	static checkIsDirty(original: Project, next: Partial<Project>): boolean {
 		if (original.name !== next.name) return true
 		if (original.category !== next.category) return true
 		if ((original.description ?? undefined) !== (next.description ?? undefined)) return true
@@ -60,7 +55,7 @@ export class DoomlitValidator {
 		return false
 	}
 
-	private compareArrays<T>(
+	private static compareArrays<T>(
 		arr1: T[] | undefined | null,
 		arr2: T[] | undefined | null,
 		comparator?: (a: T, b: T) => boolean,
