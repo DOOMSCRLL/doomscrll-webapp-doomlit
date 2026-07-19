@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { SvelteSet } from "svelte/reactivity"
+	import { untrack } from "svelte"
+	import { SvelteSet } from "svelte/reactivity"
 
 	import type Category from "models/category"
 	import type { PlatformName, PlatformRecord } from "models/platform"
@@ -27,7 +28,15 @@
 	const locale = $derived(LocaleContext.context.value!)
 	const dict = $derived(getDictionaryOf(locale).doomlits.projectForm.platforms)
 
-	const platformOpts = $derived<PlatformName[]>(getPlatformsListFor(category))
+	const selectedPlatformNames = new SvelteSet<PlatformName>(
+		untrack(() => Array.from(selectedPlatforms, (p) => p.platform)),
+	)
+
+	const platformList = $derived(getPlatformsListFor(category))
+	const platformOpts = $derived.by<PlatformName[]>(() => {
+		if (selectedPlatforms.size <= 0) return platformList
+		else return platformList.filter((p) => !selectedPlatformNames.has(p) && p !== primaryPlatform.platform)
+	})
 	const socialPlatformOpts = getPlatformsListFor("Internal_Socials").map((p) => ({
 		value: p,
 		label: getPlatformName(p),
@@ -49,6 +58,7 @@
 			errorMessage = "MISSING_MSG_PLATFORM_URL_INVALID"
 		} else {
 			selectedPlatforms.add({ platform: selectName as PlatformName, url: selectUrl })
+			selectedPlatformNames.add(selectName as PlatformName)
 		}
 	}
 
