@@ -47,7 +47,7 @@ export class DoomlitValidator {
 			!this.compareArrays(
 				original.secondaryPlatforms,
 				next.secondaryPlatforms,
-				(a, b) => a.name === b.name && a.url === b.url,
+				(a, b) => a.platform === b.platform && a.url === b.url,
 			)
 		)
 			return true
