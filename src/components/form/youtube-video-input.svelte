@@ -2,12 +2,11 @@
 	import { LocaleContext } from "contexts/shared.svelte"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import { fetchYoutubeVideoDetails, toShortYoutubeURL, type YoutubeVideoDetails } from "utils/youtube-video-utils"
+	import { DoomlitValidator } from "validators/doomlit"
 
 	import SlabAnchorExternal from "comps/buttons/slab-anchor-external.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import TextInput from "./text-input.svelte"
-
-	import type { StatusMessage } from "validators/doomlit"
 
 	type Props = {
 		name: string
@@ -16,49 +15,46 @@
 		instructions?: string
 		url?: string
 		normalizedUrl?: string
-		validator?: (value: string | undefined) => StatusMessage | undefined
 	}
 
-	let { name, label, placeholder, instructions, url = $bindable(), normalizedUrl = $bindable(), validator }: Props = $props()
+	let { name, label, placeholder, instructions, url = $bindable(), normalizedUrl = $bindable() }: Props = $props()
 
 	const parentDict = $derived(getDictionaryOf(LocaleContext.context.value!).doomlits)
 	const previewDict = $derived(parentDict.videoPreview)
 	const fieldDict = $derived(parentDict.projectForm.video)
 
 	let videoDetails = $state<YoutubeVideoDetails>()
-	let status = $state<StatusMessage>()
+	let errorMessage = $state<string>()
 	const heightThumbnail = 128
 
 	async function validateAndFetchVideo() {
 		if (!url) {
 			videoDetails = undefined
-			status = undefined
+			errorMessage = undefined
 			return
 		}
 
-		if (validator) {
-			const validationStatus = validator(url)
-			if (validationStatus?.type === "error") {
-				status = validationStatus
-				videoDetails = undefined
-				return
-			}
+		const validationResult = DoomlitValidator.validateVideoUrl(url)
+		if (validationResult?.type === "error") {
+			errorMessage = "MISSING_INVALID_VIDEO_MESSAGE"
+			videoDetails = undefined
+			return
 		}
 
 		try {
-			const validation = await fetchYoutubeVideoDetails(url)
-			normalizedUrl = toShortYoutubeURL(validation.videoId)
-			videoDetails = validation
-			status = undefined
+			const res = await fetchYoutubeVideoDetails(url)
+			normalizedUrl = toShortYoutubeURL(res.videoId)
+			videoDetails = res
+			errorMessage = undefined
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			videoDetails = undefined
 			if (error.message === "URL is not a valid YouTube URL.") {
-				status = { message: fieldDict.status.invalidUrl, type: "error" }
+				errorMessage = fieldDict.status.invalidUrl
 			} else if (error.message.includes("status: 404") || error.message.includes("status: 401")) {
-				status = { message: fieldDict.status.unavailable, type: "error" }
+				errorMessage = fieldDict.status.unavailable
 			} else {
-				status = { message: fieldDict.status.internalError, type: "error" }
+				errorMessage = fieldDict.status.internalError
 			}
 		}
 	}
@@ -74,10 +70,10 @@
 		{label}
 		{placeholder}
 		{instructions}
+		{errorMessage}
 		tooltip={previewDict.tooltip}
 		inputType="url"
 		layout="column"
-		{status}
 		bind:value={url} />
 
 	{#if videoDetails}
