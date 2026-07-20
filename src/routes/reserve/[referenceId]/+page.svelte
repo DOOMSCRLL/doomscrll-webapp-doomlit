@@ -31,8 +31,6 @@
 
 	const project = $derived(data.project)
 
-	//let errorDetails = $state<Record<string, unknown>>()
-
 	let isDraftExpired = $state(false)
 	function onDraftExpiration() {
 		isDraftExpired = true
@@ -45,18 +43,16 @@
 </svelte:head>
 
 {#snippet labeledText(label: string, content: string)}
-	<p class="flex justify-between font-serif text-xl font-bold text-accent lowercase italic">
-		{label}:<span class="font-medium text-inverse normal-case not-italic">{content}</span>
-	</p>
+	<p class="font-serif text-xl font-bold text-accent lowercase italic">{label}:</p>
+	<p class="font-serif text-xl font-medium text-inverse">{content}</p>
 {/snippet}
 
 <main class="flex h-screen w-full flex-col items-center justify-around overflow-hidden supports-[height:100dvh]:h-dvh">
-	<section class="flex h-full w-min min-w-60/100 flex-col items-stretch justify-evenly">
-		<DoomscrllWordmark />
-
+	<DoomscrllWordmark />
+	<section class="flex h-full w-[50vw] flex-col items-center justify-evenly">
 		{#if !isDraftExpired}
 			<p class="font-serif text-xl font-medium tracking-tight whitespace-pre-wrap text-inverse">{dict.copy}</p>
-			<section class="flex w-full flex-col gap-2 rounded-3xl border-4 border-inverse p-6">
+			<section class="grid w-fit auto-rows-fr grid-cols-2 gap-4 rounded-3xl border-4 border-inverse p-6">
 				{@render labeledText(
 					dict.details.labelReservationDate,
 					fmt.getFullDate(DDate.fromISOString(project.showcaseDate)),
@@ -74,10 +70,12 @@
 				</form>
 				<DoomlitReservationAnchor label={dict.actions.labelProceed} referenceId={project.referenceId} />
 			</section>
-			<Countdown
-				durationMins={data.rules.draftExpirationMinutes}
-				startTimestamp={new Date(data.project.reservedAt)}
-				onCountdownEnd={onDraftExpiration} />
+			<section class="w-full">
+				<Countdown
+					durationMins={data.rules.draftExpirationMinutes}
+					startTimestamp={new Date(data.project.reservedAt)}
+					onCountdownEnd={onDraftExpiration} />
+			</section>
 		{:else}
 			<p class="font-serif text-2xl font-medium tracking-tight whitespace-pre-wrap text-inverse">
 				{dict.copyExpiration}
