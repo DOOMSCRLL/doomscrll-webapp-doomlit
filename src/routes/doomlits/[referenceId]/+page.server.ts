@@ -37,7 +37,7 @@ export const actions: Actions = {
 		const referenceId = params.referenceId
 		if (!referenceId)
 			return fail(400, {
-				status: 'The "Reference ID" of the project is missing! Please contact us from: hey@doomscrll.com',
+				status: 'The "Reference ID" of the project is missing! Please contact us from: hello@doomscrll.com',
 			})
 
 		const formData = await request.formData()
