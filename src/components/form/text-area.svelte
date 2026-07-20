@@ -1,6 +1,8 @@
 <script lang="ts">
 	import BadgeText from "comps/badge-text.svelte"
 	import Icon from "comps/icons/icon.svelte"
+	import { LocaleContext } from "contexts/shared.svelte"
+	import { getDictionaryOf } from "repos/locale-repo"
 
 	import { DoomlitValidator } from "validators/doomlit"
 
@@ -14,11 +16,12 @@
 
 	let { name, label, placeholder, instructions, value = $bindable() }: Props = $props()
 
+	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).doomlits.projectForm.description)
 	let errorMessage = $state<string>()
 	$effect(() => {
 		const descValidation = DoomlitValidator.validateDescription(value)
 		if (descValidation?.type === "error") {
-			errorMessage = "MISSING_MSG_DESC_TOO_LONG"
+			errorMessage = dict.errorMessages.descTooLong
 		}
 	})
 </script>

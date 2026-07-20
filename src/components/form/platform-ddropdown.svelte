@@ -55,7 +55,7 @@
 		if (!selectName || !selectUrl) return
 		const urlValidation = DoomlitValidator.validatePlatformUrl(selectUrl)
 		if (urlValidation?.type === "error") {
-			errorMessage = "MISSING_MSG_PLATFORM_URL_INVALID"
+			errorMessage = dict.errorMessages.invalidPlatformUrl
 		} else {
 			selectedPlatforms.add({ platform: selectName as PlatformName, url: selectUrl })
 			selectedPlatformNames.add(selectName as PlatformName)

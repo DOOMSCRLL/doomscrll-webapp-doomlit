@@ -215,6 +215,9 @@ export default {
           ${MARKER_NEWLINE}• You can choose a platform for the category you chose, or a social or crowdfunding platform to add.
           ${MARKER_NEWLINE}• To add a platform, you need to enter a valid URL pointing to your project on that platform.
           ${MARKER_NEWLINE}• Users can see and access these links from project page.`,
+				errorMessages: {
+					invalidPlatformUrl: "The platform URL is invalid.",
+				},
 				dropdown: {
 					label: "Platforms project is available on",
 					placeholder: "Select a platform",
@@ -261,6 +264,9 @@ export default {
 				label: "Describe your project",
 				placeholder: "Tell the world about your project!",
 				instructions: "max. 256 chars.",
+				errorMessages: {
+					descTooLong: "Description is too long. (max 256 chars.)",
+				},
 			},
 			video: {
 				label: "YouTube URL of it's trailer",

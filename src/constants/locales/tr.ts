@@ -219,6 +219,9 @@ export default {
           ${MARKER_NEWLINE}• Seçtiğin kategoriye ait bir platform, ya da bir sosyal medya veya kitle fonlaması platformu ekleyebilirsin.
           ${MARKER_NEWLINE}• Bir platform eklemek için, o platformdan projene ulaşılabilecek bir bağlantı girmelisin.
           ${MARKER_NEWLINE}• Kullanıcılar proje sayfasında bu bağlantılara erişebilirler.`,
+				errorMessages: {
+					invalidPlatformUrl: "The platform URL is invalid.",
+				},
 				dropdown: {
 					label: "Projenin yayınlandığı platform",
 					placeholder: "Kullanıcıların projene ulaşabileceği bir platform seç.",
@@ -266,6 +269,9 @@ export default {
 				label: "Projeni anlat",
 				placeholder: "Dünyaya projeni anlat!",
 				instructions: "max. 256 karakter",
+				errorMessages: {
+					descTooLong: "Açıklama çok uzun. (maks. 256 karakter)",
+				},
 			},
 			video: {
 				label: "YouTube'dan tanıtım videosu",

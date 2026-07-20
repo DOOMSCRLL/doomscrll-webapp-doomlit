@@ -36,7 +36,7 @@
 
 		const validationResult = DoomlitValidator.validateVideoUrl(url)
 		if (validationResult?.type === "error") {
-			errorMessage = "MISSING_INVALID_VIDEO_MESSAGE"
+			errorMessage = fieldDict.status.invalidUrl
 			videoDetails = undefined
 			return
 		}

@@ -35,7 +35,10 @@ function parseFormDataToPayload(formData: FormData): Partial<Project> {
 export const actions: Actions = {
 	publish: async ({ request, fetch, params, locals }) => {
 		const referenceId = params.referenceId
-		if (!referenceId) return fail(400, { status: "ERROR_MISSING_REF_ID" }) // TODO: Needs a locale string
+		if (!referenceId)
+			return fail(400, {
+				status: 'The "Reference ID" of the project is missing! Please contact us from: hey@doomscrll.com',
+			})
 
 		const formData = await request.formData()
 		const locale = locals.locale
