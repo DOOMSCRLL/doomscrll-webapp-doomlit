@@ -167,6 +167,11 @@ export default {
 		},
 		manage: {
 			label: "Manage",
+			actions: {
+				labelReschedule: "Reschedule",
+				labelRefund: "Cancel & Refund",
+				labelSupport: "Get Support",
+			},
 		},
 		statusModals: {
 			inProgress: {

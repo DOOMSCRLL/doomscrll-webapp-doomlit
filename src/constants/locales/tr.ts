@@ -167,7 +167,12 @@ export default {
 			ready: "Gösterime hazır",
 		},
 		manage: {
-			label: "Manage",
+			label: "Yönet",
+			actions: {
+				labelReschedule: "Tarih Değiştir",
+				labelRefund: "İptal ve İade",
+				labelSupport: "Desteğe Ulaş",
+			},
 		},
 		statusModals: {
 			inProgress: {
