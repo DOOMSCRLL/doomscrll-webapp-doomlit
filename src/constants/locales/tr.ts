@@ -323,6 +323,37 @@ export default {
 			labelYoutubeAnchor: "İlgili videoyu yeni sekmede aç.",
 		},
 	},
+	doomlitReschedule: {
+		meta: {
+			titlePrefix: "Yeniden Planla",
+			description: "Bu sayfadan, projenin gösterim tarihini gelecekteki bir tarihle değiştirebilirsin.",
+		},
+		labelPrevDate: "Mevcut gösterim tarihi",
+		labelSuffixReserv: "DOOMLIT ayırtıldı.",
+		actions: {
+			labelBack: "İptal et",
+			labelInvalid: "Geçersiz tarih",
+			labelValid: "Yeniden Planla",
+		},
+		statusMsg: {
+			success: {
+				title: "Yeniden planlama başarılı!",
+				body: "Projenin gösterim tarihi başarıyla güncellendi. Aşağıdaki düğmeye tıklayarak proje sayfasına dönebilirsin.",
+			},
+			fail: {
+				title: "Yeniden planlama başarısız",
+				body: "Projenin gösterim tarihi güncellenemedi. Lütfen tarihi kontrol et ve geçerli bir tarih seçtiğinden emin ol.",
+			},
+			error: {
+				title: "Beklenmedik hata",
+				body: "Beklenmedik bir hata oluştu. Lütfen daha sonra tekrar dene.",
+			},
+			action: {
+				labelClose: "Kapat",
+				labelReturn: "Geri dön",
+			},
+		},
+	},
 	auth: {
 		meta: {
 			title: "Giriş yap | DOOMSCRLL",

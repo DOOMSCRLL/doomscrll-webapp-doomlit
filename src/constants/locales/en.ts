@@ -318,6 +318,37 @@ export default {
 			labelYoutubeAnchor: "Open the linked video in new tab.",
 		},
 	},
+	doomlitReschedule: {
+		meta: {
+			titlePrefix: "Reschedule",
+			description: "You can reschedule your project's showcase to a future date from this page.",
+		},
+		labelPrevDate: "Current showcase date",
+		labelSuffixReserv: "DOOMLITs reserved.",
+		actions: {
+			labelBack: "Cancel",
+			labelInvalid: "Invalid date",
+			labelValid: "Reschedule",
+		},
+		statusMsg: {
+			success: {
+				title: "Rescheduled successfully!",
+				body: "Project's showcase date has been rescheduled successfully. You can click button below to return to the project page.",
+			},
+			fail: {
+				title: "Couldn't reschedule",
+				body: "Project couldn't be rescheduled. Please check the date you selected, and make sure it is a valid date.",
+			},
+			error: {
+				title: "Unexpected error",
+				body: "An unexpected error has occurred. Please try again.",
+			},
+			action: {
+				labelClose: "Close",
+				labelReturn: "Return",
+			},
+		},
+	},
 	auth: {
 		meta: {
 			title: "Log in | DOOMSCRLL",
