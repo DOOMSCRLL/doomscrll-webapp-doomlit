@@ -220,3 +220,26 @@ export async function publishCreatorProject(
 
 	return result
 }
+
+export async function rescheduleCreatorProject(
+	referenceId: string,
+	newDate: string,
+	csrfToken?: string,
+	customFetch: typeof fetch = fetch,
+): Promise<APIResponse<never>> {
+	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}/reschedule`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json", ...(csrfToken && { "x-csrf-token": csrfToken }) },
+		body: JSON.stringify({ newDate }),
+	})
+	const result = (await response.json()) as APIResponse<never>
+
+	if (!result.success) {
+		throw error(response.status, {
+			message: result.error?.message,
+			code: result.error?.code,
+		})
+	}
+
+	return result
+}
