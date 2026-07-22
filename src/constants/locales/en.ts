@@ -419,7 +419,7 @@ export default {
 			{
 				label: "What is a DOOMLIT?",
 				body: ctsr`A DOOMLIT® is a 24-hour showcase for your project. For each day, there is a limited amount of DOOMLITs
-          available (256 per day) for each day, ensuring that each project gets visibility on audience app. A DOOMLIT can
+          available (40 per day) for each day, ensuring that each project gets visibility on audience app. A DOOMLIT can
           be reserved, and after reservation is confirmed by payment, can be updated before it's showcase date.
           Each DOOMLIT® is ephemeral, meaning after the showcase day, they get removed from the servers. To prevent abuse, DOOMSCRLL®
           uses an archive system, which it uses to enforce given rules for projects showcased on DOOMSCRLL®: First, a creator
@@ -438,7 +438,7 @@ export default {
 			},
 			{
 				label: "How do I explore projects on DOOMSCRLL®?",
-				body: ctsr`On DOOMSCRLL®, each day has a limited amount of DOOMLIT® slots (256 per day), meaning that each day
+				body: ctsr`On DOOMSCRLL®, each day has a limited amount of DOOMLIT® slots (40 per day), meaning that each day
           you will see new projects, brought to you without interference of ads, sponsors, algorithm, etc. And each DOOMLIT®
           has a category, and related "tags", so you can find what you are looking for by filtering. Otherwise, you will
           be presented with a randomly ordered selection of projects under the selected category.`,
@@ -455,8 +455,8 @@ export default {
 			},
 			{
 				label: "How do I showcase my project on DOOMSCRLL?",
-				body: ctsr`If you are a creator, you can reserve a DOOMLIT for 24-hours, in a day you choose, just for 1$. Each
-          day has limited slots (256 per day) available.`,
+				body: ctsr`If you are a creator, you can reserve a DOOMLIT for 24-hours, in a day you choose, just for 5$. Each
+          day has limited slots (40 per day) available.`,
 			},
 			{
 				label: "How does DOOMLIT reservation work?",
@@ -469,7 +469,7 @@ export default {
           can be managed and updated until it's showcase date. Lastly, if reservation fee isn't paid in 15 minutes, your
           reservation draft will be deleted.`,
 			},
-			{ label: "What is the price of a DOOMLIT reservation?", body: "Only 1$." },
+			{ label: "What is the price of a DOOMLIT reservation?", body: "Only 5$." },
 			{
 				label: "What are the rules of DOOMLIT reservations?",
 				body: ctsr`First, a profile can reserve one DOOMLIT® per two-weeks. Meaning at most, a creator can showcase two projects

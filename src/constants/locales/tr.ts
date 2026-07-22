@@ -426,7 +426,7 @@ export default {
 			{
 				label: "DOOMLIT nedir?",
 				body: ctsr`Bir DOOMLIT®, projen için 24 saatlik bir vitrindir. Her gün için, izleyici uygulamasında her projenin görünürlük
-          kazanmasını sağlayan sınırlı sayıda DOOMLIT (günde 256 adet) mevcuttur. Bir DOOMLIT rezerve edilebilir ve ödeme ile
+          kazanmasını sağlayan sınırlı sayıda DOOMLIT (günde 40 adet) mevcuttur. Bir DOOMLIT rezerve edilebilir ve ödeme ile
           onaylandıktan sonra sergilenme tarihinden önce güncellenebilir. Her DOOMLIT® geçicidir, yani sergilendiği günün
           ardından sunuculardan silinirler. Kötüye kullanımı önlemek amacıyla DOOMSCRLL®, platformda sergilenen projelere yönelik
           kuralları uygulamak için bir arşiv sistemi kullanır: Birincisi, bir yaratıcı iki haftada bir DOOMLIT rezerve edebilir,
@@ -446,7 +446,7 @@ export default {
 			},
 			{
 				label: "DOOMSCRLL® üzerinde projeleri nasıl keşfedebilirim?",
-				body: ctsr`DOOMSCRLL® üzerinde her gün sınırlı sayıda DOOMLIT® yuvası (günde 256 adet) bulunur, bu da her gün reklamların,
+				body: ctsr`DOOMSCRLL® üzerinde her gün sınırlı sayıda DOOMLIT® yuvası (günde 40 adet) bulunur, bu da her gün reklamların,
           sponsorların veya algoritmaların müdahalesi olmadan karşına çıkan yeni projeler göreceğin anlamına gelir. Ve her
           DOOMLIT®'in bir kategorisi ve ilgili "etiketleri" vardır, böylece filtreleme yaparak aradığını bulabilirsin.
           Aksi takdirde, seçili kategori altındaki projeler sana rastgele sıralanmış bir seçki olarak sunulur.`,
@@ -463,8 +463,8 @@ export default {
 			},
 			{
 				label: "Projemi DOOMSCRLL'de nasıl sergilerim?",
-				body: ctsr`Eğer bir yaratıcıysan, seçtiğin bir günde sadece 1$ karşılığında 24 saatliğine bir DOOMLIT rezerve edebilirsin.
-          Her gün için sınırlı sayıda yuva (günde 256 adet) mevcuttur.`,
+				body: ctsr`Eğer bir yaratıcıysan, seçtiğin bir günde sadece 5$ karşılığında 24 saatliğine bir DOOMLIT rezerve edebilirsin.
+          Her gün için sınırlı sayıda yuva (günde 40 adet) mevcuttur.`,
 			},
 			{
 				label: "DOOMLIT rezervasyonu nasıl çalışıyor?",
@@ -476,7 +476,7 @@ export default {
           DOOMLIT'ler sayfasından ek bilgiler eklemen gerekecek. DOOMLIT'in sergilenme tarihine kadar yönetilebilir ve
           güncellenebilir. Son olarak, rezervasyon ücreti 15 dakika içinde ödenmezse, rezervasyon taslağın silinir.`,
 			},
-			{ label: "Bir DOOMLIT rezervasyonunun ücreti nedir?", body: "Sadece 1$." },
+			{ label: "Bir DOOMLIT rezervasyonunun ücreti nedir?", body: "Sadece 5$." },
 			{
 				label: "DOOMLIT rezervasyonlarının kuralları nelerdir?",
 				body: ctsr`Birincisi, bir profil iki haftada bir DOOMLIT® rezerve edebilir. Yani bir yaratıcı ayda en fazla iki proje
