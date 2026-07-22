@@ -216,7 +216,7 @@
 			</section>
 			<section class="flex w-full items-center justify-evenly gap-4">
 				<ProjectStatusChip status={project.status} />
-				<ManageMenu />
+				<ManageMenu projectRefId={project.referenceId} />
 				<SlabButton
 					variant="filled"
 					fit="min"
