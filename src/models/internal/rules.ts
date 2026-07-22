@@ -6,7 +6,6 @@ export type DeadzoneWindow = {
 
 export type ProjectRules = {
 	maxReservationsPerDay: number
-	reservationWindowDays: number
 	cooldownPeriodDays: number
 	draftExpirationMinutes: number
 	deadzoneWindow: DeadzoneWindow
