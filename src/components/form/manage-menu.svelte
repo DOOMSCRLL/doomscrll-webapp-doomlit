@@ -3,16 +3,17 @@
 	import { getDictionaryOf } from "repos/locale-repo"
 
 	import SlabAnchorExternal from "comps/buttons/slab-anchor-external.svelte"
+	import SlabAnchor from "comps/buttons/slab-anchor.svelte"
 	import SlabButton from "comps/buttons/slab-button.svelte"
 	import Icon from "comps/icons/icon.svelte"
 	import Popover from "comps/popover.svelte"
 
 	type Props = {
-		rescheduleTrigger?: HTMLButtonElement
+		projectRefId: string
 		refundTrigger?: HTMLButtonElement
 	}
 
-	let { rescheduleTrigger = $bindable(), refundTrigger = $bindable() }: Props = $props()
+	let { projectRefId, refundTrigger = $bindable() }: Props = $props()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).doomlits.manage)
 
@@ -34,10 +35,11 @@
 		{dict.actions.labelSupport}
 		<Icon icon="ArrowExternal" />
 	</SlabAnchorExternal>
-	<SlabButton variant="text" fit="max" renderDecors={true} bind:reference={rescheduleTrigger}>
+	<hr class="w-full border-b-2 border-inverse" />
+	<SlabAnchor href="/doomlits/{projectRefId}/reschedule" variant="text" fit="max">
 		<Icon icon="Settings" />
 		{dict.actions.labelReschedule}
-	</SlabButton>
+	</SlabAnchor>
 	<SlabButton variant="text" hasAccent={true} fit="max" renderDecors={true} bind:reference={refundTrigger}>
 		<Icon icon="Purchase" />
 		{dict.actions.labelRefund}
