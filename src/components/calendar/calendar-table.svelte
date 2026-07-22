@@ -15,12 +15,11 @@
 		reservations: number[]
 		dailyReservationLimit: number
 		selectedDay?: string
-		prevHref?: `/?year=${number}&month=${number}`
-		nextHref?: `/?year=${number}&month=${number}`
+		prevHref?: `/?year=${number}&month=${number}` | `/doomlits/${string}/reschedule?year=${number}&month=${number}`
+		nextHref?: `/?year=${number}&month=${number}` | `/doomlits/${string}/reschedule?year=${number}&month=${number}`
 		isInteractive?: boolean
 	}
 
-	// TODO: Add a floating marker on the right edge of the calendar.
 	let {
 		month,
 		year,

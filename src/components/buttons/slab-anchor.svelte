@@ -19,6 +19,8 @@
 			| "/profile-settings"
 			| `/reserve/${string}`
 			| `/doomlits/${string}`
+			| `/doomlits/${string}/reschedule`
+			| `/doomlits/${string}/reschedule?year=${number}&month=${number}`
 		variant?: ButtonVariant
 		size?: ButtonSize
 		alignment?: HorizontalAlignment
