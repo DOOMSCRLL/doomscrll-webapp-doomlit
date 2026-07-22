@@ -132,7 +132,7 @@ export default {
 	},
 	payment: {
 		meta: {
-			titlePrefix: "Reservasyon Onayı",
+			titlePrefix: "Rezervasyon Onayı",
 			description: "Buradan, DOOMLIT'in için yaptığın rezervasyonu, rezervasyon ücretini ödeyerek tamamlayabilirsin.",
 		},
 		copy: ctsr`Buradan DOOMLIT taslağınızı inceleyebilirsin. Her şey olması gerektiği gibiyse, ödeme ekranına geçebilirsin.
@@ -146,8 +146,8 @@ export default {
 			labelRefId: "Referans ID",
 		},
 		actions: {
-			labelCancel: "Cancel",
-			labelProceed: "Proceed to payment",
+			labelCancel: "İptal et",
+			labelProceed: "Ödeme adımına geç",
 			labelReturn: "Geri dön",
 		},
 	},
@@ -225,7 +225,7 @@ export default {
           ${MARKER_NEWLINE}• Bir platform eklemek için, o platformdan projene ulaşılabilecek bir bağlantı girmelisin.
           ${MARKER_NEWLINE}• Kullanıcılar proje sayfasında bu bağlantılara erişebilirler.`,
 				errorMessages: {
-					invalidPlatformUrl: "The platform URL is invalid.",
+					invalidPlatformUrl: "Girdiğin platform bağlantısı geçersiz.",
 				},
 				dropdown: {
 					label: "Projenin yayınlandığı platform",
