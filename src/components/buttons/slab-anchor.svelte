@@ -21,7 +21,9 @@
 			| `/doomlits/${string}`
 			| `/doomlits/${string}/reschedule`
 			| `/doomlits/${string}/reschedule?year=${number}&month=${number}`
+			| `/doomlits/${string}/refund`
 		variant?: ButtonVariant
+		hasAccent?: boolean
 		size?: ButtonSize
 		alignment?: HorizontalAlignment
 		fit?: HorizontalFit
@@ -36,6 +38,7 @@
 		fit = "min",
 		size = "normal",
 		variant = "text",
+		hasAccent = false,
 		hasUnderline = false,
 		ariaLabel,
 		children,
