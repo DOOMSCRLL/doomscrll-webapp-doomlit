@@ -69,12 +69,16 @@
 		ttm(variant, {
 			filled: "bg-inverse not-disabled:hover:bg-inverse/40 not-disabled:active:bg-accent",
 			outlined: "pseudo-border bg-obverse not-disabled:hover:bg-inverse not-disabled:active:bg-accent",
-			text: "bg-obverse not-disabled:hover:bg-inverse not-disabled:active:bg-accent",
+			text: !hasAccent
+				? "bg-obverse not-disabled:hover:bg-inverse not-disabled:active:bg-accent"
+				: "bg-obverse not-disabled:hover:bg-accent not-disabled:active:bg-inverse",
 		}),
 		ttm(variant, {
 			filled: "text-obverse",
 			outlined: "text-inverse hover:text-obverse active:text-obverse",
-			text: "text-inverse hover:text-obverse active:text-obverse",
+			text: !hasAccent
+				? "text-inverse hover:text-obverse active:text-obverse"
+				: "text-accent not-disabled:hover:text-obverse not-disabled:active:text-obverse",
 		}),
 		hasUnderline && variant === "text" && "underline underline-offset-4",
 	]}>{@render children?.()}</a>
