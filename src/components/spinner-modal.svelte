@@ -1,8 +1,5 @@
 <script lang="ts">
-	import { LocaleContext } from "contexts/shared.svelte"
-	import { getDictionaryOf } from "repos/locale-repo"
-
-	const label = $derived(getDictionaryOf(LocaleContext.context.value!).common.headerSpinnerModal)
+	const { label } = $props()
 
 	let modalRef = $state<HTMLDialogElement>()
 	$effect(() => {
