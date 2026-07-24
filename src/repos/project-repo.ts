@@ -243,3 +243,24 @@ export async function rescheduleCreatorProject(
 
 	return result
 }
+
+export async function refundCreatorProject(
+	referenceId: string,
+	csrfToken?: string,
+	customFetch: typeof fetch = fetch,
+): Promise<APIResponse<never>> {
+	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}/refund`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json", ...(csrfToken && { "x-csrf-token": csrfToken }) },
+	})
+	const result = (await response.json()) as APIResponse<never>
+
+	if (!result.success) {
+		throw error(response.status, {
+			message: result.error?.message,
+			code: result.error?.code,
+		})
+	}
+
+	return result
+}
