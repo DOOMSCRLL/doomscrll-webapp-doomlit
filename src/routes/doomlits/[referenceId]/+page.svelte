@@ -42,6 +42,7 @@
 	const locale = $derived(LocaleContext.context.value!)
 	const dict = $derived(getDictionaryOf(locale).doomlits)
 	const formDict = $derived(dict.projectForm)
+
 	const fmt = $derived(DateFmtContext.context.value!)
 
 	let helpModalTrigger = $state<HTMLButtonElement>()
@@ -287,7 +288,7 @@
 <HelpModal bind:trigger={helpModalTrigger} />
 
 {#if isPublishing}
-	<SpinnerModal />
+	<SpinnerModal label={dict.spinnerBodyUpdating} />
 {:else if serverResponse}
 	<UrgentModal body={serverResponse} header={dict.statusModals.complete.headerSuccess}>
 		{#snippet actions()}
