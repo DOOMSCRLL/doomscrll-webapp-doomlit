@@ -60,8 +60,7 @@
 		else return `/?year=${date.getPreviousMonth().year}&month=${date.getPreviousMonth().month}`
 	})
 	const nextHref = $derived.by<DateQueryString | undefined>(() => {
-		if (DDate.getMonthDiff(tomorrow, date) >= data.rules.reservationWindowDays / 30) return undefined
-		else return `/?year=${date.getNextMonth().year}&month=${date.getNextMonth().month}`
+		return `/?year=${date.getNextMonth().year}&month=${date.getNextMonth().month}`
 	})
 
 	let selectedDayIso = $state(tomorrow.toISOString())
