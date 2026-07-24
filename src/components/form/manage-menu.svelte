@@ -8,12 +8,7 @@
 	import Icon from "comps/icons/icon.svelte"
 	import Popover from "comps/popover.svelte"
 
-	type Props = {
-		projectRefId: string
-		refundTrigger?: HTMLButtonElement
-	}
-
-	let { projectRefId, refundTrigger = $bindable() }: Props = $props()
+	const { projectRefId } = $props()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).doomlits.manage)
 
@@ -40,8 +35,8 @@
 		<Icon icon="Settings" />
 		{dict.actions.labelReschedule}
 	</SlabAnchor>
-	<SlabButton variant="text" hasAccent={true} fit="max" renderDecors={true} bind:reference={refundTrigger}>
+	<SlabAnchor href="/doomlits/{projectRefId}/refund" variant="text" hasAccent={true} fit="max">
 		<Icon icon="Purchase" />
 		{dict.actions.labelRefund}
-	</SlabButton>
+	</SlabAnchor>
 </Popover>
