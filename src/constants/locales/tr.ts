@@ -32,7 +32,6 @@ export default {
 				labelRemove: "Seçili özelliği projeden kaldırmak için tıkla.",
 			},
 		},
-		headerSpinnerModal: ctsr`Projen güncelleniyor, lütfen bu pencereyi kapatma.${MARKER_NEWLINE}Yalnızca birkaç saniye alacak!`,
 	},
 	errorPage: {
 		header: "Aha, bir hata yakaladın!",
@@ -143,7 +142,7 @@ export default {
 			labelProjectName: "Proje Adı",
 			labelCategory: "Kategori",
 			labelAuthor: "Yaratıcısı",
-			labelRefId: "Referans ID",
+			labelRefId: "Sorgu Kodu",
 		},
 		actions: {
 			labelCancel: "İptal et",
@@ -174,6 +173,7 @@ export default {
 				labelSupport: "Desteğe Ulaş",
 			},
 		},
+		spinnerBodyUpdating: ctsr`Projen güncelleniyor, lütfen bu pencereyi kapatma.${MARKER_NEWLINE}Yalnızca birkaç saniye alacak!`,
 		statusModals: {
 			inProgress: {
 				header: "Projen güncelleniyor",
@@ -347,6 +347,42 @@ export default {
 			error: {
 				title: "Beklenmedik hata",
 				body: "Beklenmedik bir hata oluştu. Lütfen daha sonra tekrar dene.",
+			},
+			action: {
+				labelClose: "Kapat",
+				labelReturn: "Geri dön",
+			},
+		},
+	},
+	doomlitRefund: {
+		meta: {
+			titlePrefix: "İptal ve İade",
+			description: "Bu sayfadan, projen için ayırttığın gösterimi iptal edip, iade talep edebilirsin.",
+		},
+		details: {
+			labelRefId: "Sorgu Kodu",
+			labelProjectName: "Proje Adı",
+			labelReservationDate: "Gösterim Tarihi",
+		},
+		textBody: "Bu projeyi iptal etmek ve iade talebi oluşturmak istediğinden emin misin?",
+		actions: {
+			labelCancel: "Geri dön",
+			labelRefund: "İptal ve iade",
+		},
+		spinnerBodyRefunding: ctsr`Geri ödeme talebin işleniyor... Lütfen bu pencereyi kapatma.`,
+		statusMsg: {
+			success: {
+				title: "İptal başarılı!",
+				body: ctsr`Projenin gösterimini iptal edildi ve iade süreci başlatıldı.
+          ${MARKER_NEWLINE}İadenin tamamlanması bir kaç iş günü sürebilir.`,
+			},
+			fail: {
+				title: "İptal başarısız.",
+				body: "İptal ve iade isteğin şuanda işleme alınamıyor. Lütfen daha sonra tekrar dene, ya da destek için bize ulaş.",
+			},
+			error: {
+				title: "Beklenmedik Hata",
+				body: "Beklenmedik bir hata oluştu. Lütfen destek için bizimle iletişime geç.",
 			},
 			action: {
 				labelClose: "Kapat",

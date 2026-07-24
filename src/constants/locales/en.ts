@@ -31,7 +31,6 @@ export default {
 				labelRemove: "Click to remove this feature from the project.",
 			},
 		},
-		headerSpinnerModal: ctsr`Updating your project, please do not close this window.${MARKER_NEWLINE}Will take a few seconds!`,
 	},
 	errorPage: {
 		header: "Hey, you found an error!",
@@ -173,6 +172,7 @@ export default {
 				labelSupport: "Get Support",
 			},
 		},
+		spinnerBodyUpdating: ctsr`Updating your project, please do not close this window.${MARKER_NEWLINE}Will take a few seconds!`,
 		statusModals: {
 			inProgress: {
 				header: "Updating your project",
@@ -346,6 +346,42 @@ export default {
 			action: {
 				labelClose: "Close",
 				labelReturn: "Return",
+			},
+		},
+	},
+	doomlitRefund: {
+		meta: {
+			titlePrefix: "Cancel & Refund",
+			description: "You can cancel and refund the reserved slot for your project's showcase from this page.",
+		},
+		details: {
+			labelRefId: "Reference ID",
+			labelProjectName: "Project Name",
+			labelReservationDate: "Reservation Date",
+		},
+		textBody: "Are you sure that you want to cancel showcase for this project, and create a refund request?",
+		actions: {
+			labelCancel: "Return",
+			labelRefund: "Cancel & Refund",
+		},
+		spinnerBodyRefunding: ctsr`Processing your refund... Please do not close this window.`,
+		statusMsg: {
+			success: {
+				title: "Cancellation successful!",
+				body: ctsr`You have successfully cancelled the showcase for your project, and refund is in process.
+          ${MARKER_NEWLINE}It may take a few business days for your refund to complete.`,
+			},
+			fail: {
+				title: "Cancellation failed.",
+				body: "The cancellation and refund request can't be processed at this time. Please try again later, or reach us for support.",
+			},
+			error: {
+				title: "Unexpected Error",
+				body: "An unexpected error has occurred. Please reach out to us for support.",
+			},
+			action: {
+				labelClose: "",
+				labelReturn: "",
 			},
 		},
 	},
