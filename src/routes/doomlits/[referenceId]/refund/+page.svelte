@@ -105,7 +105,7 @@
 				onClick={() => {
 					const success = statusMsg?.isSuccess
 					statusMsg = undefined
-					if (success) goto(resolve(`/doomlits/${data.project.referenceId}`))
+					if (success) goto(resolve(`/`))
 				}}>{statusMsg?.isSuccess ? dict.statusMsg.action.labelClose : dict.statusMsg.action.labelReturn}</SlabButton>
 		{/snippet}
 	</UrgentModal>
