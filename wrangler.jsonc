@@ -17,8 +17,11 @@
     }
   },
   "routes": [
-    { "pattern": "doomlit.doomscrll.com", "custom_domain": true }
+    {
+      "pattern": "doomlit.doomscrll.com",
+      "custom_domain": true
+    }
   ],
-  "workers_dev": true,
+  "workers_dev": false,
   "preview_urls": true
 }
