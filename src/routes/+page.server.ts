@@ -1,4 +1,4 @@
-import { env } from "$env/dynamic/private"
+import { API_BASE_URL } from "$env/static/private"
 
 import { fail, redirect, isRedirect, type Actions } from "@sveltejs/kit"
 import type { PageServerLoad } from "./$types"
@@ -47,14 +47,14 @@ export const actions: Actions = {
 		}
 
 		try {
-			const csrfRes = await fetch(`${env.API_BASE_URL}/auth/csrf`)
+			const csrfRes = await fetch(`${API_BASE_URL}/auth/csrf`)
 			const csrfData = await csrfRes.json()
 
 			if (!csrfRes.ok || !csrfData.success) {
 				return fail(500, { success: false, message: "Failed to acquire CSRF token." })
 			}
 
-			const response = await fetch(`${env.API_BASE_URL}/projects/reserve`, {
+			const response = await fetch(`${API_BASE_URL}/projects/reserve`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -88,7 +88,7 @@ export const actions: Actions = {
 	},
 	cancelDraft: async ({ request, fetch }) => {
 		try {
-			const csrfRes = await fetch(`${env.API_BASE_URL}/auth/csrf`)
+			const csrfRes = await fetch(`${API_BASE_URL}/auth/csrf`)
 			const csrfData = await csrfRes.json()
 
 			if (!csrfRes.ok || !csrfData.success) {
@@ -96,7 +96,7 @@ export const actions: Actions = {
 			}
 
 			const form = await request.formData()
-			const response = await fetch(`${env.API_BASE_URL}/projects/${form.get("activeDraftId")}`, {
+			const response = await fetch(`${API_BASE_URL}/projects/${form.get("activeDraftId")}`, {
 				method: "DELETE",
 				headers: {
 					"csrf-token": csrfData.csrfToken,

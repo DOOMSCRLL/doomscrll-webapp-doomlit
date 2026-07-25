@@ -1,6 +1,6 @@
 import { error, fail, isRedirect, redirect } from "@sveltejs/kit"
 
-import { env } from "$env/dynamic/private"
+import { API_BASE_URL } from "$env/static/private"
 import type { Actions, PageServerLoad } from "./$types"
 
 import type { ProjectDraft } from "models/internal/projects"
@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 	const referenceId = params.referenceId
 
 	try {
-		const response = await fetch(`${env.API_BASE_URL}/projects/drafts/${referenceId}`)
+		const response = await fetch(`${API_BASE_URL}/projects/drafts/${referenceId}`)
 		const result = await response.json()
 
 		if (!response.ok || !result.success) {
