@@ -6,7 +6,6 @@ node_modules
 .netlify
 .wrangler
 .cloudflare
-worker-configuration.d.ts
 /.svelte-kit
 /build
 dist
