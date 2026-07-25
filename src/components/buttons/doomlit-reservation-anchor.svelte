@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PUBLIC_DEV_LEMONSQUEEZY_PRODUCT_LINK } from "$env/static/public"
+	import { PUBLIC_TEST_LEMONSQUEEZY_PRODUCT_LINK } from "$env/static/public"
 	import Icon from "comps/icons/icon.svelte"
 
 	type Props = {
@@ -9,8 +9,9 @@
 
 	const { label, referenceId }: Props = $props()
 
+	// FIXME: Update this to use LIVE variables when Lemon Squeezy verifies my account.
 	const checkoutUrl = $derived.by(() => {
-		const url = new URL(PUBLIC_DEV_LEMONSQUEEZY_PRODUCT_LINK)
+		const url = new URL(PUBLIC_TEST_LEMONSQUEEZY_PRODUCT_LINK)
 		url.searchParams.set("checkout[custom][project_reference_id]", referenceId)
 		return url.toString()
 	})
