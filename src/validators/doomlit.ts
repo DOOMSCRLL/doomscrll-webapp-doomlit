@@ -1,8 +1,7 @@
 import type Project from "models/project"
 
 export type StatusErrorCode = "ERROR_VIDEO_URL_INVALID" | "ERROR_DESC_TOO_LONG" | "ERROR_PLATFORM_URL_INVALID"
-/*export type StatusInfoCode = ""*/
-export type StatusMessage = { type?: "error"; code?: StatusErrorCode } /*| { type?: "info"; code: StatusInfoCode }*/
+export type StatusMessage = { type?: "error"; code?: StatusErrorCode }
 
 export class DoomlitValidator {
 	private constructor() {

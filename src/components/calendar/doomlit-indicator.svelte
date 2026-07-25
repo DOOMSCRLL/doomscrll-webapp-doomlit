@@ -29,7 +29,6 @@
 		{:else if !isSelected && i >= activeSegCount}
 			<circle {cx} cy={SIZE_SEGMENT / 2} {r} class="fill-accent" />
 		{:else if isSelected && i >= activeSegCount}
-			<!--<circle {cx} cy={SIZE_SEGMENT / 2} r="4.5" class="fill-transparent stroke-obverse" stroke-width={WIDTH_STROKE} /> -->
 			<circle
 				{cx}
 				cy={SIZE_SEGMENT / 2}

@@ -17,7 +17,7 @@
 		maxTagCount: number
 	}
 
-	let { category, selectedTags, /*= $bindable(new SvelteSet())*/ maxTagCount }: Props = $props()
+	let { category, selectedTags, maxTagCount }: Props = $props()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).doomlits.projectForm.tags)
 	let isDisabled = $derived(selectedTags.size >= maxTagCount)

@@ -17,7 +17,7 @@
 		maxFeatCount?: number
 	}
 
-	const { category, selectedFeatures /*= $bindable(new SvelteSet())*/, maxFeatCount }: Props = $props()
+	const { category, selectedFeatures, maxFeatCount }: Props = $props()
 
 	const dict = $derived(getDictionaryOf(LocaleContext.context.value!).doomlits.projectForm.features)
 	let isDisabled = $derived(selectedFeatures.size >= (maxFeatCount ?? 1e4))
