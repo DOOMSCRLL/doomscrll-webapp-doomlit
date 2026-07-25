@@ -9,3 +9,4 @@ node_modules
 
 # Miscellaneous
 /static/
+worker-configuration.d.ts
