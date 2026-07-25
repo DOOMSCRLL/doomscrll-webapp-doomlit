@@ -8,7 +8,7 @@
   "main": ".svelte-kit/cloudflare/_worker.js",
   "assets": {
     "binding": "ASSETS",
-    "directory": ".svelte-kit/cloudflare",
+    "directory": ".svelte-kit/cloudflare"
   },
   "observability": {
     "logs": {
@@ -16,6 +16,9 @@
       "invocation_logs": true
     }
   },
+  "routes": [
+    { "pattern": "doomlit.doomscrll.com", "custom_domain": true }
+  ],
   "workers_dev": true,
-  "preview_urls": true,
+  "preview_urls": true
 }
