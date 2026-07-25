@@ -26,14 +26,14 @@ export const load: PageServerLoad = async ({ params, fetch }) => {
 export const actions: Actions = {
 	cancelDraft: async ({ params, fetch }) => {
 		try {
-			const csrfRes = await fetch(`${env.API_BASE_URL}/auth/csrf`)
+			const csrfRes = await fetch(`${API_BASE_URL}/auth/csrf`)
 			const csrfData = await csrfRes.json()
 
 			if (!csrfRes.ok || !csrfData.success) {
 				return fail(500, { success: false, message: "Failed to acquire CSRF token." })
 			}
 
-			const response = await fetch(`${env.API_BASE_URL}/projects/${params.referenceId}`, {
+			const response = await fetch(`${API_BASE_URL}/projects/${params.referenceId}`, {
 				method: "DELETE",
 				headers: {
 					"csrf-token": csrfData.csrfToken,
