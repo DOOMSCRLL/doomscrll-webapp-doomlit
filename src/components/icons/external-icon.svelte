@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { LocaleContext } from "contexts/shared.svelte"
-	import type { PlatformName } from "models/platform"
+	import type { PlatformKey } from "models/platform"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import { getPlatformIconPathFor, getPlatformName } from "repos/platform-repo"
 
 	type Props = {
-		platform: PlatformName
+		platform: PlatformKey
 	}
 
 	const { platform }: Props = $props()

@@ -3,7 +3,7 @@
 	import type { ComponentProps } from "svelte"
 
 	import { PLATFORMS } from "const/platforms"
-	import type { PlatformName } from "models/platform"
+	import type { PlatformKey } from "models/platform"
 
 	import FEATURES from "const/features"
 	import TAGS from "const/tags"
@@ -29,7 +29,7 @@
 			{
 				label: "",
 				opts: Object.keys(PLATFORMS)
-					.map((p) => ({ value: p, label: PLATFORMS[p as PlatformName].name }))
+					.map((p) => ({ value: p, label: PLATFORMS[p as PlatformKey].name }))
 					.sort(),
 			},
 		],

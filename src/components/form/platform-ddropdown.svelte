@@ -3,7 +3,7 @@
 	import { SvelteSet } from "svelte/reactivity"
 
 	import type Category from "models/category"
-	import type { PlatformName, PlatformRecord } from "models/platform"
+	import type { PlatformKey, PlatformRecord } from "models/platform"
 	import { getPlatformName, getPlatformsListFor } from "repos/platform-repo"
 	import { DoomlitValidator } from "validators/doomlit"
 
@@ -28,12 +28,12 @@
 	const locale = $derived(LocaleContext.context.value!)
 	const dict = $derived(getDictionaryOf(locale).doomlits.projectForm.platforms)
 
-	const selectedPlatformNames = new SvelteSet<PlatformName>(
+	const selectedPlatformNames = new SvelteSet<PlatformKey>(
 		untrack(() => Array.from(selectedPlatforms, (p) => p.platform)),
 	)
 
 	const platformList = $derived(getPlatformsListFor(category))
-	const platformOpts = $derived.by<PlatformName[]>(() => {
+	const platformOpts = $derived.by<PlatformKey[]>(() => {
 		if (selectedPlatforms.size <= 0) return platformList
 		else return platformList.filter((p) => !selectedPlatformNames.has(p) && p !== primaryPlatform.platform)
 	})
@@ -57,8 +57,8 @@
 		if (urlValidation?.type === "error") {
 			errorMessage = dict.errorMessages.invalidPlatformUrl
 		} else {
-			selectedPlatforms.add({ platform: selectName as PlatformName, url: selectUrl })
-			selectedPlatformNames.add(selectName as PlatformName)
+			selectedPlatforms.add({ platform: selectName as PlatformKey, url: selectUrl })
+			selectedPlatformNames.add(selectName as PlatformKey)
 		}
 	}
 

@@ -2,10 +2,11 @@
 	import { LocaleContext } from "contexts/shared.svelte"
 	import { getCategories, getCategoryLabelFor, isCategory } from "repos/category-repo"
 	import { getDictionaryOf } from "repos/locale-repo"
-	import { getPlatform, getPlatformsFor, slugToPlatformName } from "repos/platform-repo"
+	import { getPlatform, getPlatformsListFor } from "repos/platform-repo"
 	import type DDate from "utils/d-date"
 
 	import { enhance } from "$app/forms"
+	import type { PlatformKey } from "models/platform"
 	import SlabButton from "./buttons/slab-button.svelte"
 	import Dropdown from "./form/dropdown.svelte"
 	import TextInput from "./form/text-input.svelte"
@@ -26,8 +27,8 @@
 	const dict = $derived(getDictionaryOf(locale).reservation.reservationForm)
 
 	let selectedCategory = $state<string>()
-	let selectedPlatformSlug = $state<string>()
-	const selectedPlatformName = $derived(slugToPlatformName(selectedPlatformSlug))
+	let selectedPlatform = $state<PlatformKey>()
+
 	type Option = { label: string; value: string }
 	const categoryOpts = $derived<Option[]>(
 		getCategories().map((c) => ({ value: c, label: getCategoryLabelFor(c, locale) })),
@@ -35,10 +36,10 @@
 	const platformOpts = $derived.by<Option[]>(() => {
 		if (!selectedCategory || !isCategory(selectedCategory)) return []
 
-		const filteredPlatforms = getPlatformsFor(selectedCategory)
-		filteredPlatforms.push(getPlatform("web"))
+		const filteredPlatforms = getPlatformsListFor(selectedCategory)
+		filteredPlatforms.push("web")
 
-		return filteredPlatforms.map((p) => ({ label: p.name, value: p.slug }))
+		return filteredPlatforms.map((key) => ({ label: getPlatform(key).name, value: key }))
 	})
 </script>
 
@@ -79,10 +80,10 @@
 			placeholder={dict.inputPlatform.placeholder}
 			options={platformOpts}
 			isRequired={true}
-			bind:value={selectedPlatformSlug} />
-		{#if selectedPlatformName}
+			bind:value={selectedPlatform} />
+		{#if selectedPlatform}
 			<div class="flex items-end gap-12">
-				<ExternalIcon platform={selectedPlatformName} />
+				<ExternalIcon platform={selectedPlatform} />
 				<TextInput
 					name="project-url"
 					label={dict.inputPrimaryUrl.label}

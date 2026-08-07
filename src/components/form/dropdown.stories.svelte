@@ -2,7 +2,7 @@
 	import { defineMeta } from "@storybook/addon-svelte-csf"
 
 	import { getCategories, getCategoryLabelFor } from "repos/category-repo"
-	import { getPlatformsFor } from "repos/platform-repo"
+	import { getPlatform, getPlatformsListFor } from "repos/platform-repo"
 	import Dropdown from "./dropdown.svelte"
 
 	const { Story } = defineMeta({
@@ -25,7 +25,7 @@
 		label: "Platforms",
 		name: "platform",
 		placeholder: "Select a platform",
-		options: getPlatformsFor("Video Games").map((p) => ({ label: p.name, value: p.slug })),
+		options: getPlatformsListFor("Video Games").map((key) => ({ label: getPlatform(key).name, value: key })),
 	}} />
 <Story
 	name="Dropdown_Platforms_Digital Assets"
@@ -33,5 +33,5 @@
 		label: "Platforms",
 		name: "platform",
 		placeholder: "Select a platform",
-		options: getPlatformsFor("Digital Assets").map((p) => ({ label: p.name, value: p.slug })),
+		options: getPlatformsListFor("Digital Assets").map((key) => ({ label: getPlatform(key).name, value: key })),
 	}} />

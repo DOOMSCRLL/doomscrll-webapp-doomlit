@@ -1,5 +1,5 @@
 import type Category from "./category"
-import type { PlatformName, PlatformRecord } from "./platform"
+import type { PlatformKey, PlatformRecord } from "./platform"
 import type ProjectTag from "./project-tag"
 
 export type ProjectStatus = "draft" | "incomplete" | "ready" | "canceled"
@@ -11,7 +11,7 @@ type Project = {
 	reservedAt: string | null
 	name: string
 	category: Category
-	primaryPlatform: PlatformName
+	primaryPlatform: PlatformKey
 	primaryUrl: string
 	description: string | null
 	tags: ProjectTag[] | null
