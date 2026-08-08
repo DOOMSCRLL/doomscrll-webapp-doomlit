@@ -14,6 +14,8 @@
 <Story name="Local_itch.io" args={{ platform: "itchio" }} />
 <Story name="Local_YouTube" args={{ platform: "youtube" }} />
 <Story name="Local_Play Store" args={{ platform: "playStore" }} />
+<Story name="Local_Website" args={{ platform: "web" }} />
+<Story name="Local_Mail" args={{ platform: "mailList" }} />
 <Story name="CDN_Amazon" args={{ platform: "amazon" }} />
 <Story name="CDN_Spotify" args={{ platform: "spotify" }} />
 <Story name="CDN_Kickstarter" args={{ platform: "kickstarter" }} />

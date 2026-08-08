@@ -14,9 +14,11 @@ const BUNDLED_LOGO_PLATFORMS = new Set<PlatformKey>([
 	"appStore",
 	"discord",
 	"itchio",
+	"mailList",
 	"playStore",
 	"spotify",
 	"steam",
+	"web",
 	"youtube",
 ])
 
