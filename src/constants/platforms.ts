@@ -4,12 +4,12 @@ import type { PlatformKey } from "models/platform"
 
 export const PLATFORMS = {
 	//#region Games
-	appStore: { name: "Apple App Store", isBadge: true },
+	appStore: { name: "Apple App Store" },
 	epicGames: { name: "Epic Games Store" },
 	gog: { name: "GOG" },
 	humbleBundle: { name: "Humble Bundle" },
 	itchio: { name: "itch.io" },
-	playStore: { name: "Google Play Store", isBadge: true },
+	playStore: { name: "Google Play Store" },
 	playstation: { name: "PlayStation" },
 	questStore: { name: "Meta Quest Store" },
 	steam: { name: "Steam" },
@@ -18,8 +18,8 @@ export const PLATFORMS = {
 	//#endregion
 
 	//#region Tabletop
-	amazon: { name: "Amazon", isBadge: true },
-	driveThru: { name: "DriveThruRPG", isBadge: true },
+	amazon: { name: "Amazon" },
+	driveThru: { name: "DriveThruRPG" },
 	gameCrafter: { name: "The Game Crafter" },
 	//#endregion
 
@@ -46,7 +46,7 @@ export const PLATFORMS = {
 
 	//#region Publishing
 	appleBooks: { name: "Apple Books" },
-	audible: { name: "Audible", isBadge: true },
+	audible: { name: "Audible" },
 	googlePlayBooks: { name: "Google Play Books" },
 	medium: { name: "Medium" },
 	royalRoad: { name: "Royal Road" },
@@ -58,7 +58,7 @@ export const PLATFORMS = {
 
 	//#region Audio
 	appleMusic: { name: "Apple Music" },
-	bandcamp: { name: "Bandcamp", isBadge: true },
+	bandcamp: { name: "Bandcamp" },
 	beatstars: { name: "Beatstars" },
 	soundcloud: { name: "SoundCloud" },
 	spotify: { name: "Spotify" },
@@ -70,7 +70,7 @@ export const PLATFORMS = {
 	//#endregion
 
 	//#region Goods
-	amazonHandmade: { name: "Amazon Handmade", isBadge: true },
+	amazonHandmade: { name: "Amazon Handmade" },
 	bigCartel: { name: "Big Cartel" },
 	etsy: { name: "Etsy" },
 	redBubble: { name: "Redbubble" },
@@ -99,10 +99,10 @@ export const PLATFORMS = {
 	//#endregion
 
 	//#region Crowdfunding (Internal)
-	backerkit: { name: "BackerKit", isBadge: true },
+	backerkit: { name: "BackerKit" },
 	crowdSupply: { name: "Crowd Supply" },
 	gamefound: { name: "Gamefound" },
-	indiegogo: { name: "Indiegogo", isBadge: true },
+	indiegogo: { name: "Indiegogo" },
 	kickstarter: { name: "Kickstarter" },
 	//#endregion
 } as const satisfies { [key in string]: Platform }

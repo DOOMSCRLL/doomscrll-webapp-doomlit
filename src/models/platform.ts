@@ -5,7 +5,6 @@ export type PlatformKey = keyof typeof PLATFORMS
 type Platform = {
 	name: string
 	icon?: string
-	isBadge?: boolean
 }
 
 export type PlatformRecord = {

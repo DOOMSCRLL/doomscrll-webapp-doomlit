@@ -26,15 +26,11 @@
 
 <div
 	aria-labelledby="EXTERNAL_ICON_{platform}"
-	class={[
-		"h-14 shrink-0 overflow-hidden bg-[black]",
-		asset.isBadge ? "w-auto rounded-lg" : "w-14 rounded-full",
-		"flex items-center justify-center",
-	]}>
+	class="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[black]">
 	<img
 		alt={iconAlt}
 		id="EXTERNAL_ICON_{platform}"
 		src={primaryUrl}
 		onerror={handleError}
-		class={["h-12 object-contain object-center", asset.isBadge ? "w-auto" : "w-12"]} />
+		class="h-12 w-12 object-contain object-center" />
 </div>
