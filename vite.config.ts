@@ -34,4 +34,10 @@ function watchIconsPlugin(): PluginOption {
 	}
 }
 
-export default defineConfig({ plugins: [tailwindcss(), sveltekit(), watchIconsPlugin()] })
+export default defineConfig({
+	build: {
+		sourcemap: false,
+	},
+	plugins: [tailwindcss(), sveltekit(), watchIconsPlugin()],
+})
+
