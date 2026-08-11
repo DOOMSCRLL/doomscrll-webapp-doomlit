@@ -60,7 +60,6 @@ export const actions: Actions = {
 			return fail(500, { success: false, message: "An internal error occurred" })
 		}
 	},
-
 	claimFree: async ({ params, fetch }) => {
 		const referenceId = params.referenceId
 		if (!referenceId) {
