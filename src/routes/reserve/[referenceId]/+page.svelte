@@ -16,13 +16,46 @@
 	const { data } = $props()
 
 	onMount(() => {
-		if (window.LemonSqueezy) {
-			window.LemonSqueezy.Setup({
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				eventHandler: (event: any) => {
-					if (event.event === "Checkout.Success") goto(resolve("/?reservationConfirmed=true"))
-				},
-			})
+		const handleSuccess = () => {
+			goto(resolve("/?reservationConfirmed=true"))
+		}
+
+		const messageHandler = (event: MessageEvent) => {
+			let data = event.data
+			if (typeof data === "string") {
+				try {
+					data = JSON.parse(data)
+				} catch {
+					/* ignore */
+				}
+			}
+			if (data?.event === "Checkout.Success" || data?.event === "LemonSqueezy.Checkout.Success") {
+				handleSuccess()
+			}
+		}
+		window.addEventListener("message", messageHandler)
+
+		let intervalId: ReturnType<typeof setInterval> | null = null
+		const setupLemonSqueezy = () => {
+			if (window.LemonSqueezy) {
+				window.LemonSqueezy.Setup({
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					eventHandler: (event: any) => {
+						if (event.event === "Checkout.Success") handleSuccess()
+					},
+				})
+				if (intervalId) clearInterval(intervalId)
+			}
+		}
+
+		setupLemonSqueezy()
+		if (!window.LemonSqueezy) {
+			intervalId = setInterval(setupLemonSqueezy, 300)
+		}
+
+		return () => {
+			window.removeEventListener("message", messageHandler)
+			if (intervalId) clearInterval(intervalId)
 		}
 	})
 
