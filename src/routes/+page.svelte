@@ -39,6 +39,9 @@
 		DateFmtContext.context.value || new StylisticTimeFormat(LocaleContext.context.value || LOCALE_DEFAULT),
 	)
 
+  // Adding local businesses to the categories require a lot of thinkering, maybe post launch.
+  const filteredCategories = getCategories().filter(c => !c.startsWith("Internal_") && c !== "Local")
+
 	let hasDraftExpired = $state(false)
 
 	let selectedCategory = $state<Category>("Video Games")
@@ -153,7 +156,7 @@
 					name="preview-category"
 					placeholder={dict.cta.categoryDropdown.placeholder}
 					doHideLabel={true}
-					options={getCategories().map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
+					options={filteredCategories.map((c) => ({ label: getCategoryLabelFor(c, locale), value: c }))}
 					bind:value={selectedCategory} />
 				<SlabAnchor href={previewHref} alignment="center" fit="max" variant="outlined">
 					<Icon icon="Doomeye" />
