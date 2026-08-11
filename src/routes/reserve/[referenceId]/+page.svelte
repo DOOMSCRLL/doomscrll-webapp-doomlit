@@ -16,9 +16,7 @@
 	const { data } = $props()
 
 	onMount(() => {
-		const handleSuccess = () => {
-			goto(resolve("/?reservationConfirmed=true"))
-		}
+		const handleSuccess = () => goto(resolve("/?reservationConfirmed=true"))
 
 		const messageHandler = (event: MessageEvent) => {
 			let data = event.data
@@ -64,6 +62,12 @@
 
 	const project = $derived(data.project)
 
+	let isLaunchPromoActive = $derived.by(() => {
+		if (!data.rules.isFreeLaunchActive) return false
+		const promoEndDate = DDate.fromISOString(data.rules.freeLaunchEndDate)
+		return !promoEndDate.isPrior(DDate.today())
+	})
+
 	let isDraftExpired = $state(false)
 	function onDraftExpiration() {
 		isDraftExpired = true
@@ -101,7 +105,13 @@
 						<Icon icon="ArrowBack" />{dict.actions.labelCancel}
 					</SlabButton>
 				</form>
-				<DoomlitReservationAnchor label={dict.actions.labelProceed} referenceId={project.referenceId} />
+				{#if isLaunchPromoActive}
+					<form action="?/claimFree" method="POST">
+						<SlabButton variant="filled" buttonType="submit">{dict.actions.labelClaimFree}</SlabButton>
+					</form>
+				{:else}
+					<DoomlitReservationAnchor label={dict.actions.labelProceed} referenceId={project.referenceId} />
+				{/if}
 			</section>
 			<section class="w-full">
 				<Countdown
