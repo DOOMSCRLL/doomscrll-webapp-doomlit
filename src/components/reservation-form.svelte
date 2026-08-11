@@ -1,12 +1,13 @@
 <script lang="ts">
+	import { enhance } from "$app/forms"
+
 	import { LocaleContext } from "contexts/shared.svelte"
+	import type { PlatformKey } from "models/platform"
 	import { getCategories, getCategoryLabelFor, isCategory } from "repos/category-repo"
 	import { getDictionaryOf } from "repos/locale-repo"
 	import { getPlatform, getPlatformsListFor } from "repos/platform-repo"
 	import type DDate from "utils/d-date"
 
-	import { enhance } from "$app/forms"
-	import type { PlatformKey } from "models/platform"
 	import SlabButton from "./buttons/slab-button.svelte"
 	import Dropdown from "./form/dropdown.svelte"
 	import TextInput from "./form/text-input.svelte"
@@ -29,9 +30,11 @@
 	let selectedCategory = $state<string>()
 	let selectedPlatform = $state<PlatformKey>()
 
+	const filteredCategories = getCategories().filter((c) => !c.startsWith("Internal_") && c !== "Local")
+
 	type Option = { label: string; value: string }
 	const categoryOpts = $derived<Option[]>(
-		getCategories().map((c) => ({ value: c, label: getCategoryLabelFor(c, locale) })),
+		filteredCategories.map((c) => ({ value: c, label: getCategoryLabelFor(c, locale) })),
 	)
 	const platformOpts = $derived.by<Option[]>(() => {
 		if (!selectedCategory || !isCategory(selectedCategory)) return []
