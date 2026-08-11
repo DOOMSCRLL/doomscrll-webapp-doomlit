@@ -4,6 +4,8 @@ import { API_BASE_URL } from "$env/static/private"
 import type { Actions, PageServerLoad } from "./$types"
 
 import type { ProjectDraft } from "models/internal/projects"
+import { getCsrfToken } from "repos/auth-repo"
+import { claimFreeProject } from "repos/project-repo"
 
 export const load: PageServerLoad = async ({ params, fetch }) => {
 	const referenceId = params.referenceId
@@ -56,6 +58,32 @@ export const actions: Actions = {
 			if (isRedirect(err)) throw err
 			console.error("Error cancelling draft:", err)
 			return fail(500, { success: false, message: "An internal error occurred" })
+		}
+	},
+
+	claimFree: async ({ params, fetch }) => {
+		const referenceId = params.referenceId
+		if (!referenceId) {
+			return fail(400, {
+				status: 'The "Reference ID" of the project is missing! Please contact us from: hello@doomscrll.com',
+			})
+		}
+
+		const { csrfToken } = await getCsrfToken(fetch)
+		if (!csrfToken) return fail(403, { status: "ERROR_CSRF", message: "Security token missing. Please try again." })
+
+		try {
+			await claimFreeProject(referenceId, csrfToken, fetch)
+			throw redirect(303, "/?reservationConfirmed=true")
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (err: any) {
+			if (isRedirect(err)) throw err
+			console.error("Claim free action failed:", err)
+			const code = err.body?.code || err.code || "INTERNAL_ERROR"
+			return fail(err.status || 500, {
+				status: `CLAIM_FREE_${code}`,
+				message: err.body?.message || err.message,
+			})
 		}
 	},
 }
