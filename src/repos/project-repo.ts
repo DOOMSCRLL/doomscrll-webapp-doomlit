@@ -252,6 +252,7 @@ export async function refundCreatorProject(
 	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}/refund`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json", ...(csrfToken && { "x-csrf-token": csrfToken }) },
+		body: JSON.stringify({}),
 	})
 	const result = (await response.json()) as APIResponse<never>
 
