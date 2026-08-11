@@ -14,4 +14,6 @@ export type ProjectRules = {
 	maxImageFileSizeMB: number
 	maxLengthProjectName: number
 	maxLengthProjectDescription: number
+	freeLaunchEndDate: string
+	isFreeLaunchActive: boolean
 }
