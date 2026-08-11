@@ -273,6 +273,7 @@ export async function claimFreeProject(
 	const response = await customFetch(`${API_BASE_URL}/projects/${referenceId}/claim-free`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json", ...(csrfToken && { "x-csrf-token": csrfToken }) },
+		body: JSON.stringify({}),
 	})
 	const result = (await response.json()) as APIResponse<never>
 
