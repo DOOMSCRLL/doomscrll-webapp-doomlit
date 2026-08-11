@@ -146,6 +146,7 @@ export default {
 		actions: {
 			labelCancel: "Cancel",
 			labelProceed: "Proceed to payment",
+			labelClaimFree: "Reserve for free",
 			labelReturn: "Return",
 		},
 	},
