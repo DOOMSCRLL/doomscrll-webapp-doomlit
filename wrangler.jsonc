@@ -1,27 +1,25 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "doomscrll-webapp-doomlit",
-  "compatibility_date": "2026-05-18",
-  "compatibility_flags": [
-    "nodejs_als"
-  ],
-  "main": ".svelte-kit/cloudflare/_worker.js",
-  "assets": {
-    "binding": "ASSETS",
-    "directory": ".svelte-kit/cloudflare"
-  },
-  "observability": {
-    "logs": {
-      "enabled": true,
-      "invocation_logs": true
-    }
-  },
-  "routes": [
-    {
-      "pattern": "doomlit.doomscrll.com",
-      "custom_domain": true
-    }
-  ],
-  "workers_dev": false,
-  "preview_urls": false
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "doomscrll-webapp-doomlit",
+	"compatibility_date": "2026-05-18",
+	"compatibility_flags": ["nodejs_als"],
+	"main": ".svelte-kit/cloudflare/_worker.js",
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".svelte-kit/cloudflare",
+	},
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"invocation_logs": true,
+		},
+	},
+	"routes": [
+		{
+			"pattern": "doomlit.doomscrll.com",
+			"custom_domain": true,
+		},
+	],
+	"workers_dev": false,
+	"preview_urls": false,
 }

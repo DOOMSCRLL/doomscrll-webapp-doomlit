@@ -146,8 +146,8 @@ export default {
 		},
 		actions: {
 			labelCancel: "İptal et",
-      labelProceed: "Ödeme adımına geç",
-      labelClaimFree: "Ücretsiz ayırt",
+			labelProceed: "Ödeme adımına geç",
+			labelClaimFree: "Ücretsiz ayırt",
 			labelReturn: "Geri dön",
 		},
 	},
